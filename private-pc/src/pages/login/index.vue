@@ -1,20 +1,27 @@
 <template>
   <div class="loginDiv">
+    <img style="width: 530px;height: 143px;margin-bottom: 52px;" src="../../assets/image/login-icon.png"/>
     <div class="loginBox">
       <el-form
+        label-width="80px"
         :model="userLogin"
         :rules="rules"
         ref="loginForm"
         class="login-form">
-        <h1>登录</h1>
-        <el-form-item prop="username">
+        <el-form-item
+          class="padding"
+          label="用户名："
+          prop="username">
           <el-input
             placeholder="请输入账号/手机号"
             :maxlength="18"
             class="item"
             v-model="userLogin.username" />
         </el-form-item>
-        <el-form-item prop="password">
+        <el-form-item
+         class="padding"
+          label="密码："
+          prop="password">
           <el-input
             placeholder="请输入密码"
             type="password"
@@ -22,11 +29,25 @@
             class="item"
             v-model="userLogin.password" />
         </el-form-item>
-        <el-form-item>
+        <el-form-item
+          label="验证码："
+          class="out-valid"
+          prop="valid">
+          <div class="valid">
+            <el-input
+              placeholder="请输入验证码"
+              :maxlength="18"
+              class="item"
+              v-model="userLogin.valid" />
+            <div class="out-img"><img class="img" src="../../assets/img/home.png"/></div>
+          </div>
+          <div class="change" @click="change">换一张</div>
+        </el-form-item>
+        <el-form-item class="padding">
           <el-button
             type="primary"
             class="loginBtn"
-            @click="submitForm()">登录服务后台</el-button>
+            @click="submitForm()">登录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -43,7 +64,8 @@ export default {
     return {
       userLogin: {
         username: '',
-        password: ''
+        password: '',
+        valid: ''
       },
       rules: {
         username: [
@@ -51,6 +73,9 @@ export default {
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' }
+        ],
+        valid: [
+          { required: true, message: '请输入验证码', trigger: 'blur' }
         ]
       }
     }
@@ -78,6 +103,9 @@ export default {
     },
     enterSubmit (event) {
       if (event.keyCode === 13) this.submitForm()
+    },
+    change () {
+
     }
   }
 }
@@ -90,33 +118,27 @@ export default {
     display: flex;
     align-items: center;
     flex-direction: column;
-    background: url("../../assets/img/back.png") top left no-repeat;
+    justify-content: center;
+    background: url("../../assets/image/private-login.jpg") top left no-repeat;
     background-size: cover;
-    position: relative;
   }
   .loginBox {
-    flex:1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 50%;
-    right: 120px;
-    transform: translateY(-50%);
-    width:300px;
-    height:464px;
+    width: 546px;
+	height: 350px;
     background:rgba(255,255,255,1);
     box-shadow:0px 4px 10px 0px rgba(0,0,0,0.1);
     border-radius:4px;
     border:1px solid #eee;
+    padding: 58px 0 63px 0;
   }
   .login-form {
-    width: 300px;
-    /*margin-left: 100px;*/
-    margin: 0 30px;
+
   }
   .item {
     width: 100%;
+    background-color: #ffffff;
+    border-radius: 2px;
+    border: solid 1px #cccccc;
   }
   h1 {
     text-align: center;
@@ -126,9 +148,43 @@ export default {
   }
   .loginBtn {
     width: 100%;
+    height: 40px;
+    background-color: #d41c1a;
+    border-radius: 2px;
   }
   .forget-btn {
     width: 100%;
     margin-left: 0;
   }
+  .valid {
+    display: flex;
+    padding-right:91px;
+    & .item {
+      flex: 1;
+    }
+    & .out-img {
+    width: 116px;
+    height: 40px;
+    margin-left: 13px;
+    & .img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .out-valid {
+    position: relative;
+    padding-left: 82px;
+    & .change {
+      position: absolute;
+      right: 43px;
+      top: 8px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+  }
+  .padding {
+    padding: 0 91px 0 82px;
+  }
+
 </style>
