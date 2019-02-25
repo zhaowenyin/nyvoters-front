@@ -1,0 +1,1 @@
+export const VUE_APP_BACKEND_SERVER = process.env.VUE_APP_BACKEND_SERVER || Global_config.VUE_APP_BACKEND_SERVER
