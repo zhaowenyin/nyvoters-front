@@ -2,17 +2,13 @@
   <div class="view-wrapper">
     <common-header class="view-header" />
     <div class="view-content">
-      <common-menu class="view-left" />
-      <div class="view-right">
-        <router-view class="view-right-content" />
-      </div>
+       <router-view class="view-right-content" />
     </div>
   </div>
 </template>
 
 <script>
 import CommonHeader from '../components/common-header'
-import CommonMenu from '../components/common-menu'
 import {mapState} from 'vuex'
 export default {
   data () {
@@ -22,12 +18,11 @@ export default {
     }
   },
   components: {
-    CommonHeader,
-    CommonMenu
+    CommonHeader
   },
   computed: {
     ...mapState('commonData', {
-      breadList: state => state.breadList
+
     })
   },
   watch: {

@@ -6,11 +6,10 @@
       <i class="icon-house"></i>
     </div>
     <div class="user">
-      <span>2018年12月23日 17:13:56 星期日</span>
-      <span class="username">{{ userInfo.name, }}</span>
       <span
+        v-if="route!=='/'"
         class="quit"
-        @click="quit">退出</span>
+        @click="quit">返回首页</span>
     </div>
   </div>
 </template>
@@ -25,20 +24,23 @@ export default {
   },
   computed: {
     ...mapState('commonData', {
-      userInfo: state => state.userInfo
+
     }),
+    route () {
+      return this.$route.path
+    }
   },
   created () {
-    this.getUserInfo()
+
   },
   methods: {
     ...mapActions('commonData', [
-      'getUserInfo'
+
     ]),
     quit () {
-      this.$confirm('确认退出？')
+      this.$confirm('确认返回首页？')
         .then(()=> {
-          this.$router.push({ path: '/login' })
+          this.$router.push({ path: '/' })
         })
         .catch(()=> {})
     }
@@ -81,15 +83,6 @@ export default {
     background-size: 100% 100%;
     width: 39px;
     height: 41px;
-    display: inline-block;
-    margin-right: 16px;
-  }
-  .icon-house {
-    margin-left: 60px;
-    background: url("../assets/image/home.png") center center no-repeat;
-    background-size: 100% 100%;
-    width: 19px;
-    height: 17px;
     display: inline-block;
     margin-right: 16px;
   }

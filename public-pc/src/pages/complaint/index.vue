@@ -1,9 +1,9 @@
 <template>
   <div class="loginDiv">
-    <img style="width: 530px;height: 143px;margin-bottom: 52px;" src="../../assets/image/login-icon.png"/>
-    <div class="loginBox">
-      <el-form
-        label-width="80px"
+    <div class="title">在线查询</div>
+    <div class="form">
+        <el-form
+        label-width="100px"
         :model="userLogin"
         :rules="rules"
         ref="loginForm"
@@ -13,21 +13,20 @@
           label="用户名："
           prop="username">
           <el-input
-            placeholder="请输入账号/手机号"
+            placeholder="请输入用户名"
             :maxlength="18"
             class="item"
             v-model="userLogin.username" />
         </el-form-item>
         <el-form-item
-         class="padding"
-          label="密码："
-          prop="password">
+          class="padding"
+          label="身份证号码"
+          prop="id_no">
           <el-input
-            placeholder="请输入密码"
-            type="password"
+            placeholder="请输入身份证号码"
             :maxlength="18"
             class="item"
-            v-model="userLogin.password" />
+            v-model="userLogin.username" />
         </el-form-item>
         <el-form-item
           label="验证码："
@@ -47,31 +46,31 @@
           <el-button
             type="primary"
             class="loginBtn"
-            @click="submitForm()">登录</el-button>
+            @click="submitForm()">查询</el-button>
         </el-form-item>
       </el-form>
     </div>
+
   </div>
 </template>
 
 <script>
 import { setSession } from '../../utils/session'
 import { login } from './service.js'
-import { verifyArr } from './config.js'
 
 export default {
   data () {
     return {
       userLogin: {
         username: '',
-        password: '',
+        id_no: '',
         valid: ''
       },
       rules: {
         username: [
           { required: true, message: '请输入身份证号/手机号', trigger: 'blur' }
         ],
-        password: [
+        id_no: [
           { required: true, message: '请输入密码', trigger: 'blur' }
         ],
         valid: [
@@ -94,7 +93,6 @@ export default {
         if (valid) {
           login(this.userLogin)
             .then(({ data }) => {
-              data.verifyArr = verifyArr
               setSession(data)
               this.$router.push({ path: '/' })
             })
@@ -115,24 +113,31 @@ export default {
 <style scoped>
   .loginDiv{
     height:100%;
+    width: 100%;
     display: flex;
+    flex-direction: column;
+  }
+  .form {
+    display: flex;
+    flex: 1;
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    background: url("../../assets/image/private-login.jpg") top left no-repeat;
-    background-size: cover;
   }
-  .loginBox {
+  .title {
+    margin-top: 50px;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 100px;
+    background-color: #d8d8d8;
+  }
+  .login-form {
     width: 546px;
-	height: 350px;
     background:rgba(255,255,255,1);
     box-shadow:0px 4px 10px 0px rgba(0,0,0,0.1);
     border-radius:4px;
     border:1px solid #eee;
     padding: 58px 0 63px 0;
-  }
-  .login-form {
-
   }
   .item {
     width: 100%;
@@ -151,6 +156,7 @@ export default {
     height: 40px;
     background-color: #d41c1a;
     border-radius: 2px;
+
   }
   .forget-btn {
     width: 100%;
@@ -175,6 +181,7 @@ export default {
   .out-valid {
     position: relative;
     padding-left: 82px;
+    margin-bottom: 40px;
     & .change {
       position: absolute;
       right: 43px;
@@ -185,6 +192,7 @@ export default {
   }
   .padding {
     padding: 0 91px 0 82px;
+    margin-bottom: 40px;
   }
 
 </style>
