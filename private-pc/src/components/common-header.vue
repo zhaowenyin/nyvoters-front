@@ -1,8 +1,9 @@
 <template>
   <div class="header-wrapper">
     <div class="header-title">
-        <i class="icon-home"></i>
+      <i class="icon-home"></i>
       <span class="header-home">南阳市选民登记系统</span>
+      <i class="icon-house"></i>
     </div>
     <div class="user">
       <span>2018年12月23日 17:13:56 星期日</span>
@@ -80,6 +81,15 @@ export default {
     background-size: 100% 100%;
     width: 39px;
     height: 41px;
+    display: inline-block;
+    margin-right: 16px;
+  }
+  .icon-house {
+    margin-left: 60px;
+    background: url("../assets/image/home.png") center center no-repeat;
+    background-size: 100% 100%;
+    width: 19px;
+    height: 17px;
     display: inline-block;
     margin-right: 16px;
   }

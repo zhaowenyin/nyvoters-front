@@ -7,7 +7,9 @@ import { noLoginArr } from './pages/login/config'
 /* Global */
 import CommonLayout from './pages/common-layout'
 
-const Login = () => import('./pages/login')
+const Login = () => import('@/pages/login')
+// 首页
+const Home = () => import('@/pages/home')
 
 
 Vue.use(Router)
@@ -23,7 +25,11 @@ const router = new Router({
       path: '/',
       component: CommonLayout,
       children: [
-
+        {
+          path: '/',
+          name: '首页',
+          component: Home
+        },
       ]
     }
   ]
