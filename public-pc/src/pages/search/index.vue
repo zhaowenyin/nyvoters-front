@@ -125,18 +125,17 @@ export default {
     justify-content: center;
   }
   .title {
-    margin-top: 50px;
+    margin-top: 30px;
     height: 50px;
     line-height: 50px;
     padding-left: 100px;
     background-color: #d8d8d8;
+    font-size: 16px;
   }
   .login-form {
-    width: 546px;
+    width: 40%;
     background:rgba(255,255,255,1);
-    box-shadow:0px 4px 10px 0px rgba(0,0,0,0.1);
     border-radius:4px;
-    border:1px solid #eee;
     padding: 58px 0 63px 0;
   }
   .item {
