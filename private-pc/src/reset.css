@@ -23,7 +23,3 @@ textarea { resize: none; }
   text-align:right;
   padding-top:10px;
 }
-
-.add-upload .el-upload-list__item {
-  transition: none;
-}

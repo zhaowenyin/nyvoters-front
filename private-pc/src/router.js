@@ -5,10 +5,9 @@ import { logout } from './pages/login/service'
 import { noLoginArr } from './pages/login/config'
 
 /* Global */
-import CommonLayout from './pages/common-layout'
+import CommonLayout from '@/pages/common-layout'
 
 const Login = () => import('@/pages/login')
-// 首页
 const Home = () => import('@/pages/home')
 
 
@@ -29,13 +28,14 @@ const router = new Router({
           path: '/',
           name: '首页',
           component: Home
-        },
+        }
       ]
-    }
+    },
+
   ]
 })
 
-router.beforeEach(async ({path}, from, next) => {
+router.beforeEach(async ({path},from, next) => {
   const isLogin = hasSession() // true用户已登录， false用户未登录
 
   const authToken = getSession()

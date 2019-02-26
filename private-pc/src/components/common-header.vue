@@ -2,12 +2,10 @@
   <div class="header-wrapper">
     <div class="header-title">
       <i class="icon-home"></i>
-      <span class="header-home">南阳市选民登记系统</span>
-      <i class="icon-house"></i>
+      <span class="header-home">智慧全民健康管理平台</span>
     </div>
     <div class="user">
-      <span>2018年12月23日 17:13:56 星期日</span>
-      <span class="username">{{ userInfo.name, }}</span>
+      <span class="username">{{ userInfo.name }}</span>
       <span
         class="quit"
         @click="quit">退出</span>
@@ -37,7 +35,9 @@ export default {
     ]),
     quit () {
       this.$confirm('确认退出？')
-        .then(()=> {
+        .then(async ()=> {
+          // await logout()
+          // clearSession()
           this.$router.push({ path: '/login' })
         })
         .catch(()=> {})
@@ -45,19 +45,6 @@ export default {
   }
 }
 </script>
-<style>
-  .add-header {
-    & .el-menu-item{
-      &.is-active{
-        border-bottom: none !important;
-      }
-      &:hover {
-        background-color: inherit !important;
-      }
-    }
-  }
-
-</style>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
@@ -69,53 +56,45 @@ export default {
     width: 100%;
     height: 60px;
     padding:0px 30px 0 20px;
-    background-color: #d41c1a;
+    background:linear-gradient(180deg,rgba(250,254,255,1) 0%,rgba(239,248,248,1) 100%);
+    box-shadow:0px 2px 6px 0px rgba(0,0,0,0.22);
     display: flex;
     align-items: center;
     justify-content:space-between;
-    font-size: 12px;
-	color: #ffffff;
+    color: #06D3D3;
   }
   .icon-home {
-    background: url("../assets/image/guohui.png") center center no-repeat;
+    /* background: url("../assets/img/home.png") center center no-repeat; */
     background-size: 100% 100%;
-    width: 39px;
-    height: 41px;
-    display: inline-block;
-    margin-right: 16px;
-  }
-  .icon-house {
-    margin-left: 60px;
-    background: url("../assets/image/home.png") center center no-repeat;
-    background-size: 100% 100%;
-    width: 19px;
-    height: 17px;
+    width: 36px;
+    height: 37px;
     display: inline-block;
     margin-right: 16px;
   }
   .header-home {
-    font-size: 28px;
-    color: #fdf4f4;
-    box-shadow: 0px 0px 6px 0px
-      rgba(34, 24, 21, 0.18);
+    font-size: 18px;
+    font-weight: 500;
   }
   .user{
     &>span{
       margin-left:20px;
     }
     & .username{
-      color: #ffffff;
+      color: #333;
+      &:before {
+        content: "";
+        display: inline-block;
+        /* background: url("../assets/img/user.png") center center no-repeat; */
+        background-size: 100% 100%;
+        width: 16px;
+        height: 16px;
+        margin-right: 6px;
+        transform: translateY(3px);
+      }
     }
     & .quit{
       cursor: pointer;
       text-decoration: underline;
     }
-  }
-  .content {
-    flex: 1;
-    overflow: auto;
-  }
-  .item{
-    padding:0px 30px;
   }
 </style>

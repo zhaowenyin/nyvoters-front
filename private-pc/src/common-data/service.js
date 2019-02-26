@@ -4,7 +4,7 @@
 export async function getUserInfo () {
   return {
     data: {
-      name: 'rainbow'
+      name: 'admin'
     }
   }
   // return api.get('/api/v3/pcweb/users/me')

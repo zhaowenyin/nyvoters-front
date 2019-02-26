@@ -19,8 +19,6 @@
     "parser": "babel-eslint"
   },
   "globals": {
-    "Global_config": true,
-    "jsPlumb": true,
-    "echarts": true
+    "Global_config": true
   }
 }

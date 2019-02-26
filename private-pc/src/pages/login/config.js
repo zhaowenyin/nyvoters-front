@@ -6,6 +6,7 @@ export const noVerifyArr = [
 export const verifyArr = [
   ...noVerifyArr,
   '/'
+
 ]
 
 // 不需要登录验证的地址

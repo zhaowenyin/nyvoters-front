@@ -78,13 +78,15 @@ export default {
       this.fileList = fileList
     },
     beforeAvatarUpload (file) {
-      const isXlsx = file.type ===
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      if (!isXlsx) {
-        this.$notify.error({title: '只能上传 xlsx 格式的文件!'})
-        this.error()
-      }
-      return isXlsx
+      console.log(file)
+      return true
+      // const isXlsx = file.type ===
+      //   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      // if (!isXlsx) {
+      //   this.$notify.error({title: '只能上传 xlsx 格式的文件!'})
+      //   this.error()
+      // }
+      // return isXlsx
     },
     successFn () {
       this.$notify.success({title: '上传成功'})

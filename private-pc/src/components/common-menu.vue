@@ -1,27 +1,19 @@
 <template>
   <div class="menu-wrapper">
-    <Menus
-      :list="list"
-      />
+    左边
   </div>
 </template>
 
 <script>
-import { getSession } from '../utils/session'
-import Menus from './Menus'
-// import * as MenuList from '../pages/login/config'
 
 export default {
   data () {
-    const authToken = getSession()
     return {
-      list: authToken.list
     }
   },
   computed: {
   },
   components: {
-    Menus
   },
   methods: {
   }
@@ -32,7 +24,7 @@ export default {
 <style scoped>
   .menu-wrapper{
     height: 100%;
-    width: 195px;
-    background-color: #f4f4f4;
+    background: #1FACBB;
+    width: 250px;
   }
 </style>
