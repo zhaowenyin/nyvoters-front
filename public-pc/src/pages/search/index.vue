@@ -42,7 +42,7 @@
           </div>
           <div class="change" @click="change">换一张</div>
         </el-form-item>
-        <el-form-item class="padding">
+        <el-form-item class="padding butSize">
           <el-button
             type="primary"
             class="loginBtn"
@@ -120,8 +120,7 @@ export default {
   .form {
     display: flex;
     flex: 1;
-    align-items: center;
-    flex-direction: column;
+    padding-top: 100px;
     justify-content: center;
   }
   .title {
@@ -133,10 +132,9 @@ export default {
     font-size: 16px;
   }
   .login-form {
-    width: 40%;
+    width: 800px;
     background:rgba(255,255,255,1);
     border-radius:4px;
-    padding: 58px 0 63px 0;
   }
   .item {
     width: 100%;
@@ -151,7 +149,7 @@ export default {
     margin-bottom: 20px;
   }
   .loginBtn {
-    width: 100%;
+    width: 200px;
     height: 40px;
     background-color: #d41c1a;
     border-radius: 2px;
@@ -193,5 +191,11 @@ export default {
     padding: 0 91px 0 82px;
     margin-bottom: 40px;
   }
+  .butSize {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+ }
 
 </style>

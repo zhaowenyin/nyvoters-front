@@ -1,6 +1,6 @@
 <template>
   <div class="loginDiv">
-    <div class="title">在线查询</div>
+    <div class="title">在线申诉</div>
     <div class="form">
         <el-form
         label-width="100px"
@@ -42,11 +42,14 @@
           </div>
           <div class="change" @click="change">换一张</div>
         </el-form-item>
-        <el-form-item class="padding">
+        <el-form-item class="padding butSize">
           <el-button
             type="primary"
             class="loginBtn"
-            @click="submitForm()">查询</el-button>
+            @click="submitForm()">提交</el-button>
+            <el-button
+            class="loginBtn"
+            @click="cancelForm()">取消</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -104,7 +107,10 @@ export default {
     },
     change () {
 
-    }
+    },
+    cancelForm () {
+
+    },
   }
 }
 </script>
@@ -120,24 +126,21 @@ export default {
   .form {
     display: flex;
     flex: 1;
-    align-items: center;
-    flex-direction: column;
+    padding-top: 100px;
     justify-content: center;
   }
   .title {
-    margin-top: 50px;
+    margin-top: 30px;
     height: 50px;
     line-height: 50px;
     padding-left: 100px;
     background-color: #d8d8d8;
+    font-size: 16px;
   }
   .login-form {
-    width: 546px;
+    width: 800px;
     background:rgba(255,255,255,1);
-    box-shadow:0px 4px 10px 0px rgba(0,0,0,0.1);
     border-radius:4px;
-    border:1px solid #eee;
-    padding: 58px 0 63px 0;
   }
   .item {
     width: 100%;
@@ -152,11 +155,9 @@ export default {
     margin-bottom: 20px;
   }
   .loginBtn {
-    width: 100%;
+    width: 100px;
     height: 40px;
-    background-color: #d41c1a;
-    border-radius: 2px;
-
+    margin-right: 30px;
   }
   .forget-btn {
     width: 100%;
@@ -194,5 +195,12 @@ export default {
     padding: 0 91px 0 82px;
     margin-bottom: 40px;
   }
+  .butSize {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+ }
+
 
 </style>
