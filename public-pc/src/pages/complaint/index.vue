@@ -10,7 +10,7 @@
         class="login-form">
         <el-form-item
           class="padding"
-          label="用户名："
+          label="申诉人："
           prop="username">
           <el-input
             placeholder="请输入申诉人"
