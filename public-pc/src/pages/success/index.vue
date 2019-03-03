@@ -94,7 +94,7 @@ export default {
 }
 .quit {
   color:#d41c1a;
-  padding-top: 35px;
+  padding-top: 23px;
   cursor: pointer;
 }
 .complain {
@@ -103,7 +103,7 @@ export default {
 }
 .register {
   color: #333333;
-  padding-top: 23px;
+  margin-top: 23px;
   & .search {
     color: #d41c1a;
     cursor: pointer;

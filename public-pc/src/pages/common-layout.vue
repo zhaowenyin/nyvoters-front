@@ -1,12 +1,16 @@
 <template>
   <div class="view-wrapper">
     <common-header class="view-header" />
-    <div class="breadcrumb">
-      <el-breadcrumb class="view-breadcrumb" separator=">">
-        <el-breadcrumb-item
-          v-for="{path, name} in breadcrumb" :key="path" :to="{ path: path }">{{name}}</el-breadcrumb-item>
-      </el-breadcrumb>
+    <div class="out">
+      <div class="breadcrumb">
+        <el-breadcrumb class="view-breadcrumb" separator=">">
+          <el-breadcrumb-item
+            v-for="{path, name} in breadcrumb" :key="path" :to="{ path: path }">{{name}}</el-breadcrumb-item>
+        </el-breadcrumb>
+      </div>
+      <div v-if="$route.path==='/register'" class="remind-info">欢迎您在线自助提交选民登记信息，请确保所填信息的准确性，以免影响登记审核结果</div>
     </div>
+
     <div class="view-content">
        <router-view class="view-right-content" />
     </div>
@@ -83,6 +87,7 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: column;
+    background-color: #f4f4f4;
   }
   .view-content {
     flex: 1;
@@ -102,18 +107,24 @@ export default {
       overflow: auto;
     }
   }
-  .view-breadcrumb {
+  .out {
+    padding-top: 22px;
+    padding-bottom: 80px;
     width: 960px;
+    margin:0 auto;
+    display:flex;
+    justify-content:space-between;
 
   }
   .breadcrumb {
-    display: flex;
-    justify-content: center;
-    padding-top: 22px;
+    font-size: 18px;
   }
   .breadcrumb-label {
-    font-size: 14px;
     line-height: 1;
     color: #000;
+  }
+  .remind-info {
+    font-size: 16px;
+	color: #d02626;
   }
 </style>

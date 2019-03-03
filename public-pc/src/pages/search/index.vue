@@ -8,20 +8,20 @@
         ref="loginForm"
         class="login-form">
         <el-form-item
-          class="padding"
           label="用户名："
           prop="username">
           <el-input
+            size="medium"
             placeholder="请输入用户名"
             :maxlength="18"
             class="item"
             v-model="userLogin.username" />
         </el-form-item>
         <el-form-item
-          class="padding"
           label="身份证号码："
           prop="idNum">
           <el-input
+            size="medium"
             placeholder="请输入身份证号码"
             :maxlength="18"
             class="item"
@@ -33,6 +33,7 @@
           prop="valid">
           <div class="valid">
             <el-input
+              size="medium"
               placeholder="请输入验证码"
               :maxlength="18"
               class="item"
@@ -112,6 +113,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #f4f4f4;
 
   }
   .form {
@@ -124,7 +126,6 @@ export default {
   .login-form {
     width:100%;
     padding: 0 150px;
-    background:rgba(255,255,255,1);
     border-radius:4px;
   }
   .item {
@@ -183,4 +184,9 @@ export default {
     justify-content: center;
  }
 
+</style>
+<style>
+.el-input--medium .el-input__inner {
+   border: none;
+}
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div class="loginDiv">
-    <div class="remind-info">欢迎您在线自助提交选民登记信息，请确保所填信息的准确性，以免影响登记审核结果</div>
     <div class="form">
       <el-form
         label-width="110px"
@@ -15,6 +14,7 @@
               label="姓名："
               prop="userName">
               <el-input
+                size="medium"
                 placeholder="请输入户姓名"
                 class="item"
                 v-model="form.userName" />
@@ -22,10 +22,10 @@
             </el-col>
             <el-col :span="12">
               <el-form-item
-                class="padding"
                 label="身份证号码："
                 prop="idNum">
                 <el-input
+                  size="medium"
                   placeholder="请输入身份证号码"
                   :maxlength="18"
                   class="item"
@@ -34,10 +34,9 @@
             </el-col>
             <el-col :span="12">
             <el-form-item
-              class="padding"
               label="性别："
               prop="gender">
-              <el-radio-group v-model="form.gender">
+              <el-radio-group size="medium" v-model="form.gender">
                 <el-radio :label="1">男</el-radio>
                 <el-radio :label="2">女</el-radio>
               </el-radio-group>
@@ -45,10 +44,10 @@
             </el-col>
           <el-col :span="12">
             <el-form-item
-              class="padding"
               label=" 民族："
               prop="nation">
                <el-select
+               size="medium"
                 style="width: 100%;"
                 class="item"
                 v-model="form.nation"
@@ -64,10 +63,10 @@
           </el-col>
            <el-col :span="12">
             <el-form-item
-              class="padding"
               label=" 手机号："
               prop="phoneNum">
               <el-input
+                size="medium"
                 placeholder="请输入电话号码"
                 class="item"
                 v-model="form.phoneNum" />
@@ -75,10 +74,10 @@
             </el-col>
             <el-col :span="12">
               <el-form-item
-                class="padding"
                 label="联系方式："
                 prop="contactInformation">
                 <el-input
+                  size="medium"
                   placeholder="请输入联系方式"
                   class="item"
                   v-model="form.contactInformation" />
@@ -86,16 +85,17 @@
             </el-col>
         </el-row>
         <el-form-item
-          class="padding"
+
           label="户籍地："
           prop="householdRegistration">
           <el-input
+            size="medium"
             placeholder="请输入户籍地"
             class="item"
             v-model="form.householdRegistration" />
         </el-form-item>
         <el-form-item
-          class="padding"
+
           label="现居住地："
           prop="living">
           <el-input
@@ -259,6 +259,7 @@ export default {
     overflow: auto;
     justify-content: center;
     align-items: center;
+    background-color: #f4f4f4;
   }
   .form {
     display: flex;
@@ -266,6 +267,7 @@ export default {
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    background-color: #f4f4f4;
   }
   .title {
     margin-top: 30px;
@@ -275,18 +277,17 @@ export default {
     background-color: #d8d8d8;
     font-size: 16px;
   }
-  .remind-info {
+  /* .remind-info {
     font-size: 16px;
 	color: #d02626;
     width: 960px;
     text-align: right;
     margin-bottom: 73px;
-  }
+  } */
   .login-form {
     width: 960px;
     padding:0 60px;
     height: 100%;
-    background:rgba(255,255,255,1);
     border-radius:4px;
 
   }
@@ -338,9 +339,9 @@ export default {
       }
     }
   }
-  .padding {
+  /* .padding {
     margin-bottom: 40px;
-  }
+  } */
  .butSize {
     display: flex;
     align-items: center;
@@ -348,4 +349,9 @@ export default {
     justify-content: center;
  }
 
+</style>
+<style>
+.el-input--medium .el-input__inner {
+   border: none;
+}
 </style>

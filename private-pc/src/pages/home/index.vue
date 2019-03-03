@@ -21,25 +21,25 @@
     <el-row :gutter="20">
       <el-col :span="8" class="pie">
         <div class="text">登记类型</div>
-        <Pie/>
+        <Pie :data="[]"/>
       </el-col>
       <el-col :span="8" class="pie">
         <div class="text">参选地</div>
-        <Pie/>
+        <Pie :data="[]"/>
       </el-col>
       <el-col :span="8" class="pie">
         <div class="text">采集方式</div>
-        <Pie/>
+        <Pie :data="[]"/>
       </el-col>
     </el-row>
     <el-row :gutter="20">
         <el-col :span="12" class="pie">
           <div class="text">对比不通过人次</div>
-          <Pie/>
+          <Pie :data="[]"/>
         </el-col>
         <el-col :span="12" class="pie">
           <div class="text">未通过资格审查</div>
-          <Pie/>
+          <Pie :data="[]"/>
         </el-col>
     </el-row>
   </div>
@@ -54,7 +54,8 @@ import Pie from './Pie'
 export default {
   data () {
     return {
-      list: []
+      list: [],
+      data: {data1:[],data2:[],data3:[],data4:[]}
     }
   },
   computed: {
@@ -122,5 +123,6 @@ export default {
   .text {
     text-align: center;
     font-size: 20px;
+    margin: 10px;
   }
 </style>

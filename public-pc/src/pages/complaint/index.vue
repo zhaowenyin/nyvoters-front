@@ -12,6 +12,7 @@
           label="申诉人："
           prop="username">
           <el-input
+            size="medium"
             placeholder="请输入申诉人"
             class="item"
             v-model="userLogin.username" />
@@ -21,6 +22,7 @@
           label="身份证号码："
           prop="idNum">
           <el-input
+            size="medium"
             placeholder="请输入身份证号码"
             :maxlength="18"
             class="item"
@@ -73,6 +75,7 @@
           prop="valid">
           <div class="valid">
             <el-input
+              size="medium"
               placeholder="请输入验证码"
               :maxlength="18"
               class="item"
@@ -83,9 +86,11 @@
         </el-form-item>
         <el-form-item class="padding butSize">
           <el-button
+           size="medium"
           class="loginBtn"
           @click="cancelForm()">取消</el-button>
           <el-button
+           size="medium"
           type="primary"
           class="loginBtn"
           @click="submitForm()">提交</el-button>
@@ -227,7 +232,7 @@ export default {
   }
   .login-form {
     width: 100%;
-    background:rgba(255,255,255,1);
+    /* background:rgba(255,255,255,1); */
     border-radius:4px;
     padding: 0 150px;
   }
@@ -278,7 +283,6 @@ export default {
   }
   .padding {
     padding: 0 91px 0 82px;
-    margin-bottom: 20px;
   }
   .butSize {
     display: flex;
@@ -290,13 +294,15 @@ export default {
 
 .but {
     width: 100%;
-    border: 1px solid #d8d8d8;
+    border: solid 1px #b1b8c2;
+    background: #fff;
     color: #999;
     padding-left: 15px;
 
   }
   .uploadcomplait {
-    border: 1px solid #d8d8d8;
+    border:solid 1px #b1b8c2;
+    background: #fff;
   }
   .down {
     cursor: pointer;
@@ -321,6 +327,7 @@ export default {
 </style>
 <style>
 .commom .el-upload {
+  background: #fff;
   width: 100%;
   text-align: left;
 }
@@ -332,5 +339,8 @@ export default {
 }
 .complait-content .el-form-item__content {
   line-height: 10px;
+}
+.el-input--medium .el-input__inner {
+   border: none;
 }
 </style>

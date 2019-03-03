@@ -1,8 +1,7 @@
 <template>
   <div class="home">
     <div class="out">
-      <img style="width: 83px;height:87px;" src="../../assets/img/guohui.png"/>
-      <div class="title1">河南省南阳市选民登记系统</div>
+      <img style="width: 530px; margin: 66px 0 110px 0; " src="../../assets/img/login-icon.png"/>
       <el-form
       class="form"
       ref="loginForm">
@@ -66,6 +65,7 @@ export default {
     align-items: center;
     background: url("../../assets/img/pc-home.jpg") top left no-repeat;
     background-size: cover;
+    opacity:0.9;
     & .form {
       width: 100%;
       margin-left: 48px;
@@ -81,7 +81,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    opacity:0.9;
+    opacity: 0.7;
   }
   .register {
     display: flex;
@@ -112,6 +112,7 @@ export default {
   }
   .search {
     margin-right: 29px;
+    margin-bottom: 0px;
   }
   .line {
     width: 100%;
@@ -132,6 +133,11 @@ export default {
 <style>
 .home .el-form-item {
   margin-bottom: 40px;
+}
+.search {
+  &.el-form-item {
+    margin-bottom: 17px;
+  }
 }
 .home .regist .el-icon-search {
   &:before {
