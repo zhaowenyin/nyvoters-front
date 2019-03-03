@@ -184,3 +184,8 @@ export default {
  }
 
 </style>
+<style>
+.el-input--medium .el-input__inner {
+   border: none;
+}
+</style>
