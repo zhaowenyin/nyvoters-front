@@ -76,12 +76,11 @@ export default {
     padding: 66px 0 82px 0;
     box-shadow: 0px 0px 4px 0px
   rgba(34, 24, 21, 0.19);
-   background-color: #ffffff;
+   background-color: rgba(255, 255, 255, 0.5);
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    opacity: 0.7;
   }
   .register {
     display: flex;
