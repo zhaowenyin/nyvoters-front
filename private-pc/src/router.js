@@ -5,10 +5,13 @@ import { logout } from './pages/login/service'
 import { noLoginArr } from './pages/login/config'
 
 /* Global */
-import CommonLayout from '@/pages/common-layout'
+import CommonLayout from './pages/common-layout'
 
-const Login = () => import('@/pages/login')
-const Home = () => import('@/pages/home')
+const Login = () => import('./pages/login')
+const Home = () => import('./pages/home')
+const VoterRegister = () => import('./pages/voter-register')
+const VoterRegisters = () => import('./pages/voter-registers')
+const VoterInfo = () => import('./pages/voter-info')
 
 
 Vue.use(Router)
@@ -25,9 +28,24 @@ const router = new Router({
       component: CommonLayout,
       children: [
         {
-          path: '/',
+          path: '',
           name: '首页',
           component: Home
+        },
+        {
+          path: 'voter-register',
+          name: '选民在线登记',
+          component: VoterRegister
+        },
+        {
+          path: '/voter-registers',
+          name: '选民批量登记',
+          component: VoterRegisters
+        },
+        {
+          path: '/voter-info',
+          name: '选民信息查询',
+          component: VoterInfo
         }
       ]
     },

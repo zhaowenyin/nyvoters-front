@@ -46,7 +46,6 @@
 </template>
 <script>
 import { mapMutations } from 'vuex'
-import { formatDate } from '../../utils/format.js'
 import CenbterChart from './CenbterChart'
 import Tabel from './Tabel'
 import Pie from './Pie'
@@ -71,10 +70,9 @@ export default {
     this.clearState()
   },
   methods: {
-    ...mapMutations('taskManage', [
+    ...mapMutations('home', [
       'clearState'
-    ]),
-    formatDate
+    ])
   }
 }
 </script>
