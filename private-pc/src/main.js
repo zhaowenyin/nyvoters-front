@@ -8,6 +8,9 @@ import App from './App'
 
 import router from './router'
 import store from './store'
+import VCharts from 'v-charts'
+
+Vue.use(VCharts)
 
 Vue.config.productionTip = false
 
