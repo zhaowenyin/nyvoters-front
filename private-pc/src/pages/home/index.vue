@@ -15,15 +15,32 @@
       </li>
     </ul>
     <div class="content-title">南阳选民统计图</div>
-    <CenbterChart style="height: 280px;"/>
+    <CenbterChart height="300px"/>
+    <Tabel/>
+    <div class="content-title">XX选区登记情况综合统计</div>
     <el-row :gutter="20">
-      <el-col :span="8" class="pie"><Pie/></el-col>
-      <el-col :span="8" class="pie"> <Pie/></el-col>
-      <el-col :span="8" class="pie"> <Pie/></el-col>
+      <el-col :span="8" class="pie">
+        <div class="text">登记类型</div>
+        <Pie/>
+      </el-col>
+      <el-col :span="8" class="pie">
+        <div class="text">参选地</div>
+        <Pie/>
+      </el-col>
+      <el-col :span="8" class="pie">
+        <div class="text">采集方式</div>
+        <Pie/>
+      </el-col>
     </el-row>
     <el-row :gutter="20">
-      <el-col :span="12" class="pie"><Pie/></el-col>
-      <el-col :span="12" class="pie"><Pie/></el-col>
+        <el-col :span="12" class="pie">
+          <div class="text">对比不通过人次</div>
+          <Pie/>
+        </el-col>
+        <el-col :span="12" class="pie">
+          <div class="text">未通过资格审查</div>
+          <Pie/>
+        </el-col>
     </el-row>
   </div>
 </template>
@@ -31,6 +48,7 @@
 import { mapMutations } from 'vuex'
 import { formatDate } from '../../utils/format.js'
 import CenbterChart from './CenbterChart'
+import Tabel from './Tabel'
 import Pie from './Pie'
 
 export default {
@@ -44,7 +62,8 @@ export default {
   },
   components: {
     CenbterChart,
-    Pie
+    Pie,
+    Tabel
   },
   created () {
     // 初始化清除数据
@@ -61,7 +80,7 @@ export default {
 <style scoped>
   .view{
     padding: 24px 23px;
-    height:100%;
+    /* height:100%; */
     width: 100%;
     color: #000000;
     & .top-info {
@@ -98,6 +117,10 @@ export default {
     text-align: center;
   }
   .pie {
-    height:300px;
+    /* height:400px; */
+  }
+  .text {
+    text-align: center;
+    font-size: 20px;
   }
 </style>

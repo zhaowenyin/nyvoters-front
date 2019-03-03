@@ -1,5 +1,5 @@
 <template>
-  <ve-pie :data="chartData" :settings="chartSettings"></ve-pie>
+  <ve-pie :data="chartData" height="300px" :settings="chartSettings"></ve-pie>
 </template>
 
 <script>
@@ -11,7 +11,7 @@ export default {
         show: true
       },
       label: {
-        position: 'bottom',
+
       }
 
     }
