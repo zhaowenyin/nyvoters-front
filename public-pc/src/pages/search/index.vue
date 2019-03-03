@@ -8,20 +8,22 @@
         ref="loginForm"
         class="login-form">
         <el-form-item
+          class="padding"
           label="用户名："
           prop="username">
           <el-input
-            size="medium"
+           size="medium"
             placeholder="请输入用户名"
             :maxlength="18"
             class="item"
             v-model="userLogin.username" />
         </el-form-item>
         <el-form-item
+          class="padding"
           label="身份证号码："
           prop="idNum">
           <el-input
-            size="medium"
+           size="medium"
             placeholder="请输入身份证号码"
             :maxlength="18"
             class="item"
@@ -33,7 +35,7 @@
           prop="valid">
           <div class="valid">
             <el-input
-              size="medium"
+             size="medium"
               placeholder="请输入验证码"
               :maxlength="18"
               class="item"
@@ -44,6 +46,7 @@
         </el-form-item>
         <el-form-item class="padding butSize">
           <el-button
+            size="medium"
             type="primary"
             class="loginBtn"
             @click="submitForm()">查询</el-button>
@@ -113,7 +116,6 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #f4f4f4;
 
   }
   .form {
@@ -163,7 +165,6 @@ export default {
   .out-valid {
     position: relative;
     padding-left: 82px;
-    margin-bottom: 40px;
     & .change {
       position: absolute;
       right: 43px;
@@ -175,7 +176,6 @@ export default {
   }
   .padding {
     padding: 0 91px 0 82px;
-    margin-bottom: 40px;
   }
   .butSize {
     display: flex;
@@ -184,9 +184,4 @@ export default {
     justify-content: center;
  }
 
-</style>
-<style>
-.el-input--medium .el-input__inner {
-   border: none;
-}
 </style>
