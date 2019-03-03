@@ -79,7 +79,7 @@ export default {
 	color: #ffffff;
   }
   .icon-home {
-    background: url("../assets/image/guohui.png") center center no-repeat;
+    background: url("../assets/img/guohui.png") center center no-repeat;
     background-size: 100% 100%;
     width: 39px;
     height: 41px;

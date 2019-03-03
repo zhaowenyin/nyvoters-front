@@ -21,13 +21,13 @@ const router = new Router({
   routes: [
     {
       path: '/',
+      name: '首页',
+      component: Home
+    },
+    {
+      path: '/',
       component: CommonLayout,
       children: [
-        {
-          path: '/',
-          name: '首页',
-          component: Home
-        },
         {
           path: '/search',
           name: '在线查询',
