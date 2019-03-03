@@ -33,9 +33,11 @@ export default {
   }
   .view-left {
     overflow: auto;
+    height: 100%;
   }
   .view-right {
     flex: 1;
     overflow: auto;
+    height: 100%;
   }
 </style>

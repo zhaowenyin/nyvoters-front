@@ -50,9 +50,9 @@ export default {
     margin-right: 2px;
   }
   .menu-wrapper{
-    height: 100%;
     background-color: #f4f4f4;
     width: 195px;
+    border-right:1px solid #ddd;
   }
   .item {
     height: 35px;
