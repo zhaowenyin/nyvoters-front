@@ -123,7 +123,6 @@ export default {
     display: flex;
     flex: 1;
     justify-content: center;
-    padding-top: 80px;
   }
   .login-form {
     width:100%;
