@@ -127,4 +127,7 @@ export default {
     font-size: 16px;
 	color: #d02626;
   }
+  .view-wrapper .el-breadcrumb {
+    font-size: 18px;
+}
 </style>
