@@ -218,7 +218,6 @@ export default {
     display: flex;
     flex: 1;
     width: 960px;
-    padding-top: 80px;
     justify-content: center;
 
   }
