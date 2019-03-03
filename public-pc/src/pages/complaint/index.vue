@@ -64,7 +64,7 @@
           label="联系电话："
           prop="phoneNum">
           <el-input
-            placeholder="请输入身份证号码"
+            placeholder="请输入联系电话："
             :maxlength="11"
             class="item"
             v-model="userLogin.phoneNum" />
@@ -118,13 +118,13 @@ export default {
       },
       rules: {
         username: [
-          { required: true, message: '请输入身份证号/手机号', trigger: 'blur' }
+          { required: true, message: '请输入申诉人', trigger: 'blur' }
         ],
         idNum: [
           { required: true, message: '请输入密码', trigger: 'blur' }
         ],
         phoneNum: [
-          { required: true, message: '请输入身份证号/手机号', trigger: 'blur' }
+          { required: true, message: '请输入联系电话', trigger: 'blur' }
         ],
         valid: [
           { required: true, message: '请输入验证码', trigger: 'blur' }
