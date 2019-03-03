@@ -1,9 +1,8 @@
 <template>
   <div class="loginDiv">
-    <div class="title">在线查询</div>
     <div class="form">
         <el-form
-        label-width="100px"
+        label-width="110px"
         :model="userLogin"
         :rules="rules"
         ref="loginForm"
@@ -20,13 +19,13 @@
         </el-form-item>
         <el-form-item
           class="padding"
-          label="身份证号码"
-          prop="id_no">
+          label="身份证号码："
+          prop="idNum">
           <el-input
             placeholder="请输入身份证号码"
             :maxlength="18"
             class="item"
-            v-model="userLogin.username" />
+            v-model="userLogin.idNum" />
         </el-form-item>
         <el-form-item
           label="验证码："
@@ -38,9 +37,9 @@
               :maxlength="18"
               class="item"
               v-model="userLogin.valid" />
-            <div class="out-img"><img class="img" src="../../assets/img/home.png"/></div>
+            <div class="out-img"><img class="img" src="../../assets/img/guohui.png"/></div>
           </div>
-          <div class="change" @click="change">换一张</div>
+          <div class="change" @click="change">[换一张]</div>
         </el-form-item>
         <el-form-item class="padding butSize">
           <el-button
@@ -55,23 +54,22 @@
 </template>
 
 <script>
-import { setSession } from '../../utils/session'
-import { login } from './service.js'
+import { searchSubmit } from './service.js'
 
 export default {
   data () {
     return {
       userLogin: {
         username: '',
-        id_no: '',
+        idNum: '',
         valid: ''
       },
       rules: {
         username: [
-          { required: true, message: '请输入身份证号/手机号', trigger: 'blur' }
+          { required: true, message: '请输入用户名', trigger: 'blur' }
         ],
-        id_no: [
-          { required: true, message: '请输入密码', trigger: 'blur' }
+        idNum: [
+          { required: true, message: '请输入身份证号码', trigger: 'blur' }
         ],
         valid: [
           { required: true, message: '请输入验证码', trigger: 'blur' }
@@ -82,25 +80,21 @@ export default {
   components: {
   },
   created () {
-    document.addEventListener('keydown', this.enterSubmit, false)
-  },
-  destroyed () {
-    document.removeEventListener('keydown', this.enterSubmit, false)
+
   },
   methods: {
     submitForm () {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          login(this.userLogin)
-            .then(({ data }) => {
-              setSession(data)
-              this.$router.push({ path: '/' })
+          this.loading =  true
+          searchSubmit(this.userLogin)
+            .then(() => {
+              this.$router.push({path:'/search-success',query: {type: 2}})
+              this.loading =  false
+
             })
         }
       })
-    },
-    enterSubmit (event) {
-      if (event.keyCode === 13) this.submitForm()
     },
     change () {
 
@@ -116,41 +110,31 @@ export default {
     width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
   }
   .form {
+    width: 960px;
     display: flex;
     flex: 1;
-    padding-top: 100px;
     justify-content: center;
-  }
-  .title {
-    margin-top: 30px;
-    height: 50px;
-    line-height: 50px;
-    padding-left: 100px;
-    background-color: #d8d8d8;
-    font-size: 16px;
+    padding-top: 80px;
   }
   .login-form {
-    width: 800px;
+    width:100%;
+    padding: 0 150px;
     background:rgba(255,255,255,1);
     border-radius:4px;
   }
   .item {
     width: 100%;
     background-color: #ffffff;
-    border-radius: 2px;
-    border: solid 1px #cccccc;
-  }
-  h1 {
-    text-align: center;
-    font-size: 24px;
-    color:#324057;
-    margin-bottom: 20px;
+    border-radius: 4px;
+    border: solid 1px #b1b8c2;
   }
   .loginBtn {
     width: 200px;
-    height: 40px;
     background-color: #d41c1a;
     border-radius: 2px;
 
@@ -168,7 +152,7 @@ export default {
     & .out-img {
     width: 116px;
     height: 40px;
-    margin-left: 13px;
+    margin-left: 6px;
     & .img {
         width: 100%;
         height: 100%;
@@ -182,8 +166,9 @@ export default {
     & .change {
       position: absolute;
       right: 43px;
-      top: 8px;
-      font-size: 12px;
+      top: 0px;
+      font-size: 14px;
+      color: #222222;
       cursor: pointer;
     }
   }

@@ -1,6 +1,5 @@
 <template>
   <div class="loginDiv">
-    <div class="title">在线申诉</div>
     <div class="form">
         <el-form
         label-width="120px"
@@ -20,25 +19,15 @@
         <el-form-item
           class="padding"
           label="身份证号码："
-          prop="id_no">
+          prop="idNum">
           <el-input
             placeholder="请输入身份证号码"
             :maxlength="18"
             class="item"
-            v-model="userLogin.username" />
-        </el-form-item>
-        <el-form-item
-          class="padding"
-          label="联系电话："
-          prop="phone">
-          <el-input
-            placeholder="请输入身份证号码"
-            :maxlength="11"
-            class="item"
-            v-model="userLogin.phone" />
+            v-model="userLogin.idNum" />
         </el-form-item>
          <el-form-item
-          class="padding"
+          class="padding "
           label="申诉书："
           prop="fileList">
             <el-upload
@@ -61,11 +50,22 @@
               class="but">请上传申请书</div>
             </el-upload>
         </el-form-item>
+
         <el-form-item
-        class="padding"
+        class="padding complait-content"
          label=""
         >
-             请根据<span class="down" @click="download">《公民申诉书》</span>模板，填写相应内容后，上传文件
+          请根据<span class="down" @click="download">《公民申诉书》</span>模板，填写相应内容后，上传文件
+        </el-form-item>
+         <el-form-item
+          class="padding"
+          label="联系电话："
+          prop="phoneNum">
+          <el-input
+            placeholder="请输入身份证号码"
+            :maxlength="11"
+            class="item"
+            v-model="userLogin.phoneNum" />
         </el-form-item>
         <el-form-item
           label="验证码："
@@ -77,18 +77,18 @@
               :maxlength="18"
               class="item"
               v-model="userLogin.valid" />
-            <div class="out-img"><img class="img" src="../../assets/img/home.png"/></div>
+            <div class="out-img"><img class="img" src="../../assets/img/guohui.png"/></div>
           </div>
           <div class="change" @click="change">[换一张]</div>
         </el-form-item>
         <el-form-item class="padding butSize">
           <el-button
-            type="primary"
-            class="loginBtn"
-            @click="submitForm()">提交</el-button>
-            <el-button
-            class="loginBtn"
-            @click="cancelForm()">取消</el-button>
+          class="loginBtn"
+          @click="cancelForm()">取消</el-button>
+          <el-button
+          type="primary"
+          class="loginBtn"
+          @click="submitForm()">提交</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -97,8 +97,7 @@
 </template>
 
 <script>
-import { setSession } from '../../utils/session'
-import {taskDownload,login} from './service.js'
+import {taskDownload,complaitSubmit} from './service.js'
 import output from '../../utils/output.js'
 
 export default {
@@ -106,30 +105,32 @@ export default {
     return {
       userLogin: {
         username: '',
-        id_no: '',
-        phone: '',
+        idNum: '',
+        phoneNum: '',
         valid: '',
-        fileList: []
+        fileList: [],
+        type: 1
       },
       rules: {
         username: [
           { required: true, message: '请输入身份证号/手机号', trigger: 'blur' }
         ],
-        id_no: [
+        idNum: [
           { required: true, message: '请输入密码', trigger: 'blur' }
         ],
-        phone: [
+        phoneNum: [
           { required: true, message: '请输入身份证号/手机号', trigger: 'blur' }
         ],
         valid: [
           { required: true, message: '请输入验证码', trigger: 'blur' }
         ],
-        fileList:[{ required: true, message: '请输入申诉书', trigger: 'blur' }]
+        fileList:[{ required: true, message: '请上传申诉书', trigger: 'blur' }]
       },
       headers: {
         // Authorization: authToken.token,
         // AuthID: authToken.id
-      }
+      },
+      loading: false
     }
 
   },
@@ -137,25 +138,21 @@ export default {
 
   },
   created () {
-    document.addEventListener('keydown', this.enterSubmit, false)
+
   },
-  destroyed () {
-    document.removeEventListener('keydown', this.enterSubmit, false)
-  },
+
   methods: {
     submitForm () {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          login(this.userLogin)
-            .then(({ data }) => {
-              setSession(data)
-              this.$router.push({ path: '/' })
+          this.loading = true
+          complaitSubmit(this.userLogin)
+            .then(() => {
+              this.$router.push({path:'/complaint-success',query: {type: 3}})
             })
+          this.loading = false
         }
       })
-    },
-    enterSubmit (event) {
-      if (event.keyCode === 13) this.submitForm()
     },
     change () {
 
@@ -210,12 +207,15 @@ export default {
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
   .form {
     display: flex;
     flex: 1;
-    padding-top: 100px;
+    width: 960px;
+    padding-top: 80px;
     justify-content: center;
+
   }
   .title {
     margin-top: 30px;
@@ -226,26 +226,22 @@ export default {
     font-size: 16px;
   }
   .login-form {
-    width: 800px;
+    width: 100%;
     background:rgba(255,255,255,1);
     border-radius:4px;
+    padding: 0 150px;
   }
   .item {
     width: 100%;
     background-color: #ffffff;
-    border-radius: 2px;
-    border: solid 1px #cccccc;
-  }
-  h1 {
-    text-align: center;
-    font-size: 24px;
-    color:#324057;
-    margin-bottom: 20px;
+    border-radius: 4px;
+    border: solid 1px #b1b8c2;
   }
   .loginBtn {
-    width: 100px;
+    width: 80px;
     height: 40px;
-    margin-right: 30px;
+    border-radius: 4px;
+    margin-right: 19px;
   }
   .forget-btn {
     width: 100%;
@@ -260,7 +256,7 @@ export default {
     & .out-img {
     width: 116px;
     height: 40px;
-    margin-left: 13px;
+    margin-left: 6px;
     & .img {
         width: 100%;
         height: 100%;
@@ -270,18 +266,19 @@ export default {
   .out-valid {
     position: relative;
     padding-left: 82px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     & .change {
       position: absolute;
       right: 43px;
-      top: 8px;
-      font-size: 12px;
+      top: 0px;
+      font-size: 14px;
+      color: #222222;
       cursor: pointer;
     }
   }
   .padding {
     padding: 0 91px 0 82px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
   .butSize {
     display: flex;
@@ -303,8 +300,24 @@ export default {
   }
   .down {
     cursor: pointer;
-    color: blue;
+    color: #d02626;
   }
+  .complait-content {
+    color: #333333;
+    font-size: 14px;
+  }
+   .but:after {
+    content: "";
+    display: inline-block;
+    background: url("../../assets/img/folder.png") center center no-repeat;
+    background-size: 100% 100%;
+    width: 19px;
+    height: 15px;
+    float: right;
+    margin-right: 9px;
+    transform: translateY(12px);
+  }
+
 </style>
 <style>
 .commom .el-upload {
@@ -316,5 +329,8 @@ export default {
 }
 .uploadcomplait .el-upload{
   display: none;
+}
+.complait-content .el-form-item__content {
+  line-height: 10px;
 }
 </style>

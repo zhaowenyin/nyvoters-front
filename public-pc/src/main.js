@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import './assets/css/element/index.css'
-import './assets/common.css'
 
 import './reset.css'
 

@@ -1,6 +1,12 @@
 <template>
   <div class="view-wrapper">
     <common-header class="view-header" />
+    <div class="breadcrumb">
+      <el-breadcrumb class="view-breadcrumb" separator=">">
+        <el-breadcrumb-item
+          v-for="{path, name} in breadcrumb" :key="path" :to="{ path: path }">{{name}}</el-breadcrumb-item>
+      </el-breadcrumb>
+    </div>
     <div class="view-content">
        <router-view class="view-right-content" />
     </div>
@@ -12,9 +18,8 @@ import CommonHeader from '../components/common-header'
 import {mapState} from 'vuex'
 export default {
   data () {
-
     return {
-
+      breadcrumb: []
     }
   },
   components: {
@@ -26,25 +31,51 @@ export default {
     })
   },
   watch: {
-    '$route' (to, from) {
-      let list = []
-      to.matched.forEach((item) => {
-        const {menuName} = item.meta
-        if (menuName) {
-          const names = menuName.split(',')
-          list = list.concat(names)
-        }
+    $route (route) {
+      if (route.meta.history) {
+        let isHas = true
+        this.breadcrumb = this.breadcrumb.filter(({name}) => {
+          if (name === route.name) isHas = false
+          return isHas
+        })
+        this.breadcrumb.push({
+          path: route.fullPath,
+          name: route.meta.name
+        })
+        return
+      }
+      const newR = route.matched.filter(({ path, name }) => {
+        return path !== '/' && name
+      }).map(({ path, meta, name }) => {
+        if (name === this.$route.name) path = this.$route.fullPath
+        return { path,name: meta.name }
       })
-      this.list = list
-      console.log(from)
+      newR.unshift({
+        path: '/',
+        name: '首页'
+      })
+      this.breadcrumb = newR
     }
+  },
+  created () {
+    const newR = this.$route.matched.filter(({ path, name }) => {
+      return path !== '/' && name
+    }).map(({ path, meta, name }) => {
+      if (name === this.$route.name) path = this.$route.fullPath
+      return { path, name: meta.name }
+    })
+    newR.unshift({
+      path: '/',
+      name: '首页'
+    })
+    this.breadcrumb = newR
   }
 }
 </script>
 <style>
-  .breadcrumb .el-breadcrumb__inner, .breadcrumb .el-breadcrumb__separator {
+  /* .breadcrumb .el-breadcrumb__inner, .breadcrumb .el-breadcrumb__separator {
     color: #000 !important;
-  }
+  } */
 </style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
@@ -72,14 +103,13 @@ export default {
     }
   }
   .view-breadcrumb {
+    width: 960px;
+
   }
   .breadcrumb {
     display: flex;
-    margin: 22px 42px 10px 42px;
-    border-bottom: 1px dashed #D3D3D3;
-    padding-bottom: 10px;
-    align-items: center;
-    min-height: 24px;
+    justify-content: center;
+    padding-top: 22px;
   }
   .breadcrumb-label {
     font-size: 14px;

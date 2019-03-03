@@ -6,10 +6,10 @@
       <i class="icon-house"></i>
     </div>
     <div class="user">
-      <span
+      <!-- <span
         v-if="route!=='/'"
         class="quit"
-        @click="quit">返回首页</span>
+        @click="quit">返回首页</span> -->
     </div>
   </div>
 </template>
@@ -79,7 +79,7 @@ export default {
 	color: #ffffff;
   }
   .icon-home {
-    background: url("../assets/image/guohui.png") center center no-repeat;
+    background: url("../assets/img/guohui.png") center center no-repeat;
     background-size: 100% 100%;
     width: 39px;
     height: 41px;
