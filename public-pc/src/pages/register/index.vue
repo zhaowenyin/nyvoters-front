@@ -1,6 +1,5 @@
 <template>
   <div class="loginDiv">
-    <div class="title">在线登记</div>
     <div class="remind-info">欢迎您在线自助提交选民登记信息，请确保所填信息的准确性，以免影响登记审核结果</div>
     <div class="form">
       <el-form
@@ -25,12 +24,12 @@
               <el-form-item
                 class="padding"
                 label="身份证号码："
-                prop="no_id">
+                prop="idNum">
                 <el-input
                   placeholder="请输入身份证号码"
                   :maxlength="18"
                   class="item"
-                  v-model="form.no_id" />
+                  v-model="form.idNum" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -67,51 +66,51 @@
             <el-form-item
               class="padding"
               label=" 手机号："
-              prop="phone">
+              prop="phoneNum">
               <el-input
                 placeholder="请输入电话号码"
                 class="item"
-                v-model="form.phone" />
+                v-model="form.phoneNum" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
               <el-form-item
                 class="padding"
                 label="联系方式："
-                prop="contact">
+                prop="contactInformation">
                 <el-input
                   placeholder="请输入联系方式"
                   class="item"
-                  v-model="form.contact" />
+                  v-model="form.contactInformation" />
               </el-form-item>
             </el-col>
         </el-row>
         <el-form-item
           class="padding"
           label="户籍地："
-          prop="domicile">
+          prop="householdRegistration">
           <el-input
             placeholder="请输入户籍地"
             class="item"
-            v-model="form.domicile" />
+            v-model="form.householdRegistration" />
         </el-form-item>
         <el-form-item
           class="padding"
           label="现居住地："
-          prop="current_address">
+          prop="living">
           <el-input
             placeholder="请输入现居住地"
             class="item"
-            v-model="form.current_address" />
+            v-model="form.living" />
         </el-form-item>
          <el-form-item
           class="padding"
           label="参选地类型："
-          prop="address_type">
+          prop="candidateType">
           <el-select
             class="item1"
-            v-model="form.address_type"
-            clearable placeholder="请选择">
+            v-model="form.candidateType"
+            clearable placeholder="请选择参选地类型">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -140,13 +139,13 @@
               v-model="form.valid" />
         </el-form-item>
         <el-form-item class="padding butSize">
-          <el-button
-            type="primary"
-            class="loginBtn"
-            @click="submitForm()">提交</el-button>
             <el-button
             class="loginBtn"
             @click="cancelForm()">取消</el-button>
+             <el-button
+            type="primary"
+            class="loginBtn"
+            @click="submitForm()">提交</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -154,29 +153,29 @@
 </template>
 
 <script>
-import { setSession } from '../../utils/session'
-import { login } from './service.js'
+import { registerSubmit } from './service.js'
 
 export default {
   data () {
     return {
       form: {
         userName: '',
-        no_id: '',
-        domicile: '',
-        current_address: '',
+        idNum: '',
+        householdRegistration: '',
+        living: '',
         valid: '',
-        address_type: '',
+        candidateType: '',
         nation: '',
         gender: '',
-        phone: '',
-        contact: ''
+        phoneNum: '',
+        contact: '',
+        type: 1
       },
       rules: {
         userName: [
           { required: true, message: '请输入姓名', trigger: 'blur' }
         ],
-        no_id: [
+        idNum: [
           { required: true, message: '请输入身份证号', trigger: 'blur' }
         ],
         nation: [
@@ -185,19 +184,19 @@ export default {
         gender: [
           { required: true, message: '请选择性别', trigger: 'blur' }
         ],
-        phone: [
+        phoneNum: [
           { required: true, message: '请输入电话号码', trigger: 'blur' }
         ],
-        domicile: [
+        householdRegistration: [
           { required: true, message: '请输入户籍地', trigger: 'blur' }
         ],
-        current_address: [
+        living: [
           { required: true, message: '请输入现居住地', trigger: 'blur' }
         ],
         valid: [
           { required: true, message: '请输入验证码', trigger: 'blur' }
         ],
-        address_type: [
+        candidateType: [
           { required: true, message: '请输入参选地址类型', trigger: 'blur' }
         ]
       },
@@ -220,32 +219,31 @@ export default {
   components: {
   },
   created () {
-    document.addEventListener('keydown', this.enterSubmit, false)
+
   },
-  destroyed () {
-    document.removeEventListener('keydown', this.enterSubmit, false)
-  },
+
   methods: {
     submitForm () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          login(this.userLogin)
-            .then(({ data }) => {
-              setSession(data)
-              this.$router.push({ path: '/' })
+          this.loading = true
+          registerSubmit(this.form)(this.userLogin)
+            .then(() => {
+              this.loading = false
             })
         }
       })
-    },
-    enterSubmit (event) {
-      if (event.keyCode === 13) this.submitForm()
     },
     cancelForm () {
 
     },
     change () {
 
+    },
+    handerParam(){
+
     }
+
   }
 }
 </script>
@@ -257,7 +255,9 @@ export default {
     width: 100%;
     display: flex;
     flex-direction: column;
-
+    overflow: auto;
+    justify-content: center;
+    align-items: center;
   }
   .form {
     display: flex;
@@ -275,40 +275,36 @@ export default {
     font-size: 16px;
   }
   .remind-info {
-    color: red;
-    padding: 15px;
-    margin: 5px 0 30px 0;
-    padding-left: 100px;
+    font-size: 16px;
+	color: #d02626;
+    width: 960px;
+    text-align: right;
+    margin-bottom: 73px;
   }
   .login-form {
-    padding: 0 15%;;
+    width: 960px;
+    padding:0 60px;
     height: 100%;
     background:rgba(255,255,255,1);
     border-radius:4px;
-    overflow: auto;
+
   }
   .item {
     width: 100%;
     background-color: #ffffff;
-    border-radius: 2px;
-    border: solid 1px #cccccc;
+    border-radius: 4px;
+    border: solid 1px #b1b8c2;
   }
   .item1 {
     background-color: #ffffff;
-    border-radius: 2px;
-    border: solid 1px #cccccc;
-  }
-  h1 {
-    text-align: center;
-    font-size: 24px;
-    color:#324057;
-    margin-bottom: 20px;
+    border-radius: 4px;
+    border: solid 1px #b1b8c2;
   }
   .loginBtn {
-    width: 100px;
+    width: 80px;
     height: 40px;
-    border-radius: 2px;
-    margin-right: 40px;
+    border-radius: 4px;
+    margin-right: 19px;
 
   }
   .forget-btn {
@@ -322,7 +318,8 @@ export default {
       display: flex;
       padding-right:91px;
       & .change {
-        font-size: 12px;
+        font-size: 14px;
+        color: #222222;
         cursor: pointer;
         margin-left: 20px;
       }
@@ -332,7 +329,7 @@ export default {
       & .out-img {
       width: 116px;
       height: 40px;
-      margin-left: 13px;
+      margin-left: 6px;
       & .img {
           width: 100%;
           height: 100%;

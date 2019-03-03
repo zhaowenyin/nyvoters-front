@@ -6,10 +6,10 @@
       <i class="icon-house"></i>
     </div>
     <div class="user">
-      <span
+      <!-- <span
         v-if="route!=='/'"
         class="quit"
-        @click="quit">返回首页</span>
+        @click="quit">返回首页</span> -->
     </div>
   </div>
 </template>

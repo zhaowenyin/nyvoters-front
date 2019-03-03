@@ -22,7 +22,8 @@ const router = new Router({
     {
       path: '/',
       name: '首页',
-      component: Home
+      component: Home,
+      meta: { history: true }
     },
     {
       path: '/',
@@ -31,17 +32,17 @@ const router = new Router({
         {
           path: '/search',
           name: '在线查询',
-          component: Search
+          component: Search,
         },
         {
           path: '/register',
-          name: '在线查询',
-          component: Register
+          name: '在线登记',
+          component: Register,
         },
         {
           path: '/complaint',
-          name: '在线查询',
-          component: Complaint
+          name: '在线申诉',
+          component: Complaint,
         },
       ]
     }

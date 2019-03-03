@@ -1,21 +1,14 @@
 // import api from '../../utils/api'
 
-// 登录
-export async function login () {
+export async function searchSubmit () {
   return {
     data: {
-      token: '33333333'
+
     }
   }
-  // return api.post('/api/v3/doctorapp/doctors/session_1548656229745', payload)
-}
-
-// 退出
-export async function logout () {
-  return {
-    data: null
-  }
-  // return api.delete('/api/v3/pcweb/users/session')
+  // return api.get(`/online-appeal/create`, {params: payload})
+  //   .then(data => data)
+  //   .catch(() => Promise.resolve({data: null}))
 }
 // 下载
 export async function taskDownload (payload) {
