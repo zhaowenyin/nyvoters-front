@@ -298,6 +298,7 @@ export default {
     border: solid 1px #b1b8c2;
   }
   .item1 {
+    width: 100%;
     background-color: #ffffff;
     border-radius: 4px;
     border: solid 1px #b1b8c2;
