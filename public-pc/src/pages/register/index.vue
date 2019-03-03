@@ -108,7 +108,7 @@
           label="参选地类型："
           prop="candidateType">
           <el-select
-            class="item1"
+            class="item"
             v-model="form.candidateType"
             clearable placeholder="请选择参选地类型">
             <el-option
@@ -120,23 +120,19 @@
           </el-select>
         </el-form-item>
         <el-form-item
+          prop="valid"
           label="有效验证码："
           class="out-valid">
           <div class="valid">
+             <el-input
+              style="width: 208px;"
+              placeholder="请输入验证码"
+              :maxlength="18"
+              class="item3"
+              v-model="form.valid" />
             <div class="out-img"><img class="img" src="../../assets/img/home.png"/></div>
             <div class="change" @click="change">[换一张]</div>
           </div>
-        </el-form-item>
-         <el-form-item
-         prop="valid"
-          label="验证码："
-         class="padding">
-          <el-input
-              style="width: 200px;"
-              placeholder="请输入验证码"
-              :maxlength="18"
-              class="item"
-              v-model="form.valid" />
         </el-form-item>
         <el-form-item class="padding butSize">
             <el-button
@@ -297,8 +293,7 @@ export default {
     border-radius: 4px;
     border: solid 1px #b1b8c2;
   }
-  .item1 {
-    width: 100%;
+  .item3 {
     background-color: #ffffff;
     border-radius: 4px;
     border: solid 1px #b1b8c2;
