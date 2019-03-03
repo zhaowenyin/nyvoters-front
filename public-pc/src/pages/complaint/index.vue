@@ -97,7 +97,6 @@
 </template>
 
 <script>
-import { setSession } from '../../utils/session'
 import {taskDownload,complaitSubmit} from './service.js'
 import output from '../../utils/output.js'
 
@@ -130,7 +129,8 @@ export default {
       headers: {
         // Authorization: authToken.token,
         // AuthID: authToken.id
-      }
+      },
+      loading: false
     }
 
   },
@@ -145,15 +145,14 @@ export default {
     submitForm () {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
+          this.loading = true
           complaitSubmit(this.userLogin)
             .then(() => {
-              this.$router.push({ path: '/' })
+              this.$router.push({path:'/complaint-success',query: {type: 3}})
             })
+          this.loading = false
         }
       })
-    },
-    enterSubmit (event) {
-      if (event.keyCode === 13) this.submitForm()
     },
     change () {
 

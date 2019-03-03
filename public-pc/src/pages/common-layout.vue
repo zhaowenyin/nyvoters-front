@@ -40,15 +40,15 @@ export default {
         })
         this.breadcrumb.push({
           path: route.fullPath,
-          name: route.name
+          name: route.meta.name
         })
         return
       }
       const newR = route.matched.filter(({ path, name }) => {
         return path !== '/' && name
-      }).map(({ path, name }) => {
+      }).map(({ path, meta, name }) => {
         if (name === this.$route.name) path = this.$route.fullPath
-        return { path, name }
+        return { path,name: meta.name }
       })
       newR.unshift({
         path: '/',
@@ -60,9 +60,9 @@ export default {
   created () {
     const newR = this.$route.matched.filter(({ path, name }) => {
       return path !== '/' && name
-    }).map(({ path, name }) => {
+    }).map(({ path, meta, name }) => {
       if (name === this.$route.name) path = this.$route.fullPath
-      return { path, name }
+      return { path, name: meta.name }
     })
     newR.unshift({
       path: '/',

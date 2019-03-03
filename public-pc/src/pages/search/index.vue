@@ -89,6 +89,7 @@ export default {
           this.loading =  true
           searchSubmit(this.userLogin)
             .then(() => {
+              this.$router.push({path:'/search-success',query: {type: 2}})
               this.loading =  false
 
             })

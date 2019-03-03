@@ -224,15 +224,16 @@ export default {
 
   methods: {
     submitForm () {
-      this.$refs.form.validate((valid) => {
-        if (valid) {
-          this.loading = true
-          registerSubmit(this.form)(this.userLogin)
-            .then(() => {
-              this.loading = false
-            })
-        }
-      })
+      // this.$refs.form.validate((valid) => {
+      //   if (valid) {
+      this.loading = true
+      registerSubmit(this.form)
+        .then(() => {
+          this.$router.push({path:'/register-success',query: {type: 1}})
+          this.loading = false
+        })
+      //   }
+      // })
     },
     cancelForm () {
 
