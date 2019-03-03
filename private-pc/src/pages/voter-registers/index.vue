@@ -1,6 +1,6 @@
 <template>
   <div class="view">
-    首页
+    选民批量登记
   </div>
 </template>
 <script>

@@ -5,7 +5,10 @@ export const noVerifyArr = [
 // 有权限验证的地址
 export const verifyArr = [
   ...noVerifyArr,
-  '/'
+  '/',
+  '/voter-register',
+  '/voter-registers',
+  '/voter-info'
 
 ]
 

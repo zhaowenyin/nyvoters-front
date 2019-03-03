@@ -3,13 +3,12 @@
     <img style="width: 530px; margin-top: 120px;" src="../../assets/img/login-icon.png"/>
     <div class="loginBox">
       <el-form
-        label-width="80px"
+        label-width="148px"
         :model="userLogin"
         :rules="rules"
         ref="loginForm"
         class="login-form">
         <el-form-item
-          class="padding"
           label="用户名："
           prop="username">
           <el-input
@@ -19,7 +18,6 @@
             v-model="userLogin.username" />
         </el-form-item>
         <el-form-item
-         class="padding"
           label="密码："
           prop="password">
           <el-input
@@ -31,7 +29,6 @@
         </el-form-item>
         <el-form-item
           label="验证码："
-          class="out-valid"
           prop="valid">
           <div class="valid">
             <el-input
@@ -40,8 +37,8 @@
               class="item"
               v-model="userLogin.valid" />
             <div class="out-img"><img class="img" src="../../assets/img/home.png"/></div>
+            <div class="change" @click="change">换一张</div>
           </div>
-          <div class="change" @click="change">换一张</div>
         </el-form-item>
         <el-form-item class="padding">
           <el-button
@@ -127,13 +124,10 @@ export default {
     background-color: #ffffff;
     box-shadow: 0px 0px 6px 0px
 		rgba(34, 24, 21, 0.38);
-    padding: 58px 0 63px 0;
-  }
-  .login-form {
-
+    padding: 58px 0 43px 0;
   }
   .item {
-    width: 100%;
+    width: 307px;
     background-color: #ffffff;
     border-radius: 2px;
     border: solid 1px #cccccc;
@@ -145,10 +139,10 @@ export default {
     margin-bottom: 20px;
   }
   .loginBtn {
-    width: 100%;
     height: 40px;
     background-color: #d41c1a;
     border-radius: 2px;
+    width: 307px;
   }
   .forget-btn {
     width: 100%;
@@ -156,33 +150,23 @@ export default {
   }
   .valid {
     display: flex;
-    padding-right:91px;
+    width: 100%;
     & .item {
       flex: 1;
     }
     & .out-img {
-    width: 116px;
-    height: 40px;
-    margin-left: 13px;
-    & .img {
+      width: 116px;
+      height: 40px;
+      margin-left: 13px;
+      & .img {
         width: 100%;
         height: 100%;
       }
     }
-  }
-  .out-valid {
-    position: relative;
-    padding-left: 82px;
     & .change {
-      position: absolute;
-      right: 43px;
-      top: 8px;
-      font-size: 12px;
-      cursor: pointer;
+      width: 90px;
+      padding-left: 20px;
     }
-  }
-  .padding {
-    padding: 0 91px 0 82px;
   }
 
 </style>

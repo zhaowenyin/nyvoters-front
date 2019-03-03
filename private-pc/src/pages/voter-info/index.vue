@@ -1,6 +1,6 @@
 <template>
   <div class="view">
-    首页
+    选民信息查询
   </div>
 </template>
 <script>
