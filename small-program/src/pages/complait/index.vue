@@ -42,6 +42,13 @@
       请上传申请书
     </div>
   </div>
+  <div class="out-input">
+    <div class="label-width">
+      <span></span>
+    </div>
+    <div class="template">请根据<span @click="complait" class="complait-label">《公民申诉书》</span>模板，填写相应内容后，上传文件</div>
+  </div>
+
    <div class="valid">
     <div class="label-width">
       <span>有效验证码</span>
@@ -90,6 +97,9 @@ export default {
       this.$router.push({path:'/success',query: {type: 3}})
     },
     change(){
+
+    },
+    complait() {
 
     }
   }
@@ -154,6 +164,15 @@ export default {
     padding: 12px 15px 12px 10px;
     display: flex;
     align-items: center;
+  }
+  .template {
+    flex:1;
+    padding: 10px 0;
+    font-size: 15px;
+    color: #333;
+    & .complait-label {
+      color: #d02626;
+    }
   }
 .out-img {
   width: 96px;
