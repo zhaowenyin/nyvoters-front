@@ -41,7 +41,7 @@ export default {
       this.$router.push({path:'/register'})
     },
     comfire () {
-      this.$router.push({path:'/success',query: {type: 2}})
+      this.$router.push({path:'/success',query: {type: 1}})
     },
     change(){
 
