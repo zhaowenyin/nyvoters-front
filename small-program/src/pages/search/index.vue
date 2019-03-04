@@ -92,7 +92,7 @@ export default {
         this.error = '请输入验证码'
         return false
       }
-      return
+      return true
     }
 
   }
