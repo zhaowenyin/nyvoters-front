@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     cancel () {
-      this.$router.push({path:'/home'})
+      this.$router.push({path:'/'})
     },
     comfire () {
       this.$router.push({path:'/success',query: {type: 2}})
