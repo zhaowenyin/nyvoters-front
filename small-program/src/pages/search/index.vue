@@ -1,19 +1,46 @@
 <template>
-<div class="home">
-  <div class="img">
-    <img src="../../assets/img/login-icon.png"/>
+<div class="register">
+  <div class="out-input">
+    <div class="label-width">
+      <span class="dot">*</span>
+      <span>姓名</span>
+    </div>
+    <input
+      v-model="form.name"
+      placeholder="请填写姓名"
+      class="input"/>
   </div>
-  <div
-    @click="onlineRegiste"
-    class="btn register"><i class="icon-register">在线登记</i></div>
-  <div
-    @click="onlineSearch"
-    class="btn search"><i class="icon-search">在线查询</i></div>
-  <div
-   @click="onlineComplaint"
-    class="btn complait"><i class="icon-conplait">在线申诉</i></div>
-
-
+  <div class="out-input">
+    <div class="label-width">
+      <span class="dot">*</span>
+      <span>身份证号码</span>
+    </div>
+    <input
+      v-model="form.userName"
+      placeholder="请填写身份证号码"
+      class="input"/>
+  </div>
+   <div class="valid">
+    <div class="label-width">
+      <span>有效验证码</span>
+    </div>
+    <div class="out-img"><img class="img" src="../../assets/img/code.png"/></div>
+    <div class="change" @click="change">换一张</div>
+  </div>
+   <div class="out-input">
+    <div class="label-width">
+      <span class="dot">*</span>
+      <span>验证码</span>
+    </div>
+    <input
+      v-model="form.valid"
+      placeholder="请输入验证码"
+      class="input"/>
+  </div>
+  <ul class="button">
+    <li @click="cancel" class="btn cancel">取消</li>
+    <li @click="comfire" class="btn comfire">查询</li>
+  </ul>
 </div>
 
 </template>
@@ -21,100 +48,98 @@
 export default {
   data () {
     return {
-
+      form: {
+        userName: '',
+        idNum: '',
+        valid: '',
+        type: 1
+      }
     }
   },
+  components: {
+
+  },
   methods: {
-    onlineRegiste () {
-      this.$router.push({path: '/register'})
+    cancel () {
+      this.$router.push({path:'/home'})
     },
-    onlineSearch () {
-      this.$router.push({path: '/search'})
+    comfire () {
+      this.$router.push({path:'/success',query: {type: 2}})
     },
-    onlineComplaint () {
-      this.$router.push({path: '/complaint'})
+    change(){
+
     }
   }
 }
 </script>
 <style scoped>
-  .home {
+  .register {
     width:100%;
     height: 100%;
-    padding: 0 23px;
+    padding: 20px 0px;
   }
-  .img {
-    width: 100%;
-    margin: 52px 0px 35px 0;
-    padding: 0 19px;
-    & img {
-      width:100%;
-    }
+  .dot {
+    color: #d41c1a;
+  }
+  .button {
+    display: flex;
+    padding: 31px 14px;
   }
   .btn {
-    width: 100%;
+    width: 155px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+  }
+  .cancel {
+    background-color: #ffffff;
+    border-radius: 2px;
+    border: solid 0.5px #bbbbbb;
+    color: #666666;
+    font-size: 15px;
+    margin-right: 37px;
+  }
+  .comfire {
+    background-color: #d41c1a;
+  border-radius: 2px;
+   color: #fff;
+  }
+  .out-input {
+    padding: 0px 15px 0px 10px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    & .input {
+      flex:1;
+      min-height: 61px;
+      font-size: 15px;
+    }
+  }
+  .label-width {
+    width: 86px;
+    text-align:right;
+    font-size: 15px;
+    margin-right: 17px;
+  }
+ .change {
+    font-size: 15px;
+    color: #333;
+    cursor: pointer;
+    margin-left: 17px;
+  }
+  .valid {
+    padding: 12px 15px 12px 10px;
+    display: flex;
     align-items: center;
   }
-  .register {
-    height: 50px;
-    font-size: 18px;
-    line-height: 50px;
-    background-color: #009944;
-    box-shadow: 0px 1.5px 3.5px 0px
-      rgba(0, 0, 0, 0.35);
-    border-radius: 1px;
-    color: #fff;
+.out-img {
+  width: 96px;
+  height: 45px;
+  & .img {
+    width: 100%;
+    height: 100%;
   }
-  .search {
-    height: 50px;
-    line-height: 50px;
-    margin: 22px 0 35px 0;
-    background-color: #00a0e9;
-    box-shadow: 0px 1.5px 3.5px 0px
-      rgba(0, 0, 0, 0.35);
-    border-radius: 1px;
-    color: #fff;
-  }
-  .complait {
-    color: #000022;
-    text-decoration:underline;
-  }
-  .icon-register {
-    &:before {
-      content: "";
-      display: inline-block;
-      background: url("../../assets/img/register.png") center center no-repeat;
-      background-size: 100% 100%;
-      width: 21px;
-      height: 19px;
-      margin-right: 4px;
-      transform: translateY(3px);
-    }
-  }
-  .icon-search {
-    &:before {
-      content: "";
-      display: inline-block;
-      background: url("../../assets/img/search.png") center center no-repeat;
-      background-size: 100% 100%;
-      width: 22px;
-      height: 17px;
-      margin-right: 4px;
-      transform: translateY(3px);
-    }
-  }
-  .icon-conplait {
-    &:before {
-    content: "";
-      display: inline-block;
-      background: url("../../assets/img/help.png") center center no-repeat;
-      background-size: 100% 100%;
-      width: 14px;
-      height: 14px;
-      margin-right: 4px;
-      transform: translateY(3px);
-    }
-  }
+
+}
+
 </style>

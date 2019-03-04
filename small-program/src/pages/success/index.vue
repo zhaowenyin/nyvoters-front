@@ -30,7 +30,7 @@ export default {
     }
   },
   created() {
-    this.type=this.$route.query.type
+    this.type=+this.$route.query.type
   },
   methods:{
     async download (item) {
@@ -57,8 +57,8 @@ export default {
 }
 .out {
   margin-top: 80px;
-  width: 105px;
-  height: 106px;
+  width: 53px;
+  height: 53px;
   background: url("../../assets/img/success.png") top left no-repeat;
   background-size: cover;
   display: flex;
@@ -66,8 +66,8 @@ export default {
   align-items: center;
 }
 .true-border {
-  width: 27px;
-  height: 37px;
+  width: 14px;
+  height: 19px;
   border-bottom: 5px solid #fff;
   border-right: 5px solid #fff;
   transform: rotate(45deg);

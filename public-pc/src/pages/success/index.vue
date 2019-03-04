@@ -30,7 +30,7 @@ export default {
     }
   },
   created() {
-    this.type=this.$route.query.type
+    this.type=+this.$route.query.type
   },
   methods:{
     async download (item) {
