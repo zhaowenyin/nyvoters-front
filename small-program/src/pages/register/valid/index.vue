@@ -1,57 +1,15 @@
 <template>
 <div class="register">
-  <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>申诉人</span>
-    </div>
-    <input
-      v-model="form.name"
-      placeholder="请填写申诉人"
-      class="input"/>
-  </div>
-  <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>身份证号码</span>
-    </div>
-    <input
-      :maxlength="18"
-      v-model="form.userName"
-      placeholder="请填写身份证号码"
-      class="input"/>
-  </div>
-   <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>联系电话</span>
-    </div>
-    <input
-      v-model="form.phoneNum"
-      :maxlength="11"
-      placeholder="请填写联系电话"
-      class="input"/>
-  </div>
-   <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>申诉书</span>
-    </div>
-    <div class="a-upload">
-      <input type="file" class="file"/>
-      请上传申请书
-    </div>
-  </div>
    <div class="valid">
     <div class="label-width">
       <span>有效验证码</span>
     </div>
-    <div class="out-img"><img class="img" src="../../assets/img/code.png"/></div>
+    <div class="out-img"><img class="img" src="../../../assets/img/code.png"/></div>
     <div class="change" @click="change">换一张</div>
   </div>
    <div class="out-input">
     <div class="label-width">
-      <span class="dot">*</span>
+      <!-- <span class="dot">*</span> -->
       <span>验证码</span>
     </div>
     <input
@@ -71,11 +29,7 @@ export default {
   data () {
     return {
       form: {
-        userName: '',
-        idNum: '',
         valid: '',
-        phoneNum: '',
-        type: 1
       }
     }
   },
@@ -84,10 +38,10 @@ export default {
   },
   methods: {
     cancel () {
-      this.$router.push({path:'/'})
+      this.$router.push({path:'/register'})
     },
     comfire () {
-      this.$router.push({path:'/success',query: {type: 3}})
+      this.$router.push({path:'/success',query: {type: 2}})
     },
     change(){
 
@@ -99,7 +53,7 @@ export default {
   .register {
     width:100%;
     height: 100%;
-    padding: 20px 0px;
+    padding-top: 33px;
   }
   .dot {
     color: #d41c1a;
@@ -164,19 +118,5 @@ export default {
   }
 
 }
-.file {
-  display: none;
-}
-.a-upload {
-  display: flex;
-  align-items: center;
-  flex:1;
-  min-height: 61px;
-  font-size: 15px;
-  color: #999;
-
-}
-
-
 
 </style>

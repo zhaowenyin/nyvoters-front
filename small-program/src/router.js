@@ -6,6 +6,7 @@ const Home = () => import('@/pages/home')
 const Register = () => import('@/pages/register')
 const Complaint = () => import('@/pages/complait')
 const Success = () => import('@/pages/success')
+const Comfire = () => import('./pages/register/valid')
 
 
 
@@ -36,6 +37,11 @@ const router = new Router({
       path: '/success',
       name: '成功',
       component: Success,
+    },
+    {
+      path: '/comfire',
+      name: '成功',
+      component: Comfire,
     }
 
   ]

@@ -3,19 +3,23 @@
     <div class="out">
       <div class="true-border"></div>
     </div>
-    <div v-if="type===1" class="text"> 该人员已登记成功！</div>
+    <div v-if="type===2" class="text"> 该人员已登记成功！</div>
      <div
-     v-if="type===1"
+     v-if="type===2"
       class="loginBtn"
       @click="download()">选民证下载</div>
       <span
-        v-if="type===1"
+        v-if="type===2"
         class="quit"
         @click="quit">返回</span>
+        <span
+        v-if="type===1 || type===3"
+        class="quit"
+        @click="back">首页</span>
       <div v-if="type===3" class="text">申诉提交成功！</div>
       <div v-if="type===3" class="complain">您的在线申诉已成功提交，待工作人员进行处理核实！</div>
-      <div v-if="type===2" class="text">提交成功！</div>
-      <div v-if="type===2" class="register">您的选民信息已成功提交，待系统审核！后续可通过<span class="search">[在线查询]</span>及时了解进度</div>
+      <div v-if="type===1" class="text">提交成功！</div>
+      <div v-if="type===1" class="register">您的选民信息已成功提交，待系统审核！后续可通过<span class="search">[在线查询]</span>及时了解进度</div>
   </div>
 </template>
 
@@ -43,6 +47,9 @@ export default {
     },
     quit () {
       this.$router.push({ path: '/' })
+    },
+    back() {
+      this.$router.push({ path: '/' })
     }
   }
 }
@@ -54,6 +61,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 56px;
 }
 .out {
   margin-top: 80px;
@@ -75,9 +83,9 @@ export default {
 }
 .text {
   text-align: center;
-  margin-top: 17px;
+  margin-top: 13px;
   color: #000;
-  font-size: 24px;
+  font-size:18px;
 }
 .loginBtn {
   margin-top: 19px;
@@ -97,21 +105,21 @@ export default {
   text-decoration:underline;
 }
 .complain {
+  text-align: center;
   color: #333333;
   padding-top: 17px;
+  font-size: 15px;
 }
 .register {
   color: #333333;
-  margin-top: 23px;
+  font-size: 15px;
+  margin-top: 19px;
+  text-align: center;
   & .search {
     color: #d41c1a;
-    cursor: pointer;
   }
 }
 
 </style>
 <style>
-.success .el-button {
-  padding: 0px 0px;
-}
 </style>

@@ -16,6 +16,7 @@
       <span>身份证号码</span>
     </div>
     <input
+      :maxlength="18"
       v-model="form.userName"
       placeholder="请填写身份证号码"
       class="input"/>
@@ -129,10 +130,10 @@ export default {
   },
   methods: {
     cancel () {
-      this.$router.push({path:'/home'})
+      this.$router.push({path:'/'})
     },
     comfire () {
-      this.$router.push({path:'/success',query: {type: 1}})
+      this.$router.push({path:'/comfire'})
     }
   }
 }
