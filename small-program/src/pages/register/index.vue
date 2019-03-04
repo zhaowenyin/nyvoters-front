@@ -6,7 +6,7 @@
       <span>姓名</span>
     </div>
     <input
-      v-model="form.name"
+      v-model="form.userName"
       placeholder="请填写姓名"
       class="input"/>
   </div>
@@ -17,7 +17,7 @@
     </div>
     <input
       :maxlength="18"
-      v-model="form.userName"
+      v-model="form.idNum"
       placeholder="请填写身份证号码"
       class="input"/>
   </div>
@@ -106,6 +106,7 @@
 
 </template>
 <script>
+import { Toast } from 'mint-ui'
 import Select from './Audio'
 export default {
   data () {
@@ -115,14 +116,14 @@ export default {
         idNum: '',
         householdRegistration: '',
         living: '',
-        valid: '',
         candidateType: '',
         nation: '',
         gender: '',
         phoneNum: '',
         contactInformation: '',
         type: 1
-      }
+      },
+      error: '',
     }
   },
   components: {
@@ -132,8 +133,52 @@ export default {
     cancel () {
       this.$router.push({path:'/'})
     },
-    comfire () {
+    comfire (){
+      if (!this.verify()) {
+        Toast({
+          message: this.error,
+          position: 'top',
+          duration: 3000
+        })
+        return
+      }
       this.$router.push({path:'/comfire'})
+    },
+    verify() {
+      if(!this.form.userName) {
+        this.error = '请填写用户名'
+        return false
+      }
+      if(!this.form.idNum) {
+        this.error = '请填写身份证号'
+        return false
+      }
+      if(!this.form.gender) {
+        this.error = '请选择性别'
+        return false
+      }
+      if(!this.form.nation) {
+        this.error = '请选择民族'
+        return false
+      }
+      if(!this.form.phoneNum) {
+        this.error = '请填写手机号'
+        return false
+      }
+
+      if(!this.form.householdRegistration) {
+        this.error = '请填写户籍地'
+        return false
+      }
+      if(!this.form.living) {
+        this.error = '请填写现居住地'
+        return false
+      }
+      if(!this.form.candidateType) {
+        this.error = '请选择参选地类型'
+        return false
+      }
+      return true
     }
   }
 }

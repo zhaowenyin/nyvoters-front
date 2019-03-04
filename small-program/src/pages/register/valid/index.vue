@@ -45,6 +45,9 @@ export default {
     },
     change(){
 
+    },
+    verify() {
+
     }
   }
 }
