@@ -75,7 +75,7 @@
             <el-col :span="12">
               <el-form-item
                 label="联系方式："
-                prop="contactInformation">
+                prop="phoneNum">
                 <el-input
                   size="medium"
                   placeholder="请输入联系方式"
@@ -127,7 +127,7 @@
              <el-input
               style="width: 208px;"
               placeholder="请输入验证码"
-              :maxlength="18"
+              maxlength="18"
               class="item3"
               v-model="form.valid" />
             <div class="out-img"><img class="img" src="../../assets/img/home.png"/></div>
@@ -164,7 +164,7 @@ export default {
         nation: '',
         gender: '',
         phoneNum: '',
-        contact: '',
+        contactInformation: '',
         type: 1
       },
       rules: {
