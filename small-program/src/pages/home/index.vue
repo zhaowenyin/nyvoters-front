@@ -70,6 +70,7 @@ export default {
   .search {
     height: 50px;
     line-height: 50px;
+    font-size: 18px;
     margin: 22px 0 35px 0;
     background-color: #00a0e9;
     box-shadow: 0px 1.5px 3.5px 0px
