@@ -58,7 +58,7 @@
   </div>
   <div class="out-input">
     <div class="label-width">
-      <span class="dot">*</span>
+      <!-- <span class="dot">*</span> -->
       <span>联系方式</span>
     </div>
     <input
