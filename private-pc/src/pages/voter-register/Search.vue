@@ -1,7 +1,7 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button size="medium" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
+      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
       <el-button size="medium" type="primary" icon="el-icon-edit">修改</el-button>
     </div>
     <el-form
@@ -68,10 +68,15 @@
           type="primary"></el-button>
       </el-form-item>
     </el-form>
+    <CreateDialog
+      v-if="createDialogVisible"
+      :visible.sync='createDialogVisible'
+      />
   </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
+import CreateDialog from './CreateDialog'
 
 export default {
   data () {
@@ -82,7 +87,8 @@ export default {
         card: '',
         tel: '',
         date: []
-      }
+      },
+      createDialogVisible: false
     }
   },
   computed: {
@@ -90,6 +96,7 @@ export default {
     })
   },
   components: {
+    CreateDialog
   },
   created () {
   },
@@ -114,6 +121,9 @@ export default {
           this.getListData(params)
         }
       })
+    },
+    create () {
+      this.createDialogVisible = true
     }
   }
 }
