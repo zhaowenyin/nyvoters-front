@@ -6,7 +6,7 @@
       <span>申诉人</span>
     </div>
     <input
-      v-model="form.name"
+      v-model="form.userName"
       placeholder="请填写申诉人"
       class="input"/>
   </div>
@@ -17,7 +17,7 @@
     </div>
     <input
       :maxlength="18"
-      v-model="form.userName"
+      v-model="form.idNum"
       placeholder="请填写身份证号码"
       class="input"/>
   </div>
