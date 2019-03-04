@@ -6,7 +6,7 @@
       <span>姓名</span>
     </div>
     <input
-      v-model="form.name"
+      v-model="form.userName"
       placeholder="请填写姓名"
       class="input"/>
   </div>
@@ -16,7 +16,7 @@
       <span>身份证号码</span>
     </div>
     <input
-      v-model="form.userName"
+      v-model="form.idNum"
       placeholder="请填写身份证号码"
       class="input"/>
   </div>
@@ -45,6 +45,7 @@
 
 </template>
 <script>
+import { Toast } from 'mint-ui'
 export default {
   data () {
     return {
@@ -64,11 +65,35 @@ export default {
       this.$router.push({path:'/'})
     },
     comfire () {
+      if (!this.verify()) {
+        Toast({
+          message: this.error,
+          position: 'top',
+          duration: 3000
+        })
+        return
+      }
       this.$router.push({path:'/success',query: {type: 2}})
     },
     change(){
 
+    },
+    verify() {
+      if(!this.form.userName) {
+        this.error = '请填写用户名'
+        return false
+      }
+      if(!this.form.idNum) {
+        this.error = '请填写身份证号'
+        return false
+      }
+      if(!this.form.valid) {
+        this.error = '请输入验证码'
+        return false
+      }
+      return
     }
+
   }
 }
 </script>

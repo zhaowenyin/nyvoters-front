@@ -74,6 +74,7 @@
 
 </template>
 <script>
+import { Toast } from 'mint-ui'
 export default {
   data () {
     return {
@@ -94,6 +95,14 @@ export default {
       this.$router.push({path:'/'})
     },
     comfire () {
+      if (!this.verify()) {
+        Toast({
+          message: this.error,
+          position: 'top',
+          duration: 3000
+        })
+        return
+      }
       this.$router.push({path:'/success',query: {type: 3}})
     },
     change(){
@@ -101,7 +110,28 @@ export default {
     },
     complait() {
 
+    },
+    verify() {
+      if(!this.form.userName) {
+        this.error = '请填写申诉人'
+        return false
+      }
+      if(!this.form.idNum) {
+        this.error = '请填写身份证号'
+        return false
+      }
+      if(!this.form.phoneNum) {
+        this.error = '请填写联系电话'
+        return false
+      }
+      if(!this.form.valid) {
+        this.error = '请输入验证码'
+        return false
+      }
+
+      return
     }
+
   }
 }
 </script>

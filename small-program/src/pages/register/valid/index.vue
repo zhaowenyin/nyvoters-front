@@ -25,6 +25,7 @@
 
 </template>
 <script>
+import { Toast } from 'mint-ui'
 export default {
   data () {
     return {
@@ -41,13 +42,21 @@ export default {
       this.$router.push({path:'/register'})
     },
     comfire () {
+      if (!this.verify()) {
+        Toast({
+          message: this.error,
+          position: 'top',
+          duration: 3000
+        })
+        return
+      }
       this.$router.push({path:'/success',query: {type: 1}})
     },
     change(){
 
     },
     verify() {
-
+      return true
     }
   }
 }
