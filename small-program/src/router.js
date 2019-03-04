@@ -40,7 +40,7 @@ const router = new Router({
     },
     {
       path: '/comfire',
-      name: '成功',
+      name: '确认页面',
       component: Comfire,
     }
 
