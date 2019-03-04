@@ -18,7 +18,7 @@
         @click="quit">返回</span>
         <span
         v-if="type===1 || type===3"
-        class="quit"
+        class="quit1"
         @click="back">首页</span>
   </div>
 </template>
@@ -61,7 +61,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 0 56px;
+
 }
 .out {
   margin-top: 80px;
@@ -100,11 +100,16 @@ export default {
 }
 .quit {
  font-size: 18px;
-  padding-top: 87px;
-  cursor: pointer;
+  padding-top: 86px;
+  text-decoration:underline;
+}
+.quit1 {
+ font-size: 18px;
+  padding-top: 83px;
   text-decoration:underline;
 }
 .complain {
+  padding: 0 90px;
   text-align: center;
   color: #333333;
   padding-top: 17px;
@@ -114,6 +119,7 @@ export default {
   color: #333333;
   font-size: 15px;
   margin-top: 19px;
+  padding: 0 40px;
   text-align: center;
   & .search {
     color: #d41c1a;
