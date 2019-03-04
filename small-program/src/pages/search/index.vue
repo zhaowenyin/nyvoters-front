@@ -54,7 +54,8 @@ export default {
         idNum: '',
         valid: '',
         type: 1
-      }
+      },
+      error: ''
     }
   },
   components: {

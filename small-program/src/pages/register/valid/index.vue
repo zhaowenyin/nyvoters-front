@@ -31,7 +31,8 @@ export default {
     return {
       form: {
         valid: '',
-      }
+      },
+      error: ''
     }
   },
   components: {

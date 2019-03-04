@@ -84,7 +84,8 @@ export default {
         valid: '',
         phoneNum: '',
         type: 1
-      }
+      },
+      error: ''
     }
   },
   components: {
@@ -124,12 +125,13 @@ export default {
         this.error = '请填写联系电话'
         return false
       }
+      console.log(this.form.valid)
       if(!this.form.valid) {
         this.error = '请输入验证码'
         return false
       }
 
-      return
+      return true
     }
 
   }
