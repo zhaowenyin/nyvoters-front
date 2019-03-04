@@ -103,7 +103,6 @@
     <li @click="comfire" class="btn comfire">提交</li>
   </ul>
 </div>
-
 </template>
 <script>
 import { Toast } from 'mint-ui'
@@ -188,6 +187,7 @@ export default {
     width:100%;
     height: 100%;
     padding: 20px 0px;
+    overflow: auto;
   }
   .dot {
     color: #d41c1a;
