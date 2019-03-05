@@ -37,9 +37,9 @@
       <span class="dot">*</span>
       <span>申诉书</span>
     </div>
-    <div class="a-upload">
+   <div class="a-upload">
       <input type="file" class="file"/>
-      请上传申请书
+      <div class="text">请上传申请书</div>
     </div>
   </div>
   <div class="out-input">
@@ -75,6 +75,8 @@
 </template>
 <script>
 import { Toast } from 'mint-ui'
+import output from '../../utils/output.js'
+import {taskDownload} from './service.js'
 export default {
   data () {
     return {
@@ -132,7 +134,15 @@ export default {
       }
 
       return true
-    }
+    },
+    async download (item) {
+      try {
+        const { data = {} } = await taskDownload({id: item.result_id,citizen_name: item.citizen_name,operate_name: item.name,doctor_name: item.doctor_name})
+        output({ data: data.data, download: data.filename, type: data.type })
+      } catch (err) {
+        console.log(err)
+      }
+    },
 
   }
 }
@@ -222,10 +232,11 @@ export default {
   display: flex;
   align-items: center;
   flex:1;
-  min-height: 61px;
   font-size: 15px;
   color: #999;
-
+  & .text {
+    padding: 20px 0;
+  }
 }
 
 
