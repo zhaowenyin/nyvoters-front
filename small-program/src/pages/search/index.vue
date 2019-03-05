@@ -47,7 +47,8 @@
 
 </template>
 <script>
-import { Toast } from 'mint-ui'
+import { Toast,Indicator } from 'mint-ui'
+import {searchSubmit} from './service.js'
 export default {
   data () {
     return {
@@ -57,11 +58,17 @@ export default {
         valid: '',
         type: 1
       },
-      error: ''
+      error: '',
+      loading: false
     }
   },
   components: {
 
+  },
+  watch: {
+    loading (val) {
+      val ? Indicator.open() : Indicator.close()
+    }
   },
   methods: {
     cancel () {
@@ -76,10 +83,17 @@ export default {
         })
         return
       }
-      this.$router.push({path:'/success',query: {type: 2}})
+      this.submitSearch()
+
     },
     change(){
 
+    },
+    async submitSearch() {
+      this.loading = true
+      const {data} = await searchSubmit(this.form)
+      this.$router.push({path:'/success',query: {type: 2, id: data.id}})
+      this.loading = false
     },
     verify() {
       if(!this.form.userName) {

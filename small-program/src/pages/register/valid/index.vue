@@ -25,7 +25,8 @@
 
 </template>
 <script>
-import { Toast } from 'mint-ui'
+import { Toast,Indicator } from 'mint-ui'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -38,7 +39,24 @@ export default {
   components: {
 
   },
+  watch: {
+    loading (val) {
+      val ? Indicator.open() : Indicator.close()
+    }
+  },
+  computed: {
+    ...mapState('register', {
+      formData: state => state.formData,
+      loading: state => state.loading
+    })
+  },
   methods: {
+    ...mapMutations('register', [
+      'clearState',
+    ]),
+    ...mapActions('register', [
+      'submitForm'
+    ]),
     cancel () {
       this.$router.push({path:'/register'})
     },
@@ -51,7 +69,8 @@ export default {
         })
         return
       }
-      this.$router.push({path:'/success',query: {type: 1}})
+      this.submitForm({...this.formData, valid: this.form.valid})
+
     },
     change(){
 

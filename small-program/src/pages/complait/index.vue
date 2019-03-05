@@ -76,9 +76,9 @@
 
 </template>
 <script>
-import { Toast } from 'mint-ui'
+import { Toast,Indicator } from 'mint-ui'
 import output from '../../utils/output.js'
-import {taskDownload} from './service.js'
+import {taskDownload,complaitSubmit} from './service.js'
 export default {
   data () {
     return {
@@ -95,6 +95,11 @@ export default {
   components: {
 
   },
+  watch: {
+    loading (val) {
+      val ? Indicator.open() : Indicator.close()
+    }
+  },
   methods: {
     cancel () {
       this.$router.push({path:'/'})
@@ -108,7 +113,12 @@ export default {
         })
         return
       }
+    },
+    async submitSearch() {
+      this.loading = true
+      await complaitSubmit(this.form)
       this.$router.push({path:'/success',query: {type: 3}})
+      this.loading = false
     },
     change(){
 

@@ -109,6 +109,7 @@
 <script>
 import { Toast } from 'mint-ui'
 import Select from './Audio'
+import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -130,7 +131,19 @@ export default {
   components: {
     Select
   },
+  computed: {
+    ...mapState('register', {
+
+    })
+  },
+
   methods: {
+    ...mapMutations('register', [
+      'clearState',
+    ]),
+    ...mapActions('register', [
+      'submitForm'
+    ]),
     cancel () {
       this.$router.push({path:'/'})
     },
