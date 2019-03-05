@@ -1,6 +1,7 @@
 <template>
 <div class="register">
-  <div class="out-input">
+  <div class="content">
+    <div class="out-input">
     <div class="label-width">
       <span class="dot">*</span>
       <span>申诉人</span>
@@ -9,62 +10,63 @@
       v-model="form.userName"
       placeholder="请填写申诉人"
       class="input"/>
-  </div>
-  <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>身份证号码</span>
     </div>
-    <input
-      :maxlength="18"
-      v-model="form.idNum"
-      placeholder="请填写身份证号码"
-      class="input"/>
-  </div>
-   <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>联系电话</span>
+    <div class="out-input">
+      <div class="label-width">
+        <span class="dot">*</span>
+        <span>身份证号码</span>
+      </div>
+      <input
+        :maxlength="18"
+        v-model="form.idNum"
+        placeholder="请填写身份证号码"
+        class="input"/>
     </div>
-    <input
-      v-model="form.phoneNum"
-      :maxlength="11"
-      placeholder="请填写联系电话"
-      class="input"/>
-  </div>
-   <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>申诉书</span>
+    <div class="out-input">
+      <div class="label-width">
+        <span class="dot">*</span>
+        <span>联系电话</span>
+      </div>
+      <input
+        v-model="form.phoneNum"
+        :maxlength="11"
+        placeholder="请填写联系电话"
+        class="input"/>
     </div>
+    <div class="out-input">
+      <div class="label-width">
+        <span class="dot">*</span>
+        <span>申诉书</span>
+      </div>
     <div class="a-upload">
-      <input type="file" class="file"/>
-      请上传申请书
+        <input type="file" class="file"/>
+        <div class="text">请上传申请书</div>
+      </div>
     </div>
-  </div>
-  <div class="out-input">
-    <div class="label-width">
-      <span></span>
+    <div class="out-input">
+      <div class="label-width">
+        <span></span>
+      </div>
+      <div class="template">请根据<span @click="complait" class="complait-label">《公民申诉书》</span>模板，填写相应内容后，上传文件</div>
     </div>
-    <div class="template">请根据<span @click="complait" class="complait-label">《公民申诉书》</span>模板，填写相应内容后，上传文件</div>
-  </div>
 
-   <div class="valid">
-    <div class="label-width">
-      <span>有效验证码</span>
+    <div class="valid">
+      <div class="label-width">
+        <span>有效验证码</span>
+      </div>
+      <div class="out-img"><img class="img" src="../../assets/img/code.png"/></div>
+      <div class="change" @click="change">换一张</div>
     </div>
-    <div class="out-img"><img class="img" src="../../assets/img/code.png"/></div>
-    <div class="change" @click="change">换一张</div>
-  </div>
-   <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>验证码</span>
+    <div class="out-input">
+      <div class="label-width">
+        <span class="dot">*</span>
+        <span>验证码</span>
+      </div>
+      <input
+        v-model="form.valid"
+        placeholder="请输入验证码"
+        class="input"/>
     </div>
-    <input
-      v-model="form.valid"
-      placeholder="请输入验证码"
-      class="input"/>
   </div>
   <ul class="button">
     <li @click="cancel" class="btn cancel">取消</li>
@@ -74,7 +76,9 @@
 
 </template>
 <script>
-import { Toast } from 'mint-ui'
+import { Toast,Indicator } from 'mint-ui'
+import output from '../../utils/output.js'
+import {taskDownload,complaitSubmit} from './service.js'
 export default {
   data () {
     return {
@@ -91,6 +95,11 @@ export default {
   components: {
 
   },
+  watch: {
+    loading (val) {
+      val ? Indicator.open() : Indicator.close()
+    }
+  },
   methods: {
     cancel () {
       this.$router.push({path:'/'})
@@ -104,7 +113,12 @@ export default {
         })
         return
       }
+    },
+    async submitSearch() {
+      this.loading = true
+      await complaitSubmit(this.form)
       this.$router.push({path:'/success',query: {type: 3}})
+      this.loading = false
     },
     change(){
 
@@ -125,14 +139,21 @@ export default {
         this.error = '请填写联系电话'
         return false
       }
-      console.log(this.form.valid)
       if(!this.form.valid) {
         this.error = '请输入验证码'
         return false
       }
 
       return true
-    }
+    },
+    async download (item) {
+      try {
+        const { data = {} } = await taskDownload({id: item.result_id,citizen_name: item.citizen_name,operate_name: item.name,doctor_name: item.doctor_name})
+        output({ data: data.data, download: data.filename, type: data.type })
+      } catch (err) {
+        console.log(err)
+      }
+    },
 
   }
 }
@@ -141,14 +162,20 @@ export default {
   .register {
     width:100%;
     height: 100%;
-    padding: 20px 0px;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .content {
+    flex: 1;
+    overflow: auto;
   }
   .dot {
     color: #d41c1a;
   }
   .button {
     display: flex;
-    padding: 31px 14px;
+    padding: 0px 14px 31px 14px;
   }
   .btn {
     width: 155px;
@@ -166,8 +193,8 @@ export default {
   }
   .comfire {
     background-color: #d41c1a;
-  border-radius: 2px;
-   color: #fff;
+    border-radius: 2px;
+    color: #fff;
   }
   .out-input {
     padding: 0px 15px 0px 10px;
@@ -222,10 +249,11 @@ export default {
   display: flex;
   align-items: center;
   flex:1;
-  min-height: 61px;
   font-size: 15px;
   color: #999;
-
+  & .text {
+    padding: 20px 0;
+  }
 }
 
 

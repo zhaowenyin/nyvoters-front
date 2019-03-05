@@ -33,9 +33,9 @@ export default {
     this.type=+this.$route.query.type
   },
   methods:{
-    async download (item) {
+    async download () {
       try {
-        const { data = {} } = await taskDownload({id: item.result_id,citizen_name: item.citizen_name,operate_name: item.name,doctor_name: item.doctor_name})
+        const { data = {} } = await taskDownload({id: this.query.$route.id})
         output({ data: data.data, download: data.filename, type: data.type })
       } catch (err) {
         console.log(err)
