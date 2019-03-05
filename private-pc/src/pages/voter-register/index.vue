@@ -1,12 +1,9 @@
 <template>
   <div class="view">
     <div class="view-left">
-      <el-tree
-        class="add-tree"
+      <CommonTree
         :data="data"
-        :props="defaultProps"
-        icon-class="tree-icon"
-        @node-click="handleNodeClick"></el-tree>
+        @node-click="handleNodeClick" />
     </div>
     <div class="view-content">
       <Search />
@@ -18,6 +15,7 @@
 import { mapMutations } from 'vuex'
 import Search from './Search'
 import List from './List'
+import CommonTree from '../../components/common-tree'
 
 export default {
   data () {
@@ -68,7 +66,8 @@ export default {
   },
   components: {
     Search,
-    List
+    List,
+    CommonTree
   },
   created () {
     // 初始化清除数据
@@ -97,7 +96,7 @@ export default {
     padding-top: 6px;
   }
   .view-content {
-    background: #f4f4f4;
+    background: #f8f8f8;
     flex: 1;
     padding: 16px 20px;
   }

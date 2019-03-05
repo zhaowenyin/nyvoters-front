@@ -12,6 +12,9 @@ const Home = () => import('./pages/home')
 const VoterRegister = () => import('./pages/voter-register')
 const VoterRegisters = () => import('./pages/voter-registers')
 const VoterInfo = () => import('./pages/voter-info')
+const QualReviewLayout = () => import('./pages/qual-review')
+const QualReview = () => import('./pages/qual-review/home')
+const QualReviewHistory = () => import('./pages/qual-review/history')
 
 
 Vue.use(Router)
@@ -38,14 +41,30 @@ const router = new Router({
           component: VoterRegister
         },
         {
-          path: '/voter-registers',
+          path: 'voter-registers',
           name: '选民批量登记',
           component: VoterRegisters
         },
         {
-          path: '/voter-info',
+          path: 'voter-info',
           name: '选民信息查询',
           component: VoterInfo
+        },
+        {
+          path: 'qual-review',
+          component: QualReviewLayout,
+          children: [
+            {
+              path: '',
+              name: '资格审查',
+              component: QualReview
+            },
+            {
+              path: 'history',
+              name: '资格审查记录',
+              component: QualReviewHistory
+            }
+          ]
         }
       ]
     },

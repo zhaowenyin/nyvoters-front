@@ -44,6 +44,18 @@ textarea { resize: none; }
   background-color: #d41c1a;
 }
 
+/* 菜单横向 */
+.add-menu-x {
+  background: #f8f8f8;
+}
+.add-menu-x .el-menu-item{
+  height: 50px;
+  line-height: 50px;
+}
+.add-menu-x .el-menu-item.is-active{
+  border-bottom-width: 4px;
+}
+
 /* 树 */
 .add-tree .el-tree-node__content {
   height: 30px;
