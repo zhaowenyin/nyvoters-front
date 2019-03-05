@@ -9,7 +9,9 @@ export const verifyArr = [
   '/voter-register',
   '/voter-registers',
   '/voter-info',
-  '/behalf-recomment'
+  '/behalf-recomment',
+  '/qual-review',
+  '/qual-review/history'
 
 ]
 

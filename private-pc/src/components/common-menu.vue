@@ -14,6 +14,13 @@
         <el-menu-item class="item" index="/voter-registers">选民批量导入</el-menu-item>
         <el-menu-item class="item" index="/voter-info">选民信息查询</el-menu-item>
       </el-submenu>
+      <el-submenu index="">
+        <template slot="title">
+          <img src="../assets/img/44.png" class="icon"/>
+          <span>代表事务管理</span>
+        </template>
+        <el-menu-item class="item" index="/qual-review">资格审查</el-menu-item>
+      </el-submenu>
     </el-menu>
   </div>
 </template>
