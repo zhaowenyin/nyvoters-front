@@ -1,102 +1,104 @@
 <template>
 <div class="register">
-  <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>姓名</span>
+  <div class="content">
+    <div class="out-input">
+      <div class="label-width">
+        <span class="dot">*</span>
+        <span>姓名</span>
+      </div>
+      <input
+        v-model="form.userName"
+        placeholder="请填写姓名"
+        class="input"/>
     </div>
-    <input
-      v-model="form.userName"
-      placeholder="请填写姓名"
-      class="input"/>
-  </div>
-  <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>身份证号码</span>
+    <div class="out-input">
+      <div class="label-width">
+        <span class="dot">*</span>
+        <span>身份证号码</span>
+      </div>
+      <input
+        :maxlength="18"
+        v-model="form.idNum"
+        placeholder="请填写身份证号码"
+        class="input"/>
     </div>
-    <input
-      :maxlength="18"
-      v-model="form.idNum"
-      placeholder="请填写身份证号码"
-      class="input"/>
-  </div>
-  <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>性别</span>
+    <div class="out-input">
+      <div class="label-width">
+        <span class="dot">*</span>
+        <span>性别</span>
+      </div>
+      <Select
+        class="input"
+        :options="[{value: '1',label: '男'},{value: '2',label: '女'}]"
+        :multiple="false"
+        placeholder="请选择性别"
+        v-model="form.gender"/>
     </div>
-     <Select
-      class="input"
-      :options="[{value: '1',label: '男'},{value: '2',label: '女'}]"
-      :multiple="false"
-      placeholder="请选择性别"
-      v-model="form.gender"/>
-  </div>
-  <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>民族</span>
+    <div class="out-input">
+      <div class="label-width">
+        <span class="dot">*</span>
+        <span>民族</span>
+      </div>
+      <Select
+        class="input"
+        :options="[{value: '1',label: '男'},{value: '2',label: '女'}]"
+        :multiple="false"
+        placeholder="请选择民族"
+        v-model="form.nation"/>
     </div>
-     <Select
-      class="input"
-      :options="[{value: '1',label: '男'},{value: '2',label: '女'}]"
-      :multiple="false"
-      placeholder="请选择民族"
-      v-model="form.nation"/>
-  </div>
-  <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>手机号</span>
+    <div class="out-input">
+      <div class="label-width">
+        <span class="dot">*</span>
+        <span>手机号</span>
+      </div>
+      <input
+        v-model="form.phoneNum"
+        :maxlength="11"
+        placeholder="请填写手机号"
+        class="input"/>
     </div>
-    <input
-      v-model="form.phoneNum"
-      :maxlength="11"
-      placeholder="请填写手机号"
-      class="input"/>
-  </div>
-  <div class="out-input">
-    <div class="label-width">
-      <!-- <span class="dot">*</span> -->
-      <span>联系方式</span>
+    <div class="out-input">
+      <div class="label-width">
+        <!-- <span class="dot">*</span> -->
+        <span>联系方式</span>
+      </div>
+      <input
+        v-model="form.contactInformation"
+        placeholder="请填写联系方式"
+        class="input"/>
     </div>
-    <input
-      v-model="form.contactInformation"
-      placeholder="请填写联系方式"
-      class="input"/>
-  </div>
-  <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>户籍地</span>
+    <div class="out-input">
+      <div class="label-width">
+        <span class="dot">*</span>
+        <span>户籍地</span>
+      </div>
+      <input
+        v-model="form.householdRegistration"
+        placeholder="请填写户籍地"
+        class="input"/>
     </div>
-    <input
-      v-model="form.householdRegistration"
-      placeholder="请填写户籍地"
-      class="input"/>
-  </div>
-  <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>现居住地</span>
+    <div class="out-input">
+      <div class="label-width">
+        <span class="dot">*</span>
+        <span>现居住地</span>
+      </div>
+      <input
+        v-model="form.living"
+        placeholder="请填写现居住地"
+        class="input"/>
     </div>
-    <input
-      v-model="form.living"
-      placeholder="请填写现居住地"
-      class="input"/>
-  </div>
-  <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>参选地类型</span>
+    <div class="out-input">
+      <div class="label-width">
+        <span class="dot">*</span>
+        <span>参选地类型</span>
+      </div>
+      <Select
+        class="input"
+        :options="[{value: '1',label: '男'},{value: '2',label: '女'}]"
+        :multiple="false"
+        placeholder="请选择参选地类型"
+        v-model="form.candidateType"/>
     </div>
-     <Select
-      class="input"
-      :options="[{value: '1',label: '男'},{value: '2',label: '女'}]"
-      :multiple="false"
-      placeholder="请选择参选地类型"
-      v-model="form.candidateType"/>
   </div>
   <ul class="button">
     <li @click="cancel" class="btn cancel">取消</li>
@@ -186,7 +188,12 @@ export default {
   .register {
     width:100%;
     height: 100%;
-    padding: 20px 0px;
+    padding: 20px 0 0px 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .content {
+    flex: 1;
     overflow: auto;
   }
   .dot {
@@ -194,7 +201,7 @@ export default {
   }
   .button {
     display: flex;
-    padding: 31px 14px;
+    padding: 0px 14px 31px 14px;
   }
   .btn {
     width: 155px;

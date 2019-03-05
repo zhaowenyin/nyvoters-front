@@ -1,41 +1,43 @@
 <template>
 <div class="register">
-  <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>姓名</span>
+  <div class="content">
+     <div class="out-input">
+      <div class="label-width">
+        <span class="dot">*</span>
+        <span>姓名</span>
+      </div>
+      <input
+        v-model="form.userName"
+        placeholder="请填写姓名"
+        class="input"/>
     </div>
-    <input
-      v-model="form.userName"
-      placeholder="请填写姓名"
-      class="input"/>
-  </div>
-  <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>身份证号码</span>
+    <div class="out-input">
+      <div class="label-width">
+        <span class="dot">*</span>
+        <span>身份证号码</span>
+      </div>
+      <input
+        v-model="form.idNum"
+        placeholder="请填写身份证号码"
+        class="input"/>
     </div>
-    <input
-      v-model="form.idNum"
-      placeholder="请填写身份证号码"
-      class="input"/>
-  </div>
-   <div class="valid">
-    <div class="label-width">
-      <span>有效验证码</span>
+    <div class="valid">
+      <div class="label-width">
+        <span>有效验证码</span>
+      </div>
+      <div class="out-img"><img class="img" src="../../assets/img/code.png"/></div>
+      <div class="change" @click="change">换一张</div>
     </div>
-    <div class="out-img"><img class="img" src="../../assets/img/code.png"/></div>
-    <div class="change" @click="change">换一张</div>
-  </div>
-   <div class="out-input">
-    <div class="label-width">
-      <span class="dot">*</span>
-      <span>验证码</span>
+    <div class="out-input">
+      <div class="label-width">
+        <span class="dot">*</span>
+        <span>验证码</span>
+      </div>
+      <input
+        v-model="form.valid"
+        placeholder="请输入验证码"
+        class="input"/>
     </div>
-    <input
-      v-model="form.valid"
-      placeholder="请输入验证码"
-      class="input"/>
   </div>
   <ul class="button">
     <li @click="cancel" class="btn cancel">取消</li>
@@ -102,14 +104,20 @@ export default {
   .register {
     width:100%;
     height: 100%;
-    padding: 20px 0px;
+    padding-top: 20px 0px;
+    display: flex;
+    flex-direction: column;
+  }
+  .content {
+    flex: 1;
+    overflow: auto;
   }
   .dot {
     color: #d41c1a;
   }
   .button {
     display: flex;
-    padding: 31px 14px;
+    padding: 0px 14px 31px 14px;
   }
   .btn {
     width: 155px;
