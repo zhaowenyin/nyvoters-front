@@ -140,6 +140,7 @@ export default {
   methods: {
     ...mapMutations('register', [
       'clearState',
+      'saveForm'
     ]),
     ...mapActions('register', [
       'submitForm'
@@ -156,6 +157,7 @@ export default {
         })
         return
       }
+      this.saveForm(this.form)
       this.$router.push({path:'/comfire'})
     },
     verify() {
