@@ -8,7 +8,8 @@ export const verifyArr = [
   '/',
   '/voter-register',
   '/voter-registers',
-  '/voter-info'
+  '/voter-info',
+  '/behalf-recomment'
 
 ]
 

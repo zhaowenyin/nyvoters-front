@@ -12,6 +12,7 @@ const Home = () => import('./pages/home')
 const VoterRegister = () => import('./pages/voter-register')
 const VoterRegisters = () => import('./pages/voter-registers')
 const VoterInfo = () => import('./pages/voter-info')
+const BehalfCommended = () => import('@/pages/behalf-recommended')
 
 
 Vue.use(Router)
@@ -46,6 +47,11 @@ const router = new Router({
           path: '/voter-info',
           name: '选民信息查询',
           component: VoterInfo
+        },
+        {
+          path: '/behalf-recomment',
+          name: '选民信息查询',
+          component: BehalfCommended
         }
       ]
     },
