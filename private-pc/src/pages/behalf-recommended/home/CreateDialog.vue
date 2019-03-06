@@ -127,7 +127,7 @@
         size="medium"
         type="primary">确定</el-button>
         <el-button
-        @click="submitForm()"
+        @click="comfirmClose()"
         size="medium">取消</el-button>
     </div>
   </el-dialog>
@@ -207,7 +207,7 @@ export default {
       this.$emit('update:visible', false)
     },
     submitForm () {
-      this.$refs.loginForm.validate((valid) => {
+      this.$refs.form.validate((valid) => {
         if (valid) {
           console.log(valid)
         }
@@ -219,7 +219,7 @@ export default {
           this.close()
         })
         .catch(() => {})
-    },
+    }
   }
 
 }
