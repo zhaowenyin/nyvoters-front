@@ -10,28 +10,39 @@
       </el-table-column>
       <el-table-column
         label="被推荐人"
+         width="120"
         prop="recommendedPerson" />
       <el-table-column
+        width="180"
         label="身份证号码"
-        prop="card" />
+        prop="idNum" />
       <el-table-column
         label="性别"
-        prop="gender" />
-      <el-table-column
-        label="手机号"
-        prop="tel" />
-      <el-table-column
-        label="参选地类型"
-        prop="address_type" />
-      <el-table-column
-        label="登记日期">
+        prop="gender">
         <template slot-scope="scope">
-          {{ formatDate(scope.row.time) }}
+          {{scope.row.gender === 1 ? '男' : '女'}}
         </template>
       </el-table-column>
       <el-table-column
-        label="选民状态"
-        prop="type" />
+        label="推荐方式">
+         <template slot-scope="scope">
+          {{scope.row.gender === 1 ? '团体推荐' : '选民联名推荐'}}
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="推荐类型"
+      >
+          <template slot-scope="scope">
+          {{scope.row.gender === 1 ? '区县代表' : '乡镇代表'}}
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="belongAreaId"
+        label="所属选区">
+      </el-table-column>
+      <el-table-column
+        label="状态"
+        prop="status" />
     </el-table>
     <div
       v-show="total"

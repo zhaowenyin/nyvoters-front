@@ -1,5 +1,8 @@
 <template>
   <div class="search-box">
+    <div class="left">
+      <el-button size="medium" type="primary" icon="el-icon-delete">撤销</el-button>
+    </div>
     <el-form
       ref="form"
       :model="searchForm"
@@ -88,7 +91,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('behalfCommendedHistory', {
+    ...mapState('behalfCommended', {
     })
   },
   components: {
@@ -97,7 +100,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('behalfCommendedHistory', [
+    ...mapActions('behalfCommended', [
       'getListData',
     ]),
     // 搜索
@@ -128,7 +131,9 @@ export default {
   .search-box{
     display: flex;
     margin-bottom: -8px;
-    justify-content: flex-end;
+    & .left {
+      flex: 1;
+    }
     & .form {
 
     }

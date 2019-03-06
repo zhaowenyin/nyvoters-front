@@ -7,34 +7,51 @@ export async function getList (payload) {
     setTimeout(() => {
       resolve({
         data: {
-          total: 100,
-          list: [
-            {
-              id: 1,
-              name: '张三',
-              card: '510922199608254411',
-              gender: '男',
-              tel: '15590001222',
-              address_type: '居住地',
-              time: 1551621599434,
-              type: '登记成功'
-            },
-            {
-              id: 2,
-              name: '李四',
-              card: '510922199608254411',
-              gender: '男',
-              tel: '15590001222',
-              address_type: '居住地',
-              time: 1551621599434,
-              type: '登记成功'
-            }
-          ]
+          "content": {
+            "data": [
+              {
+                "belongAreaId": 54122356874,
+                "birthDay": "1995-01-01 00:00:00",
+                "education": "本科",
+                "gender": 1,
+                "id": 0,
+                "idNum": 510810199910251100,
+                "jobTitle": "中级会计",
+                "nation": "汉",
+                "party": "中共党员",
+                "phoneNum": 15898412568,
+                "post": "职员",
+                "recommendPersonVOList": [
+                  {
+                    "recommendPersonName": "张三",
+                    "recommendPersonPhone": 15898741563,
+                    "recommendPersonWorkUnit": "中共成都市委"
+                  }
+                ],
+                "recommendReason": "哎哟，不错哟",
+                "recommendType": 1,
+                "recommendUnit": "成都市文化旅游局",
+                "recommendedPerson": "张三",
+                "status": "string",
+                "type": 1,
+                "workUnit": "成都市文化旅游局"
+              }
+            ],
+            "endRow": 0,
+            "pageNum": 0,
+            "pageSize": 0,
+            "pages": 0,
+            "startRow": 0,
+            "total": 20
+          },
+          "errorCode": "string",
+          "errorMsg": "string",
+          "status": "string"
         }
       })
     }, 500)
   })
-  // return api.get('/api', { params: payload })
+  // return api.get('/repre-recommend/list', { params: payload })
 }
 
 // post请求

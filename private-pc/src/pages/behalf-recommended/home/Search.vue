@@ -1,8 +1,10 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
+      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">登记</el-button>
       <el-button size="medium" type="primary" icon="el-icon-edit">修改</el-button>
+      <el-button size="medium" type="primary" icon="el-icon-circle-check-outline">提交</el-button>
+      <el-button size="medium" type="primary" icon="el-icon-delete">删除</el-button>
     </div>
     <el-form
       ref="form"
@@ -16,49 +18,43 @@
           size="medium"
           style="width: 108px;"
           placeholder="请选择">
-          <el-option label="姓名" :value="1"></el-option>
-          <el-option label="身份证号码" :value="2"></el-option>
-          <el-option label="手机号" :value="3"></el-option>
-          <el-option label="登记日期" :value="4"></el-option>
+          <el-option label="推荐人" :value="1"></el-option>
+          <el-option label="推荐方式" :value="2"></el-option>
+          <el-option label="推荐类型" :value="3"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
         v-if="type === 1"
-        prop="name">
+        prop="recommendedPerson">
         <el-input
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.name" />
+          v-model.trim="searchForm.recommendedPerson" />
       </el-form-item>
       <el-form-item
         v-if="type === 2"
-        prop="card">
-        <el-input
-          class="item"
-          size="medium"
-          placeholder="请输入关键字"
-          v-model.trim="searchForm.card" />
+        prop="recommendType">
+         <el-select  size="medium" v-model.trim="searchForm.recommendType" placeholder="请选择推荐方式">
+        <el-option
+          v-for="item in methodList"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
       </el-form-item>
       <el-form-item
         v-if="type === 3"
-        prop="tel">
-        <el-input
-          class="item"
-          size="medium"
-          placeholder="请输入关键字"
-          v-model.trim="searchForm.tel" />
-      </el-form-item>
-      <el-form-item
-        v-if="type === 4"
-        prop="date">
-        <el-date-picker
-          v-model="searchForm.date"
-          size="medium"
-          type="datetimerange"
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期" />
+        prop="type">
+        <el-select  size="medium" v-model.trim="searchForm.type" placeholder="请选择推荐类型">
+          <el-option
+            v-for="item in typeList"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button
@@ -83,11 +79,30 @@ export default {
     return {
       type: 1,
       searchForm: {
-        name: '',
-        card: '',
-        tel: '',
-        date: []
+        recommendedPerson: '',
+        recommendType: '',
+        type: ''
       },
+      methodList: [
+        {
+          value: 1,
+          label: '团体推荐'
+        },
+        {
+          value: 2,
+          label: '选民联名推荐'
+        }
+      ],
+      typeList: [
+        {
+          value: 1,
+          label: '区县代表'
+        },
+        {
+          value: 2,
+          label: '乡镇代表'
+        }
+      ],
       createDialogVisible: false
     }
   },
@@ -110,14 +125,6 @@ export default {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           params.page = 1
-          if (params.date && params.date.length > 0) {
-            params.startTime = new Date(params.date[0]).getTime()
-            params.endTime = new Date(params.date[1]).getTime()
-          } else {
-            params.startTime = ''
-            params.endTime = ''
-          }
-          delete params.date
           this.getListData(params)
         }
       })

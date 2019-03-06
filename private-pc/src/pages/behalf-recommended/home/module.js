@@ -28,8 +28,8 @@ export default {
       state.loading = false
     },
     updateList (state, payload) {
-      const { list = [], total = 0 } = payload.data
-      state.list = list
+      const { data = [], total = 0 } = payload.data
+      state.list = data
       state.total = total
     },
     updataSearchParam (state, payload) {
@@ -46,9 +46,11 @@ export default {
         type: 'updataSearchParam',
         payload
       })
+      console.log(666)
+      console.log(data.content)
       commit({
         type: 'updateList',
-        data
+        data: data.content
       })
       commit({
         type: 'hideLoading'
