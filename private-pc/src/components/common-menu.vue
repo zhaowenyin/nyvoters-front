@@ -20,6 +20,8 @@
           <span>代表事务管理</span>
         </template>
         <el-menu-item class="item" index="/qual-review">资格审查</el-menu-item>
+        <el-menu-item class="item" index="/behalf-recommended">代表推荐</el-menu-item>
+        <el-menu-item class="item" index="/behalf-recommended/history">代表推荐记录</el-menu-item>
       </el-submenu>
     </el-menu>
   </div>

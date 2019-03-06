@@ -10,7 +10,7 @@
       </el-table-column>
       <el-table-column
         label="被推荐人"
-        prop="name" />
+        prop="recommendedPerson" />
       <el-table-column
         label="身份证号码"
         prop="card" />
@@ -48,7 +48,7 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import { formatDate } from '../../utils/format.js'
+import { formatDate } from '../../../utils/format.js'
 
 export default {
   data () {
@@ -57,7 +57,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('voterRegister', {
+    ...mapState('behalfCommendedHistory', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
@@ -71,7 +71,7 @@ export default {
     this.getListData()
   },
   methods: {
-    ...mapActions('voterRegister', [
+    ...mapActions('behalfCommendedHistory', [
       'getListData'
     ]),
     // 分页

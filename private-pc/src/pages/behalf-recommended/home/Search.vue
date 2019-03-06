@@ -92,7 +92,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('voterRegister', {
+    ...mapState('behalfCommended', {
     })
   },
   components: {
@@ -101,7 +101,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('voterRegister', [
+    ...mapActions('behalfCommended', [
       'getListData',
     ]),
     // 搜索

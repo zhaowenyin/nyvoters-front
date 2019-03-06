@@ -1,23 +1,34 @@
 <template>
   <div class="view">
     <div class="view-left">
-      <el-tree
-        class="add-tree"
+      <CommonTree
         :data="data"
-        :props="defaultProps"
-        icon-class="tree-icon"
-        @node-click="handleNodeClick"></el-tree>
+        @node-click="handleNodeClick" />
     </div>
     <div class="view-content">
-      <Search />
-      <List />
+      <el-menu
+        :default-active="activeIndex"
+        class="add-menu-x"
+        @select="change"
+        active-text-color="#d41c1a"
+        background-color="#f8f8f8"
+        mode="horizontal">
+        <el-menu-item
+          index="/behalf-recommended">
+          代表推荐
+        </el-menu-item>
+        <el-menu-item
+          index="/behalf-recommended/history">
+          代表推荐记录
+        </el-menu-item>
+      </el-menu>
+      <router-view class="content" />
     </div>
   </div>
 </template>
+
 <script>
-import { mapMutations } from 'vuex'
-import Search from './Search'
-import List from './List'
+import CommonTree from '../../components/common-tree'
 
 export default {
   data () {
@@ -64,26 +75,25 @@ export default {
     }
   },
   computed: {
-
+    activeIndex () {
+      return this.$route.path
+    }
   },
   components: {
-    Search,
-    List
-  },
-  created () {
-    // 初始化清除数据
-    this.clearState()
+    CommonTree
   },
   methods: {
-    ...mapMutations('voterRegister', [
-      'clearState'
-    ]),
+    change (index) {
+      this.$router.push({ path: index })
+    },
     handleNodeClick(data) {
       console.log(data);
     }
   }
 }
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .view{
     display: flex;
@@ -97,8 +107,12 @@ export default {
     padding-top: 6px;
   }
   .view-content {
-    background: #f4f4f4;
+    background: #f8f8f8;
+    height: 100%;
     flex: 1;
-    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0px 20px;
   }
 </style>

@@ -12,7 +12,9 @@ const Home = () => import('./pages/home')
 const VoterRegister = () => import('./pages/voter-register')
 const VoterRegisters = () => import('./pages/voter-registers')
 const VoterInfo = () => import('./pages/voter-info')
-const BehalfCommended = () => import('@/pages/behalf-recommended')
+const BehalfCommendedLayout = () => import('@/pages/behalf-recommended')
+const BehalfCommended = () => import('@/pages/behalf-recommended/home')
+const BehalfCommendedHistory = () => import('@/pages/behalf-recommended/history')
 const QualReviewLayout = () => import('./pages/qual-review')
 const QualReview = () => import('./pages/qual-review/home')
 const QualReviewHistory = () => import('./pages/qual-review/history')
@@ -52,11 +54,6 @@ const router = new Router({
           component: VoterInfo
         },
         {
-          path: '/behalf-recomment',
-          name: '选民信息查询',
-          component: BehalfCommended
-        },
-        {
           path: 'qual-review',
           component: QualReviewLayout,
           children: [
@@ -69,6 +66,22 @@ const router = new Router({
               path: 'history',
               name: '资格审查记录',
               component: QualReviewHistory
+            }
+          ]
+        },
+        {
+          path: 'behalf-recommended',
+          component: BehalfCommendedLayout,
+          children: [
+            {
+              path: '',
+              name: '代表推荐',
+              component: BehalfCommended
+            },
+            {
+              path: 'history',
+              name: '代表推荐记录',
+              component: BehalfCommendedHistory
             }
           ]
         }
