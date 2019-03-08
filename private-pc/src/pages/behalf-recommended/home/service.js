@@ -32,6 +32,7 @@ export async function getList (payload) {
                 "recommendType": 1,
                 "recommendUnit": "成都市文化旅游局",
                 "recommendedPerson": "张三",
+                recommendedPersonId:'1',
                 "status": "string",
                 "type": 1,
                 "workUnit": "成都市文化旅游局"
@@ -54,7 +55,7 @@ export async function getList (payload) {
   // return api.get('/repre-recommend/list', { params: payload })
 }
 
-// 代表推荐登记
+// 代表推荐登记修改
 export async function setSubmit (payload) {
   console.log(payload)
   return new Promise((resolve) => {
@@ -65,7 +66,48 @@ export async function setSubmit (payload) {
       })
     }, 500)
   })
-  // return api.post(/repre-recommend/register', payload)
+  // return api.post('/repre-recommend/register', payload)
   // .then(data => data)
   //   .catch(() => Promise.resolve({data: null}))
 }
+// 代表推荐登记修改
+export async function modifySubmit (payload) {
+  console.log(payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+        }
+      })
+    }, 500)
+  })
+  // return api.post('/repre-recommend/modify', payload)
+  // .then(data => data)
+  //   .catch(() => Promise.resolve({data: null}))
+}
+
+export async function submitTabel (payload) {
+  console.log(payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+        }
+      })
+    }, 500)
+  })
+  // return api.post('/repre-recommend/submit', payload)
+}
+export async function deletetTabel (payload) {
+  console.log(payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+        }
+      })
+    }, 500)
+  })
+  // return api.post('/repre-recommend/delete', payload)
+}
+

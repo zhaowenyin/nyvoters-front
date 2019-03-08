@@ -9,7 +9,8 @@ export default {
     searchParam: {
       size: 10,
       page: 1
-    }
+    },
+    multipleSelection: []
   },
   mutations: {
     clearState (state) {
@@ -20,6 +21,7 @@ export default {
         size: 10,
         page: 1
       }
+      state.multipleSelection = []
     },
     showLoading (state) {
       state.loading = true
@@ -34,7 +36,10 @@ export default {
     },
     updataSearchParam (state, payload) {
       state.searchParam = { ...state.searchParam, ...payload.payload }
-    }
+    },
+    saveSelection(state, payload) {
+      state.multipleSelection = payload
+    },
   },
   actions: {
     async getListData ({ commit, state }, payload) {

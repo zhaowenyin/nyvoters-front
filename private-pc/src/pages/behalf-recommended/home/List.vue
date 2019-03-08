@@ -3,6 +3,7 @@
     <el-table
       :data="list"
       class="add_table"
+      @selection-change="handleSelectionChange"
       v-loading="loading">
       <el-table-column
         type="selection"
@@ -58,13 +59,13 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions,mapMutations } from 'vuex'
 import { formatDate } from '../../../utils/format.js'
 
 export default {
   data () {
     return {
-      downLoading: false
+      downLoading: false,
     }
   },
   computed: {
@@ -73,7 +74,8 @@ export default {
       list: state => state.list,
       total: state => state.total,
       size: state => state.searchParam.size,
-      page: state => state.searchParam.page
+      page: state => state.searchParam.page,
+
     })
   },
   components: {
@@ -85,6 +87,9 @@ export default {
     ...mapActions('behalfCommended', [
       'getListData'
     ]),
+    ...mapMutations('behalfCommended', [
+      'saveSelection'
+    ]),
     // 分页
     handleCurrentChange (val) {
       this.getListData({ page: val })
@@ -93,6 +98,9 @@ export default {
       console.log(id)
     },
     formatDate,
+    handleSelectionChange(val) {
+      this.saveSelection(val)
+    }
   }
 }
 </script>

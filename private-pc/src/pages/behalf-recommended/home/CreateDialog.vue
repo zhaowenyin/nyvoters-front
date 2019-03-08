@@ -360,10 +360,16 @@ export default {
     visible: {
       default: false,
       type: Boolean
+    },
+    item: {
+      default: () => {},
+      type: Object
     }
   },
   created () {
-
+    if(this.item) {
+      this.form = {...this.form, ...this.item }
+    }
   },
   methods: {
     close () {

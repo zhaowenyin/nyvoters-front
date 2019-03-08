@@ -2,9 +2,9 @@
   <div class="search-box">
     <div class="left">
       <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">登记</el-button>
-      <el-button size="medium" type="primary" icon="el-icon-edit">修改</el-button>
-      <el-button size="medium" type="primary" icon="el-icon-circle-check-outline">提交</el-button>
-      <el-button size="medium" type="primary" icon="el-icon-delete">删除</el-button>
+      <el-button size="medium"  @click="modify" type="primary" icon="el-icon-edit">修改</el-button>
+      <el-button size="medium" @click="submit" type="primary" icon="el-icon-circle-check-outline">提交</el-button>
+      <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
     </div>
     <el-form
       ref="form"
@@ -66,6 +66,7 @@
     </el-form>
     <CreateDialog
       v-if="createDialogVisible"
+      :item='item'
       :visible.sync='createDialogVisible'
       />
   </div>
@@ -73,6 +74,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
+import {submitTabel, deletetTabel} from './service.js'
 
 export default {
   data () {
@@ -81,7 +83,8 @@ export default {
       searchForm: {
         recommendedPerson: '',
         recommendType: '',
-        type: ''
+        type: '',
+        item: {}
       },
       methodList: [
         {
@@ -108,6 +111,7 @@ export default {
   },
   computed: {
     ...mapState('behalfCommended', {
+      multipleSelection: state=>state.multipleSelection
     })
   },
   components: {
@@ -131,6 +135,36 @@ export default {
     },
     create () {
       this.createDialogVisible = true
+    },
+    modify () {
+      if(this.multipleSelection.length !== 1) {
+        this.$notify({
+          title: '',
+          message: '请勾选一条数据进行修改！',
+          type: 'warning'
+        });
+        return
+      }
+      this.item = this.multipleSelection[0]
+      this.createDialogVisible = true
+    },
+    async submit() {
+      let idList = []
+      for (let i of this.multipleSelection) {
+        idList.push(i.id)
+      }
+      let params = {idList,status: "REVIEW_SUCCESS"}
+      await submitTabel(params)
+      this.getListData(params)
+    },
+    async deleteI () {
+      let idList = []
+      for (let i of this.multipleSelection) {
+        idList.push(i.id)
+      }
+      let params = {idList,status: "REVIEW_FAIL"}
+      await deletetTabel(params)
+      this.getListData(params)
     }
   }
 }
