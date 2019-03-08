@@ -4,127 +4,241 @@
     :visible="visible"
     width="820px"
     :before-close="comfirmClose">
-      <el-form
-        label-width="110px"
-        :model="form"
-        :rules="rules"
-        ref="form"
-        class="login-form">
-        <el-row :gutter="20">
+    <el-form
+      label-width="110px"
+      :model="form"
+      :rules="rules"
+      ref="form"
+      class="login-form">
+      <el-row :gutter="20">
+        <el-col :span="12">
+          <el-form-item
+            label="推荐方式"
+            prop="recommendType">
+            <el-radio-group @change="change" size="medium" v-model="form.recommendType">
+              <el-radio :label="1">团体推荐</el-radio>
+              <el-radio :label="2">选民联名推荐</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item
+            label="类型"
+            prop="type">
+            <el-radio-group size="medium" v-model="form.type">
+              <el-radio :label="1" :disabled="form.recommendType===2">区县代表</el-radio>
+              <el-radio :label="2" :disabled="form.recommendType===2">乡镇代表</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+            <el-form-item
+            label="所选区域"
+            prop="belongAreaId">
+            <el-select
+              size="medium"
+              style="width: 100%;"
+              class="item"
+              v-model="form.belongAreaId"
+              clearable placeholder="请选择">
+              <el-option
+                v-for="item in belongAreaList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+            <el-form-item
+            label="被推选人"
+            prop="recommendedPersonId">
+            <el-select
+              size="medium"
+              style="width: 100%;"
+              class="item"
+              @change="personChange"
+              v-model="form.recommendedPersonId"
+              clearable placeholder="请选择">
+              <el-option
+                v-for="item in recommendedPersonList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item
+            label="身份证号码"
+            prop="idNum">
+            <el-input
+              size="medium"
+              placeholder="请输入"
+              :maxlength="18"
+              class="item"
+              v-model="form.idNum" />
+          </el-form-item>
+        </el-col>
           <el-col :span="12">
-            <el-form-item
-              label="姓名："
-              prop="userName">
-              <el-input
-                size="medium"
-                placeholder="请输入户姓名"
-                class="item"
-                v-model="form.userName" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item
-                label="身份证号码："
-                prop="idNum">
-                <el-input
-                  size="medium"
-                  placeholder="请输入身份证号码"
-                  :maxlength="18"
-                  class="item"
-                  v-model="form.idNum" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-            <el-form-item
-              label="性别："
-              prop="gender">
-              <el-radio-group size="medium" v-model="form.gender">
-                <el-radio :label="1">男</el-radio>
-                <el-radio :label="2">女</el-radio>
-              </el-radio-group>
-              </el-form-item>
-            </el-col>
-          <el-col :span="12">
-            <el-form-item
-              label=" 民族："
-              prop="nation">
-               <el-select
-               size="medium"
-                style="width: 100%;"
-                class="item"
-                v-model="form.nation"
-                clearable placeholder="请选择民族">
-                <el-option
-                  v-for="item in nationList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
-                </el-option>
-              </el-select>
+          <el-form-item
+            label="手机号码"
+            prop="phoneNum">
+            <el-input
+              size="medium"
+              placeholder="请输入"
+              class="item"
+              v-model="form.phoneNum" />
             </el-form-item>
           </el-col>
-           <el-col :span="12">
+          <el-col :span="12">
             <el-form-item
-              label=" 手机号："
-              prop="phoneNum">
-              <el-input
-                size="medium"
-                placeholder="请输入电话号码"
-                class="item"
-                v-model="form.phoneNum" />
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-            <el-form-item
-              label="联系方式："
-              prop="phoneNum">
-              <el-input
-                size="medium"
-                placeholder="请输入联系方式"
-                class="item"
-                v-model="form.contactInformation" />
+              label="出生日期"
+              prop="birthDay">
+              <el-date-picker
+                v-model="form.birthDay"
+                type="date"
+                placeholder="请选择">
+              </el-date-picker>
             </el-form-item>
           </el-col>
-        </el-row>
-        <el-form-item
-          label="户籍地："
-          prop="householdRegistration">
-          <el-input
-            size="medium"
-            placeholder="请输入户籍地"
-            class="item"
-            v-model="form.householdRegistration" />
-        </el-form-item>
-        <el-form-item
-          label="现居住地："
-          prop="living">
-          <el-input
-            placeholder="请输入现居住地"
-            class="item"
-            v-model="form.living" />
-        </el-form-item>
-         <el-form-item
-          label="参选地类型："
-          prop="candidateType">
-          <el-select
-            class="item"
-            v-model="form.candidateType"
-            clearable placeholder="请选择参选地类型">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-      </el-form>
+
+        <el-col :span="12">
+          <el-form-item
+            label="性别："
+            prop="gender">
+            <el-radio-group size="medium" v-model="form.gender">
+              <el-radio :label="1">男</el-radio>
+              <el-radio :label="2">女</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item
+            label=" 民族："
+            prop="nation">
+            <el-select
+              size="medium"
+              style="width: 100%;"
+              class="item"
+              v-model="form.nation"
+              clearable placeholder="请选择">
+              <el-option
+                v-for="item in nationList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item
+            label="学历"
+            prop="education">
+            <el-select
+              size="medium"
+              style="width: 100%;"
+              class="item"
+              v-model="form.education"
+              clearable placeholder="请选择">
+              <el-option
+                v-for="item in educationList"
+                :key="item"
+                :label="item"
+                :value="item">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item
+            label="党派"
+            prop="party">
+            <el-select
+              size="medium"
+              style="width: 100%;"
+              class="item"
+              v-model="form.party"
+              clearable placeholder="请选择">
+              <el-option
+                v-for="item in partyList"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item
+            label="职务"
+            prop="education">
+            <el-select
+              size="medium"
+              style="width: 100%;"
+              class="item"
+              v-model="form.post"
+              clearable placeholder="请选择">
+              <el-option
+                v-for="item in postList"
+                :key="item"
+                :label="item"
+                :value="item">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item
+            label="工作单位"
+            prop="workUnit">
+            <el-input
+              size="medium"
+              placeholder="请输入"
+              class="item"
+              v-model="form.workUnit" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item
+            label="职称"
+            prop="jobTitle">
+            <el-input
+              size="medium"
+              placeholder="请输入"
+              class="item"
+              v-model="form.jobTitle" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-form-item
+        label="推荐理由"
+        prop="recommendReason">
+        <el-input
+          size="medium"
+          placeholder="请输入"
+          class="item"
+          v-model="form.recommendReason" />
+      </el-form-item>
+      <el-form-item
+        label="推荐单位"
+        prop="recommendUnit">
+        <el-input
+          placeholder="请输入"
+          class="item"
+          v-model="form.recommendUnit" />
+      </el-form-item>
+    </el-form>
     <div
       slot="footer"
       class="footer">
       <el-button
         @click="submitForm()"
         size="medium"
+        :loading="loading"
         type="primary">确定</el-button>
         <el-button
         @click="comfirmClose()"
@@ -133,28 +247,43 @@
   </el-dialog>
 </template>
 <script>
+import {setSubmit} from './service.js'
 export default {
   data () {
     return {
+      loading: false,
       form: {
-        userName: '',
+        recommendType: 1,
+        type: '',
+        belongAreaId: '',
         idNum: '',
-        householdRegistration: '',
-        living: '',
-        valid: '',
-        candidateType: '',
-        nation: '',
-        gender: '',
+        recommendedPersonId: '',
+        recommendedPerson: '',
         phoneNum: '',
-        contactInformation: '',
-        type: 1
+        birthDay: '',
+        gender: '',
+        nation: '',
+        education: '',
+        party:'',
+        post: '',
+        workUnit: '',
+        jobTitle: '',
+        recommendReason: '',
+        recommendUnit: ''
+
       },
       rules: {
-        userName: [
-          { required: true, message: '请输入姓名', trigger: 'blur' }
+        recommendType: [
+          { required: true, message: '请选择推荐方式！', trigger: 'blur' }
+        ],
+        type:  [
+          { required: true, message: '请选择类型！', trigger: 'blur' }
+        ],
+        belongAreaId: [
+          { required: true, message: '请选择被推荐人！', trigger: 'blur' }
         ],
         idNum: [
-          { required: true, message: '请输入身份证号', trigger: 'blur' }
+          { required: true, message: '请输入身份证号码！', trigger: 'blur' }
         ],
         nation: [
           { required: true, message: '请选择民族', trigger: 'blur' }
@@ -163,19 +292,13 @@ export default {
           { required: true, message: '请选择性别', trigger: 'blur' }
         ],
         phoneNum: [
-          { required: true, message: '请输入电话号码', trigger: 'blur' }
+          { required: true, message: '请输入手机号码', trigger: 'blur' }
         ],
-        householdRegistration: [
-          { required: true, message: '请输入户籍地', trigger: 'blur' }
+        birthDay: [
+          { required: true, message: '请选择出生日期', trigger: 'blur' }
         ],
-        living: [
-          { required: true, message: '请输入现居住地', trigger: 'blur' }
-        ],
-        valid: [
-          { required: true, message: '请输入验证码', trigger: 'blur' }
-        ],
-        candidateType: [
-          { required: true, message: '请输入参选地址类型', trigger: 'blur' }
+        recommendedPersonId:[
+          { required: true, message: '请选择出生日期', trigger: 'blur' }
         ]
       },
       options: [{
@@ -191,8 +314,47 @@ export default {
       }, {
         value: '2',
         label: '外地'
-      }]
+      }],
+      belongAreaList:[{
+        value: '1',
+        label: '居住地'
+      }, {
+        value: '2',
+        label: '外地'
+      }],
+      recommendedPersonList: [{
+        value: '1',
+        label: '居住地',
+        phoneNum: '1',
+        birthDay: 652806000000,
+        gender: 2,
+        nation: 2,
+        belongAreaId: 1,
+        belongArea: '1',
+        idNum: '1111'
+
+      }, {
+        value: '2',
+        label: '外地',
+        phoneNum: '2',
+        birthDay: 652806000000,
+        gender: 1,
+        nation: 1,
+        belongAreaId: 1,
+        belongArea: '2',
+        idNum: '2222'
+      }],
+      educationList:  ['大学以上','大专','中专及高中','中专及以下'],
+      partyList:[{
+        value: '1',
+        label: '居住地'
+      }, {
+        value: '2',
+        label: '外地'
+      }],
+      postList: ['公务员', '企业负责人', '工人', '农民', '专业技术人员','其他']
     }
+
   },
   props:{
     visible: {
@@ -201,6 +363,7 @@ export default {
     }
   },
   created () {
+
   },
   methods: {
     close () {
@@ -209,9 +372,15 @@ export default {
     submitForm () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          console.log(valid)
+          this.sumitData()
         }
       })
+    },
+    async sumitData () {
+      this.loading = true
+      await setSubmit(this.form)
+      this.close()
+      this.loading = false
     },
     comfirmClose () {
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
@@ -219,6 +388,28 @@ export default {
           this.close()
         })
         .catch(() => {})
+    },
+    change (val) {
+      if(val===2) {
+        this.form.type = 2
+      }
+
+    },
+    personChange (val) {
+      for(let i of this.recommendedPersonList) {
+        if(val === i.value) {
+          this.form.phoneNum = i.phoneNum
+          this.form.birthDay = i.birthDay
+          this.form.nation = i.nation
+          this.form.belongAreaId = i.belongAreaId
+          this.form.gender = i.gender
+          this.form.idNum = i.idNum
+          this.form.recommendedPerson = i.label
+          break
+        }
+      }
+
+
     }
   }
 

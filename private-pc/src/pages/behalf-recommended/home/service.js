@@ -54,8 +54,8 @@ export async function getList (payload) {
   // return api.get('/repre-recommend/list', { params: payload })
 }
 
-// post请求
-export async function post (payload) {
+// 代表推荐登记
+export async function setSubmit (payload) {
   console.log(payload)
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -65,5 +65,7 @@ export async function post (payload) {
       })
     }, 500)
   })
-  // return api.post('/api', payload)
+  // return api.post(/repre-recommend/register', payload)
+  // .then(data => data)
+  //   .catch(() => Promise.resolve({data: null}))
 }
