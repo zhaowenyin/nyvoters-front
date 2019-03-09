@@ -232,14 +232,19 @@
           class="item"
           v-model="form.recommendUnit" />
       </el-form-item>
-       <el-form-item
-       v-if="form.recommendType===2"
-       label-width="0">
-         <div class="left">
-            <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">添加</el-button>
-            <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
-          </div>
-          <el-table
+    </el-form>
+    <el-form
+      v-if="form.recommendType===2"
+      label-width="0"
+      :model="tableObj"
+      :rules="tableRules"
+      ref="tableObj"
+      class="table-obj">
+        <div class="left">
+          <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">添加</el-button>
+          <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
+        </div>
+        <el-table
            @selection-change="handleSelectionChange"
           :data="list"
           class="add_table">
@@ -248,32 +253,40 @@
             width="55">
           </el-table-column>
           <el-table-column
-          label="推荐人">
+          label="推荐人姓名">
             <template slot-scope="scope">
-              <el-input
-                v-if="!scope.row.recommendPersonName"
-                size="medium"
-                placeholder="请输入"
-                class="item"
-                v-model="tableObj.recommendPersonName" />
-              <div v-else>{{scope.row.recommendPersonName}}</div>
+              <el-form-item
+                prop="recommendPersonName">
+                  <el-input
+                  v-if="!scope.row.recommendPersonName"
+                  size="medium"
+                  placeholder="请输入"
+                  class="item"
+                  v-model="tableObj.recommendPersonName" />
+                <div v-else>{{scope.row.recommendPersonName}}</div>
+              </el-form-item>
             </template>
           </el-table-column>
           <el-table-column
-           label="推荐人手机">
+          label="推荐人手机">
             <template slot-scope="scope">
-              <el-input
-                v-if="!scope.row.recommendPersonPhone"
-                size="medium"
-                placeholder="请输入"
-                class="item"
-                v-model="tableObj.recommendPersonPhone" />
-              <div v-else>{{scope.row.recommendPersonPhone}}</div>
-            </template>
-          </el-table-column>
-          <el-table-column
-           label="推荐人工作单位">
-            <template slot-scope="scope">
+              <el-form-item
+              prop="recommendPersonPhone">
+                <el-input
+                  v-if="!scope.row.recommendPersonPhone"
+                  size="medium"
+                  placeholder="请输入"
+                  class="item"
+                  v-model="tableObj.recommendPersonPhone" />
+                <div v-else>{{scope.row.recommendPersonPhone}}</div>
+              </el-form-item>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="推荐人工作单位">
+          <template slot-scope="scope">
+            <el-form-item
+              prop="recommendPersonWorkUnit">
               <el-input
                 v-if="!scope.row.recommendPersonWorkUnit"
                 size="medium"
@@ -281,10 +294,10 @@
                 class="item"
                 v-model="tableObj.recommendPersonWorkUnit" />
               <div v-else>{{scope.row.recommendPersonWorkUnit}}</div>
-            </template>
-          </el-table-column>
-        </el-table>
-      </el-form-item>
+            </el-form-item>
+          </template>
+        </el-table-column>
+      </el-table>
     </el-form>
     <div
       slot="footer"
@@ -330,6 +343,17 @@ export default {
         "recommendPersonName": "",
         "recommendPersonPhone": null,
         "recommendPersonWorkUnit": ""
+      },
+      tableRules: {
+        recommendPersonName: [
+          { required: true, message: '请输入推荐人姓名！', trigger: 'blur' }
+        ],
+        recommendPersonPhone:  [
+          { required: true, message: '请输入推荐人手机！', trigger: 'blur' }
+        ],
+        recommendPersonWorkUnit: [
+          { required: true, message: '请输入推荐人工作单位！', trigger: 'blur' }
+        ],
       },
       multipleSelection: [],
       rules: {
@@ -477,29 +501,34 @@ export default {
       }
     },
     create () {
-      for(let i of this.list) {
-        if(i.recommendPersonPhone === this.tableObj.recommendPersonPhone) {
-          this.$notify({
-            title: '',
-            message: '已经添加重复推荐人',
-            type: 'warning'
-          })
-          return
-        }
-      }
+      this.$refs.tableObj.validate((valid) => {
+        if (valid) {
+          for(let i of this.list) {
+            if(i.recommendPersonPhone === this.tableObj.recommendPersonPhone) {
+              this.$notify({
+                title: '',
+                message: '已经添加重复推荐人',
+                type: 'warning'
+              })
+              return
+            }
+          }
 
-      this.list.unshift(this.tableObj)
-      this.tableObj = {
-        "recommendPersonName": "",
-        "recommendPersonPhone": null,
-        "recommendPersonWorkUnit": ""
-      }
-      let list  = JSON.parse(JSON.stringify(this.list))
-      for(let i of list) {
-        if (i.recommendPersonName) {
-          this.form.recommendPersonList.push(i)
+          this.list.unshift(this.tableObj)
+          this.tableObj = {
+            "recommendPersonName": "",
+            "recommendPersonPhone": null,
+            "recommendPersonWorkUnit": ""
+          }
+          let list  = JSON.parse(JSON.stringify(this.list))
+          for(let i of list) {
+            if (i.recommendPersonName) {
+              this.form.recommendPersonList.push(i)
+            }
+          }
         }
-      }
+      })
+
     },
     deleteI () {
       if(this.multipleSelection.length === 0) {
@@ -519,9 +548,12 @@ export default {
       this.list = list.filter(i => {
         let isI = false
         for(let obj of this.multipleSelection) {
-          if(obj.recommendPersonPhone===i.recommendPersonPhone || !obj.recommendPersonPhone) {
+          if(obj.recommendPersonPhone&&(!obj.recommendPersonPhone===i.recommendPersonPhone)) {
             isI = true
           }
+        }
+        if(!i.recommendPersonPhone) {
+          isI = true
         }
         return isI
       })
@@ -543,4 +575,9 @@ export default {
   margin: 10px 0;
 }
 
+</style>
+<style>
+  .table-obj .el-form-item {
+    margin: 15px 0;
+  }
 </style>
