@@ -61,16 +61,10 @@
           type="primary"></el-button>
       </el-form-item>
     </el-form>
-    <CreateDialog
-      v-if="createDialogVisible"
-      :item='item'
-      :visible.sync='createDialogVisible'
-      />
   </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import CreateDialog from './CreateDialog'
 import {repealTabel} from './service.js'
 
 export default {
@@ -112,7 +106,7 @@ export default {
     })
   },
   components: {
-    CreateDialog
+
   },
   created () {
   },
@@ -134,7 +128,6 @@ export default {
       this.createDialogVisible = true
     },
     async repeal () {
-      console.log(this.multipleSelection)
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',

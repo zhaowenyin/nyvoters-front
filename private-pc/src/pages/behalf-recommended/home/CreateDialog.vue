@@ -224,12 +224,66 @@
           v-model="form.recommendReason" />
       </el-form-item>
       <el-form-item
+        v-if="form.recommendType===1"
         label="推荐单位"
         prop="recommendUnit">
         <el-input
           placeholder="请输入"
           class="item"
           v-model="form.recommendUnit" />
+      </el-form-item>
+       <el-form-item
+       v-if="form.recommendType===2"
+       label-width="0">
+         <div class="left">
+            <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">添加</el-button>
+            <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
+          </div>
+          <el-table
+           @selection-change="handleSelectionChange"
+          :data="list"
+          class="add_table">
+          <el-table-column
+            type="selection"
+            width="55">
+          </el-table-column>
+          <el-table-column
+          label="推荐人">
+            <template slot-scope="scope">
+              <el-input
+                v-if="!scope.row.recommendPersonName"
+                size="medium"
+                placeholder="请输入"
+                class="item"
+                v-model="tableObj.recommendPersonName" />
+              <div v-else>{{scope.row.recommendPersonName}}</div>
+            </template>
+          </el-table-column>
+          <el-table-column
+           label="推荐人手机">
+            <template slot-scope="scope">
+              <el-input
+                v-if="!scope.row.recommendPersonPhone"
+                size="medium"
+                placeholder="请输入"
+                class="item"
+                v-model="tableObj.recommendPersonPhone" />
+              <div v-else>{{scope.row.recommendPersonPhone}}</div>
+            </template>
+          </el-table-column>
+          <el-table-column
+           label="推荐人工作单位">
+            <template slot-scope="scope">
+              <el-input
+                v-if="!scope.row.recommendPersonWorkUnit"
+                size="medium"
+                placeholder="请输入"
+                class="item"
+                v-model="tableObj.recommendPersonWorkUnit" />
+              <div v-else>{{scope.row.recommendPersonWorkUnit}}</div>
+            </template>
+          </el-table-column>
+        </el-table>
       </el-form-item>
     </el-form>
     <div
@@ -269,9 +323,15 @@ export default {
         workUnit: '',
         jobTitle: '',
         recommendReason: '',
-        recommendUnit: ''
-
+        recommendUnit: '',
+        recommendPersonList: [],
       },
+      tableObj: {
+        "recommendPersonName": "",
+        "recommendPersonPhone": null,
+        "recommendPersonWorkUnit": ""
+      },
+      multipleSelection: [],
       rules: {
         recommendType: [
           { required: true, message: '请选择推荐方式！', trigger: 'blur' }
@@ -331,7 +391,8 @@ export default {
         nation: 2,
         belongAreaId: 1,
         belongArea: '1',
-        idNum: '1111'
+        idNum: '1111',
+        workUnit: '8888',
 
       }, {
         value: '2',
@@ -342,7 +403,8 @@ export default {
         nation: 1,
         belongAreaId: 1,
         belongArea: '2',
-        idNum: '2222'
+        idNum: '2222',
+        workUnit: '666'
       }],
       educationList:  ['大学以上','大专','中专及高中','中专及以下'],
       partyList:[{
@@ -352,7 +414,8 @@ export default {
         value: '2',
         label: '外地'
       }],
-      postList: ['公务员', '企业负责人', '工人', '农民', '专业技术人员','其他']
+      postList: ['公务员', '企业负责人', '工人', '农民', '专业技术人员','其他'],
+      list: [{}]
     }
 
   },
@@ -367,9 +430,7 @@ export default {
     }
   },
   created () {
-    if(this.item) {
-      this.form = {...this.form, ...this.item }
-    }
+    this.form = {...this.form, ...this.item }
   },
   methods: {
     close () {
@@ -414,13 +475,72 @@ export default {
           break
         }
       }
+    },
+    create () {
+      for(let i of this.list) {
+        if(i.recommendPersonPhone === this.tableObj.recommendPersonPhone) {
+          this.$notify({
+            title: '',
+            message: '已经添加重复推荐人',
+            type: 'warning'
+          })
+          return
+        }
+      }
 
-
+      this.list.unshift(this.tableObj)
+      this.tableObj = {
+        "recommendPersonName": "",
+        "recommendPersonPhone": null,
+        "recommendPersonWorkUnit": ""
+      }
+      let list  = JSON.parse(JSON.stringify(this.list))
+      for(let i of list) {
+        if (i.recommendPersonName) {
+          this.form.recommendPersonList.push(i)
+        }
+      }
+    },
+    deleteI () {
+      if(this.multipleSelection.length === 0) {
+        this.$notify({
+          title: '',
+          message: '请勾选数据进删除！',
+          type: 'warning'
+        });
+        return
+      }
+      this.tableObj = {
+        "recommendPersonName": "",
+        "recommendPersonPhone": null,
+        "recommendPersonWorkUnit": ""
+      }
+      let list  = JSON.parse(JSON.stringify(this.list))
+      this.list = list.filter(i => {
+        let isI = false
+        for(let obj of this.multipleSelection) {
+          if(obj.recommendPersonPhone===i.recommendPersonPhone || !obj.recommendPersonPhone) {
+            isI = true
+          }
+        }
+        return isI
+      })
+      for(let i of this.list) {
+        if (i.recommendPersonName) {
+          this.form.recommendPersonList.push(i)
+        }
+      }
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val
     }
   }
 
 }
 </script>
 <style scoped>
+.left {
+  margin: 10px 0;
+}
 
 </style>

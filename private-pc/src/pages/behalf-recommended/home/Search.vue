@@ -134,6 +134,7 @@ export default {
       })
     },
     create () {
+      this.item = {}
       this.createDialogVisible = true
     },
     modify () {
