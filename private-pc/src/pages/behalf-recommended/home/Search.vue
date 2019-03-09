@@ -149,22 +149,42 @@ export default {
       this.createDialogVisible = true
     },
     async submit() {
+      if(this.multipleSelection.length === 0) {
+        this.$notify({
+          title: '',
+          message: '请勾选数据进提交！',
+          type: 'warning'
+        });
+        return
+      }
       let idList = []
       for (let i of this.multipleSelection) {
         idList.push(i.id)
       }
       let params = {idList,status: "REVIEW_SUCCESS"}
       await submitTabel(params)
-      this.getListData(params)
+      const param = JSON.parse(JSON.stringify(this.searchForm))
+      param.page = 1
+      this.getListData(param)
     },
     async deleteI () {
+      if(this.multipleSelection.length === 0) {
+        this.$notify({
+          title: '',
+          message: '请勾选数据进删除！',
+          type: 'warning'
+        });
+        return
+      }
       let idList = []
       for (let i of this.multipleSelection) {
         idList.push(i.id)
       }
       let params = {idList,status: "REVIEW_FAIL"}
       await deletetTabel(params)
-      this.getListData(params)
+      const param = JSON.parse(JSON.stringify(this.searchForm))
+      param.page = 1
+      this.getListData(param)
     }
   }
 }

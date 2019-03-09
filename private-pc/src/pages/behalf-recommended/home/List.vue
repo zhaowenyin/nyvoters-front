@@ -69,7 +69,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('behalfCommended', {
+    ...mapState('behalfCommendedHistory', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
@@ -84,10 +84,10 @@ export default {
     this.getListData()
   },
   methods: {
-    ...mapActions('behalfCommended', [
+    ...mapActions('behalfCommendedHistory', [
       'getListData'
     ]),
-    ...mapMutations('behalfCommended', [
+    ...mapMutations('behalfCommendedHistory', [
       'saveSelection'
     ]),
     // 分页

@@ -51,8 +51,6 @@ export default {
         type: 'updataSearchParam',
         payload
       })
-      console.log(666)
-      console.log(data.content)
       commit({
         type: 'updateList',
         data: data.content
