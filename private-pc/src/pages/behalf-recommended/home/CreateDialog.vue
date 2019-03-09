@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="在线登记"
+    :title="item.belongAreaId? '修改' : '登记'"
     :visible="visible"
     width="820px"
     :before-close="comfirmClose">

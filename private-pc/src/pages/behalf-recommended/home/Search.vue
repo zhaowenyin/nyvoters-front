@@ -149,7 +149,7 @@ export default {
       this.item = this.multipleSelection[0]
       this.createDialogVisible = true
     },
-    async submit() {
+    submit() {
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',
@@ -158,6 +158,13 @@ export default {
         });
         return
       }
+      this.$confirm('确认将该选民提交到资格审核阶段？')
+        .then(() => {
+          this.submitData()
+        })
+        .catch(() => {})
+    },
+    async submitData() {
       let idList = []
       for (let i of this.multipleSelection) {
         idList.push(i.id)
@@ -167,6 +174,11 @@ export default {
       const param = JSON.parse(JSON.stringify(this.searchForm))
       param.page = 1
       this.getListData(param)
+      this.$notify({
+        title: '',
+        message: '提交成功',
+        type: 'success'
+      })
     },
     async deleteI () {
       if(this.multipleSelection.length === 0) {
