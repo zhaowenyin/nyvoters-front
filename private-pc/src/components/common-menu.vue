@@ -22,6 +22,16 @@
         <el-menu-item class="item" index="/qual-review">资格审查</el-menu-item>
         <el-menu-item class="item" index="/behalf-recommended">代表推荐</el-menu-item>
       </el-submenu>
+       <el-submenu index="3">
+        <template slot="title">
+          <img src="../assets/img/77.png" class="icon"/>
+          <span>系统管理</span>
+        </template>
+        <el-menu-item class="item" index="/region">行政区管理</el-menu-item>
+        <el-menu-item class="item" index="/basic">基础设置</el-menu-item>
+        <el-menu-item class="item" index="/file">文件资料管理</el-menu-item>
+        <el-menu-item class="item" index="/operate">操作日志</el-menu-item>
+      </el-submenu>
     </el-menu>
   </div>
 </template>
