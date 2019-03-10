@@ -119,7 +119,7 @@ export default {
         voteDate: [
           { required: true, message: '请选择推荐方式！', trigger: 'blur' }
         ],
-        fileList: [
+        id: [
           { required: true, message: '请选择推荐方式！', trigger: 'blur' }
         ]
       },
