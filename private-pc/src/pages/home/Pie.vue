@@ -1,5 +1,5 @@
 <template>
-  <ve-pie :data="chartData" height="300px" :settings="chartSettings"></ve-pie>
+  <ve-pie :legend="legend" :grid="grid" :data="chartData" height="300px" :settings="chartSettings"></ve-pie>
 </template>
 
 <script>
@@ -7,13 +7,14 @@ export default {
   data () {
     this.chartSettings = {
       radius: 80,
-      labelLine: {
-        show: true
-      },
-      label: {
-
-      }
-
+      offsetY: '40%'
+    }
+    this.legend = {
+      bottom: 30,
+      left: 'center',
+    }
+    this.grid = {
+      top: 10,
     }
     return {
       chartData: {

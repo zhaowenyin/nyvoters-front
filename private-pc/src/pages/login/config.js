@@ -12,7 +12,11 @@ export const verifyArr = [
   '/behalf-recommended',
   '/qual-review',
   '/qual-review/history',
-  '/behalf-recommended/history'
+  '/behalf-recommended/history',
+  '/region',
+  '/basic',
+  '/file',
+  '/operate'
 
 ]
 

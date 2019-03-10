@@ -1,5 +1,5 @@
 <template>
-  <ve-histogram :data="chartData" :settings="chartSettings"></ve-histogram>
+  <ve-histogram :grid="grid" :legend="legend" :data="chartData" :settings="chartSettings"></ve-histogram>
 </template>
 
 <script>
@@ -8,7 +8,14 @@ export default {
     this.chartSettings = {
       axisSite: { right: ['下单率'] },
       yAxisType: ['KMB', 'percent'],
-      yAxisName: ['数值', '比率']
+      yAxisName: ['数值', '比率'],
+    }
+    this.legend = {
+      bottom: 30,
+      left: 'center',
+    }
+    this.grid = {
+      top: 10,
     }
     return {
       chartData: {

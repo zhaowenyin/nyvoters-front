@@ -18,6 +18,12 @@ const BehalfCommendedHistory = () => import('@/pages/behalf-recommended/history'
 const QualReviewLayout = () => import('./pages/qual-review')
 const QualReview = () => import('./pages/qual-review/home')
 const QualReviewHistory = () => import('./pages/qual-review/history')
+// 系统管理
+const RegionManage = () => import('@/pages/system-manage/region-manage')
+const BasicManage = () => import('@/pages/system-manage/basic-setting')
+const FileManage = () => import('@/pages/system-manage/file-manage')
+const OperateLog = () => import('@/pages/system-manage/operate-log')
+
 
 
 Vue.use(Router)
@@ -84,6 +90,26 @@ const router = new Router({
               component: BehalfCommendedHistory
             }
           ]
+        },
+        {
+          path: 'region',
+          name: '行政区管理',
+          component: RegionManage
+        },
+        {
+          path: 'basic',
+          name: '基础设置',
+          component: BasicManage
+        },
+        {
+          path: 'file',
+          name: '文件资料管理',
+          component: FileManage
+        },
+        {
+          path: 'operate',
+          name: '操作日志',
+          component: OperateLog
         }
       ]
     },
