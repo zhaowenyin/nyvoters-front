@@ -74,7 +74,7 @@ export default {
     this.clearState()
   },
   methods: {
-    ...mapMutations('behalfCommended', [
+    ...mapMutations('regionManage', [
       'clearState'
     ]),
     handleNodeClick(data) {
