@@ -1,10 +1,13 @@
 <template>
-  <div class="view">
-    资格审查
+  <div class="box">
+    <Search />
+    <List />
   </div>
 </template>
 <script>
 import { mapMutations } from 'vuex'
+import Search from './Search'
+import List from './List'
 
 export default {
   data () {
@@ -15,6 +18,8 @@ export default {
 
   },
   components: {
+    Search,
+    List,
   },
   created () {
     // 初始化清除数据
@@ -28,7 +33,7 @@ export default {
 }
 </script>
 <style scoped>
-  .view{
-    padding: 0px 30px;
+  .box{
+    padding-top: 16px;
   }
 </style>
