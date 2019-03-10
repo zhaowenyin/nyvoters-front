@@ -54,7 +54,7 @@
        <el-form-item
         label="登录背景地址"
         class="complait-content"
-        prop="fileList">
+        prop="id">
           <el-upload
             style="100%"
             :class="['commom1',{'uploadcomplait':form.fileList.length>0}]"
@@ -70,7 +70,7 @@
             :before-upload="beforeAvatarUpload"
             :limit="1"
             :file-list="form.fileList"
-            :auto-upload="ture">
+           :auto-upload="true">
             <div
             v-if="form.fileList.length===0"
             class="but">请上传登录背景地址</div>
@@ -99,7 +99,7 @@ export default {
     return {
       loading: false,
       form: {
-        fileList: [],
+        id: '',
         registerEndDate:'',
         registerStartDate: '',
         sessionNum: null,
@@ -117,6 +117,9 @@ export default {
           { required: true, message: '请选择推荐方式！', trigger: 'blur' }
         ],
         voteDate: [
+          { required: true, message: '请选择推荐方式！', trigger: 'blur' }
+        ],
+        fileList: [
           { required: true, message: '请选择推荐方式！', trigger: 'blur' }
         ]
       },
@@ -144,14 +147,14 @@ export default {
       }
       let paramStr = ''
       for (const k in param) {
-        if (this.param[k] !== undefined &&
-            this.param[k] !== null &&
-            this.param[k] !== '') {
-          paramStr += `&${k}=${this.param[k]}`
+        if (param[k] !== undefined &&
+            param[k] !== null &&
+            param[k] !== '') {
+          paramStr += `&${k}=${param[k]}`
         }
       }
       paramStr = paramStr.substr(1)
-      return `${baseURL}${this.url}?${paramStr}`
+      return `${baseURL}/doc/upload/?${paramStr}`
     }
   },
   created () {
@@ -192,16 +195,18 @@ export default {
       this.form.fileList = fileList
     },
     beforeAvatarUpload (file) {
-      const isXlsx = file.type ===
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      if (!isXlsx) {
-        this.$notify.error({title: '只能上传 xlsx 格式的文件!'})
-      }
-      return isXlsx
+      console.log(file)
+      // const isXlsx = file.type ===
+      //   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      // if (!isXlsx) {
+      //   this.$notify.error({title: '只能上传 xlsx 格式的文件!'})
+      // }
+      // return isXlsx
     },
-    successFn () {
+    successFn (response) {
       this.$notify.success({title: '上传成功'})
-      this.$refs.upload.clearFiles()
+      this.form.id = response.data.content
+      // this.$refs.upload.clearFiles()
     },
     errorFn (err) {
       const { message = `{}` } = err
