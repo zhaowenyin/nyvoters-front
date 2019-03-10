@@ -59,17 +59,18 @@
             style="100%"
             :class="['commom1',{'uploadcomplait':form.fileList.length>0}]"
             :headers="headers"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="allUrl"
             ref="upload"
             :on-change="changeFile"
             :on-success="successFn"
             :on-error="errorFn"
             :on-remove="changeFile"
+            name="fileName"
             :multiple="false"
             :before-upload="beforeAvatarUpload"
             :limit="1"
             :file-list="form.fileList"
-            :auto-upload="false">
+            :auto-upload="ture">
             <div
             v-if="form.fileList.length===0"
             class="but">请上传登录背景地址</div>
@@ -92,6 +93,7 @@
 </template>
 <script>
 import {setSubmit} from './service.js'
+import { baseURL } from '../../../utils/api.js'
 export default {
   data () {
     return {
@@ -135,6 +137,23 @@ export default {
       type: Object
     }
   },
+  computed: {
+    allUrl () {
+      let param = {
+        module: '3',
+      }
+      let paramStr = ''
+      for (const k in param) {
+        if (this.param[k] !== undefined &&
+            this.param[k] !== null &&
+            this.param[k] !== '') {
+          paramStr += `&${k}=${this.param[k]}`
+        }
+      }
+      paramStr = paramStr.substr(1)
+      return `${baseURL}${this.url}?${paramStr}`
+    }
+  },
   created () {
   },
   methods: {
@@ -161,14 +180,14 @@ export default {
         })
         .catch(() => {})
     },
-    submit () {
-      if (this.form.fileList.length === 0) {
-        this.$notify.error({title: '上传文件不能为空'})
-        return
-      }
-      this.$emit('upload', {ref: 'upload'})
-      this.$refs.upload.submit()
-    },
+    // submit () {
+    //   if (this.form.fileList.length === 0) {
+    //     this.$notify.error({title: '上传文件不能为空'})
+    //     return
+    //   }
+    //   this.$emit('upload', {ref: 'upload'})
+    //   this.$refs.upload.submit()
+    // },
     changeFile (file, fileList) {
       this.form.fileList = fileList
     },
