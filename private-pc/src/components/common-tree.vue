@@ -2,10 +2,10 @@
   <div>
     <el-tree
       class="add-tree"
-      :data="data"
-      :props="defaultProps"
       icon-class="tree-icon"
-      @node-click="handleNodeClick"></el-tree>
+      v-bind="[$attrs, $props]"
+      v-on="$listeners"
+      ></el-tree>
   </div>
 </template>
 <script>
@@ -16,11 +16,11 @@ export default {
       default: () => [],
       type: Array
     },
-    defaultProps: {
+    props: {
       default: () => {
         return {
           children: 'children',
-          label: 'label'
+          label: 'name'
         }
       },
       type: Object,
@@ -28,7 +28,20 @@ export default {
     nodeClick: {
       default: () => {},
       type: Function,
+    },
+    nodeKey: {
+      default: 'id',
+      type: String,
+    },
+    defaultExpandAll: {
+      default: true,
+      type: Boolean
+    },
+    highlightCurrent: {
+      default: true,
+      type: Boolean
     }
+
   },
   data () {
     return {

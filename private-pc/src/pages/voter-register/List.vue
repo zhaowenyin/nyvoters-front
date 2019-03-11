@@ -36,7 +36,7 @@
     <div
       v-show="total"
       class="add_pagination">
-      <el-pagination
+      <Pagination
         @current-change="handleCurrentChange"
         :page-size="size"
         background
@@ -49,6 +49,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { formatDate } from '../../utils/format.js'
+import Pagination from '../../components/Pagination'
 
 export default {
   data () {
@@ -66,6 +67,7 @@ export default {
     })
   },
   components: {
+    Pagination
   },
   created () {
     this.getListData()
