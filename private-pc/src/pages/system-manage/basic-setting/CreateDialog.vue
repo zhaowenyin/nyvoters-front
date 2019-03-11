@@ -57,9 +57,9 @@
         prop="id">
           <el-upload
             style="100%"
-            :class="['commom1',{'uploadcomplait':form.fileList.length>0}]"
+            :class="['commom1',{'uploadcomplait':fileList.length>0}]"
             :headers="headers"
-            :action="allUrl"
+            action="https://jsonplaceholder.typicode.com/posts/"
             ref="upload"
             :on-change="changeFile"
             :on-success="successFn"
@@ -69,10 +69,11 @@
             :multiple="false"
             :before-upload="beforeAvatarUpload"
             :limit="1"
-            :file-list="form.fileList"
-           :auto-upload="true">
+            :file-list="fileList"
+            accept="image/jpeg,image/gif,image/png"
+            :auto-upload="true">
             <div
-            v-if="form.fileList.length===0"
+            v-if="fileList.length===0"
             class="but">请上传登录背景地址</div>
           </el-upload>
       </el-form-item>
@@ -105,22 +106,23 @@ export default {
         sessionNum: null,
         voteDate: ''
       },
+      fileList: [],
       multipleSelection: [],
       rules: {
         registerEndDate: [
-          { required: true, message: '请选择推荐方式！', trigger: 'blur' }
+          { required: true, message: '请选择登记截止日期！', trigger: 'blur' }
         ],
         registerStartDate: [
-          { required: true, message: '请选择推荐方式！', trigger: 'blur' }
+          { required: true, message: '请选择登记开始日期！', trigger: 'blur' }
         ],
         sessionNum: [
-          { required: true, message: '请选择推荐方式！', trigger: 'blur' }
+          { required: true, message: '请输入选举届数！', trigger: 'blur' }
         ],
         voteDate: [
-          { required: true, message: '请选择推荐方式！', trigger: 'blur' }
+          { required: true, message: '请选择选举日！', trigger: 'blur' }
         ],
         id: [
-          { required: true, message: '请选择推荐方式！', trigger: 'blur' }
+          { required: true, message: '请上传背景！', trigger: 'blur' }
         ]
       },
       headers: {
@@ -172,7 +174,11 @@ export default {
     },
     async sumitData () {
       this.loading = true
-      await setSubmit(this.form)
+      let param = {...this.form}
+      param.registerEndDate = param.registerEndDate.getTime()
+      param.registerStartDate = param.registerStartDate.getTime()
+      param.voteDate = param.voteDate.getTime()
+      await setSubmit(param)
       this.close()
       this.loading = false
     },
@@ -183,16 +189,8 @@ export default {
         })
         .catch(() => {})
     },
-    // submit () {
-    //   if (this.form.fileList.length === 0) {
-    //     this.$notify.error({title: '上传文件不能为空'})
-    //     return
-    //   }
-    //   this.$emit('upload', {ref: 'upload'})
-    //   this.$refs.upload.submit()
-    // },
     changeFile (file, fileList) {
-      this.form.fileList = fileList
+      this.fileList = fileList
     },
     beforeAvatarUpload (file) {
       console.log(file)
@@ -205,7 +203,9 @@ export default {
     },
     successFn (response) {
       this.$notify.success({title: '上传成功'})
-      this.form.id = response.data.content
+      console.log(response)
+      this.form.id = 1
+      // this.form.id = response.data.content
       // this.$refs.upload.clearFiles()
     },
     errorFn (err) {

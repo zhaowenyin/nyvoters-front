@@ -55,7 +55,7 @@ export async function getList (payload) {
 }
 
 // post请求
-export async function post (payload) {
+export async function setSubmit (payload) {
   console.log(payload)
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -65,17 +65,5 @@ export async function post (payload) {
       })
     }, 500)
   })
-  // return api.post('/api', payload)
-}
-export async function repealTabel (payload) {
-  console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/repre-recommend-record/cancel', payload)
+  // return api.post('/sys-config/save', payload)
 }
