@@ -7,34 +7,15 @@ export async function getList (payload) {
     setTimeout(() => {
       resolve({
         data: {
+          "code": "string",
           "content": {
             "data": [
               {
-                "belongAreaId": 54122356874,
-                "birthDay": "1995-01-01 00:00:00",
-                "education": "本科",
-                "gender": 1,
-                "id": 0,
-                "idNum": 510810199910251100,
-                "jobTitle": "中级会计",
-                "nation": "汉",
-                "party": "中共党员",
-                "phoneNum": 15898412568,
-                "post": "职员",
-                "recommendPersonVOList": [
-                  {
-                    "recommendPersonName": "张三",
-                    "recommendPersonPhone": 15898741563,
-                    "recommendPersonWorkUnit": "中共成都市委"
-                  }
-                ],
-                "recommendReason": "哎哟，不错哟",
-                "recommendType": 1,
-                "recommendUnit": "成都市文化旅游局",
-                "recommendedPerson": "张三",
-                "status": "string",
-                "type": 1,
-                "workUnit": "成都市文化旅游局"
+                "details": "string",
+                "module": "string",
+                "opTime": 1549382400000,
+                "operate": "string",
+                "userName": "string"
               }
             ],
             "endRow": 0,
@@ -44,38 +25,13 @@ export async function getList (payload) {
             "startRow": 0,
             "total": 0
           },
-          "errorCode": "string",
-          "errorMsg": "string",
+          "message": "string",
           "status": "string"
         }
       })
     }, 500)
   })
-  // return api.get('/api', { params: payload })
+  // return api.get('/log/list', { params: payload })
 }
 
-// post请求
-export async function post (payload) {
-  console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/api', payload)
-}
-export async function repealTabel (payload) {
-  console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/repre-recommend-record/cancel', payload)
-}
+
