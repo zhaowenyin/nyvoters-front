@@ -110,7 +110,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('behalfCommended', {
+    ...mapState('regionManage', {
       multipleSelection: state=>state.multipleSelection
     })
   },
@@ -120,7 +120,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('behalfCommended', [
+    ...mapActions('regionManage', [
       'getListData',
     ]),
     // 搜索

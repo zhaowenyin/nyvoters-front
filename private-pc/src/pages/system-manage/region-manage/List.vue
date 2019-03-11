@@ -84,10 +84,10 @@ export default {
     this.getListData()
   },
   methods: {
-    ...mapActions('behalfCommended', [
+    ...mapActions('regionManage', [
       'getListData'
     ]),
-    ...mapMutations('behalfCommended', [
+    ...mapMutations('regionManage', [
       'saveSelection'
     ]),
     // 分页
