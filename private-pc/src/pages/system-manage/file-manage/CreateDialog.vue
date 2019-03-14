@@ -1,8 +1,8 @@
 <template>
   <el-dialog
-    title="系统参数设置"
+    title="上传"
     :visible="visible"
-    width="600px"
+    width="650px"
     :before-close="comfirmClose">
     <el-form
       label-width="110px"
@@ -10,71 +10,47 @@
       :rules="rules"
       ref="form"
       class="form">
-      <el-form-item
-        label="选举届数"
-        prop="sessionNum">
-        <el-input
-          size="medium"
-          placeholder="请输入"
-          :maxlength="18"
-          class="item"
-          v-model="form.sessionNum" />
-      </el-form-item>
-      <el-form-item
-        label="选举日"
-        prop="voteDate">
-        <el-date-picker
-          style="width: 100%"
-          v-model="form.voteDate"
-          type="date"
-          placeholder="请选择">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item
-        label="登记开日期"
-        prop="registerStartDate">
-        <el-date-picker
-          style="width: 100%"
-          v-model="form.registerStartDate"
-          type="date"
-          placeholder="请选择">
-        </el-date-picker>
-      </el-form-item>
-      <el-form-item
-        style="width: 100%"
-        label="登记结束日期"
-        prop="registerEndDate">
-        <el-date-picker
-         style="width: 100%"
-          v-model="form.registerEndDate "
-          type="date"
-          placeholder="请选择">
-        </el-date-picker>
-      </el-form-item>
        <el-form-item
-        label="登录背景地址"
+        label="选择文件"
         class="complait-content"
-        prop="id">
+        prop="fileList">
           <el-upload
             style="100%"
-            :class="['commom1',{'uploadcomplait':fileList.length>0}]"
+            :class="['commom1',{'uploadcomplait':form.fileList.length>0}]"
             :headers="headers"
             action="https://jsonplaceholder.typicode.com/posts/"
             ref="upload"
             :on-change="changeFile"
             :on-success="successFn"
             :on-error="errorFn"
+            :disabled="!!item.id"
             :on-remove="changeFile"
             :multiple="false"
             :before-upload="beforeAvatarUpload"
             :limit="1"
-            :file-list="fileList"
-            accept="image/jpeg,image/gif,image/png"
-            :auto-upload="true">
+            :file-list="form.fileList"
+            :auto-upload="false">
             <div
-            v-if="fileList.length===0"
-            class="but">请上传登录背景地址</div>
+            v-if="form.fileList.length===0"
+            class="but">选择文件</div>
           </el-upload>
+      </el-form-item>
+      <el-form-item
+        label="文件名称"
+        prop="fileName">
+        <el-input
+          size="medium"
+          placeholder="请输入"
+          :maxlength="18"
+          class="item"
+          v-model="form.fileName" />
+      </el-form-item>
+      <el-form-item
+        label="所属模块"
+        prop="module">
+          <el-radio-group  size="medium" v-model="form.module">
+            <el-radio v-for="(i,key) in moudel" :key="key" :label="+key">{{i}}</el-radio>
+          </el-radio-group>
       </el-form-item>
     </el-form>
     <div
@@ -92,43 +68,45 @@
   </el-dialog>
 </template>
 <script>
-import {setSubmit} from './service.js'
 import { baseURL } from '../../../utils/api.js'
+import {moudel} from '../../../common-data/config.js'
 import { getSession } from '../../../utils/session.js'
+import { mapActions } from 'vuex'
+import {modifySubmit} from './service.js'
 export default {
   data () {
     const authToken = getSession()
+    var valid = (rule, value, callback) => {
+      if (value === ''&&(!this.item.id)) {
+        callback(new Error('请选择所属模块！'));
+      } else {
+        callback();
+      }
+    };
     return {
       loading: false,
       form: {
-        id: '',
-        registerEndDate:'',
-        registerStartDate: '',
-        sessionNum: null,
-        voteDate: ''
+        fileName: '',
+        fileList: [],
+        module: '',
       },
-      fileList: [],
+
       multipleSelection: [],
       rules: {
-        registerEndDate: [
-          { required: true, message: '请选择登记截止日期！', trigger: 'blur' }
+        fileName: [
+          { required: true, message: '请输入文件名字！', trigger: 'blur' }
         ],
-        registerStartDate: [
-          { required: true, message: '请选择登记开始日期！', trigger: 'blur' }
+        fileList: [
+          { validator:valid, message: '请选择文件！', trigger: 'blur' }
         ],
-        sessionNum: [
-          { required: true, message: '请输入选举届数！', trigger: 'blur' }
-        ],
-        voteDate: [
-          { required: true, message: '请选择选举日！', trigger: 'blur' }
-        ],
-        id: [
-          { required: true, message: '请上传背景！', trigger: 'blur' }
+        module: [
+          { required: true,message: '请选择所属模块！', trigger: 'blur' }
         ]
       },
       headers: {
         Authorization: authToken.token,
       },
+      moudel
     }
 
   },
@@ -145,7 +123,8 @@ export default {
   computed: {
     allUrl () {
       let param = {
-        module: '3',
+        fileName: this.form.fileName,
+        module: this.form.module
       }
       let paramStr = ''
       for (const k in param) {
@@ -160,25 +139,33 @@ export default {
     }
   },
   created () {
+    this.form = {...this.form, fileName: this.item.fileName,module: this.item.module}
   },
   methods: {
+    ...mapActions('fileManage', [
+      'getListData'
+    ]),
     close () {
       this.$emit('update:visible', false)
     },
     submitForm () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          this.sumitData()
+          if(this.item.id) {
+            this.sumitData()
+          }
+          this.$refs.upload.submit()
         }
       })
     },
     async sumitData () {
       this.loading = true
-      let param = {...this.form}
-      param.registerEndDate = param.registerEndDate.getTime()
-      param.registerStartDate = param.registerStartDate.getTime()
-      param.voteDate = param.voteDate.getTime()
-      await setSubmit(param)
+      let param = {
+        fileName: this.form.fileName,
+        module: this.form.module
+      }
+      await modifySubmit(param)
+      this.getListData()
       this.close()
       this.loading = false
     },
@@ -190,7 +177,7 @@ export default {
         .catch(() => {})
     },
     changeFile (file, fileList) {
-      this.fileList = fileList
+      this.form.fileList = fileList
     },
     beforeAvatarUpload (file) {
       console.log(file)
@@ -201,11 +188,10 @@ export default {
       // }
       // return isXlsx
     },
-    successFn (response) {
+    successFn () {
       this.$notify.success({title: '上传成功'})
-      console.log(response)
-      this.form.id = 1
-      // this.form.id = response.data.content
+      this.getListData()
+      this.close()
       // this.$refs.upload.clearFiles()
     },
     errorFn (err) {

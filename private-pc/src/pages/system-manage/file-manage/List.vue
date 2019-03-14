@@ -10,35 +10,28 @@
         width="55">
       </el-table-column>
       <el-table-column
-        label="被推荐人"
-        prop="recommendedPerson" />
-      <el-table-column
-        width="180"
-        label="身份证号码"
-        prop="idNum"/>
+        label="文件名称"
+        prop="fileName" />
        <el-table-column
-        label="性别"
-        prop="gender">
+        label="所属模块"
+        prop="module">
         <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '男' : '女'}}
+          {{handermodule(scope.row.module)}}
         </template>
       </el-table-column>
       <el-table-column
-        label="推荐方式">
+        label="类型">
          <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '团体推荐' : '选民联名推荐'}}
+          {{scope.row.type === 1 ? '用户上传' : '系统预置'}}
         </template>
       </el-table-column>
       <el-table-column
-        label="类型"
+        label="上传日期"
       >
         <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '区县代表' : '乡镇代表'}}
+          {{formatDate(scope.row.uploadTime)}}
         </template>
       </el-table-column>
-      <el-table-column
-        prop="belongAreaId"
-        label="所属选区"/>
     </el-table>
     <div
       v-show="total"
@@ -64,7 +57,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('behalfCommendedHistory', {
+    ...mapState('fileManage', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
@@ -79,10 +72,10 @@ export default {
     this.getListData()
   },
   methods: {
-    ...mapActions('behalfCommendedHistory', [
+    ...mapActions('fileManage', [
       'getListData'
     ]),
-    ...mapMutations('behalfCommendedHistory', [
+    ...mapMutations('fileManage', [
       'saveSelection'
     ]),
     // 分页
@@ -95,8 +88,28 @@ export default {
     formatDate,
     handleSelectionChange(val) {
       this.saveSelection(val)
+    },
+    handermodule(module) {
+      let text = ""
+      switch(module) {
+      case 1:
+        text = '选民管理'
+        break
+      case 2:
+        text = '选区管理'
+        break
+      case 3:
+        text = '代表事务管理'
+        break
+      default:
+        text = '系统预置'
+      }
+      return text
+
     }
-  }
+
+  },
+
 }
 </script>
 <style scoped>

@@ -7,6 +7,7 @@ import voterRegister from './pages/voter-register/module'
 import behalfCommended from './pages/behalf-recommended/home/module'
 import behalfCommendedHistory from './pages/behalf-recommended/history/module'
 import regionManage from './pages/system-manage/region-manage/module'
+import fileManage from './pages/system-manage/file-manage/module'
 
 Vue.use(Vuex)
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     voterRegister,
     behalfCommended,
     behalfCommendedHistory,
-    regionManage
+    regionManage,
+    fileManage
   }
 })
