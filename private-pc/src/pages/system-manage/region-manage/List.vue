@@ -10,40 +10,18 @@
         width="55">
       </el-table-column>
       <el-table-column
-        label="被推荐人"
-         width="120"
-        prop="recommendedPerson" />
+        label="行政区名"
+        prop="name" />
       <el-table-column
-        width="180"
-        label="身份证号码"
-        prop="idNum" />
+        label="行政区代码"
+        prop="code" />
       <el-table-column
-        label="性别"
-        prop="gender">
+        label="级别"
+        prop="level">
         <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '男' : '女'}}
+          {{handerlevel(scope.row.level)}}
         </template>
       </el-table-column>
-      <el-table-column
-        label="推荐方式">
-         <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '团体推荐' : '选民联名推荐'}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="推荐类型"
-      >
-          <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '区县代表' : '乡镇代表'}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="belongAreaId"
-        label="所属选区">
-      </el-table-column>
-      <el-table-column
-        label="状态"
-        prop="status" />
     </el-table>
     <div
       v-show="total"
@@ -69,7 +47,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('behalfCommended', {
+    ...mapState('regionManage', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
@@ -100,7 +78,29 @@ export default {
     formatDate,
     handleSelectionChange(val) {
       this.saveSelection(val)
+    },
+    handerlevel(val) {
+      let text = ""
+      switch(val) {
+      case 0:
+        text = '省'
+        break
+      case 1:
+        text = '市'
+        break
+      case 2:
+        text = '县区'
+        break
+      case 3:
+        text = '乡镇'
+        break
+      default:
+        text = '村'
+      }
+      return text
+
     }
+
   }
 }
 </script>

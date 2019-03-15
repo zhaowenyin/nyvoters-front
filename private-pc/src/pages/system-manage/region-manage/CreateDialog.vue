@@ -1,8 +1,8 @@
 <template>
   <el-dialog
-    :title="item.belongAreaId? '修改' : '登记'"
+    title="行政区"
     :visible="visible"
-    width="820px"
+    width="600"
     :before-close="comfirmClose">
     <el-form
       label-width="110px"
@@ -10,294 +10,72 @@
       :rules="rules"
       ref="form"
       class="login-form">
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <el-form-item
-            label="推荐方式"
-            prop="recommendType">
-            <el-radio-group @change="change" size="medium" v-model="form.recommendType">
-              <el-radio :label="1">团体推荐</el-radio>
-              <el-radio :label="2">选民联名推荐</el-radio>
-            </el-radio-group>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="类型"
-            prop="type">
-            <el-radio-group size="medium" v-model="form.type">
-              <el-radio :label="1" :disabled="form.recommendType===2">区县代表</el-radio>
-              <el-radio :label="2" :disabled="form.recommendType===2">乡镇代表</el-radio>
-            </el-radio-group>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-            <el-form-item
-            label="所选区域"
-            prop="belongAreaId">
-            <el-select
-              size="medium"
-              style="width: 100%;"
-              class="item"
-              v-model="form.belongAreaId"
-              clearable placeholder="请选择">
-              <el-option
-                v-for="item in belongAreaList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-            <el-form-item
-            label="被推选人"
-            prop="recommendedPersonId">
-            <el-select
-              size="medium"
-              style="width: 100%;"
-              class="item"
-              @change="personChange"
-              v-model="form.recommendedPersonId"
-              clearable placeholder="请选择">
-              <el-option
-                v-for="item in recommendedPersonList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="身份证号码"
-            prop="idNum">
-            <el-input
-              size="medium"
-              placeholder="请输入"
-              :maxlength="18"
-              class="item"
-              v-model="form.idNum" />
-          </el-form-item>
-        </el-col>
-          <el-col :span="12">
-          <el-form-item
-            label="手机号码"
-            prop="phoneNum">
-            <el-input
-              size="medium"
-              placeholder="请输入"
-              class="item"
-              v-model="form.phoneNum" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item
-              label="出生日期"
-              prop="birthDay">
-              <el-date-picker
-                v-model="form.birthDay"
-                type="date"
-                placeholder="请选择">
-              </el-date-picker>
-            </el-form-item>
-          </el-col>
-
-        <el-col :span="12">
-          <el-form-item
-            label="性别："
-            prop="gender">
-            <el-radio-group size="medium" v-model="form.gender">
-              <el-radio :label="1">男</el-radio>
-              <el-radio :label="2">女</el-radio>
-            </el-radio-group>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label=" 民族："
-            prop="nation">
-            <el-select
-              size="medium"
-              style="width: 100%;"
-              class="item"
-              v-model="form.nation"
-              clearable placeholder="请选择">
-              <el-option
-                v-for="item in nationList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="学历"
-            prop="education">
-            <el-select
-              size="medium"
-              style="width: 100%;"
-              class="item"
-              v-model="form.education"
-              clearable placeholder="请选择">
-              <el-option
-                v-for="item in educationList"
-                :key="item"
-                :label="item"
-                :value="item">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="党派"
-            prop="party">
-            <el-select
-              size="medium"
-              style="width: 100%;"
-              class="item"
-              v-model="form.party"
-              clearable placeholder="请选择">
-              <el-option
-                v-for="item in partyList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="职务"
-            prop="education">
-            <el-select
-              size="medium"
-              style="width: 100%;"
-              class="item"
-              v-model="form.post"
-              clearable placeholder="请选择">
-              <el-option
-                v-for="item in postList"
-                :key="item"
-                :label="item"
-                :value="item">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="工作单位"
-            prop="workUnit">
-            <el-input
-              size="medium"
-              placeholder="请输入"
-              class="item"
-              v-model="form.workUnit" />
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="职称"
-            prop="jobTitle">
-            <el-input
-              size="medium"
-              placeholder="请输入"
-              class="item"
-              v-model="form.jobTitle" />
-          </el-form-item>
-        </el-col>
-      </el-row>
+       <el-form-item
+        label="行政区"
+        prop="parentId">
+        <el-cascader
+        style="width: 100%;"
+          :options="treeList"
+          placeholder="请选择行政区"
+          v-model="form.parentId"
+          filterable
+          change-on-select
+          >
+        </el-cascader>
+      </el-form-item>
       <el-form-item
-        label="推荐理由"
-        prop="recommendReason">
+        label="行政区名"
+        prop="name">
         <el-input
           size="medium"
-          placeholder="请输入"
+          placeholder="请输入行政区名"
           class="item"
-          v-model="form.recommendReason" />
+          v-model="form.name" />
+      </el-form-item>
+       <el-form-item
+        label="行政区代码"
+        prop="code">
+        <el-input
+          size="medium"
+          placeholder="请输入行政区代码"
+          class="item"
+          v-model="form.code" />
       </el-form-item>
       <el-form-item
-        v-if="form.recommendType===1"
-        label="推荐单位"
-        prop="recommendUnit">
-        <el-input
-          placeholder="请输入"
+        label="行政区级别"
+        prop="level">
+        <el-select
+          size="medium"
+          style="width: 100%;"
           class="item"
-          v-model="form.recommendUnit" />
+          v-model="form.level"
+          clearable placeholder="请选择行政区级别">
+          <el-option
+            v-for="(item,key) in levelList"
+            :key="key"
+            :label="item"
+            :value="key">
+          </el-option>
+        </el-select>
       </el-form-item>
-    </el-form>
-    <el-form
-      v-if="form.recommendType===2"
-      label-width="0"
-      :model="tableObj"
-      :rules="tableRules"
-      ref="tableObj"
-      class="table-obj">
-        <div class="left">
-          <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">添加</el-button>
-          <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
-        </div>
-        <el-table
-           @selection-change="handleSelectionChange"
-          :data="list"
-          class="add_table">
-          <el-table-column
-            type="selection"
-            width="55">
-          </el-table-column>
-          <el-table-column
-          label="推荐人姓名">
-            <template slot-scope="scope">
-              <el-form-item
-                prop="recommendPersonName">
-                  <el-input
-                  v-if="!scope.row.recommendPersonName"
-                  size="medium"
-                  placeholder="请输入"
-                  class="item"
-                  v-model="tableObj.recommendPersonName" />
-                <div v-else>{{scope.row.recommendPersonName}}</div>
-              </el-form-item>
-            </template>
-          </el-table-column>
-          <el-table-column
-          label="推荐人手机">
-            <template slot-scope="scope">
-              <el-form-item
-              prop="recommendPersonPhone">
-                <el-input
-                  v-if="!scope.row.recommendPersonPhone"
-                  size="medium"
-                  placeholder="请输入"
-                  class="item"
-                  v-model="tableObj.recommendPersonPhone" />
-                <div v-else>{{scope.row.recommendPersonPhone}}</div>
-              </el-form-item>
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="推荐人工作单位">
-          <template slot-scope="scope">
-            <el-form-item
-              prop="recommendPersonWorkUnit">
-              <el-input
-                v-if="!scope.row.recommendPersonWorkUnit"
-                size="medium"
-                placeholder="请输入"
-                class="item"
-                v-model="tableObj.recommendPersonWorkUnit" />
-              <div v-else>{{scope.row.recommendPersonWorkUnit}}</div>
-            </el-form-item>
-          </template>
-        </el-table-column>
-      </el-table>
+      <el-form-item
+        label="人口数"
+        prop="pnum">
+        <el-input
+          size="medium"
+          placeholder="请输入人口数"
+          class="item"
+          v-model="form.pnum" />
+      </el-form-item>
+       <el-form-item
+        label="排序码"
+        prop="sort">
+        <el-input
+          size="medium"
+          placeholder="请输入排序吗"
+          class="item"
+          v-model="form.sort" />
+      </el-form-item>
     </el-form>
     <div
       slot="footer"
@@ -314,132 +92,45 @@
   </el-dialog>
 </template>
 <script>
-import {setSubmit} from './service.js'
+import {setSubmit,getTree,modifySubmit} from './service.js'
+import {levelList} from '../../../common-data/config.js'
+import { mapActions } from 'vuex'
 export default {
   data () {
     return {
       loading: false,
       form: {
-        recommendType: 1,
-        type: '',
-        belongAreaId: '',
-        idNum: '',
-        recommendedPersonId: '',
-        recommendedPerson: '',
-        phoneNum: '',
-        birthDay: '',
-        gender: '',
-        nation: '',
-        education: '',
-        party:'',
-        post: '',
-        workUnit: '',
-        jobTitle: '',
-        recommendReason: '',
-        recommendUnit: '',
-        recommendPersonList: [],
-      },
-      tableObj: {
-        "recommendPersonName": "",
-        "recommendPersonPhone": null,
-        "recommendPersonWorkUnit": ""
-      },
-      tableRules: {
-        recommendPersonName: [
-          { required: true, message: '请输入推荐人姓名！', trigger: 'blur' }
-        ],
-        recommendPersonPhone:  [
-          { required: true, message: '请输入推荐人手机！', trigger: 'blur' }
-        ],
-        recommendPersonWorkUnit: [
-          { required: true, message: '请输入推荐人工作单位！', trigger: 'blur' }
-        ],
+        code: '',
+        level: '',
+        name: '',
+        parentId: [],
+        pnum: '',
+        sort: ''
       },
       multipleSelection: [],
       rules: {
-        recommendType: [
-          { required: true, message: '请选择推荐方式！', trigger: 'blur' }
+        code: [
+          { required: true, message: '请输入行政区代码！', trigger: 'blur' }
         ],
-        type:  [
-          { required: true, message: '请选择类型！', trigger: 'blur' }
+        level:  [
+          { required: true, message: '请选择level！', trigger: 'blur' }
         ],
-        belongAreaId: [
-          { required: true, message: '请选择被推荐人！', trigger: 'blur' }
+        name:  [
+          { required: true, message: '请输入行政区名称！', trigger: 'blur' }
         ],
-        idNum: [
-          { required: true, message: '请输入身份证号码！', trigger: 'blur' }
+        parentId:  [
+          { required: true, message: '请选择级行政区！', trigger: 'blur' }
         ],
-        nation: [
-          { required: true, message: '请选择民族', trigger: 'blur' }
+        pnum:  [
+          { required: true, message: '请输入人口数！', trigger: 'blur' }
         ],
-        gender: [
-          { required: true, message: '请选择性别', trigger: 'blur' }
+        sort:  [
+          { required: true, message: '请输入排序码！', trigger: 'blur' }
         ],
-        phoneNum: [
-          { required: true, message: '请输入手机号码', trigger: 'blur' }
-        ],
-        birthDay: [
-          { required: true, message: '请选择出生日期', trigger: 'blur' }
-        ],
-        recommendedPersonId:[
-          { required: true, message: '请选择出生日期', trigger: 'blur' }
-        ]
       },
-      options: [{
-        value: '1',
-        label: '居住地'
-      }, {
-        value: '2',
-        label: '外地'
-      }],
-      nationList: [{
-        value: '1',
-        label: '居住地'
-      }, {
-        value: '2',
-        label: '外地'
-      }],
-      belongAreaList:[{
-        value: '1',
-        label: '居住地'
-      }, {
-        value: '2',
-        label: '外地'
-      }],
-      recommendedPersonList: [{
-        value: '1',
-        label: '居住地',
-        phoneNum: '1',
-        birthDay: 652806000000,
-        gender: 2,
-        nation: 2,
-        belongAreaId: 1,
-        belongArea: '1',
-        idNum: '1111',
-        workUnit: '8888',
+      treeList: [],
+      levelList
 
-      }, {
-        value: '2',
-        label: '外地',
-        phoneNum: '2',
-        birthDay: 652806000000,
-        gender: 1,
-        nation: 1,
-        belongAreaId: 1,
-        belongArea: '2',
-        idNum: '2222',
-        workUnit: '666'
-      }],
-      educationList:  ['大学以上','大专','中专及高中','中专及以下'],
-      partyList:[{
-        value: '1',
-        label: '居住地'
-      }, {
-        value: '2',
-        label: '外地'
-      }],
-      postList: ['公务员', '企业负责人', '工人', '农民', '专业技术人员','其他'],
-      list: [{}]
     }
 
   },
@@ -455,23 +146,45 @@ export default {
   },
   created () {
     this.form = {...this.form, ...this.item }
+    this.searchTree()
   },
   methods: {
+    ...mapActions('regionManage', [
+      'getListData'
+    ]),
     close () {
       this.$emit('update:visible', false)
     },
     submitForm () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          this.sumitData()
+          if(this.item.id) {
+            this.modifyData()
+          } else {
+            this.sumitData()
+          }
         }
       })
     },
     async sumitData () {
       this.loading = true
       await setSubmit(this.form)
+
+      this.getListData()
       this.close()
       this.loading = false
+    },
+    async modifyData () {
+      this.loading = true
+      await modifySubmit(this.form)
+      this.getListData()
+      this.close()
+      this.loading = false
+    },
+
+    async searchTree () {
+      const {data} = await getTree()
+      this.treeList = data.content
     },
     comfirmClose () {
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
@@ -480,92 +193,6 @@ export default {
         })
         .catch(() => {})
     },
-    change (val) {
-      if(val===2) {
-        this.form.type = 2
-      }
-
-    },
-    personChange (val) {
-      for(let i of this.recommendedPersonList) {
-        if(val === i.value) {
-          this.form.phoneNum = i.phoneNum
-          this.form.birthDay = i.birthDay
-          this.form.nation = i.nation
-          this.form.belongAreaId = i.belongAreaId
-          this.form.gender = i.gender
-          this.form.idNum = i.idNum
-          this.form.recommendedPerson = i.label
-          break
-        }
-      }
-    },
-    create () {
-      this.$refs.tableObj.validate((valid) => {
-        if (valid) {
-          for(let i of this.list) {
-            if(i.recommendPersonPhone === this.tableObj.recommendPersonPhone) {
-              this.$notify({
-                title: '',
-                message: '已经添加重复推荐人',
-                type: 'warning'
-              })
-              return
-            }
-          }
-
-          this.list.unshift(this.tableObj)
-          this.tableObj = {
-            "recommendPersonName": "",
-            "recommendPersonPhone": null,
-            "recommendPersonWorkUnit": ""
-          }
-          let list  = JSON.parse(JSON.stringify(this.list))
-          for(let i of list) {
-            if (i.recommendPersonName) {
-              this.form.recommendPersonList.push(i)
-            }
-          }
-        }
-      })
-
-    },
-    deleteI () {
-      if(this.multipleSelection.length === 0) {
-        this.$notify({
-          title: '',
-          message: '请勾选数据进删除！',
-          type: 'warning'
-        });
-        return
-      }
-      this.tableObj = {
-        "recommendPersonName": "",
-        "recommendPersonPhone": null,
-        "recommendPersonWorkUnit": ""
-      }
-      let list  = JSON.parse(JSON.stringify(this.list))
-      this.list = list.filter(i => {
-        let isI = false
-        for(let obj of this.multipleSelection) {
-          if(obj.recommendPersonPhone&&(!obj.recommendPersonPhone===i.recommendPersonPhone)) {
-            isI = true
-          }
-        }
-        if(!i.recommendPersonPhone) {
-          isI = true
-        }
-        return isI
-      })
-      for(let i of this.list) {
-        if (i.recommendPersonName) {
-          this.form.recommendPersonList.push(i)
-        }
-      }
-    },
-    handleSelectionChange(val) {
-      this.multipleSelection = val
-    }
   }
 
 }

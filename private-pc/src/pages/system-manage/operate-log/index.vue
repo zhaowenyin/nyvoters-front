@@ -91,6 +91,7 @@ export default {
       this.loading = true
       const { data } = await getList({...payload,size: 10})
       this.list = data.content.data
+      this.total = data.content.total
       this.loading = false
     },
     formatDate

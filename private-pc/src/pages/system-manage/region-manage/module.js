@@ -31,6 +31,7 @@ export default {
     },
     updateList (state, payload) {
       const { data = [], total = 0 } = payload.data
+      console.log(total)
       state.list = data
       state.total = total
     },

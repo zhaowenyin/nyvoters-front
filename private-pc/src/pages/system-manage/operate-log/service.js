@@ -23,7 +23,7 @@ export async function getList (payload) {
             "pageSize": 0,
             "pages": 0,
             "startRow": 0,
-            "total": 0
+            "total": 20
           },
           "message": "string",
           "status": "string"

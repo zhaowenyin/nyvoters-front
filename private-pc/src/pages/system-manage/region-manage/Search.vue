@@ -1,9 +1,8 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">登记</el-button>
+      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
       <el-button size="medium"  @click="modify" type="primary" icon="el-icon-edit">修改</el-button>
-      <el-button size="medium" @click="submit" type="primary" icon="el-icon-circle-check-outline">提交</el-button>
       <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
     </div>
     <el-form
@@ -16,11 +15,11 @@
         <el-select
           v-model="type"
           size="medium"
-          style="width: 108px;"
+          style="width: 120px;"
           placeholder="请选择">
-          <el-option label="推荐人" :value="1"></el-option>
-          <el-option label="推荐方式" :value="2"></el-option>
-          <el-option label="推荐类型" :value="3"></el-option>
+          <el-option label="行政区名" :value="1"></el-option>
+          <el-option label="行政区代码" :value="2"></el-option>
+          <el-option label="级别" :value="3"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -29,32 +28,29 @@
         <el-input
           class="item"
           size="medium"
-          placeholder="请输入关键字"
+          placeholder="请输入行政区名"
           v-model.trim="searchForm.recommendedPerson" />
       </el-form-item>
       <el-form-item
         v-if="type === 2"
-        prop="recommendType">
-         <el-select  size="medium" v-model.trim="searchForm.recommendType" placeholder="请选择推荐方式">
-        <el-option
-          v-for="item in methodList"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
+        prop="code">
+        <el-input
+          class="item"
+          size="medium"
+          placeholder="请输入行政区代码"
+          v-model.trim="searchForm.code" />
       </el-form-item>
       <el-form-item
         v-if="type === 3"
-        prop="type">
-        <el-select  size="medium" v-model.trim="searchForm.type" placeholder="请选择推荐类型">
-          <el-option
-            v-for="item in typeList"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
+        prop="level">
+         <el-select  size="medium" v-model.trim="searchForm.level" placeholder="请选择推荐方式">
+        <el-option
+          v-for="(item, key) in levelList"
+          :key="key"
+          :label="item"
+          :value="key">
+        </el-option>
+      </el-select>
       </el-form-item>
       <el-form-item>
         <el-button
@@ -74,39 +70,20 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
-import {submitTabel, deletetTabel} from './service.js'
+import {deletetTabel} from './service.js'
+import {levelList} from '../../../common-data/config.js'
 
 export default {
   data () {
     return {
       type: 1,
       searchForm: {
-        recommendedPerson: '',
-        recommendType: '',
-        type: '',
-        item: {}
+        name: '',
+        code: '',
+        level: ''
       },
-      methodList: [
-        {
-          value: 1,
-          label: '团体推荐'
-        },
-        {
-          value: 2,
-          label: '选民联名推荐'
-        }
-      ],
-      typeList: [
-        {
-          value: 1,
-          label: '区县代表'
-        },
-        {
-          value: 2,
-          label: '乡镇代表'
-        }
-      ],
-      createDialogVisible: false
+      createDialogVisible: false,
+      levelList
     }
   },
   computed: {
@@ -163,22 +140,6 @@ export default {
           this.submitData()
         })
         .catch(() => {})
-    },
-    async submitData() {
-      let idList = []
-      for (let i of this.multipleSelection) {
-        idList.push(i.id)
-      }
-      let params = {idList,status: "REVIEW_SUCCESS"}
-      await submitTabel(params)
-      const param = JSON.parse(JSON.stringify(this.searchForm))
-      param.page = 1
-      this.getListData(param)
-      this.$notify({
-        title: '',
-        message: '提交成功',
-        type: 'success'
-      })
     },
     async deleteI () {
       if(this.multipleSelection.length === 0) {
