@@ -9,8 +9,12 @@ import CommonLayout from './pages/common-layout'
 
 const Login = () => import('./pages/login')
 const Home = () => import('./pages/home')
-const VoterRegister = () => import('./pages/voter-register')
-const VoterRegisters = () => import('./pages/voter-registers')
+const VoterRegister = () => import('@/pages/voter-register')
+// 批量导入
+const VoterRegistersLayout = () => import('@/pages/voter-registers')
+const VoterRegisters = () => import('@/pages/voter-registers/home')
+const VoterRegistersData = () => import('@/pages/voter-registers/data')
+
 const VoterInfo = () => import('./pages/voter-info')
 const BehalfCommendedLayout = () => import('@/pages/behalf-recommended')
 const BehalfCommended = () => import('@/pages/behalf-recommended/home')
@@ -51,8 +55,19 @@ const router = new Router({
         },
         {
           path: 'voter-registers',
-          name: '选民批量登记',
-          component: VoterRegisters
+          component: VoterRegistersLayout,
+          children: [
+            {
+              path: '',
+              name: '导入管理',
+              component: VoterRegisters
+            },
+            {
+              path: '/voter-registers-data',
+              name: '导入数据',
+              component: VoterRegistersData
+            }
+          ]
         },
         {
           path: 'voter-info',

@@ -16,7 +16,8 @@ export const verifyArr = [
   '/region',
   '/basic',
   '/file',
-  '/operate'
+  '/operate',
+  '/voter-registers-data'
 
 ]
 

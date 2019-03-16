@@ -1,34 +1,99 @@
 <template>
   <div class="view">
-    选民批量登记
+    <div v-if="activeIndex==='/voter-registers-data'" class="view-left">
+      <CommonTree
+        :data="data"
+        @node-click="handleNodeClick" />
+    </div>
+    <div class="view-content">
+      <el-menu
+        :default-active="activeIndex"
+        class="add-menu-x"
+        @select="change"
+        active-text-color="#d41c1a"
+        background-color="#f8f8f8"
+        mode="horizontal">
+        <el-menu-item
+          index="/voter-registers">
+          导入管理
+        </el-menu-item>
+        <el-menu-item
+          index="/voter-registers-data">
+          导入数据
+        </el-menu-item>
+      </el-menu>
+      <router-view class="content" />
+    </div>
   </div>
 </template>
+
 <script>
-import { mapMutations } from 'vuex'
+import CommonTree from '../../components/common-tree'
 
 export default {
   data () {
     return {
+      data: [{
+        id: '1',
+        name: '一级 1',
+        access: false,
+        children: [{
+          id: '1_1',
+          name: '二级 1-1',
+          access: true,
+          children: [{
+            id: '1_1_1',
+            name: '三级 1-1-1',
+            access: true,
+          }]
+        }]
+      }, {
+        id: '2',
+        name: '一级 2',
+        children: []
+      }],
+      currentSelect: '1_1'
     }
   },
   computed: {
-
+    activeIndex () {
+      return this.$route.path
+    }
   },
   components: {
-  },
-  created () {
-    // 初始化清除数据
-    this.clearState()
+    CommonTree
   },
   methods: {
-    ...mapMutations('home', [
-      'clearState'
-    ])
+    change (index) {
+      this.$router.push({ path: index })
+    },
+    handleNodeClick(data) {
+      console.log(data);
+    }
   }
 }
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .view{
-    padding: 0px 30px;
+    display: flex;
+  }
+  .view-left {
+    width: 270px;
+    background-color: #ffffff;
+    border-right: 1px solid #ddd;
+    height: 100%;
+    overflow: auto;
+    padding-top: 6px;
+  }
+  .view-content {
+    background: #f8f8f8;
+    height: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0px 20px;
   }
 </style>
