@@ -2,7 +2,7 @@
   <div class="search-box">
     <div class="left">
       <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
-      <el-button size="medium" type="primary" icon="el-icon-edit">修改</el-button>
+      <el-button size="medium"  @click="modify" type="primary" icon="el-icon-edit">修改</el-button>
     </div>
     <el-form
       ref="form"
@@ -69,6 +69,7 @@
       </el-form-item>
     </el-form>
     <CreateDialog
+      :item="item"
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
       />
@@ -88,11 +89,13 @@ export default {
         tel: '',
         date: []
       },
-      createDialogVisible: false
+      createDialogVisible: false,
+      item: {}
     }
   },
   computed: {
     ...mapState('voterRegister', {
+      multipleSelection: state=>state.multipleSelection
     })
   },
   components: {
@@ -124,7 +127,20 @@ export default {
     },
     create () {
       this.createDialogVisible = true
-    }
+      this.item = {}
+    },
+    modify () {
+      if(this.multipleSelection.length !== 1) {
+        this.$notify({
+          title: '',
+          message: '请勾选一条数据进行修改！',
+          type: 'warning'
+        });
+        return
+      }
+      this.item = this.multipleSelection[0]
+      this.createDialogVisible = true
+    },
   }
 }
 </script>

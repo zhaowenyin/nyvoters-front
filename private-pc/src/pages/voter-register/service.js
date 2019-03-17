@@ -6,39 +6,49 @@ export async function getList (payload) {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
-        data: {
-          total: 100,
-          list: [
-            {
-              id: 1,
-              name: '张三',
-              card: '510922199608254411',
-              gender: '男',
-              tel: '15590001222',
-              address_type: '居住地',
-              time: 1551621599434,
-              type: '登记成功'
-            },
-            {
-              id: 2,
-              name: '李四',
-              card: '510922199608254411',
-              gender: '男',
-              tel: '15590001222',
-              address_type: '居住地',
-              time: 1551621599434,
-              type: '登记成功'
-            }
-          ]
+        data:{
+          "code": "string",
+          "content": {
+            "data": [
+              {
+                "auditStatus": 1,
+                "auditTime": "2019-03-17T10:22:02.382Z",
+                "auditer": "string",
+                "candidateType": 0,
+                "contactInformation": "string",
+                "gender": 1,
+                "householdRegistration": "string",
+                "id": 99,
+                "idNum": "string",
+                "living": "string",
+                "name": "string",
+                "phoneNum": "string",
+                "registrar": "string",
+                "registrationTime": 1552489000,
+                "registrationType": 1,
+                "status": 9,
+                nation: 1,
+              }
+            ],
+            "endRow": 0,
+            "pageNum": 0,
+            "pageSize": 0,
+            "pages": 0,
+            "startRow": 0,
+            "total": 20
+          },
+          "message": "string",
+          "status": "string"
         }
+
       })
     }, 500)
   })
-  // return api.get('/api', { params: payload })
+  // return api.get('/voters/list', { params: payload })
 }
 
 // post请求
-export async function post (payload) {
+export async function setSubmit (payload) {
   console.log(payload)
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -48,5 +58,19 @@ export async function post (payload) {
       })
     }, 500)
   })
-  // return api.post('/api', payload)
+  // return api.post('/voters/add', payload)
+}
+export async function modifySubmit (payload) {
+  console.log(payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+        }
+      })
+    }, 500)
+  })
+  // return api.post('/district/edit', payload)
+  // .then(data => data)
+  //   .catch(() => Promise.resolve({data: null}))
 }

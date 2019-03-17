@@ -3,6 +3,7 @@
     <el-table
       :data="list"
       class="add_table"
+      @selection-change="handleSelectionChange"
       v-loading="loading">
       <el-table-column
         type="selection"
@@ -10,28 +11,45 @@
       </el-table-column>
       <el-table-column
         label="姓名"
+        width="120"
         prop="name" />
       <el-table-column
+        width="180"
         label="身份证号码"
-        prop="card" />
-      <el-table-column
+        prop="idNum" />
+       <el-table-column
+        width="100"
         label="性别"
-        prop="gender" />
+        prop="gender">
+        <template slot-scope="scope">
+          {{handergender(scope.row.gender)}}
+        </template>
+      </el-table-column>
       <el-table-column
         label="手机号"
-        prop="tel" />
+        prop="phoneNum" />
       <el-table-column
         label="参选地类型"
-        prop="address_type" />
+        width="100"
+        prop="candidateType">
+         <template slot-scope="scope">
+          {{ scope.row.candidateType === 0 ? '户籍地' : '现居地'}}
+        </template>
+      </el-table-column>
       <el-table-column
+        width="180"
         label="登记日期">
         <template slot-scope="scope">
-          {{ formatDate(scope.row.time) }}
+          {{ formatDate(scope.row.registrationTime) }}
         </template>
       </el-table-column>
       <el-table-column
         label="选民状态"
-        prop="type" />
+        prop="type">
+         <template slot-scope="scope">
+          {{handerstatus(scope.row.status)}}
+        </template>
+      </el-table-column>
     </el-table>
     <div
       v-show="total"
@@ -47,7 +65,7 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import { formatDate } from '../../utils/format.js'
 import Pagination from '../../components/Pagination'
 
@@ -73,6 +91,9 @@ export default {
     this.getListData()
   },
   methods: {
+    ...mapMutations('voterRegister', [
+      'saveSelection'
+    ]),
     ...mapActions('voterRegister', [
       'getListData'
     ]),
@@ -84,6 +105,43 @@ export default {
       console.log(id)
     },
     formatDate,
+    handleSelectionChange(val) {
+      this.saveSelection(val)
+    },
+    handergender(val) {
+      let text = ""
+      switch(val) {
+      case 0:
+        text = '未设置'
+        break
+      case 1:
+        text = '男'
+        break
+      case 2:
+        text = '女'
+        break
+      default:
+        text = '其他'
+      }
+      return text
+    },
+    handerstatus (val) {
+      let text = ""
+      switch(val) {
+      case 0:
+        text = '待对比'
+        break
+      case 1:
+        text = '对比中'
+        break
+      case 2:
+        text = '待资格审查'
+        break
+      default:
+        text = '登记成功'
+      }
+      return text
+    }
   }
 }
 </script>

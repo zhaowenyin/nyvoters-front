@@ -30,4 +30,15 @@ export const levelList = {
   3: '乡镇',
   4: '村'
 }
+//登记方式
+export const registrationTypeList = {
+  0: '登记站',
+  1: '单位',
+  2: '学校'
+}
+// 参选地类型
+export const candidateTypeList = {
+  0: '户籍地',
+  1: '现居地'
+}
 

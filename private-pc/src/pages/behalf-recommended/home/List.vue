@@ -21,7 +21,7 @@
         label="性别"
         prop="gender">
         <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '男' : '女'}}
+          {{handlegender(scope.row.gender)}}
         </template>
       </el-table-column>
       <el-table-column
@@ -100,6 +100,23 @@ export default {
     formatDate,
     handleSelectionChange(val) {
       this.saveSelection(val)
+    },
+    handlegender() {
+      let text = ""
+      switch(module) {
+      case 0:
+        text = '未设置'
+        break
+      case 1:
+        text = '男'
+        break
+      case 2:
+        text = '女'
+        break
+      default:
+        text = '其他'
+      }
+      return text
     }
   }
 }
