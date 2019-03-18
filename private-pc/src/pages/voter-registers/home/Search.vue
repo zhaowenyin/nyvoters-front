@@ -14,7 +14,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
-import { output } from '../../../utils/output.js'
+import  output from '../../../utils/output.js'
 
 export default {
   data () {

@@ -28,6 +28,14 @@ const BasicManage = () => import('@/pages/system-manage/basic-setting')
 const FileManage = () => import('@/pages/system-manage/file-manage')
 const OperateLog = () => import('@/pages/system-manage/operate-log')
 
+// 选区管理
+const DistricLayout = () => import ('@/pages/distric-manage')
+const DistrictManage = () => import ('@/pages/distric-manage/home')
+const AccountManage = () => import ('@/pages/distric-manage/account')
+const CommitteeLayout = () => import ('@/pages/committee')
+const CommitteeManage = () => import ('@/pages/committee/home')
+const CommitteeAccount = () => import ('@/pages/committee/account')
+
 
 
 Vue.use(Router)
@@ -47,6 +55,11 @@ const router = new Router({
           path: '',
           name: '首页',
           component: Home
+        },
+        {
+          path: 'manage1',
+          name: '委员会管理',
+          component: CommitteeLayout
         },
         {
           path: 'voter-register',
@@ -125,7 +138,41 @@ const router = new Router({
           path: 'operate',
           name: '操作日志',
           component: OperateLog
-        }
+        },
+        {
+          path: 'district/',
+          component: DistricLayout,
+          children: [
+            {
+              path: 'manage',
+              name: '选区管理',
+              component: DistrictManage
+            },
+            {
+              path: 'account',
+              name: '帐号',
+              component: AccountManage
+            }
+          ]
+        },
+        {
+          path: 'committee/',
+          component: CommitteeLayout,
+          children: [
+            {
+              path: 'manage',
+              name: '委员会管理',
+              component: CommitteeManage
+            },
+            {
+              path: 'account',
+              name: '委员会帐号',
+              component: CommitteeAccount
+            }
+          ]
+        },
+
+
       ]
     },
 
@@ -133,11 +180,12 @@ const router = new Router({
 })
 
 router.beforeEach(async ({path},from, next) => {
+  console.log(path)
   const isLogin = hasSession() // true用户已登录， false用户未登录
 
   const authToken = getSession()
   const verifyArr = (authToken && authToken.verifyArr) || []
-  // 权限验证
+  //权限验证
   const re = (list) => {
     if (path === '/login') return true
     for (const key of list) {

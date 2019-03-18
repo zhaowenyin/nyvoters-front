@@ -31,13 +31,28 @@
         <el-menu-item class="item" index="/basic">基础设置</el-menu-item>
         <el-menu-item class="item" index="/file">文件资料管理</el-menu-item>
         <el-menu-item class="item" index="/operate">操作日志</el-menu-item>
+        </el-submenu>
+        <el-submenu index="4">
+        <template slot="title">
+          <img src="../assets/img/77.png" class="icon"/>
+          <span>选区管理</span>
+        </template>
+         <el-submenu index="/committee/manage">
+          <template slot="title">选委会管理</template>
+          <el-menu-item index="/committee/manage">选委会管理</el-menu-item>
+          <el-menu-item index="/committee/account">帐号管理</el-menu-item>
+        </el-submenu>
+        <el-submenu index="/district/manage">
+          <template slot="title">选区管理</template>
+          <el-menu-item index="/district/manage">选区管理</el-menu-item>
+          <el-menu-item index="/district/account">帐号管理</el-menu-item>
+        </el-submenu>
       </el-submenu>
     </el-menu>
+
   </div>
 </template>
-
 <script>
-
 export default {
   data () {
     return {
@@ -45,6 +60,7 @@ export default {
   },
   computed: {
     activeIndex () {
+
       return this.$route.path
     }
   },
@@ -52,6 +68,8 @@ export default {
   },
   methods: {
     change (index) {
+      console.log(909)
+      console.log(index)
       this.$router.push({ path: index })
     }
   }
