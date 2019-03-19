@@ -8,6 +8,8 @@ import behalfCommended from './pages/behalf-recommended/home/module'
 import behalfCommendedHistory from './pages/behalf-recommended/history/module'
 import regionManage from './pages/system-manage/region-manage/module'
 import fileManage from './pages/system-manage/file-manage/module'
+import committeeHome from './pages/committee/home/module'
+import committeeAcccount from './pages/committee/account'
 
 Vue.use(Vuex)
 
@@ -19,6 +21,8 @@ export default new Vuex.Store({
     behalfCommended,
     behalfCommendedHistory,
     regionManage,
-    fileManage
+    fileManage,
+    committeeHome,
+    committeeAcccount
   }
 })

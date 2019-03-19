@@ -1,9 +1,8 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">登记</el-button>
+      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
       <el-button size="medium"  @click="modify" type="primary" icon="el-icon-edit">修改</el-button>
-      <el-button size="medium" @click="submit" type="primary" icon="el-icon-circle-check-outline">提交</el-button>
       <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
     </div>
     <el-form
@@ -16,52 +15,29 @@
         <el-select
           v-model="type"
           size="medium"
-          style="width: 108px;"
+          style="width: 120px;"
           placeholder="请选择">
-          <el-option label="推荐人" :value="1"></el-option>
-          <el-option label="推荐方式" :value="2"></el-option>
-          <el-option label="推荐类型" :value="3"></el-option>
+          <el-option label="选委会" :value="1"></el-option>
+          <el-option label="选委会编码" :value="2"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
         v-if="type === 1"
-        prop="recommendedPerson">
+        prop="name">
         <el-input
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.recommendedPerson" />
+          v-model.trim="searchForm.name" />
       </el-form-item>
-      <el-form-item
+       <el-form-item
         v-if="type === 2"
-        prop="recommendType">
-         <el-select  size="medium" v-model.trim="searchForm.recommendType" placeholder="请选择推荐方式">
-        <el-option
-          v-for="item in methodList"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      </el-form-item>
-      <el-form-item
-        v-if="type === 3"
-        prop="type">
-        <el-select  size="medium" v-model.trim="searchForm.type" placeholder="请选择推荐类型">
-          <el-option
-            v-for="item in typeList"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-button
-          @click="submitForm()"
+        prop="code">
+        <el-input
+          class="item"
           size="medium"
-          icon="el-icon-search"
-          type="primary"></el-button>
+          placeholder="请输入关键字"
+          v-model.trim="searchForm.code" />
       </el-form-item>
     </el-form>
     <CreateDialog
@@ -81,36 +57,14 @@ export default {
     return {
       type: 1,
       searchForm: {
-        recommendedPerson: '',
-        recommendType: '',
-        type: '',
-        item: {}
+        name: '',
+        code: ''
       },
-      methodList: [
-        {
-          value: 1,
-          label: '团体推荐'
-        },
-        {
-          value: 2,
-          label: '选民联名推荐'
-        }
-      ],
-      typeList: [
-        {
-          value: 1,
-          label: '区县代表'
-        },
-        {
-          value: 2,
-          label: '乡镇代表'
-        }
-      ],
       createDialogVisible: false
     }
   },
   computed: {
-    ...mapState('behalfCommended', {
+    ...mapState('committeeHome', {
       multipleSelection: state=>state.multipleSelection
     })
   },
@@ -120,7 +74,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('behalfCommended', [
+    ...mapActions('committeeHome', [
       'getListData',
     ]),
     // 搜索
@@ -148,21 +102,6 @@ export default {
       }
       this.item = this.multipleSelection[0]
       this.createDialogVisible = true
-    },
-    submit() {
-      if(this.multipleSelection.length === 0) {
-        this.$notify({
-          title: '',
-          message: '请勾选数据进提交！',
-          type: 'warning'
-        });
-        return
-      }
-      this.$confirm('确认将该选民提交到资格审核阶段？')
-        .then(() => {
-          this.submitData()
-        })
-        .catch(() => {})
     },
     async submitData() {
       let idList = []

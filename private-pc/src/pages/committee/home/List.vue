@@ -10,40 +10,27 @@
         width="55">
       </el-table-column>
       <el-table-column
-        label="被推荐人"
+        label="选委会"
          width="120"
-        prop="recommendedPerson" />
+        prop="name" />
       <el-table-column
         width="180"
-        label="身份证号码"
-        prop="idNum" />
+        label="选委会编码"
+        prop="code" />
       <el-table-column
-        label="性别"
+        label="联系人"
         prop="gender">
         <template slot-scope="scope">
-          {{handlegender(scope.row.gender)}}
+          {{scope.row.manager}}
         </template>
       </el-table-column>
       <el-table-column
-        label="推荐方式">
-         <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '团体推荐' : '选民联名推荐'}}
+        label="手机号码"
+        prop="gender">
+        <template slot-scope="scope">
+          {{scope.row.phoneName}}
         </template>
       </el-table-column>
-      <el-table-column
-        label="推荐类型"
-      >
-          <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '区县代表' : '乡镇代表'}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="belongAreaId"
-        label="所属选区">
-      </el-table-column>
-      <el-table-column
-        label="状态"
-        prop="status" />
     </el-table>
     <div
       v-show="total"
@@ -69,7 +56,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('behalfCommended', {
+    ...mapState('committeeHome', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
@@ -84,10 +71,10 @@ export default {
     this.getListData()
   },
   methods: {
-    ...mapActions('behalfCommended', [
+    ...mapActions('committeeHome', [
       'getListData'
     ]),
-    ...mapMutations('behalfCommended', [
+    ...mapMutations('committeeHome', [
       'saveSelection'
     ]),
     // 分页
