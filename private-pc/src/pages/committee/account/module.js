@@ -7,8 +7,8 @@ export default {
     list: [],
     total: 0,
     searchParam: {
-      size: 10,
-      page: 1
+      pageSize: 10,
+      pageNum: 1
     },
     multipleSelection: []
   },
@@ -18,8 +18,8 @@ export default {
       state.list = []
       state.total = 0
       state.searchParam = {
-        size: 10,
-        page: 1
+        pageSize: 10,
+        pageNum: 1
       }
       state.multipleSelection = []
     },

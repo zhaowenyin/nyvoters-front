@@ -37,9 +37,9 @@
       class="add_pagination">
       <el-pagination
         @current-change="handleCurrentChange"
-        :page-size="size"
+        :page-size="pageSize"
         background
-        :current-page="page"
+        :current-page="pageNum"
         layout="prev, pager, next"
         :total="total" />
     </div>
@@ -60,8 +60,8 @@ export default {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
-      size: state => state.searchParam.size,
-      page: state => state.searchParam.page,
+      pageSize: state => state.searchParam.pageSize,
+      pageNum: state => state.searchParam.pageNum,
 
     })
   },
@@ -79,7 +79,7 @@ export default {
     ]),
     // 分页
     handleCurrentChange (val) {
-      this.getListData({ page: val })
+      this.getListData({ pageNum: val })
     },
     look (id) {
       console.log(id)

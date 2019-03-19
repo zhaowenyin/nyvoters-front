@@ -72,7 +72,7 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
-          params.page = 1
+          params.pageNum = 1
           this.getListData(params)
         }
       })
@@ -109,7 +109,7 @@ export default {
       let params = {idList,status: "REVIEW_FAIL"}
       await deletetTabel(params)
       const param = JSON.parse(JSON.stringify(this.searchForm))
-      param.page = 1
+      param.pageNum = 1
       this.getListData(param)
     },
     reset () {

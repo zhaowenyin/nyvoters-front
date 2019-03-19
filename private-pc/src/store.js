@@ -9,7 +9,7 @@ import behalfCommendedHistory from './pages/behalf-recommended/history/module'
 import regionManage from './pages/system-manage/region-manage/module'
 import fileManage from './pages/system-manage/file-manage/module'
 import committeeHome from './pages/committee/home/module'
-import committeeAcccount from './pages/committee/account'
+import committeeAcccount from './pages/committee/account/module'
 
 Vue.use(Vuex)
 
