@@ -49,7 +49,7 @@
         <el-form-item
           label="对应行政区"
           prop="precinctId">
-          <div @click="select">请选择对应行政区</div>
+          <div :class="['select-input',{hasVal: form.precinct}]" @click="select">{{form.precinct ? form.precinct : '请选择对应行政区'}}</div>
         </el-form-item>
         <el-form-item
           label="联系人"
@@ -94,6 +94,7 @@
       </div>
     </el-dialog>
      <PrecinctList
+     @saveData="saveData"
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
       />
@@ -114,8 +115,8 @@ export default {
         precinctId: '',
         manager: '',
         phoneName: '',
-        sort: ''
-
+        sort: '',
+        precinct: ''
       },
       multipleSelection: [],
       rules: {
@@ -133,7 +134,7 @@ export default {
       precinctList: {
         1: '9090'
       },
-      createDialogVisible: false
+      createDialogVisible: false,
     }
 
   },
@@ -151,7 +152,17 @@ export default {
     PrecinctList
   },
   created () {
-    this.form = {...this.form, ...this.item }
+    const params = {
+      precinct: this.item.precinct,
+      parentId: this.item.parentId,
+      name: this.item.name,
+      code: this.item.code,
+      precinctId: this.item.precinct,
+      manager: this.form.manager,
+      phoneName: this.item.phoneName,
+      sort: this.item.sort,
+    }
+    this.form = {...this.form, ...params }
   },
   methods: {
     ...mapActions('committeeHome', [
@@ -183,11 +194,15 @@ export default {
     },
     handerParams () {
       let params = {...this.form}
+      delete params.precinct
       return params
     },
     select () {
-      console.log(888)
       this.createDialogVisible = true
+    },
+    saveData (val) {
+      this.form.precinct = val.name
+      this.form.precinctId = val.id
     }
   }
 
@@ -199,6 +214,16 @@ export default {
 }
 .item {
   width: 100%;
+}
+.select-input {
+  border: solid 1px #DCDFE6;
+  background: #fff;
+  color: #c0c4cb;
+  height: 40px;
+  padding-left: 15px;
+  &.hasVal {
+    color: #333;
+  }
 }
 </style>
 <style>

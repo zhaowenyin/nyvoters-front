@@ -1,23 +1,28 @@
 <template>
   <el-dialog
-    title="行政区"
+    title=""
     :visible="visible"
-    width="600"
+    width="700px"
     :before-close="comfirmClose">
     <div class="view">
       <div class="view-left">
         <div>待选</div>
-        <el-input
+        <div class="content">
+           <el-input
+           style="padding: 10px;"
           placeholder="输入关键字进行过滤"
           v-model="filterText">
-        </el-input>
-        <CommonTree
-          :data="data"
-          @node-click="handleNodeClick" />
+          </el-input>
+          <CommonTree
+            :data="data"
+            @node-click="handleNodeClick" />
+        </div>
+
       </div>
-      <div>3333</div>
+      <div class="row-ccontent"><div class="row"/><div class="row up"/></div>
       <div class="view-content">
           已选
+        <div class="content">{{selectItem.name}}</div>
       </div>
     </div>
     <div
@@ -61,7 +66,8 @@ export default {
         children: []
       }],
       currentSelect: '1_1',
-      filterText: ''
+      filterText: '',
+      selectItem: {}
 
     }
 
@@ -70,10 +76,6 @@ export default {
     visible: {
       default: false,
       type: Boolean
-    },
-    item: {
-      default: () => {},
-      type: Object
     }
   },
   watch: {
@@ -92,6 +94,7 @@ export default {
       this.$emit('update:visible', false)
     },
     submitForm () {
+      this.$emit('saveData', this.selectItem)
       this.close()
     },
 
@@ -107,7 +110,7 @@ export default {
         .catch(() => {})
     },
     handleNodeClick(data) {
-      console.log(data);
+      this.selectItem = data
     }
   }
 
@@ -116,22 +119,48 @@ export default {
 <style scoped>
 .view{
     display: flex;
+    height: 100%;
   }
   .view-left {
-    width: 270px;
+    flex: 1;
     background-color: #ffffff;
-    height: 100%;
-    overflow: auto;
-    padding-top: 6px;
   }
   .view-content {
-    height: 100%;
     flex: 1;
+  }
+  .content {
+    height: 400px;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  .row-ccontent {
     display: flex;
     flex-direction: column;
-    position: relative;
-    padding: 0px 20px;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
   }
+  .row {
+      width:0;
+      height:0;
+      border-left:25px solid #fff;
+      border-top:15px solid transparent;
+      border-bottom:15px solid transparent;
+      position: relative;
+      &:after{
+        content: '';
+        display: block;
+        position: absolute;
+        top: -12px;
+        left: -25px;
+        border-left:25px solid #444;
+        border-top:15px solid transparent;
+        border-bottom:15px solid transparent;
+      }
+       &.up{
+        transform: rotate(180deg);
+      }
+    }
 </style>
 <style>
   .table-obj .el-form-item {
