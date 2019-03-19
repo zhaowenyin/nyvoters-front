@@ -1,117 +1,70 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button @click="repeal" size="medium" type="primary" icon="el-icon-delete">撤销</el-button>
+      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
+      <el-button size="medium"  @click="modify" type="primary" icon="el-icon-edit">修改</el-button>
+      <el-button size="medium"  @click="reset" type="primary" icon="el-icon-setting">重置密码</el-button>
+      <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
     </div>
     <el-form
       ref="form"
       :model="searchForm"
       :inline="true"
       class="from">
-      <el-form-item
+       <el-form-item
         prop="state">
         <el-select
           v-model="type"
           size="medium"
-          style="width: 108px;"
-          placeholder="请选择">
-          <el-option label="推荐人" :value="1"></el-option>
-          <el-option label="推荐方式" :value="2"></el-option>
-          <el-option label="推荐类型" :value="3"></el-option>
+          style="width: 100px;"
+          placeholder="请输入">
+          <el-option label="姓名" :value="1"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
         v-if="type === 1"
-        prop="recommendedPerson">
+        prop="name">
         <el-input
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.recommendedPerson" />
-      </el-form-item>
-      <el-form-item
-        v-if="type === 2"
-        prop="recommendType">
-         <el-select  size="medium" v-model.trim="searchForm.recommendType" placeholder="请选择推荐方式">
-        <el-option
-          v-for="item in methodList"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value">
-        </el-option>
-      </el-select>
-      </el-form-item>
-      <el-form-item
-        v-if="type === 3"
-        prop="type">
-        <el-select  size="medium" v-model.trim="searchForm.type" placeholder="请选择推荐类型">
-          <el-option
-            v-for="item in typeList"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value">
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-button
-          @click="submitForm()"
-          size="medium"
-          icon="el-icon-search"
-          type="primary"></el-button>
+          v-model.trim="searchForm.name" />
       </el-form-item>
     </el-form>
+    <CreateDialog
+      v-if="createDialogVisible"
+      :item='item'
+      :visible.sync='createDialogVisible'
+      />
   </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import {repealTabel} from './service.js'
+import CreateDialog from './CreateDialog'
+import { deletetTabel} from './service.js'
 
 export default {
   data () {
     return {
       type: 1,
       searchForm: {
-        recommendedPerson: '',
-        recommendType: '',
-        type: '',
-        item: {}
+        name: ''
       },
-      methodList: [
-        {
-          value: 1,
-          label: '团体推荐'
-        },
-        {
-          value: 2,
-          label: '选民联名推荐'
-        }
-      ],
-      typeList: [
-        {
-          value: 1,
-          label: '区县代表'
-        },
-        {
-          value: 2,
-          label: '乡镇代表'
-        }
-      ],
       createDialogVisible: false
     }
   },
   computed: {
-    ...mapState('behalfCommendedHistory', {
+    ...mapState('committeeAcccount', {
       multipleSelection: state=>state.multipleSelection
     })
   },
   components: {
-
+    CreateDialog
   },
   created () {
   },
   methods: {
-    ...mapActions('behalfCommendedHistory', [
+    ...mapActions('committeeAcccount', [
       'getListData',
     ]),
     // 搜索
@@ -125,13 +78,26 @@ export default {
       })
     },
     create () {
+      this.item = {}
       this.createDialogVisible = true
     },
-    async repeal () {
+    modify () {
+      if(this.multipleSelection.length !== 1) {
+        this.$notify({
+          title: '',
+          message: '请勾选一条数据进行修改！',
+          type: 'warning'
+        });
+        return
+      }
+      this.item = this.multipleSelection[0]
+      this.createDialogVisible = true
+    },
+    async deleteI () {
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',
-          message: '请勾选数据进撤销！',
+          message: '请勾选数据进删除！',
           type: 'warning'
         });
         return
@@ -140,12 +106,16 @@ export default {
       for (let i of this.multipleSelection) {
         idList.push(i.id)
       }
-      let params = {idList,status: "REVIEW_SUCCESS"}
-      await repealTabel(params)
+      let params = {idList,status: "REVIEW_FAIL"}
+      await deletetTabel(params)
       const param = JSON.parse(JSON.stringify(this.searchForm))
       param.page = 1
       this.getListData(param)
+    },
+    reset () {
+
     }
+
   }
 }
 </script>

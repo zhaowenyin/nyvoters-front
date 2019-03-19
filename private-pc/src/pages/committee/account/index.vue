@@ -26,7 +26,7 @@ export default {
     this.clearState()
   },
   methods: {
-    ...mapMutations('behalfCommendedHistory', [
+    ...mapMutations('committeeAcccount', [
       'clearState'
     ]),
     handleNodeClick(data) {

@@ -50,7 +50,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
-import {submitTabel, deletetTabel} from './service.js'
+import { deletetTabel} from './service.js'
 
 export default {
   data () {
@@ -102,22 +102,6 @@ export default {
       }
       this.item = this.multipleSelection[0]
       this.createDialogVisible = true
-    },
-    async submitData() {
-      let idList = []
-      for (let i of this.multipleSelection) {
-        idList.push(i.id)
-      }
-      let params = {idList,status: "REVIEW_SUCCESS"}
-      await submitTabel(params)
-      const param = JSON.parse(JSON.stringify(this.searchForm))
-      param.page = 1
-      this.getListData(param)
-      this.$notify({
-        title: '',
-        message: '提交成功',
-        type: 'success'
-      })
     },
     async deleteI () {
       if(this.multipleSelection.length === 0) {

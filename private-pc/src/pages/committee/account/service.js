@@ -10,31 +10,16 @@ export async function getList (payload) {
           "content": {
             "data": [
               {
-                "belongAreaId": 54122356874,
-                "birthDay": "1995-01-01 00:00:00",
-                "education": "本科",
-                "gender": 1,
+                "code": "string",
                 "id": 0,
-                "idNum": 510810199910251100,
-                "jobTitle": "中级会计",
-                "nation": "汉",
-                "party": "中共党员",
-                "phoneNum": 15898412568,
-                "post": "职员",
-                "recommendPersonVOList": [
-                  {
-                    "recommendPersonName": "张三",
-                    "recommendPersonPhone": 15898741563,
-                    "recommendPersonWorkUnit": "中共成都市委"
-                  }
-                ],
-                "recommendReason": "哎哟，不错哟",
-                "recommendType": 1,
-                "recommendUnit": "成都市文化旅游局",
-                "recommendedPerson": "张三",
-                "status": "string",
-                "type": 1,
-                "workUnit": "成都市文化旅游局"
+                "manager": "string",
+                "name": "string",
+                "parentId": 0,
+                "path": "string",
+                "phoneName": "string",
+                "precinct": "string",
+                "precinctId": 0,
+                "sort": 0
               }
             ],
             "endRow": 0,
@@ -42,7 +27,7 @@ export async function getList (payload) {
             "pageSize": 0,
             "pages": 0,
             "startRow": 0,
-            "total": 0
+            "total": 20
           },
           "errorCode": "string",
           "errorMsg": "string",
@@ -51,11 +36,10 @@ export async function getList (payload) {
       })
     }, 500)
   })
-  // return api.get('/api', { params: payload })
+  // return api.get('/committee/list', { params: payload })
 }
 
-// post请求
-export async function post (payload) {
+export async function setSubmit (payload) {
   console.log(payload)
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -65,9 +49,12 @@ export async function post (payload) {
       })
     }, 500)
   })
-  // return api.post('/api', payload)
+  // return api.post('/committee/add', payload)
+  // .then(data => data)
+  //   .catch(() => Promise.resolve({data: null}))
 }
-export async function repealTabel (payload) {
+
+export async function modifySubmit (payload) {
   console.log(payload)
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -77,5 +64,21 @@ export async function repealTabel (payload) {
       })
     }, 500)
   })
-  // return api.post('/repre-recommend-record/cancel', payload)
+  // return api.post('/committee/edit', payload)
+  // .then(data => data)
+  //   .catch(() => Promise.resolve({data: null}))
 }
+
+export async function deletetTabel (payload) {
+  console.log(payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+        }
+      })
+    }, 500)
+  })
+  // return api.post('/committee/delete', payload)
+}
+
