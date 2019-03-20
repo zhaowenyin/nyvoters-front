@@ -36,6 +36,10 @@
       :item='item'
       :visible.sync='createDialogVisible'
       />
+      <PrecinctList
+      v-if="createDialogVisible"
+      :visible.sync='createDialogVisible'
+      />
   </div>
 </template>
 <script>
