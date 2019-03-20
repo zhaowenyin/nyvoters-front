@@ -29,12 +29,13 @@ const FileManage = () => import('@/pages/system-manage/file-manage')
 const OperateLog = () => import('@/pages/system-manage/operate-log')
 
 // 选区管理
-const DistricLayout = () => import ('@/pages/distric-manage')
-const DistrictManage = () => import ('@/pages/distric-manage/home')
-const AccountManage = () => import ('@/pages/distric-manage/account')
-const CommitteeLayout = () => import ('@/pages/committee')
-const CommitteeManage = () => import ('@/pages/committee/home')
-const CommitteeAccount = () => import ('@/pages/committee/account')
+const DistricLayout = () => import ('@/pages/district-management/distric-manage')
+const DistrictManage = () => import ('@/pages/district-management/distric-manage/home')
+const AccountManage = () => import ('@/pages/district-management/distric-manage/account')
+const CommitteeLayout = () => import ('@/pages/district-management/committee')
+const CommitteeManage = () => import ('@/pages/district-management/committee/home')
+const CommitteeAccount = () => import ('@/pages/district-management/committee/account')
+const VoterGroup = () => import ('@/pages/district-management/voters-group')
 
 
 
@@ -171,6 +172,12 @@ const router = new Router({
             }
           ]
         },
+        {
+          path: 'voter-group',
+          name: '选民小组',
+          component: VoterGroup
+        },
+
 
 
       ]

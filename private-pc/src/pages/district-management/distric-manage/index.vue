@@ -27,7 +27,7 @@
   </div>
 </template>
 <script>
-import CommonTree from '../../components/common-tree'
+import CommonTree from '../../../components/common-tree'
 import { mapActions } from 'vuex'
 
 export default {

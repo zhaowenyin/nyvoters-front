@@ -41,7 +41,7 @@
 </template>
 <script>
 import {getTree} from './service.js'
-import CommonTree from '../../../components/common-tree'
+import CommonTree from '../../../../components/common-tree'
 export default {
   data () {
     return {

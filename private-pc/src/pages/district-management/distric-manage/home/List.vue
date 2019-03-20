@@ -10,25 +10,25 @@
         width="55">
       </el-table-column>
       <el-table-column
-        label="选委会"
+        label="选区名称"
          width="120"
         prop="name" />
       <el-table-column
         width="180"
-        label="选委会编码"
+        label="选区编码"
         prop="code" />
       <el-table-column
-        label="联系人"
+        label="类型"
         prop="gender">
         <template slot-scope="scope">
-          {{scope.row.manager}}
+          {{scope.row.type === 0 ? "区县选区" : '乡镇选区'}}
         </template>
       </el-table-column>
       <el-table-column
-        label="手机号码"
+        label="代表名额"
         prop="gender">
         <template slot-scope="scope">
-          {{scope.row.phoneName}}
+          {{scope.row.pnum}}
         </template>
       </el-table-column>
     </el-table>
@@ -47,7 +47,7 @@
 </template>
 <script>
 import { mapState, mapActions,mapMutations } from 'vuex'
-import { formatDate } from '../../../utils/format.js'
+import { formatDate } from '../../../../utils/format.js'
 
 export default {
   data () {
@@ -56,7 +56,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('committeeHome', {
+    ...mapState('distictHome', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
@@ -71,10 +71,10 @@ export default {
     this.getListData()
   },
   methods: {
-    ...mapActions('committeeHome', [
+    ...mapActions('distictHome', [
       'getListData'
     ]),
-    ...mapMutations('committeeHome', [
+    ...mapMutations('distictHome', [
       'saveSelection'
     ]),
     // 分页

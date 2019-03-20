@@ -47,7 +47,7 @@
 </template>
 <script>
 import { mapState, mapActions,mapMutations } from 'vuex'
-import { formatDate } from '../../../utils/format.js'
+import { formatDate } from '../../../../utils/format.js'
 
 export default {
   data () {
@@ -56,7 +56,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('committeeAcccount', {
+    ...mapState('committeeHome', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
@@ -68,18 +68,18 @@ export default {
   components: {
   },
   created () {
-    this.getListData1()
+    this.getListData()
   },
   methods: {
-    ...mapActions('committeeAcccount', [
-      'getListData1'
+    ...mapActions('committeeHome', [
+      'getListData'
     ]),
-    ...mapMutations('committeeAcccount', [
+    ...mapMutations('committeeHome', [
       'saveSelection'
     ]),
     // 分页
     handleCurrentChange (val) {
-      this.getListData1({ pageNum: val })
+      this.getListData({ pageNum: val })
     },
     look (id) {
       console.log(id)

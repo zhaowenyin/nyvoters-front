@@ -3,33 +3,20 @@
     <div class="view-left">
       <CommonTree
         :data="data"
+        :current-node-key="currentSelect"
         @node-click="handleNodeClick" />
     </div>
     <div class="view-content">
-      <el-menu
-        :default-active="activeIndex"
-        class="add-menu-x"
-        @select="change"
-        active-text-color="#d41c1a"
-        background-color="#f8f8f8"
-        mode="horizontal">
-        <el-menu-item
-          index='/committee/manage'>
-          委员会
-        </el-menu-item>
-        <el-menu-item
-          index="/committee/account">
-          帐号管理
-        </el-menu-item>
-      </el-menu>
-      <router-view class="content" />
+      <Search />
+      <List />
     </div>
   </div>
 </template>
-
 <script>
-import CommonTree from '../../components/common-tree'
-import { mapActions } from 'vuex'
+import { mapMutations } from 'vuex'
+import Search from './Search'
+import List from './List'
+import CommonTree from '../../../components/common-tree'
 
 export default {
   data () {
@@ -57,33 +44,27 @@ export default {
     }
   },
   computed: {
-    activeIndex () {
-      return this.$route.path
-    }
+
   },
   components: {
+    Search,
+    List,
     CommonTree
   },
+  created () {
+    // 初始化清除数据
+    this.clearState()
+  },
   methods: {
-    ...mapActions('distictHome', [
-      'getListData',
+    ...mapMutations('voterRegister', [
+      'clearState'
     ]),
-    ...mapActions('districtAccount', [
-      'getListData1',
-    ]),
-    change (index) {
-      this.$router.push({ path: index })
-    },
     handleNodeClick(data) {
-      console.log(data)
-      this.getListData({code: data.id})
-      this.getListData1({code: data.id})
+      console.log(data);
     }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .view{
     display: flex;
@@ -98,11 +79,7 @@ export default {
   }
   .view-content {
     background: #f8f8f8;
-    height: 100%;
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    padding: 0px 20px;
+    padding: 16px 20px;
   }
 </style>

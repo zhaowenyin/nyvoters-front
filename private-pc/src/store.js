@@ -8,10 +8,10 @@ import behalfCommended from './pages/behalf-recommended/home/module'
 import behalfCommendedHistory from './pages/behalf-recommended/history/module'
 import regionManage from './pages/system-manage/region-manage/module'
 import fileManage from './pages/system-manage/file-manage/module'
-import committeeHome from './pages/committee/home/module'
-import committeeAcccount from './pages/committee/account/module'
-import distictHome from './pages/distric-manage/home/module'
-import districtAccount from './pages/distric-manage/account/module'
+import committeeHome from './pages/district-management/committee/home/module'
+import committeeAcccount from './pages/district-management/committee/account/module'
+import distictHome from './pages/district-management/distric-manage/home/module'
+import districtAccount from './pages/district-management/distric-manage/account/module'
 
 Vue.use(Vuex)
 

@@ -21,7 +21,8 @@ export const verifyArr = [
   '/district/manage',
   '/district/account',
   '/committee/manage',
-  '/committee/account'
+  '/committee/account',
+  '/voter-group'
 
 ]
 

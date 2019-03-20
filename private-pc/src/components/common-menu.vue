@@ -37,8 +37,10 @@
           <img src="../assets/img/77.png" class="icon"/>
           <span>选区管理</span>
         </template>
-          <el-menu-item index="/committee/manage">选委会管理</el-menu-item>
-          <el-menu-item index="/district/manage">选区管理</el-menu-item>
+          <el-menu-item class="item" index="/committee/manage">选委会管理</el-menu-item>
+          <el-menu-item class="item" index="/district/manage">选区管理</el-menu-item>
+          <el-menu-item class="item" index="/voter-group">选民小组</el-menu-item>
+
       </el-submenu>
     </el-menu>
 
