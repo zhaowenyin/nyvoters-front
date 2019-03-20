@@ -10,6 +10,8 @@ import regionManage from './pages/system-manage/region-manage/module'
 import fileManage from './pages/system-manage/file-manage/module'
 import committeeHome from './pages/committee/home/module'
 import committeeAcccount from './pages/committee/account/module'
+import distictHome from './pages/distric-manage/home/module'
+import districtAccount from './pages/distric-manage/account/module'
 
 Vue.use(Vuex)
 
@@ -23,6 +25,8 @@ export default new Vuex.Store({
     regionManage,
     fileManage,
     committeeHome,
-    committeeAcccount
+    committeeAcccount,
+    distictHome,
+    districtAccount
   }
 })

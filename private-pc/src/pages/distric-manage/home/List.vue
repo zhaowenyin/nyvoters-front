@@ -10,49 +10,36 @@
         width="55">
       </el-table-column>
       <el-table-column
-        label="被推荐人"
+        label="选区名称"
          width="120"
-        prop="recommendedPerson" />
+        prop="name" />
       <el-table-column
         width="180"
-        label="身份证号码"
-        prop="idNum" />
+        label="选区编码"
+        prop="code" />
       <el-table-column
-        label="性别"
+        label="类型"
         prop="gender">
         <template slot-scope="scope">
-          {{handlegender(scope.row.gender)}}
+          {{scope.row.type === 0 ? "区县选区" : '乡镇选区'}}
         </template>
       </el-table-column>
       <el-table-column
-        label="推荐方式">
-         <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '团体推荐' : '选民联名推荐'}}
+        label="代表名额"
+        prop="gender">
+        <template slot-scope="scope">
+          {{scope.row.pnum}}
         </template>
       </el-table-column>
-      <el-table-column
-        label="推荐类型"
-      >
-          <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '区县代表' : '乡镇代表'}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="belongAreaId"
-        label="所属选区">
-      </el-table-column>
-      <el-table-column
-        label="状态"
-        prop="status" />
     </el-table>
     <div
       v-show="total"
       class="add_pagination">
       <el-pagination
         @current-change="handleCurrentChange"
-        :page-size="size"
+        :page-size="pageSize"
         background
-        :current-page="page"
+        :current-page="pageNum"
         layout="prev, pager, next"
         :total="total" />
     </div>
@@ -69,12 +56,12 @@ export default {
     }
   },
   computed: {
-    ...mapState('behalfCommended', {
+    ...mapState('distictHome', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
-      size: state => state.searchParam.size,
-      page: state => state.searchParam.page,
+      pageSize: state => state.searchParam.pageSize,
+      pageNum: state => state.searchParam.pageNum,
 
     })
   },
@@ -84,15 +71,15 @@ export default {
     this.getListData()
   },
   methods: {
-    ...mapActions('behalfCommended', [
+    ...mapActions('distictHome', [
       'getListData'
     ]),
-    ...mapMutations('behalfCommended', [
+    ...mapMutations('distictHome', [
       'saveSelection'
     ]),
     // 分页
     handleCurrentChange (val) {
-      this.getListData({ page: val })
+      this.getListData({ pageNum: val })
     },
     look (id) {
       console.log(id)

@@ -94,14 +94,15 @@
       </div>
     </el-dialog>
      <PrecinctList
-     @saveData="saveData"
+      @saveData="saveData"
+      :item="item"
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
       />
   </div>
 </template>
 <script>
-import {setSubmit} from './service.js'
+import {setSubmit,modifySubmit} from './service.js'
 import { mapActions } from 'vuex'
 import PrecinctList from './PrecinctList'
 export default {
@@ -180,7 +181,12 @@ export default {
     },
     async sumitData () {
       this.loading = true
-      await setSubmit(this.handerParams())
+      this.loading = true
+      if(this.item.name) {
+        await modifySubmit(this.handerParams())
+      }else {
+        await setSubmit(this.handerParams())
+      }
       this.close()
       this.getListData()
       this.loading = false

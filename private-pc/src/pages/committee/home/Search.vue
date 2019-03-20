@@ -103,7 +103,7 @@ export default {
       this.item = this.multipleSelection[0]
       this.createDialogVisible = true
     },
-    async deleteI () {
+    deleteI () {
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',
@@ -112,11 +112,19 @@ export default {
         });
         return
       }
+      this.$confirm('删除选举机构后，将影响该机构下的所有选民、账号信息不可用，且不可恢复，请确认？')
+        .then(() => {
+          this.delectItem()
+        })
+        .catch(() => {})
+
+    },
+    async delectItem() {
       let idList = []
       for (let i of this.multipleSelection) {
         idList.push(i.id)
       }
-      let params = {idList,status: "REVIEW_FAIL"}
+      let params = {idList}
       await deletetTabel(params)
       const param = JSON.parse(JSON.stringify(this.searchForm))
       param.pageNum = 1

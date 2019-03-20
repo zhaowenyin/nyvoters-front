@@ -40,7 +40,7 @@ export async function getList (payload) {
 }
 
 export async function setSubmit (payload) {
-  console.log(payload)
+  console.log(1,payload)
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
@@ -55,7 +55,7 @@ export async function setSubmit (payload) {
 }
 
 export async function modifySubmit (payload) {
-  console.log(payload)
+  console.log(2,payload)
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({

@@ -10,32 +10,14 @@ export async function getList (payload) {
           "content": {
             "data": [
               {
-                "belongAreaId": 54122356874,
-                "birthDay": "1995-01-01 00:00:00",
-                "education": "本科",
-                "gender": 1,
+                "code": "string",
+                "distinct": "string",
+                "distinctId": 0,
                 "id": 0,
-                "idNum": 510810199910251100,
-                "jobTitle": "中级会计",
-                "nation": "汉",
-                "party": "中共党员",
-                "phoneNum": 15898412568,
-                "post": "职员",
-                "recommendPersonVOList": [
-                  {
-                    "recommendPersonName": "张三",
-                    "recommendPersonPhone": 15898741563,
-                    "recommendPersonWorkUnit": "中共成都市委"
-                  }
-                ],
-                "recommendReason": "哎哟，不错哟",
-                "recommendType": 1,
-                "recommendUnit": "成都市文化旅游局",
-                "recommendedPerson": "张三",
-                recommendedPersonId:'1',
-                "status": "string",
-                "type": 1,
-                "workUnit": "成都市文化旅游局"
+                "name": "string",
+                "pnum": 0,
+                "sort": 0,
+                "type": true
               }
             ],
             "endRow": 0,
@@ -52,12 +34,11 @@ export async function getList (payload) {
       })
     }, 500)
   })
-  // return api.get('/repre-recommend/list', { params: payload })
+  // return api.get('/precinct/list', { params: payload })
 }
 
-// 代表推荐登记修改
 export async function setSubmit (payload) {
-  console.log(payload)
+  console.log(1,payload)
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
@@ -66,28 +47,13 @@ export async function setSubmit (payload) {
       })
     }, 500)
   })
-  // return api.post('/repre-recommend/register', payload)
-  // .then(data => data)
-  //   .catch(() => Promise.resolve({data: null}))
-}
-// 代表推荐登记修改
-export async function modifySubmit (payload) {
-  console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/repre-recommend/modify', payload)
+  // return api.post('/precinct/add', payload)
   // .then(data => data)
   //   .catch(() => Promise.resolve({data: null}))
 }
 
-export async function submitTabel (payload) {
-  console.log(payload)
+export async function modifySubmit (payload) {
+  console.log(2,payload)
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
@@ -96,8 +62,11 @@ export async function submitTabel (payload) {
       })
     }, 500)
   })
-  // return api.post('/repre-recommend/submit', payload)
+  // return api.post('/precinct/edit', payload)
+  // .then(data => data)
+  //   .catch(() => Promise.resolve({data: null}))
 }
+
 export async function deletetTabel (payload) {
   console.log(payload)
   return new Promise((resolve) => {
@@ -108,6 +77,36 @@ export async function deletetTabel (payload) {
       })
     }, 500)
   })
-  // return api.post('/repre-recommend/delete', payload)
+  // return api.post('/precinct/delete', payload)
 }
+export async function getTree (payload) {
+  console.log(payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: [{
+          id: '1',
+          name: '一级 1',
+          access: false,
+          children: [{
+            id: '1_1',
+            name: '二级 1-1',
+            access: true,
+            children: [{
+              id: '1_1_1',
+              name: '三级 1-1-1',
+              access: true,
+            }]
+          }]
+        }, {
+          id: '2',
+          name: '一级 2',
+          children: []
+        }]
+      })
+    }, 500)
+  })
+  // return api.post('/committee/delete', payload)
+}
+
 
