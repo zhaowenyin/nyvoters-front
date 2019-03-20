@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     ...mapActions('committeeAcccount', [
-      'getListData',
+      'getListData1',
     ]),
     // 搜索
     submitForm () {
@@ -77,7 +77,7 @@ export default {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           params.pageNum = 1
-          this.getListData(params)
+          this.getListData1(params)
         }
       })
     },
@@ -114,7 +114,7 @@ export default {
       await deletetTabel(params)
       const param = JSON.parse(JSON.stringify(this.searchForm))
       param.pageNum = 1
-      this.getListData(param)
+      this.getListData1(param)
     },
     reset () {
 

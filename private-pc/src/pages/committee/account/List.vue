@@ -68,18 +68,18 @@ export default {
   components: {
   },
   created () {
-    this.getListData()
+    this.getListData1()
   },
   methods: {
     ...mapActions('committeeAcccount', [
-      'getListData'
+      'getListData1'
     ]),
     ...mapMutations('committeeAcccount', [
       'saveSelection'
     ]),
     // 分页
     handleCurrentChange (val) {
-      this.getListData({ pageNum: val })
+      this.getListData1({ pageNum: val })
     },
     look (id) {
       console.log(id)

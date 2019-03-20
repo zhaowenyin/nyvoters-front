@@ -28,6 +28,7 @@
 </template>
 <script>
 import CommonTree from '../../components/common-tree'
+import { mapActions } from 'vuex'
 
 export default {
   data () {
@@ -63,11 +64,18 @@ export default {
     CommonTree
   },
   methods: {
+    ...mapActions('committeeHome', [
+      'getListData',
+    ]),
+    ...mapActions('committeeAcccount', [
+      'getListData1',
+    ]),
     change (index) {
       this.$router.push({ path: index })
     },
     handleNodeClick(data) {
-      console.log(data);
+      this.getListData({code: data.id})
+      this.getListData1({code: data.id})
     }
   }
 }

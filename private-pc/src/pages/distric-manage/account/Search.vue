@@ -101,7 +101,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('behalfCommendedHistory', {
+    ...mapState('districtAccount', {
       multipleSelection: state=>state.multipleSelection
     })
   },
@@ -111,8 +111,8 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('behalfCommendedHistory', [
-      'getListData',
+    ...mapActions('districtAccount', [
+      'getListData1',
     ]),
     // 搜索
     submitForm () {
@@ -120,7 +120,7 @@ export default {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           params.page = 1
-          this.getListData(params)
+          this.getListData1(params)
         }
       })
     },
@@ -144,7 +144,7 @@ export default {
       await repealTabel(params)
       const param = JSON.parse(JSON.stringify(this.searchForm))
       param.page = 1
-      this.getListData(param)
+      this.getListData1(param)
     }
   }
 }

@@ -64,7 +64,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('behalfCommendedHistory', {
+    ...mapState('districtAccount', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
@@ -76,18 +76,18 @@ export default {
   components: {
   },
   created () {
-    this.getListData()
+    this.getListData1()
   },
   methods: {
-    ...mapActions('behalfCommendedHistory', [
-      'getListData'
+    ...mapActions('districtAccount', [
+      'getListData1'
     ]),
-    ...mapMutations('behalfCommendedHistory', [
+    ...mapMutations('districtAccount', [
       'saveSelection'
     ]),
     // 分页
     handleCurrentChange (val) {
-      this.getListData({ page: val })
+      this.getListData1({ page: val })
     },
     look (id) {
       console.log(id)

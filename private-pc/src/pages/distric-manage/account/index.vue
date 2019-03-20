@@ -26,7 +26,7 @@ export default {
     this.clearState()
   },
   methods: {
-    ...mapMutations('behalfCommendedHistory', [
+    ...mapMutations('districtAccount', [
       'clearState'
     ]),
     handleNodeClick(data) {

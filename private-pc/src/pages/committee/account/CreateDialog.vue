@@ -159,7 +159,7 @@ export default {
   },
   methods: {
     ...mapActions('committeeAcccount', [
-      'getListData'
+      'getListData1'
     ]),
     close () {
       this.$emit('update:visible', false)
@@ -175,7 +175,7 @@ export default {
       this.loading = true
       await setSubmit(this.handerParams())
       this.close()
-      this.getListData()
+      this.getListData1()
       this.loading = false
     },
     comfirmClose () {

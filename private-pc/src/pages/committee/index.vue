@@ -29,6 +29,7 @@
 
 <script>
 import CommonTree from '../../components/common-tree'
+import { mapActions } from 'vuex'
 
 export default {
   data () {
@@ -64,11 +65,19 @@ export default {
     CommonTree
   },
   methods: {
+    ...mapActions('distictHome', [
+      'getListData',
+    ]),
+    ...mapActions('districtAccount', [
+      'getListData1',
+    ]),
     change (index) {
       this.$router.push({ path: index })
     },
     handleNodeClick(data) {
-      console.log(data);
+      console.log(data)
+      this.getListData({code: data.id})
+      this.getListData1({code: data.id})
     }
   }
 }
