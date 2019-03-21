@@ -1,7 +1,7 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-dropdown  @command="create">
+      <el-dropdown style="margin-right: 10px;" @command="create">
          <el-button size="medium" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="0">区县选区</el-dropdown-item>

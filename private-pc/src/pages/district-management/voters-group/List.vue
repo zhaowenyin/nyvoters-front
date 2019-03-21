@@ -10,25 +10,28 @@
         width="55">
       </el-table-column>
       <el-table-column
-        label="选区名称"
+        label="小组名称"
          width="120"
         prop="name" />
       <el-table-column
+        label="组长"
+        prop="manager" />
+      <el-table-column
+        label="组长联系电话"
         width="180"
-        label="选区编码"
-        prop="code" />
+        prop="managerPhone" />
+      <el-table-column
+        label='召集人'
+        prop="convener" />
+      <el-table-column
+        label="召集人联系电话"
+        width="180"
+        prop="convenerPhone" />
       <el-table-column
         label="类型"
-        prop="gender">
+        prop="type">
         <template slot-scope="scope">
-          {{scope.row.type === 0 ? "区县选区" : '乡镇选区'}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="代表名额"
-        prop="gender">
-        <template slot-scope="scope">
-          {{scope.row.pnum}}
+          {{scope.row.type === 0 ? "区县小组" : '乡镇小组'}}
         </template>
       </el-table-column>
     </el-table>
@@ -56,13 +59,12 @@ export default {
     }
   },
   computed: {
-    ...mapState('distictHome', {
+    ...mapState('voterGroup', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
       pageSize: state => state.searchParam.pageSize,
-      pageNum: state => state.searchParam.pageNum,
-
+      pageNum: state => state.searchParam.pageNum
     })
   },
   components: {
@@ -71,10 +73,10 @@ export default {
     this.getListData()
   },
   methods: {
-    ...mapActions('distictHome', [
+    ...mapActions('voterGroup', [
       'getListData'
     ]),
-    ...mapMutations('distictHome', [
+    ...mapMutations('voterGroup', [
       'saveSelection'
     ]),
     // 分页

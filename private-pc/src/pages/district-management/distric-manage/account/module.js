@@ -18,7 +18,7 @@ export default {
       state.list = []
       state.total = 0
       state.searchParam = {
-        size: 10,
+        size: 20,
         page: 1
       }
       state.multipleSelection = []

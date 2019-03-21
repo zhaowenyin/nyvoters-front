@@ -1,14 +1,8 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-dropdown  @command="create">
-         <el-button size="medium" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item command="0">区县选区</el-dropdown-item>
-          <el-dropdown-item command="1">乡镇选区</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-      <el-button size="medium"  @click="modify" type="primary" icon="el-icon-edit">修改</el-button>
+      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
+      <el-button size="medium" @click="modify" type="primary" icon="el-icon-edit">修改</el-button>
       <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
     </div>
     <el-form
@@ -23,8 +17,9 @@
           size="medium"
           style="width: 120px;"
           placeholder="请选择">
-          <el-option label="选区名字" :value="1"></el-option>
-          <el-option label="选区编码" :value="2"></el-option>
+          <el-option label="小组名称" :value="1"></el-option>
+          <el-option label="组长" :value="2"></el-option>
+          <el-option label="类型" :value="3"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -43,7 +38,19 @@
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.code" />
+          v-model.trim="searchForm.manager" />
+      </el-form-item>
+      <el-form-item
+        v-if="type === 3"
+        prop="type">
+        <el-select  size="medium" v-model.trim="searchForm.type">
+          <el-option
+            v-for="(item, key) in typeList"
+            :key="key"
+            :label="item"
+            :value="+key">
+          </el-option>
+        </el-select>
       </el-form-item>
     </el-form>
     <CreateDialog
@@ -65,14 +72,18 @@ export default {
       type: 1,
       searchForm: {
         name: '',
-        code: '',
+        manager: '',
+        type: ''
       },
       createDialogVisible: false,
-      val: -1
+      typeList: {
+        0: '区县小组',
+        1: '乡镇小组'
+      }
     }
   },
   computed: {
-    ...mapState('distictHome', {
+    ...mapState('voterGroup', {
       multipleSelection: state=>state.multipleSelection
     })
   },
@@ -82,7 +93,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('distictHome', [
+    ...mapActions('voterGroup', [
       'getListData',
     ]),
     // 搜索

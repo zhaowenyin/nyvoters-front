@@ -10,14 +10,15 @@ export async function getList (payload) {
           "content": {
             "data": [
               {
-                "code": "string",
-                "distinct": "string",
-                "distinctId": 0,
+                "convener": "string",
+                "convenerPhone": "string",
                 "id": 0,
+                "manager": "string",
+                "managerPhone": "string",
                 "name": "string",
-                "pnum": 0,
+                "precinctId": 0,
                 "sort": 0,
-                "type": true
+                "type": 1
               }
             ],
             "endRow": 0,
@@ -34,7 +35,7 @@ export async function getList (payload) {
       })
     }, 500)
   })
-  // return api.get('/precinct/list', { params: payload })
+  // return api.get('/group/list', { params: payload })
 }
 
 export async function setSubmit (payload) {
@@ -47,7 +48,7 @@ export async function setSubmit (payload) {
       })
     }, 500)
   })
-  // return api.post('/precinct/add', payload)
+  // return api.post('/group/add', payload)
   // .then(data => data)
   //   .catch(() => Promise.resolve({data: null}))
 }
@@ -62,7 +63,7 @@ export async function modifySubmit (payload) {
       })
     }, 500)
   })
-  // return api.post('/precinct/edit', payload)
+  // return api.post('/group/edit', payload)
   // .then(data => data)
   //   .catch(() => Promise.resolve({data: null}))
 }
@@ -77,7 +78,7 @@ export async function deletetTabel (payload) {
       })
     }, 500)
   })
-  // return api.post('/precinct/delete', payload)
+  // return api.post('/group/delete', payload)
 }
 export async function getTree (payload) {
   console.log(payload)
