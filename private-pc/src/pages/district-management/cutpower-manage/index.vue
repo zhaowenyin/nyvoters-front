@@ -1,11 +1,7 @@
 <template>
   <div class="view">
-    <div class="view-left">
-    </div>
-    <div class="view-content">
-      <Search />
-      <List />
-    </div>
+    <Search />
+    <List />
   </div>
 </template>
 <script>
@@ -42,19 +38,7 @@ export default {
 </script>
 <style scoped>
   .view{
-    display: flex;
-  }
-  .view-left {
-    width: 270px;
-    background-color: #ffffff;
-    border-right: 1px solid #ddd;
-    height: 100%;
-    overflow: auto;
-    padding-top: 6px;
-  }
-  .view-content {
     background: #f8f8f8;
-    flex: 1;
     padding: 16px 20px;
   }
 </style>
