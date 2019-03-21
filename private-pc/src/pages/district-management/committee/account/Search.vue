@@ -30,6 +30,13 @@
           placeholder="请输入关键字"
           v-model.trim="searchForm.name" />
       </el-form-item>
+       <el-form-item>
+        <el-button
+          @click="submitForm()"
+          size="medium"
+          icon="el-icon-search"
+          type="primary"></el-button>
+      </el-form-item>
     </el-form>
     <CreateDialog
       v-if="createDialogVisible"

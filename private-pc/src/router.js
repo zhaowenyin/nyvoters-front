@@ -36,6 +36,7 @@ const CommitteeLayout = () => import ('@/pages/district-management/committee')
 const CommitteeManage = () => import ('@/pages/district-management/committee/home')
 const CommitteeAccount = () => import ('@/pages/district-management/committee/account')
 const VoterGroup = () => import ('@/pages/district-management/voters-group')
+const CutPower = () => import ('./pages/district-management/cutpower-manage')
 
 
 
@@ -177,8 +178,11 @@ const router = new Router({
           name: '选民小组',
           component: VoterGroup
         },
-
-
+        {
+          path: 'cut-power',
+          name: '剥权人管理',
+          component: CutPower
+        }
 
       ]
     },

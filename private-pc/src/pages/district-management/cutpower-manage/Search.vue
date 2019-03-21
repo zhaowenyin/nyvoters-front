@@ -2,8 +2,6 @@
   <div class="search-box">
     <div class="left">
       <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
-      <el-button size="medium" @click="modify" type="primary" icon="el-icon-edit">修改</el-button>
-      <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
     </div>
     <el-form
       ref="form"
@@ -17,9 +15,10 @@
           size="medium"
           style="width: 120px;"
           placeholder="请选择">
-          <el-option label="小组名称" :value="1"></el-option>
-          <el-option label="组长" :value="2"></el-option>
-          <el-option label="类型" :value="3"></el-option>
+          <el-option label="姓名" :value="1"></el-option>
+          <el-option label="身份证" :value="2"></el-option>
+          <el-option label="剥权时间" :value="3"></el-option>
+          <el-option label="剥权恢复时间" :value="4"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -28,37 +27,41 @@
         <el-input
           class="item"
           size="medium"
-          placeholder="请输入关键字"
+          placeholder="请输入姓名"
           v-model.trim="searchForm.name" />
       </el-form-item>
        <el-form-item
         v-if="type === 2"
-        prop="code">
+        prop="idNum">
         <el-input
           class="item"
           size="medium"
-          placeholder="请输入关键字"
-          v-model.trim="searchForm.manager" />
+          placeholder="请输入身份证"
+          v-model.trim="searchForm.idNum" />
       </el-form-item>
       <el-form-item
         v-if="type === 3"
-        prop="type">
-        <el-select  size="medium" v-model.trim="searchForm.type">
-          <el-option
-            v-for="(item, key) in typeList"
-            :key="key"
-            :label="item"
-            :value="+key">
-          </el-option>
-        </el-select>
-      </el-form-item>
-       <el-form-item>
-        <el-button
-          @click="submitForm()"
-          size="medium"
-          icon="el-icon-search"
-          type="primary"></el-button>
-      </el-form-item>
+        prop="startTime">
+         <el-date-picker
+          v-model="searchForm.startTime"
+          placeholder="请选择"
+          type="daterange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期">
+           </el-date-picker>
+        </el-form-item>
+       <el-form-item
+        v-if="type === 4"
+        prop="endTime">
+        <el-date-picker
+          v-model="searchForm.endTime"
+          type="daterange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期">
+          </el-date-picker>
+        </el-form-item>
     </el-form>
     <CreateDialog
       v-if="createDialogVisible"
@@ -71,7 +74,6 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
-import { deletetTabel} from './service.js'
 
 export default {
   data () {
@@ -79,8 +81,10 @@ export default {
       type: 1,
       searchForm: {
         name: '',
-        manager: '',
-        type: ''
+        startTime: [],
+        endTime: [],
+        idNum: ''
+
       },
       createDialogVisible: false,
       typeList: {
@@ -108,6 +112,17 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
+          if( params.startTime !== null && params.startTime.length===0){
+            params.endTimeStart = params.startTime[0].getTime()
+            params.startTimeEnd = params.startTime[1].getTime()
+          }
+          if( params.endTime !== null && params.endTime.length===0){
+            params.startTimeStart = params.endTime[0].getTime()
+            params.endTimeEnd = params.endTime[1].getTime()
+          }
+          delete params.startTime
+          delete params.endTime
+
           params.pageNum = 1
           this.getListData(params)
         }
@@ -118,46 +133,6 @@ export default {
       this.item = {}
       this.createDialogVisible = true
     },
-    modify () {
-      if(this.multipleSelection.length !== 1) {
-        this.$notify({
-          title: '',
-          message: '请勾选一条数据进行修改！',
-          type: 'warning'
-        });
-        return
-      }
-      this.val = -1
-      this.item = this.multipleSelection[0]
-      this.createDialogVisible = true
-    },
-    deleteI () {
-      if(this.multipleSelection.length === 0) {
-        this.$notify({
-          title: '',
-          message: '请勾选数据进删除！',
-          type: 'warning'
-        });
-        return
-      }
-      this.$confirm('选区删除后将不可恢复，请确认是否删除？')
-        .then(() => {
-          this.delectItem()
-        })
-        .catch(() => {})
-
-    },
-    async delectItem() {
-      let idList = []
-      for (let i of this.multipleSelection) {
-        idList.push(i.id)
-      }
-      let params = {idList}
-      await deletetTabel(params)
-      const param = JSON.parse(JSON.stringify(this.searchForm))
-      param.pageNum = 1
-      this.getListData(param)
-    }
   }
 }
 </script>
