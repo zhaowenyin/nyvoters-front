@@ -50,18 +50,25 @@
           start-placeholder="开始日期"
           end-placeholder="结束日期">
            </el-date-picker>
-        </el-form-item>
-       <el-form-item
-        v-if="type === 4"
-        prop="endTime">
-        <el-date-picker
-          v-model="searchForm.endTime"
-          type="daterange"
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期">
-          </el-date-picker>
-        </el-form-item>
+      </el-form-item>
+      <el-form-item
+      v-if="type === 4"
+      prop="endTime">
+      <el-date-picker
+        v-model="searchForm.endTime"
+        type="daterange"
+        range-separator="至"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期">
+        </el-date-picker>
+      </el-form-item>
+      <el-form-item>
+        <el-button
+          @click="submitForm()"
+          size="medium"
+          icon="el-icon-search"
+          type="primary"></el-button>
+      </el-form-item>
     </el-form>
     <CreateDialog
       v-if="createDialogVisible"
@@ -94,7 +101,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('voterGroup', {
+    ...mapState('cutPower', {
       multipleSelection: state=>state.multipleSelection
     })
   },
@@ -104,7 +111,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('voterGroup', [
+    ...mapActions('cutPower', [
       'getListData',
     ]),
     // 搜索
@@ -112,13 +119,14 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
-          if( params.startTime !== null && params.startTime.length===0){
-            params.endTimeStart = params.startTime[0].getTime()
-            params.startTimeEnd = params.startTime[1].getTime()
+          console.log(params.startTime)
+          if(params.startTime !== null && params.startTime.length!==0){
+            params.endTimeStart = new Date(params.startTime[0]).getTime()
+            params.startTimeEnd = new Date(params.startTime[1]).getTime()
           }
-          if( params.endTime !== null && params.endTime.length===0){
-            params.startTimeStart = params.endTime[0].getTime()
-            params.endTimeEnd = params.endTime[1].getTime()
+          if(params.endTime !== null && params.endTime.length!==0){
+            params.startTimeStart = new Date(params.endTime[0]).getTime()
+            params.endTimeEnd = new Date(params.endTime[1]).getTime()
           }
           delete params.startTime
           delete params.endTime

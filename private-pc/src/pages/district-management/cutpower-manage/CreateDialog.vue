@@ -1,156 +1,203 @@
 <template>
-  <div>
-    <el-dialog
-      :title="item.id ? '修改' : '新建'"
-      :visible="visible"
-      width="60%"
-      :before-close="comfirmClose">
-      <el-form
-        label-width="110px"
-        :model="form"
-        :rules="rules"
-        ref="form"
-        class="login-form">
-        <el-form-item
-          label="小组名称"
-          prop="name">
-          <el-input
-            size="medium"
-            placeholder="请输入小组名称"
-            class="item"
-            v-model="form.name" />
-        </el-form-item>
-         <el-row :gutter="20">
-           <el-col :span="12">
-            <el-form-item
-              label="所属选区"
-              prop="precinctId">
-              <div :class="['select-input',{hasVal: form.distinct}]" @click="select">{{form.distinct ? form.distinct : '请选择所属选区'}}</div>
-            </el-form-item>
-          </el-col>
-           <el-col :span="12">
-            <el-form-item
-              label="类型">
-              <el-select  size="medium" v-model.trim="form.type" placeholder="请选择类型">
-                <el-option
-                  v-for="(item, key) in typeList"
-                  :key="key"
-                  :label="item"
-                  :value="+key">
-                </el-option>
+  <el-dialog
+    v-loading="loading"
+    :title="item.id ? '修改' : '登记'"
+    :visible="visible"
+    width="820px"
+    :before-close="comfirmClose">
+    <el-form
+      label-width="110px"
+      :model="form"
+      :rules="rules"
+      ref="form"
+      class="login-form">
+      <el-row :gutter="20">
+         <el-col :span="12">
+          <el-form-item
+            label="姓名"
+            prop="name">
+            <el-input
+              size="medium"
+              placeholder="请输入姓名"
+              class="item"
+              v-model="form.name" />
+          </el-form-item>
+        </el-col>
+         <el-col :span="12">
+          <el-form-item
+            label="身份证号码"
+            prop="idNum">
+            <el-input
+              size="medium"
+              placeholder="请输入身份证号码"
+              :maxlength="18"
+              class="item"
+              v-model="form.idNum" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item
+            label="性别"
+            prop="gender">
+            <el-radio-group size="medium" v-model="form.gender">
+              <el-radio :label="1">男</el-radio>
+              <el-radio :label="2">女</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item
+            label=" 民族："
+            prop="nation">
+            <el-select
+              size="medium"
+              style="width: 100%;"
+              class="item"
+              v-model="form.nation"
+              clearable placeholder="请选择">
+              <el-option
+                v-for="(item, key) in nationList"
+                :key="key"
+                :label="item"
+                :value="+key">
+              </el-option>
             </el-select>
-            </el-form-item>
-          </el-col>
-           <el-col :span="12">
-             <el-form-item
-              label="组长"
-              prop="manager">
-              <el-input
-                size="medium"
-                class="item"
-                placeholder="请输入组长"
-                v-model="form.manager" />
-            </el-form-item>
-          </el-col>
-           <el-col :span="12">
-             <el-form-item
-              label="组长联系电话"
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item
+            label="手机号码"
+            prop="phoneNum">
+            <el-input
               :maxlength="11"
-              prop="managerPhone">
-              <el-input
-                size="medium"
-                placeholder="请输入代表名额"
-                class="item"
-                v-model="form.managerPhone" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-             <el-form-item
-              label="召集人"
-              prop="convener">
-              <el-input
-                size="medium"
-                placeholder="请输入召集人"
-                class="item"
-                v-model="form.convener" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-             <el-form-item
-              label="召集人联系电话"
-              prop="convenerPhone">
-              <el-input
-                :maxlength="11"
-                size="medium"
-                placeholder="召集人联系电话"
-                class="item"
-                v-model="form.convenerPhone" />
-            </el-form-item>
-          </el-col>
-           <el-col :span="12">
-            <el-form-item
-              label="排序码"
-              prop="sort	">
-              <el-input
-                size="medium"
-                placeholder="请输入排序码"
-                class="item"
-                v-model="form.sort" />
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
-      <div
-        slot="footer"
-        class="footer">
-        <el-button
-          @click="submitForm()"
+              size="medium"
+              placeholder="请输入"
+              class="item"
+              v-model="form.phoneNum" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item
+            label="联系方式"
+            prop="contactInformation">
+            <el-input
+              size="medium"
+              placeholder="请输入"
+              class="item"
+              v-model="form.contactInformation" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-form-item
+        label="户籍地"
+        prop="householdRegistration">
+        <el-input
           size="medium"
-          :loading="loading"
-          type="primary">确定</el-button>
-          <el-button
-          @click="comfirmClose()"
-          size="medium">取消</el-button>
-      </div>
-    </el-dialog>
-     <PrecinctList
-     @saveData="saveData"
-      v-if="createDialogVisible"
-      :item="item"
-      :visible.sync='createDialogVisible'
-      />
-  </div>
+          placeholder="请输入户籍地"
+          class="item"
+          v-model="form.householdRegistration" />
+      </el-form-item>
+       <el-form-item
+          label="现居住地"
+          prop="living">
+          <el-input
+            placeholder="请输入现居住地"
+            class="item"
+            v-model="form.living" />
+        </el-form-item>
+       <el-form-item
+       label="剥权时间"
+        prop="startTime">
+         <el-date-picker
+          class="item"
+          v-model="form.startTime"
+          placeholder="请选择剥权时间"
+          type="date"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期">
+           </el-date-picker>
+      </el-form-item>
+       <el-form-item
+       label="剥权恢复时间"
+        prop="endTime">
+        <el-date-picker
+          class="item"
+          v-model="form.endTime"
+          type="date"
+           placeholder="请选择剥权恢复时间"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期">
+          </el-date-picker>
+        </el-form-item>
+    </el-form>
+    <div
+      slot="footer"
+      class="footer">
+      <el-button
+        @click="submitForm()"
+        size="medium"
+        :loading="loading"
+        type="primary">确定</el-button>
+        <el-button
+        @click="comfirmClose()"
+        size="medium">取消</el-button>
+    </div>
+  </el-dialog>
 </template>
 <script>
 import {setSubmit} from './service.js'
 import { mapActions } from 'vuex'
-import PrecinctList from './PrecinctList'
 export default {
   data () {
     return {
       loading: false,
       form: {
-        convener: '',
-        convenerPhone: '',
-        manager: '',
-        managerPhone: '',
-        sort: '',
-        precinctId: '',
-        type: '',
-        name: ''
+        name: '',
+        idNum: '',
+        gender: '',
+        nation: '',
+        phoneNum: '',
+        contactInformation: '',
+        householdRegistration: '',
+        living: '',
+        startTime: null,
+        endTime: null
       },
       multipleSelection: [],
       rules: {
-        // name: [
-        //   { required: true, message: '请输入选委会！', trigger: 'blur' }
-        // ],
-
+        name: [
+          { required: true, message: '请输入姓名！', trigger: 'blur' }
+        ],
+        idNum:  [
+          { required: true, message: '请输入身份证！', trigger: 'blur' }
+        ],
+        gender: [
+          { required: true, message: '请选择性别！', trigger: 'blur' }
+        ],
+        nation: [
+          { required: true, message: '请选择民族！', trigger: 'blur' }
+        ],
+        phoneNum: [
+          { required: true, message: '请输入电话号码！', trigger: 'blur' }
+        ],
+        householdRegistration: [
+          { required: true, message: '请输入户籍地！', trigger: 'blur' }
+        ],
+        living:[
+          { required: true, message: '请输入现居地！', trigger: 'blur' }
+        ],
+        startTime:[
+          { required: true, message: '请选择剥权时间！', trigger: 'blur' }
+        ],
+        endTime:[
+          { required: true, message: '请选择剥权恢复时间！', trigger: 'blur' }
+        ],
       },
-      typeList: {
-        0: '区县小组',
-        1: '乡镇小组'
-      },
-      createDialogVisible: false,
+      nationList: {
+        1: '汉'
+      }
     }
 
   },
@@ -162,21 +209,13 @@ export default {
     item: {
       default: () => {},
       type: Object
-    },
-    val: {
-      default: null,
-      type: Number
     }
   },
-  components: {
-    PrecinctList
-  },
   created () {
-
-
+    this.form = {...this.form, ...this.item }
   },
   methods: {
-    ...mapActions('voterGroup', [
+    ...mapActions('voterRegister', [
       'getListData'
     ]),
     close () {
@@ -205,16 +244,13 @@ export default {
     },
     handerParams () {
       let params = {...this.form}
-      delete params.distinct
-      delete params.typeName
+      if(params.startTime !==null) {
+        params.startTime = params.startTime.getTime()
+      }
+      if(params.endTime !==null) {
+        params.endTime = params.endTime.getTime()
+      }
       return params
-    },
-    select () {
-      this.createDialogVisible = true
-    },
-    saveData (val) {
-      this.form.distinct = val.name
-      this.form.distinctId = val.id
     }
   }
 
@@ -226,16 +262,6 @@ export default {
 }
 .item {
   width: 100%;
-}
-.select-input {
-  border: solid 1px #DCDFE6;
-  background: #fff;
-  color: #c0c4cb;
-  height: 40px;
-  padding-left: 15px;
-  &.hasVal {
-    color: #333;
-  }
 }
 </style>
 <style>

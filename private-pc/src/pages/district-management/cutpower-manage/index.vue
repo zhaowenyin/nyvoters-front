@@ -27,7 +27,7 @@ export default {
     this.clearState()
   },
   methods: {
-    ...mapMutations('voterGroup', [
+    ...mapMutations('cutPower', [
       'clearState'
     ]),
     handleNodeClick(data) {

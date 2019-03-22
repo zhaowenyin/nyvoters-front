@@ -13,6 +13,7 @@ import committeeAcccount from './pages/district-management/committee/account/mod
 import distictHome from './pages/district-management/distric-manage/home/module'
 import districtAccount from './pages/district-management/distric-manage/account/module'
 import  voterGroup from './pages/district-management/voters-group/module'
+import cutPower from './pages/district-management/cutpower-manage/module'
 
 Vue.use(Vuex)
 
@@ -29,6 +30,7 @@ export default new Vuex.Store({
     committeeAcccount,
     distictHome,
     districtAccount,
-    voterGroup
+    voterGroup,
+    cutPower
   }
 })

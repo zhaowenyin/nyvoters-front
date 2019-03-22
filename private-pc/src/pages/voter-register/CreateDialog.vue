@@ -264,16 +264,16 @@ export default {
           { required: true, message: '请输入详细地址！', trigger: 'blur' }
         ],
         candidateType:[
-          { required: true, message: '请选择出生日期', trigger: 'blur' }
+          { required: true, message: '请选择参选地类型！', trigger: 'blur' }
         ],
         registrationType:[
-          { required: true, message: '请选择出生日期', trigger: 'blur' }
+          { required: true, message: '请选择登记方式！', trigger: 'blur' }
         ],
         registrationTime:[
-          { required: true, message: '请选择出生日期', trigger: 'blur' }
+          { required: true, message: '请选择登记日期！', trigger: 'blur' }
         ],
         registrar:[
-          { required: true, message: '请选择出生日期', trigger: 'blur' }
+          { required: true, message: '请输入登记人1', trigger: 'blur' }
         ]
       },
       registrationTypeList,

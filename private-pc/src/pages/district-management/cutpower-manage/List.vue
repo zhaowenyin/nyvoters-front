@@ -10,28 +10,21 @@
         width="55">
       </el-table-column>
       <el-table-column
-        label="小组名称"
-         width="120"
+        label="姓名"
         prop="name" />
       <el-table-column
-        label="组长"
-        prop="manager" />
+        label="身份证号"
+        prop="idNum" />
       <el-table-column
-        label="组长联系电话"
-        width="180"
-        prop="managerPhone" />
-      <el-table-column
-        label='召集人'
-        prop="convener" />
-      <el-table-column
-        label="召集人联系电话"
-        width="180"
-        prop="convenerPhone" />
-      <el-table-column
-        label="类型"
-        prop="type">
+        label="剥权时间">
         <template slot-scope="scope">
-          {{scope.row.type === 0 ? "区县小组" : '乡镇小组'}}
+          {{ formatDate(scope.row.startTime) }}
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="剥权恢复时间">
+        <template slot-scope="scope">
+          {{ formatDate(scope.row.endTime) }}
         </template>
       </el-table-column>
     </el-table>
@@ -59,7 +52,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('voterGroup', {
+    ...mapState('cutPower', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
@@ -73,10 +66,10 @@ export default {
     this.getListData()
   },
   methods: {
-    ...mapActions('voterGroup', [
+    ...mapActions('cutPower', [
       'getListData'
     ]),
-    ...mapMutations('voterGroup', [
+    ...mapMutations('cutPower', [
       'saveSelection'
     ]),
     // 分页
