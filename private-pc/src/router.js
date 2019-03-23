@@ -29,14 +29,15 @@ const FileManage = () => import('@/pages/system-manage/file-manage')
 const OperateLog = () => import('@/pages/system-manage/operate-log')
 
 // 选区管理
-const DistricLayout = () => import ('@/pages/district-management/distric-manage')
-const DistrictManage = () => import ('@/pages/district-management/distric-manage/home')
-const AccountManage = () => import ('@/pages/district-management/distric-manage/account')
-const CommitteeLayout = () => import ('@/pages/district-management/committee')
-const CommitteeManage = () => import ('@/pages/district-management/committee/home')
-const CommitteeAccount = () => import ('@/pages/district-management/committee/account')
-const VoterGroup = () => import ('@/pages/district-management/voters-group')
-const CutPower = () => import ('./pages/district-management/cutpower-manage')
+const DistricLayout = () => import('@/pages/district-management/distric-manage')
+const DistrictManage = () => import('@/pages/district-management/distric-manage/home')
+const AccountManage = () => import('@/pages/district-management/distric-manage/account')
+const CommitteeLayout = () => import('@/pages/district-management/committee')
+const CommitteeManage = () => import('@/pages/district-management/committee/home')
+const CommitteeAccount = () => import('@/pages/district-management/committee/account')
+const VoterGroup = () => import('@/pages/district-management/voters-group')
+const CutPower = () => import('@/pages/district-management/cutpower-manage')
+const DownFile = () => import('./pages/district-management/download-file')
 
 
 
@@ -182,8 +183,12 @@ const router = new Router({
           path: 'cut-power',
           name: '剥权人管理',
           component: CutPower
+        },
+        {
+          path: 'down-file',
+          name: '文件资料',
+          component: DownFile
         }
-
       ]
     },
 

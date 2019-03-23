@@ -14,7 +14,18 @@
         <el-menu-item class="item" index="/voter-registers">选民批量导入</el-menu-item>
         <el-menu-item class="item" index="/voter-info">选民信息查询</el-menu-item>
       </el-submenu>
-      <el-submenu index="2">
+       <el-submenu index="2">
+        <template slot="title">
+          <img src="../assets/img/33.png" class="icon"/>
+          <span>选区管理</span>
+        </template>
+          <el-menu-item class="item" index="/committee/manage">选委会管理</el-menu-item>
+          <el-menu-item class="item" index="/district/manage">选区管理</el-menu-item>
+          <el-menu-item class="item" index="/voter-group">选民小组</el-menu-item>
+          <el-menu-item class="item" index="/cut-power">剥权人管理</el-menu-item>
+          <el-menu-item class="item" index="/down-file">文件资料</el-menu-item>
+      </el-submenu>
+      <el-submenu index="3">
         <template slot="title">
           <img src="../assets/img/44.png" class="icon"/>
           <span>代表事务管理</span>
@@ -22,7 +33,7 @@
         <el-menu-item class="item" index="/qual-review">资格审查</el-menu-item>
         <el-menu-item class="item" index="/behalf-recommended">代表推荐</el-menu-item>
       </el-submenu>
-       <el-submenu index="3">
+       <el-submenu index="4">
         <template slot="title">
           <img src="../assets/img/77.png" class="icon"/>
           <span>系统管理</span>
@@ -32,16 +43,6 @@
         <el-menu-item class="item" index="/file">文件资料管理</el-menu-item>
         <el-menu-item class="item" index="/operate">操作日志</el-menu-item>
         </el-submenu>
-        <el-submenu index="4">
-        <template slot="title">
-          <img src="../assets/img/77.png" class="icon"/>
-          <span>选区管理</span>
-        </template>
-          <el-menu-item class="item" index="/committee/manage">选委会管理</el-menu-item>
-          <el-menu-item class="item" index="/district/manage">选区管理</el-menu-item>
-          <el-menu-item class="item" index="/voter-group">选民小组</el-menu-item>
-          <el-menu-item class="item" index="/cut-power">剥权人管理</el-menu-item>
-      </el-submenu>
     </el-menu>
 
   </div>
