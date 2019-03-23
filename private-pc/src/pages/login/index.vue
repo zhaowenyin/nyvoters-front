@@ -27,6 +27,7 @@
             class="item"
             v-model="userLogin.password" />
         </el-form-item>
+        {{captchaImg}}
         <el-form-item
           label="验证码："
           prop="valid">
@@ -36,8 +37,8 @@
               :maxlength="18"
               class="item"
               v-model="userLogin.valid" />
-            <div class="out-img"><img class="img" src="../../assets/img/home.png"/></div>
-            <div class="change" @click="change">换一张</div>
+            <div class="out-img"><img class="img" :src="captchaImg"/></div>
+            <div class="change" @click="getCode">换一张</div>
           </div>
         </el-form-item>
         <el-form-item class="padding">
@@ -53,7 +54,7 @@
 
 <script>
 import { setSession } from '../../utils/session'
-import { login } from './service.js'
+import { login, getCode} from './service.js'
 import { verifyArr } from './config.js'
 
 export default {
@@ -62,7 +63,8 @@ export default {
       userLogin: {
         username: '',
         password: '',
-        valid: ''
+        captcha: '',
+        captchaId: ''
       },
       rules: {
         username: [
@@ -71,10 +73,11 @@ export default {
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' }
         ],
-        valid: [
+        captcha: [
           { required: true, message: '请输入验证码', trigger: 'blur' }
         ]
-      }
+      },
+      captchaImg: ''
     }
   },
   components: {
@@ -89,7 +92,7 @@ export default {
     submitForm () {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          login(this.userLogin)
+          login({...this.userLogin})
             .then(({ data }) => {
               data.verifyArr = verifyArr
               setSession(data)
@@ -101,8 +104,10 @@ export default {
     enterSubmit (event) {
       if (event.keyCode === 13) this.submitForm()
     },
-    change () {
-
+    async getCode () {
+      const {data} = await getCode()
+      this.captchaImg = data.content.captcha
+      this.captchaId = data.content.captchaId
     }
   }
 }

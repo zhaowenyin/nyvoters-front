@@ -7,12 +7,22 @@ export async function login (payload) {
     setTimeout(() => {
       resolve({
         data: {
-          token: '8064e14b-f8cc-464f-bd29-52a68b869e8f',
+          "code": "string",
+          "content": {
+            "powers": [
+              0
+            ],
+            "token": "string",
+            "userId": 0,
+            "userName": "string"
+          },
+          "message": "string",
+          "status": "string"
         }
       })
     }, 500)
   })
-  // return api.post('/api/v3/pcweb/users/session', payload)
+  // return api.post('/login', payload)
 }
 
 // 退出
@@ -24,5 +34,24 @@ export async function logout () {
       })
     }, 500)
   })
-  // return api.delete('/api/v3/pcweb/users/session')
+  // return api.post('/logout')
 }
+export async function getCode () {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+          "code": "string",
+          "content": {
+            "captcha": "https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100",
+            "captchaId": 1
+          },
+          "message": "string",
+          "status": "string"
+        }
+      })
+    }, 500)
+  })
+  // return api.get('/getcode')
+}
+
