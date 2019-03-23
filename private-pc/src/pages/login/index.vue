@@ -55,6 +55,7 @@
 import { setSession } from '../../utils/session'
 import { login, getCode} from './service.js'
 import { verifyArr } from './config.js'
+import md5 from 'blueimp-md5'
 
 export default {
   data () {
@@ -92,7 +93,7 @@ export default {
     submitForm () {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          login({...this.userLogin})
+          login({...this.userLogin,password: md5(this.userLogin.password)})
             .then(({ data }) => {
               data.verifyArr = verifyArr
               setSession(data)
