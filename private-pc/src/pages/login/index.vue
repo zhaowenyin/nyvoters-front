@@ -27,7 +27,6 @@
             class="item"
             v-model="userLogin.password" />
         </el-form-item>
-        {{captchaImg}}
         <el-form-item
           label="验证码："
           prop="valid">
@@ -83,6 +82,7 @@ export default {
   components: {
   },
   created () {
+    this.getCode()
     document.addEventListener('keydown', this.enterSubmit, false)
   },
   destroyed () {
@@ -171,6 +171,7 @@ export default {
     & .change {
       width: 90px;
       padding-left: 20px;
+      cursor: pointer;
     }
   }
 
