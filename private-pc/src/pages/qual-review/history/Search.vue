@@ -1,8 +1,6 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button size="medium" @click="qualReviewI" type="primary" icon="el-icon-view">审查</el-button>
-      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">资料补充</el-button>
     </div>
     <el-form
       ref="form"
@@ -62,16 +60,10 @@
           type="primary"></el-button>
       </el-form-item>
     </el-form>
-    <CreateDialog
-      v-if="createDialogVisible"
-      :visible.sync='createDialogVisible'
-      />
   </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import CreateDialog from './CreateDialog'
-import {qualReview} from './service.js'
 
 export default {
   data () {
@@ -81,7 +73,6 @@ export default {
         recommendedPerson: '',
         recommendType: '',
         type: '',
-        item: {}
       },
       methodList: [
         {
@@ -107,17 +98,17 @@ export default {
     }
   },
   computed: {
-    ...mapState('qualReview', {
+    ...mapState('qualReviewHistory', {
       multipleSelection: state=>state.multipleSelection
     })
   },
   components: {
-    CreateDialog
+
   },
   created () {
   },
   methods: {
-    ...mapActions('qualReview', [
+    ...mapActions('qualReviewHistory', [
       'getListData',
     ]),
     // 搜索
@@ -133,33 +124,6 @@ export default {
     create () {
       this.createDialogVisible = true
     },
-    qualReviewI () {
-      if(this.multipleSelection.length === 0) {
-        this.$notify({
-          title: '',
-          message: '请勾选数据后再操作！',
-          type: 'warning'
-        });
-        return
-      }
-      this.$confirm('确认审查完成，提交到下一节点？')
-        .then(() => {
-          this.qualReviewItem()
-        })
-        .catch(() => {})
-
-    },
-    async qualReviewItem() {
-      let idList = []
-      for (let i of this.multipleSelection) {
-        idList.push(i.id)
-      }
-      let params = {idList,status: 'REVIEW_SUCCESS'}
-      await qualReview(params)
-      const param = JSON.parse(JSON.stringify(this.searchForm))
-      param.pageNum = 1
-      this.getListData(param)
-    }
   }
 }
 </script>

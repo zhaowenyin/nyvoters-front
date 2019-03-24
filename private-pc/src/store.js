@@ -15,6 +15,7 @@ import districtAccount from './pages/district-management/distric-manage/account/
 import  voterGroup from './pages/district-management/voters-group/module'
 import cutPower from './pages/district-management/cutpower-manage/module'
 import qualReview from './pages/qual-review/home/module'
+import qualReviewHistory from './pages/qual-review/history/module'
 
 Vue.use(Vuex)
 
@@ -33,6 +34,7 @@ export default new Vuex.Store({
     districtAccount,
     voterGroup,
     cutPower,
-    qualReview
+    qualReview,
+    qualReviewHistory
   }
 })

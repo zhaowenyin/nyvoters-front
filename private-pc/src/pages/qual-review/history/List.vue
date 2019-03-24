@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table
+   <el-table
       :data="list"
       class="add_table"
       @selection-change="handleSelectionChange"
@@ -73,7 +73,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('qualReview', {
+    ...mapState('qualReviewHistory', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
@@ -88,10 +88,10 @@ export default {
     this.getListData()
   },
   methods: {
-    ...mapActions('qualReview', [
+    ...mapActions('qualReviewHistory', [
       'getListData'
     ]),
-    ...mapMutations('qualReview', [
+    ...mapMutations('qualReviewHistory', [
       'saveSelection'
     ]),
     // 分页
@@ -157,3 +157,4 @@ export default {
 <style scoped>
 
 </style>
+

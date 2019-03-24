@@ -1,6 +1,6 @@
 <template>
   <div class="view">
-    <div class="view-left">
+    <div v-if="activeIndex === '/qual-review'" class="view-left">
       <CommonTree
         :data="data"
         @node-click="handleNodeClick" />

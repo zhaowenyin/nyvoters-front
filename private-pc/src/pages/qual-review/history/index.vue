@@ -1,10 +1,13 @@
 <template>
-  <div class="view">
-    资格审查记录
+  <div class="behalf">
+      <Search />
+      <List />
   </div>
 </template>
 <script>
 import { mapMutations } from 'vuex'
+import Search from './Search'
+import List from './List'
 
 export default {
   data () {
@@ -15,20 +18,26 @@ export default {
 
   },
   components: {
+    Search,
+    List
   },
   created () {
     // 初始化清除数据
     this.clearState()
   },
   methods: {
-    ...mapMutations('home', [
+    ...mapMutations('qualReviewHistory', [
       'clearState'
-    ])
+    ]),
+    handleNodeClick(data) {
+      console.log(data);
+    }
   }
 }
 </script>
 <style scoped>
-  .view{
-    padding: 0px 30px;
+  .behalf{
+    background: #f8f8f8;
+    padding: 16px 20px;
   }
 </style>
