@@ -19,6 +19,7 @@
     "parser": "babel-eslint"
   },
   "globals": {
-    "Global_config": true
+    "Global_config": true,
+    "SignaturePad": true
   }
 }

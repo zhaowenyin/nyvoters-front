@@ -1,51 +1,51 @@
 <template>
-  <div
-    v-if="toast"
-    class="out">
+  <div class="out-line">
     <div
-      class="content">
-      <ul class="the-icon">
-        <li
-          class="button"
-          style = "text-align: left;"
-        >
-          <div
-            class ="default"
-            @click="close">取消</div>
-        </li>
-        <li
-          class="button"
-          style = "display: flex;justify-content: center;"
-        >
-          <div
-            class ="default"
-            @click="clear">清除</div>
-        </li>
-        <li
-          class="button">
-          <div
-            class ="default confirm"
-            v-if="!buLoading"
-            @click="comfire">确定</div>
-          <div
-            v-if="buLoading"
-            class ="default confirm"
-            :disabled="buLoading">加载中...</div>
-        </li>
-      </ul>
-      <div class="sign">
-        <canvas
-          ref="canvas"
-          class="canvas"
-        />
-      </div>
+      v-if="toast"
+      class="out">
+      <div
+        class="content">
+        <ul class="the-icon">
+          <li
+            class="button"
+            style = "text-align: left;"
+          >
+            <div
+              class ="default"
+              @click="close">取消</div>
+          </li>
+          <li
+            class="button"
+            style = "display: flex;justify-content: center;"
+          >
+            <div
+              class ="default"
+              @click="clear">清除</div>
+          </li>
+          <li
+            class="button">
+            <div
+              class ="default confirm"
+              v-if="!buLoading"
+              @click="comfire">确定</div>
+            <div
+              v-if="buLoading"
+              class ="default confirm"
+              :disabled="buLoading">加载中...</div>
+          </li>
+        </ul>
+        <div class="sign">
+          <canvas
+            ref="canvas"
+            class="canvas"
+          />
+        </div>
 
+      </div>
     </div>
   </div>
 </template>
 <script>
-import { getImgBase64 } from '../../utils/format.js'
-import { getImgURL } from '../../../config'
 
 export default {
   data () {
@@ -73,7 +73,7 @@ export default {
   mounted () {
     this.canvas = this.$refs.canvas
     window.addEventListener('resize', this.resizeCanvas)
-    // this.signaturePad = new SignaturePad(this.canvas)
+    this.signaturePad = new SignaturePad(this.canvas)
     this.initData()
   },
   destroyed (){
@@ -81,16 +81,7 @@ export default {
   },
   methods: {
     async initData() {
-      if (this.url && !/^data:image/g.test(this.url)) {
-        try {
-          this.signUrl = await getImgBase64(getImgURL(this.url))
-        } catch (e) {
-          this.signUrl = ''
-        }
-
-      } else {
-        this.signUrl = this.url
-      }
+      this.signUrl = this.url
       this.resizeCanvas()
     },
     close () {
@@ -122,6 +113,14 @@ export default {
 }
 </script>
 <style scoped>
+.out-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3000;
+}
 .out {
   position: absolute;
   top: 0;
@@ -129,7 +128,6 @@ export default {
   right: 0;
   bottom: 0;
   background: rgba(0,0,0, 0.5);
-  z-index: 1000;
   transition: all .3s ease-in-out;
   height: 100%;
   font-size: 13px;

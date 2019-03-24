@@ -55,4 +55,16 @@ export async function qualReview (payload) {
   })
   // return api.post('/qualification-review/review', payload)
 }
+export async function setSubmit (payload) {
+  console.log(payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+        }
+      })
+    }, 500)
+  })
+  // return api.post('/qualification-review/supplement', payload)
+}
 

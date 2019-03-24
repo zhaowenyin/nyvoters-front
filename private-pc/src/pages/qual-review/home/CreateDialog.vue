@@ -335,11 +335,16 @@
         <el-form-item
           label="提名推荐人签名"
           prop="nominateRecommenderSignature">
-          <el-form-item
-          label="对应行政区"
-          prop="precinctId">
-          <div :class="['select-input',{hasVal: form.nominateRecommenderSignature}]" @click="select">{{form.nominateRecommenderSignature ? form.nominateRecommenderSignature : '请选择'}}</div>
-        </el-form-item>
+          <!-- <div  :class="['select-input',{hasVal: form.nominateRecommenderSignature}]" @click="select">
+            <div v-if="!form.nominateRecommenderSignature">请选择</div>
+            <img style="width: 100%;height: 100%;" v-else :src="form.nominateRecommenderSignature"/>
+          </div> -->
+           <el-input
+            type="textarea"
+            :rows="2"
+            placeholder="请输入"
+            class="item"
+            v-model="form.nominateRecommenderSignature" />
         </el-form-item>
         <el-form-item
           label="审查意见"
@@ -351,14 +356,29 @@
             class="item"
             v-model="form.reviewOpinion" />
         </el-form-item>
-        <el-form-item
-          label="通信地址"
-          prop="contactAddress">
-          <el-input
-            placeholder="请输入"
-            class="item"
-            v-model="form.contactAddress" />
-        </el-form-item>
+         <el-row :gutter="20">
+          <el-col :span="16">
+             <el-form-item
+              label="通信地址"
+              prop="contactAddress">
+              <el-input
+                placeholder="请输入"
+                class="item"
+                v-model="form.contactAddress" />
+            </el-form-item>
+          </el-col>
+           <el-col :span="8">
+              <el-form-item
+              label="联系方式"
+              prop="contactInformation">
+              <el-input
+                placeholder="请输入"
+                class="item"
+                v-model="form.contactInformation" />
+            </el-form-item>
+          </el-col>
+        </el-row>
+
         <el-form-item
           label="备注"
           prop="remarks">
@@ -385,7 +405,7 @@
     </el-dialog>
     <Sign
       v-if="toast"
-      :url='value'
+      :url='form.nominateRecommenderSignature'
       :toast.sync="toast"
       @saveSign="saveSign"/>
  </div>
@@ -429,6 +449,7 @@ export default {
         nominateRecommenderSignature: '',
         reviewOpinion: '',
         contactAddress: '',
+        contactInformation: '',
         remarks: ''
       },
       multipleSelection: [],
@@ -449,7 +470,6 @@ export default {
       partyList,
       postList,
       toast: false,
-      value: ''
     }
 
   },
@@ -508,19 +528,27 @@ export default {
     },
     handerParams () {
       let params = {...this.form}
-      if(params.startTime !==null) {
-        params.startTime = params.startTime.getTime()
+      if(params.birthDay&&params.birthDay !==null) {
+        params.birthDay = params.birthDay.getTime()
       }
-      if(params.endTime !==null) {
-        params.endTime = params.endTime.getTime()
+      if(params.workTime&&params.workTime !==null) {
+        params.workTime = params.workTime.getTime()
+      }
+      if(params.joinPartyTime&&params.joinPartyTime !==null) {
+        params.joinPartyTime = params.joinPartyTime.getTime()
       }
       return params
+    },
+    saveSign (val) {
+      this.form.nominateRecommenderSignature = val.png
+      this.toast = false
+    },
+    select () {
+      console.log(999)
+      this.toast = true
     }
   },
-  saveSign (val) {
-    this.form.nominateRecommenderSignature = val.png
-    this.toast = false
-  }
+
 }
 </script>
 <style scoped>
@@ -534,7 +562,7 @@ export default {
   border: solid 1px #DCDFE6;
   background: #fff;
   color: #c0c4cb;
-  height: 40px;
+  height: 80px;
   padding-left: 15px;
   &.hasVal {
     color: #333;
