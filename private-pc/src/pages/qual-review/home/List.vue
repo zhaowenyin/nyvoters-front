@@ -3,66 +3,83 @@
     <el-table
       :data="list"
       class="add_table"
+      @selection-change="handleSelectionChange"
       v-loading="loading">
-      <el-table-column
+       <el-table-column
         type="selection"
         width="55">
       </el-table-column>
       <el-table-column
         label="姓名"
-        prop="name" />
+         width="120"
+        prop="recommendedPerson" />
       <el-table-column
+        width="180"
         label="身份证号码"
-        prop="card" />
+        prop="idNum" />
       <el-table-column
         label="性别"
-        prop="gender" />
-      <el-table-column
-        label="手机号"
-        prop="tel" />
-      <el-table-column
-        label="参选地类型"
-        prop="address_type" />
-      <el-table-column
-        label="登记日期">
+        prop="gender">
         <template slot-scope="scope">
-          {{ formatDate(scope.row.time) }}
+          {{handlegender(scope.row.gender)}}
         </template>
       </el-table-column>
       <el-table-column
-        label="选民状态"
-        prop="type" />
+        label="推荐方式">
+         <template slot-scope="scope">
+          {{scope.row.gender === 1 ? '团体推荐' : '选民联名推荐'}}
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="推荐类型"
+      >
+          <template slot-scope="scope">
+          {{scope.row.gender === 1 ? '区县代表' : '乡镇代表'}}
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="belongAreaId"
+        label="所属选区">
+      </el-table-column>
+      <el-table-column
+        label="状态"
+        prop="status">
+       <template slot-scope="scope">
+          {{handerStatus(scope.row.status)}}
+        </template>
+      </el-table-column>
     </el-table>
     <div
       v-show="total"
       class="add_pagination">
       <el-pagination
         @current-change="handleCurrentChange"
-        :page-size="size"
+        :page-size="pageSize"
         background
-        :current-page="page"
+        :current-page="pageNum"
         layout="prev, pager, next"
         :total="total" />
     </div>
   </div>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions,mapMutations } from 'vuex'
 import { formatDate } from '../../../utils/format.js'
 
 export default {
   data () {
     return {
-      downLoading: false
+      downLoading: false,
     }
   },
   computed: {
-    ...mapState('voterRegister', {
+    ...mapState('qualReview', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
-      size: state => state.searchParam.size,
-      page: state => state.searchParam.page
+      pageSize: state => state.searchParam.pageSize,
+      pageNum: state => state.searchParam.pageNum,
+
     })
   },
   components: {
@@ -71,17 +88,69 @@ export default {
     this.getListData()
   },
   methods: {
-    ...mapActions('voterRegister', [
+    ...mapActions('qualReview', [
       'getListData'
+    ]),
+    ...mapMutations('qualReview', [
+      'saveSelection'
     ]),
     // 分页
     handleCurrentChange (val) {
-      this.getListData({ page: val })
+      this.getListData({ pageNum: val })
     },
     look (id) {
       console.log(id)
     },
     formatDate,
+    handleSelectionChange(val) {
+      this.saveSelection(val)
+    },
+    handlegender() {
+      let text = ""
+      switch(module) {
+      case 0:
+        text = '未设置'
+        break
+      case 1:
+        text = '男'
+        break
+      case 2:
+        text = '女'
+        break
+      default:
+        text = '其他'
+      }
+      return text
+    },
+    handerStatus (val) {
+      let text = ""
+      switch(val) {
+      case 'DELETE':
+        text = '删除'
+        break
+      case 'WAIT_SUBMIT':
+        text = '待提交'
+        break
+      case 'WAIT_REVIEW':
+        text = '待资格审查'
+        break
+      case 'REVIEW_FAIL':
+        text = '资格审查不通'
+        break
+      case 'REVIEW_SUCCESS':
+        text = '资格审查通过'
+        break
+      case 'PRELIMINARY_CANDIDATE':
+        text = '初步候选人'
+        break
+      case 'FORMAL_CANDIDATE':
+        text = '正式候选人'
+        break
+      default:
+        text = '正式代表'
+      }
+      return text
+    }
   }
 }
 </script>

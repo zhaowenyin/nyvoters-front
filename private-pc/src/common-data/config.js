@@ -41,4 +41,21 @@ export const candidateTypeList = {
   0: '户籍地',
   1: '现居地'
 }
+// 党派
+export const partyList = {
+  1: '共产党',
+  2: '民革党',
+  3: '民盟党',
+  4: '民进党'
+}
+// 职务
+export const postList = {
+  1: '公务员',
+  2: '企业负责人',
+  3: '工人',
+  4: '农民',
+  5: '专业技术人员',
+  6: '其他'
+}
+
 

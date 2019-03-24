@@ -123,10 +123,16 @@ export default {
           if(params.startTime !== null && params.startTime.length!==0){
             params.endTimeStart = new Date(params.startTime[0]).getTime()
             params.startTimeEnd = new Date(params.startTime[1]).getTime()
+          } else {
+            params.endTimeStart = ''
+            params.startTimeEnd = ''
           }
           if(params.endTime !== null && params.endTime.length!==0){
             params.startTimeStart = new Date(params.endTime[0]).getTime()
             params.endTimeEnd = new Date(params.endTime[1]).getTime()
+          } else {
+            params.startTimeStart = ''
+            params.endTimeEnd = ''
           }
           delete params.startTime
           delete params.endTime

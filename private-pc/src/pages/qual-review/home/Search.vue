@@ -1,8 +1,8 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
-      <el-button size="medium" type="primary" icon="el-icon-edit">修改</el-button>
+      <el-button size="medium" @click="qualReviewI" type="primary" icon="el-icon-view">审查</el-button>
+      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">资料补充</el-button>
     </div>
     <el-form
       ref="form"
@@ -17,48 +17,42 @@
           style="width: 108px;"
           placeholder="请选择">
           <el-option label="姓名" :value="1"></el-option>
-          <el-option label="身份证号码" :value="2"></el-option>
-          <el-option label="手机号" :value="3"></el-option>
-          <el-option label="登记日期" :value="4"></el-option>
+          <el-option label="推荐方式" :value="2"></el-option>
+          <el-option label="推荐类型" :value="3"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
         v-if="type === 1"
-        prop="name">
+        prop="recommendedPerson">
         <el-input
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.name" />
+          v-model.trim="searchForm.recommendedPerson" />
       </el-form-item>
       <el-form-item
         v-if="type === 2"
-        prop="card">
-        <el-input
-          class="item"
-          size="medium"
-          placeholder="请输入关键字"
-          v-model.trim="searchForm.card" />
+        prop="recommendType">
+         <el-select  size="medium" v-model.trim="searchForm.recommendType" placeholder="请选择推荐方式">
+        <el-option
+          v-for="item in methodList"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+        </el-option>
+      </el-select>
       </el-form-item>
       <el-form-item
         v-if="type === 3"
-        prop="tel">
-        <el-input
-          class="item"
-          size="medium"
-          placeholder="请输入关键字"
-          v-model.trim="searchForm.tel" />
-      </el-form-item>
-      <el-form-item
-        v-if="type === 4"
-        prop="date">
-        <el-date-picker
-          v-model="searchForm.date"
-          size="medium"
-          type="datetimerange"
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期" />
+        prop="type">
+        <el-select  size="medium" v-model.trim="searchForm.type" placeholder="请选择推荐类型">
+          <el-option
+            v-for="item in typeList"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button
@@ -77,22 +71,44 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
+import {qualReview} from './service.js'
 
 export default {
   data () {
     return {
       type: 1,
       searchForm: {
-        name: '',
-        card: '',
-        tel: '',
-        date: []
+        recommendedPerson: '',
+        recommendType: '',
+        type: '',
+        item: {}
       },
+      methodList: [
+        {
+          value: 1,
+          label: '团体推荐'
+        },
+        {
+          value: 2,
+          label: '选民联名推荐'
+        }
+      ],
+      typeList: [
+        {
+          value: 1,
+          label: '区县代表'
+        },
+        {
+          value: 2,
+          label: '乡镇代表'
+        }
+      ],
       createDialogVisible: false
     }
   },
   computed: {
-    ...mapState('voterRegister', {
+    ...mapState('qualReview', {
+      multipleSelection: state=>state.multipleSelection
     })
   },
   components: {
@@ -101,7 +117,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('voterRegister', [
+    ...mapActions('qualReview', [
       'getListData',
     ]),
     // 搜索
@@ -109,21 +125,40 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
-          params.page = 1
-          if (params.date && params.date.length > 0) {
-            params.startTime = new Date(params.date[0]).getTime()
-            params.endTime = new Date(params.date[1]).getTime()
-          } else {
-            params.startTime = ''
-            params.endTime = ''
-          }
-          delete params.date
+          params.pageNum = 1
           this.getListData(params)
         }
       })
     },
     create () {
       this.createDialogVisible = true
+    },
+    qualReviewI () {
+      if(this.multipleSelection.length === 0) {
+        this.$notify({
+          title: '',
+          message: '请勾选数据后再操作！',
+          type: 'warning'
+        });
+        return
+      }
+      this.$confirm('确认审查完成，提交到下一节点？')
+        .then(() => {
+          this.qualReviewItem()
+        })
+        .catch(() => {})
+
+    },
+    async qualReviewItem() {
+      let idList = []
+      for (let i of this.multipleSelection) {
+        idList.push(i.id)
+      }
+      let params = {idList,status: 'REVIEW_SUCCESS'}
+      await qualReview(params)
+      const param = JSON.parse(JSON.stringify(this.searchForm))
+      param.pageNum = 1
+      this.getListData(param)
     }
   }
 }

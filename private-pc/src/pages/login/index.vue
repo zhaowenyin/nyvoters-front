@@ -35,7 +35,7 @@
               placeholder="请输入验证码"
               :maxlength="18"
               class="item"
-              v-model="userLogin.valid" />
+              v-model="userLogin.captcha" />
             <div class="out-img"><img class="img" :src="captchaImg"/></div>
             <div class="change" @click="getCode">换一张</div>
           </div>

@@ -1,15 +1,19 @@
-import { getUserInfo } from './service'
+import { getUserInfo,getNation } from './service'
 import { isEmptyObj } from '../utils/validate'
 
 export default {
   namespaced: true,
   state: {
-    userInfo: {}
+    userInfo: {},
+    nationList: []
   },
   mutations: {
     updateUserInfo (state, payload) {
       state.userInfo = payload.data
-    }
+    },
+    updateNation (state, payload) {
+      state.nationList = payload.data.content
+    },
   },
   actions: {
     async getUserInfo ({ commit, state }) {
@@ -19,6 +23,14 @@ export default {
         type: 'updateUserInfo',
         data
       })
-    }
+    },
+    async searchnation ({ commit, state }) {
+      if (!isEmptyObj(state.nationList)) return
+      const { data } = await getNation()
+      commit({
+        type: 'updateNation',
+        data
+      })
+    },
   }
 }
