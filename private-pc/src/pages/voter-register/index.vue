@@ -1,6 +1,7 @@
 <template>
   <div class="view">
     <div class="view-left">
+      <!-- :hasSearch="true" 可搜索 -->
       <CommonTree
         :data="data"
         :current-node-key="currentSelect"
