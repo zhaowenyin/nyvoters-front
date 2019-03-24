@@ -12,8 +12,8 @@
           label="用户名："
           prop="username">
           <el-input
-            placeholder="请输入账号/手机号"
-            :maxlength="18"
+            placeholder="请输入用户名"
+            :maxlength="11"
             class="item"
             v-model="userLogin.username" />
         </el-form-item>
@@ -23,17 +23,15 @@
           <el-input
             placeholder="请输入密码"
             type="password"
-            :maxlength="18"
             class="item"
             v-model="userLogin.password" />
         </el-form-item>
         <el-form-item
           label="验证码："
-          prop="valid">
+          prop="captcha">
           <div class="valid">
             <el-input
               placeholder="请输入验证码"
-              :maxlength="18"
               class="item"
               v-model="userLogin.captcha" />
             <div class="out-img"><img class="img" :src="captchaImg"/></div>
@@ -68,7 +66,7 @@ export default {
       },
       rules: {
         username: [
-          { required: true, message: '请输入身份证号/手机号', trigger: 'blur' }
+          { required: true, message: '请输入用户名', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' }
@@ -113,7 +111,6 @@ export default {
   }
 }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .loginDiv{

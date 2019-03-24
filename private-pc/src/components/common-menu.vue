@@ -32,6 +32,9 @@
         </template>
         <el-menu-item class="item" index="/qual-review">资格审查</el-menu-item>
         <el-menu-item class="item" index="/behalf-recommended">代表推荐</el-menu-item>
+        <el-menu-item class="item" index="/initial-candidate">初步候选人</el-menu-item>
+        <el-menu-item class="item" index="/official-candidate">正式候选人</el-menu-item>
+        <el-menu-item class="item" index="/official-behalf">正式代表</el-menu-item>
       </el-submenu>
        <el-submenu index="4">
         <template slot="title">

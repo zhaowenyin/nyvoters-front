@@ -24,8 +24,10 @@ export const verifyArr = [
   '/committee/account',
   '/voter-group',
   '/cut-power',
-  '/down-file'
-
+  '/down-file',
+  '/initial-candidate',
+  '/official-candidate',
+  '/official-behalf'
 ]
 
 // 不需要登录验证的地址

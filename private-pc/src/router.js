@@ -37,7 +37,11 @@ const CommitteeManage = () => import('@/pages/district-management/committee/home
 const CommitteeAccount = () => import('@/pages/district-management/committee/account')
 const VoterGroup = () => import('@/pages/district-management/voters-group')
 const CutPower = () => import('@/pages/district-management/cutpower-manage')
-const DownFile = () => import('./pages/district-management/download-file')
+const DownFile = () => import('@/pages/district-management/download-file')
+// 代表事务管理
+const InitialCandidate = () => import('@/pages/initial-candidate')
+const OfficialCandidate = () => import('./pages/official-candidate')
+const OfficialBehalf = () => import('./pages/official-behalf')
 
 
 
@@ -188,6 +192,21 @@ const router = new Router({
           path: 'down-file',
           name: '文件资料',
           component: DownFile
+        },
+        {
+          path: 'initial-candidate',
+          name: '初步候选人',
+          component: InitialCandidate
+        },
+        {
+          path: 'official-candidate',
+          name: '正式候选人',
+          component: OfficialCandidate
+        },
+        {
+          path: 'official-behalf',
+          name: '正式代表',
+          component: OfficialBehalf
         }
       ]
     },

@@ -16,6 +16,9 @@ import  voterGroup from './pages/district-management/voters-group/module'
 import cutPower from './pages/district-management/cutpower-manage/module'
 import qualReview from './pages/qual-review/home/module'
 import qualReviewHistory from './pages/qual-review/history/module'
+import initialCandidate from './pages/initial-candidate/module'
+import officialCandidate from './pages/official-candidate/module'
+import officialBehalf from './pages/official-behalf/module'
 
 Vue.use(Vuex)
 
@@ -35,6 +38,9 @@ export default new Vuex.Store({
     voterGroup,
     cutPower,
     qualReview,
-    qualReviewHistory
+    qualReviewHistory,
+    initialCandidate,
+    officialCandidate,
+    officialBehalf
   }
 })
