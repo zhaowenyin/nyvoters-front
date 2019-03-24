@@ -5,6 +5,10 @@
       class="add-menu"
       background-color="#f4f4f4"
       @select="change">
+      <el-menu-item index="/">
+        <img src="../assets/img/home.png" class="icon"/>
+        <span>首页</span>
+      </el-menu-item>
       <el-submenu index="">
         <template slot="title">
           <img src="../assets/img/11.png" class="icon"/>
