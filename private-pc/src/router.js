@@ -40,8 +40,9 @@ const CutPower = () => import('@/pages/district-management/cutpower-manage')
 const DownFile = () => import('@/pages/district-management/download-file')
 // 代表事务管理
 const InitialCandidate = () => import('@/pages/initial-candidate')
-const OfficialCandidate = () => import('./pages/official-candidate')
-const OfficialBehalf = () => import('./pages/official-behalf')
+const OfficialCandidate = () => import('@/pages/official-candidate')
+const OfficialBehalf = () => import('@/pages/official-behalf')
+const BehalfFile = () => import('./pages/behalf-file-manage')
 
 
 
@@ -207,6 +208,11 @@ const router = new Router({
           path: 'official-behalf',
           name: '正式代表',
           component: OfficialBehalf
+        },
+        {
+          path: 'behalf-file',
+          name: '资料管理',
+          component: BehalfFile
         }
       ]
     },
