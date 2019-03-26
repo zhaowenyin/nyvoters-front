@@ -1,30 +1,34 @@
 <template>
   <div class="view">
-    <div class="content-title">XX选区登记情况综合统计</div>
-    <el-row :gutter="20">
-      <el-col :span="8" class="pie">
-        <div class="text">登记类型</div>
+    <div class="content-title">南阳市第一选区情况统计表</div>
+    <ul class="pieall">
+      <li class="pie">
+        <div class="text">总人口数</div>
         <Pie :data="[]"/>
-      </el-col>
-      <el-col :span="8" class="pie">
-        <div class="text">参选地</div>
+      </li>
+      <li class="pie">
+        <div class="text">18岁以上人口数</div>
         <Pie :data="[]"/>
-      </el-col>
-      <el-col :span="8" class="pie">
-        <div class="text">采集方式</div>
+      </li>
+      <li class="pie">
+        <div class="text">未登记人数</div>
         <Pie :data="[]"/>
-      </el-col>
-    </el-row>
-    <el-row :gutter="20">
-        <el-col :span="12" class="pie">
-          <div class="text">对比不通过人次</div>
-          <Pie :data="[]"/>
-        </el-col>
-        <el-col :span="12" class="pie">
-          <div class="text">未通过资格审查</div>
-          <Pie :data="[]"/>
-        </el-col>
-    </el-row>
+      </li>
+    </ul>
+    <ul class="pieall">
+      <li class="pie people">
+        <div class="text">实际登记选民人数</div>
+        <div class="text-people">3611人</div>
+      </li>
+      <li class="pie">
+        <div class="text">登记选民性别分布</div>
+        <Pie :data="[]"/>
+      </li>
+        <li class="pie">
+        <div class="text">本地转入登记选民分布</div>
+        <Pie :data="[]"/>
+      </li>
+    </ul>
   </div>
 </template>
 <script>
@@ -56,34 +60,40 @@ export default {
 }
 </script>
 <style scoped>
-  .view{
-    padding: 24px 23px;
-    /* height:100%; */
-    width: 100%;
-    color: #000000;
-  }
-  .small-text {
-    font-size: 20px;
-    line-height: 25px;
-    margin-bottom: 25px;
-  }
-  .number {
-    font-size: 36px;
-    line-height: 25px;
-
-  }
   .content-title {
-    font-size: 20px;
-	line-height: 25px;
+    font-size: 24px;
+    font-weight: bold;
+    line-height: 25px;
     padding: 34px 0 24px 0;
     text-align: center;
   }
+  .pieall {
+    display: flex;
+  }
   .pie {
-    /* height:400px; */
+    flex: 1;
+    border: 1px solid #CCC;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    &.people {
+       display: flex;
+      flex-direction: column;
+      & .text-people {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+        font-weight: bold;
+      }
+    }
+
   }
   .text {
     text-align: center;
     font-size: 20px;
     margin: 10px;
+
   }
+
 </style>
