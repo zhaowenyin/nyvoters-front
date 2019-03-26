@@ -28,7 +28,9 @@ export const verifyArr = [
   '/initial-candidate',
   '/official-candidate',
   '/official-behalf',
-  '/behalf-file'
+  '/behalf-file',
+  '/report-analysis',
+  '/report-file'
 ]
 
 // 不需要登录验证的地址

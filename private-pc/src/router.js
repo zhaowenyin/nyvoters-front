@@ -42,7 +42,10 @@ const DownFile = () => import('@/pages/district-management/download-file')
 const InitialCandidate = () => import('@/pages/initial-candidate')
 const OfficialCandidate = () => import('@/pages/official-candidate')
 const OfficialBehalf = () => import('@/pages/official-behalf')
-const BehalfFile = () => import('./pages/behalf-file-manage')
+const BehalfFile = () => import('@/pages/behalf-file-manage')
+// 报表中心
+const ReportAnalysis = () => import('./pages/report-center/report-analysis')
+const ReportFile = () => import('./pages/report-center/report-file')
 
 
 
@@ -213,6 +216,16 @@ const router = new Router({
           path: 'behalf-file',
           name: '资料管理',
           component: BehalfFile
+        },
+        {
+          path: 'report-analysis',
+          name: '统计分析',
+          component: ReportAnalysis
+        },
+        {
+          path: 'report-file',
+          name: '报表文件',
+          component: ReportFile
         }
       ]
     },

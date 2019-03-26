@@ -44,6 +44,14 @@
       </el-submenu>
        <el-submenu index="4">
         <template slot="title">
+          <img src="../assets/img/66.png" class="icon"/>
+          <span>报表中心</span>
+        </template>
+        <el-menu-item class="item" index="/report-analysis">报表分析</el-menu-item>
+        <el-menu-item class="item" index="/report-file">报表文件</el-menu-item>
+      </el-submenu>
+       <el-submenu index="5">
+        <template slot="title">
           <img src="../assets/img/77.png" class="icon"/>
           <span>系统管理</span>
         </template>
