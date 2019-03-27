@@ -10,15 +10,23 @@ export async function getList (payload) {
           "content": {
             "data": [
               {
-                "convener": "string",
-                "convenerPhone": "string",
-                "id": 0,
-                "manager": "string",
-                "managerPhone": "string",
+                "auditStatus": 1,
+                "auditTime": "2019-03-17T10:22:02.382Z",
+                "auditer": "string",
+                "candidateType": 0,
+                "contactInformation": "string",
+                "gender": 1,
+                "householdRegistration": "string",
+                "id": 99,
+                "idNum": "string",
+                "living": "string",
                 "name": "string",
-                "precinctId": 0,
-                "sort": 0,
-                "type": 1
+                "phoneNum": "string",
+                "registrar": "string",
+                "registrationTime": 1552489000,
+                "registrationType": 1,
+                "status": 9,
+                nation: 1,
               }
             ],
             "endRow": 0,

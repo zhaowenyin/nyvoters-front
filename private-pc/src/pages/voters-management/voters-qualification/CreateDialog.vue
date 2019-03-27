@@ -113,18 +113,11 @@
           size="medium">取消</el-button>
       </div>
     </el-dialog>
-     <PrecinctList
-     @saveData="saveData"
-      v-if="createDialogVisible"
-      :item="item"
-      :visible.sync='createDialogVisible'
-      />
   </div>
 </template>
 <script>
 import {setSubmit, modifySubmit} from './service.js'
 import { mapActions } from 'vuex'
-import PrecinctList from './PrecinctList'
 export default {
   data () {
     return {
@@ -169,14 +162,14 @@ export default {
     }
   },
   components: {
-    PrecinctList
+
   },
   created () {
     this.form = {...this.form, ...this.item }
 
   },
   methods: {
-    ...mapActions('voterGroup', [
+    ...mapActions('votersQualification', [
       'getListData'
     ]),
     close () {

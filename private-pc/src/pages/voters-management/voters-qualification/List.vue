@@ -10,28 +10,44 @@
         width="55">
       </el-table-column>
       <el-table-column
-        label="小组名称"
-         width="120"
+        label="姓名"
+        width="120"
         prop="name" />
       <el-table-column
-        label="组长"
-        prop="manager" />
-      <el-table-column
-        label="组长联系电话"
         width="180"
-        prop="managerPhone" />
-      <el-table-column
-        label='召集人'
-        prop="convener" />
-      <el-table-column
-        label="召集人联系电话"
-        width="180"
-        prop="convenerPhone" />
-      <el-table-column
-        label="类型"
-        prop="type">
+        label="身份证号码"
+        prop="idNum" />
+       <el-table-column
+        width="100"
+        label="性别"
+        prop="gender">
         <template slot-scope="scope">
-          {{scope.row.type === 0 ? "区县小组" : '乡镇小组'}}
+          {{handlegender(scope.row.gender)}}
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="手机号"
+        prop="phoneNum" />
+      <el-table-column
+        label="参选地类型"
+        width="100"
+        prop="candidateType">
+         <template slot-scope="scope">
+          {{ scope.row.candidateType === 0 ? '户籍地' : '现居地'}}
+        </template>
+      </el-table-column>
+      <el-table-column
+        width="180"
+        label="登记日期">
+        <template slot-scope="scope">
+          {{ formatDate(scope.row.registrationTime) }}
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="选民状态"
+        prop="type">
+         <template slot-scope="scope">
+          {{handerstatus(scope.row.status)}}
         </template>
       </el-table-column>
     </el-table>
@@ -59,7 +75,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('voterGroup', {
+    ...mapState('votersQualification', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
@@ -73,10 +89,10 @@ export default {
     this.getListData()
   },
   methods: {
-    ...mapActions('voterGroup', [
+    ...mapActions('votersQualification', [
       'getListData'
     ]),
-    ...mapMutations('voterGroup', [
+    ...mapMutations('votersQualification', [
       'saveSelection'
     ]),
     // 分页
@@ -104,6 +120,23 @@ export default {
         break
       default:
         text = '其他'
+      }
+      return text
+    },
+    handerstatus (val) {
+      let text = ""
+      switch(val) {
+      case 0:
+        text = '待对比'
+        break
+      case 1:
+        text = '对比中'
+        break
+      case 2:
+        text = '待资格审查'
+        break
+      default:
+        text = '登记成功'
       }
       return text
     }

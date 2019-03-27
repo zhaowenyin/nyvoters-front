@@ -1,11 +1,10 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
-      <el-button size="medium" @click="modify" type="primary" icon="el-icon-edit">修改</el-button>
-      <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
+      <el-button size="medium" @click="through" type="primary">通过</el-button>
+      <el-button size="medium" @click="notThrough" type="primary">不通过</el-button>
     </div>
-    <el-form
+      <el-form
       ref="form"
       :model="searchForm"
       :inline="true"
@@ -15,11 +14,12 @@
         <el-select
           v-model="type"
           size="medium"
-          style="width: 120px;"
+          style="width: 108px;"
           placeholder="请选择">
-          <el-option label="小组名称" :value="1"></el-option>
-          <el-option label="组长" :value="2"></el-option>
-          <el-option label="类型" :value="3"></el-option>
+          <el-option label="姓名" :value="1"></el-option>
+          <el-option label="身份证号码" :value="2"></el-option>
+          <el-option label="手机号" :value="3"></el-option>
+          <el-option label="登记日期" :value="4"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -31,28 +31,36 @@
           placeholder="请输入关键字"
           v-model.trim="searchForm.name" />
       </el-form-item>
-       <el-form-item
+      <el-form-item
         v-if="type === 2"
-        prop="code">
+        prop="card">
         <el-input
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.manager" />
+          v-model.trim="searchForm.card" />
       </el-form-item>
       <el-form-item
         v-if="type === 3"
-        prop="type">
-        <el-select  size="medium" v-model.trim="searchForm.type">
-          <el-option
-            v-for="(item, key) in typeList"
-            :key="key"
-            :label="item"
-            :value="+key">
-          </el-option>
-        </el-select>
+        prop="tel">
+        <el-input
+          class="item"
+          size="medium"
+          placeholder="请输入关键字"
+          v-model.trim="searchForm.tel" />
       </el-form-item>
-       <el-form-item>
+      <el-form-item
+        v-if="type === 4"
+        prop="date">
+        <el-date-picker
+          v-model="searchForm.date"
+          size="medium"
+          type="datetimerange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期" />
+      </el-form-item>
+      <el-form-item>
         <el-button
           @click="submitForm()"
           size="medium"
@@ -62,16 +70,14 @@
     </el-form>
     <CreateDialog
       v-if="createDialogVisible"
-      :item='item'
       :visible.sync='createDialogVisible'
-      :val="val"
       />
   </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
-import { deletetTabel} from './service.js'
+import {deletetTabel} from './service.js'
 
 export default {
   data () {
@@ -79,18 +85,15 @@ export default {
       type: 1,
       searchForm: {
         name: '',
-        manager: '',
-        type: ''
+        card: '',
+        tel: '',
+        date: []
       },
       createDialogVisible: false,
-      typeList: {
-        0: '区县小组',
-        1: '乡镇小组'
-      }
     }
   },
   computed: {
-    ...mapState('voterGroup', {
+    ...mapState('votersQualification', {
       multipleSelection: state=>state.multipleSelection
     })
   },
@@ -100,7 +103,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('voterGroup', [
+    ...mapActions('votersQualification', [
       'getListData',
     ]),
     // 搜索
@@ -109,29 +112,23 @@ export default {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           params.pageNum = 1
+          if (params.date && params.date.length > 0) {
+            params.startTime = new Date(params.date[0]).getTime()
+            params.endTime = new Date(params.date[1]).getTime()
+          } else {
+            params.startTime = ''
+            params.endTime = ''
+          }
+          delete params.date
           this.getListData(params)
         }
       })
     },
-    create (val) {
+    notThrough (val) {
       this.val = +val
-      this.item = {}
       this.createDialogVisible = true
     },
-    modify () {
-      if(this.multipleSelection.length !== 1) {
-        this.$notify({
-          title: '',
-          message: '请勾选一条数据进行修改！',
-          type: 'warning'
-        });
-        return
-      }
-      this.val = -1
-      this.item = this.multipleSelection[0]
-      this.createDialogVisible = true
-    },
-    deleteI () {
+    through () {
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',

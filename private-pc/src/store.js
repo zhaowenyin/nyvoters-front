@@ -19,6 +19,8 @@ import qualReviewHistory from './pages/qual-review/history/module'
 import initialCandidate from './pages/initial-candidate/module'
 import officialCandidate from './pages/official-candidate/module'
 import officialBehalf from './pages/official-behalf/module'
+// 选民管理
+import votersQualification from './pages/voters-management/voters-qualification/module'
 
 Vue.use(Vuex)
 
@@ -41,6 +43,7 @@ export default new Vuex.Store({
     qualReviewHistory,
     initialCandidate,
     officialCandidate,
-    officialBehalf
+    officialBehalf,
+    votersQualification
   }
 })
