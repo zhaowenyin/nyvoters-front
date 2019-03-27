@@ -46,6 +46,13 @@ const BehalfFile = () => import('@/pages/behalf-file-manage')
 // 报表中心
 const ReportAnalysis = () => import('./pages/report-center/report-analysis')
 const ReportFile = () => import('./pages/report-center/report-file')
+// 选民管理
+const VotersQualification = () =>import('./pages/voters-management/voters-qualification')
+const VotersTransfer = ()=>import('./pages/voters-management/voters-transfer ')
+const VotersInput = ()=>import('./pages/voters-management/voters-input')
+const VotersDraw = ()=>import('./pages/voters-management/voters-draw')
+const VotersApeal = ()=>import('./pages/voters-management/voters-appeal')
+const VotersDown = ()=>import('./pages/voters-management/download-file')
 
 
 
@@ -226,6 +233,36 @@ const router = new Router({
           path: 'report-file',
           name: '报表文件',
           component: ReportFile
+        },
+        {
+          path: 'voters-qualification',
+          name: '选民资格审查',
+          component: VotersQualification
+        },
+        {
+          path: 'voters-transfer',
+          name: '选民转移管理',
+          component: VotersTransfer
+        },
+        {
+          path: 'voters-input',
+          name: '选民划入管理',
+          component: VotersInput
+        },
+        {
+          path: 'voters-draw',
+          name: '选民划出管理',
+          component: VotersDraw
+        },
+        {
+          path: 'voters-apeal',
+          name: '选民申诉管理',
+          component: VotersApeal
+        },
+        {
+          path: 'voters-down',
+          name: '选民文件资料',
+          component: VotersDown
         }
       ]
     },

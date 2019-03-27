@@ -30,7 +30,14 @@ export const verifyArr = [
   '/official-behalf',
   '/behalf-file',
   '/report-analysis',
-  '/report-file'
+  '/report-file',
+  '/voters-qualification',
+  '/voters-transfer',
+  '/voters-input',
+  '/voters-draw',
+  '/voters-apeal',
+  '/voters-down',
+
 ]
 
 // 不需要登录验证的地址
