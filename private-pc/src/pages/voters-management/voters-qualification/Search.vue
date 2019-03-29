@@ -71,13 +71,14 @@
     <CreateDialog
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
+      :id="id"
       />
   </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
-import {deletetTabel} from './service.js'
+import {throughTabel} from './service.js'
 
 export default {
   data () {
@@ -90,6 +91,7 @@ export default {
         date: []
       },
       createDialogVisible: false,
+      id: ''
     }
   },
   computed: {
@@ -124,36 +126,59 @@ export default {
         }
       })
     },
-    notThrough (val) {
-      this.val = +val
+    notThrough () {
+      if(this.multipleSelection.length === 0) {
+        this.$notify({
+          title: '',
+          message: '请勾选数据后再操作！',
+          type: 'warning'
+        });
+        return
+      }
+      if(this.multipleSelection.length > 1) {
+        this.$notify({
+          title: '',
+          message: '只能勾选一条！',
+          type: 'warning'
+        })
+        return
+      }
+      this.id = this.multipleSelection[0].id
       this.createDialogVisible = true
     },
     through () {
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',
-          message: '请勾选数据进删除！',
+          message: '请勾选数据后再操作！',
           type: 'warning'
         });
         return
       }
-      this.$confirm('选区删除后将不可恢复，请确认是否删除？')
-        .then(() => {
-          this.delectItem()
+      if(this.multipleSelection.length > 1) {
+        this.$notify({
+          title: '',
+          message: '只能勾选一条！',
+          type: 'warning'
         })
-        .catch(() => {})
+        return
+      }
+      this.throughItem()
 
     },
-    async delectItem() {
-      let idList = []
-      for (let i of this.multipleSelection) {
-        idList.push(i.id)
+    async throughItem() {
+      let params = {
+        id: this.multipleSelection[0].id,
+        pass: '不通过',
+        reason: ''
       }
-      let params = {idList}
-      await deletetTabel(params)
-      const param = JSON.parse(JSON.stringify(this.searchForm))
-      param.pageNum = 1
-      this.getListData(param)
+      await throughTabel(params)
+      this.$notify({
+        title: '',
+        message: '登记成功！',
+        type: 'success'
+      })
+      this.getListData()
     }
   }
 }
