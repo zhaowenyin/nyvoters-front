@@ -38,9 +38,9 @@
       </el-table-column>
       <el-table-column
         width="180"
-        label="登记日期">
+        label="自动对比结果">
         <template slot-scope="scope">
-          {{ formatDate(scope.row.registrationTime) }}
+          {{handerAuditStatus(scope.row.auditStatus)}}
         </template>
       </el-table-column>
       <el-table-column
@@ -66,7 +66,6 @@
 </template>
 <script>
 import { mapState, mapActions,mapMutations } from 'vuex'
-import { formatDate } from '../../../utils/format.js'
 
 export default {
   data () {
@@ -102,7 +101,6 @@ export default {
     look (id) {
       console.log(id)
     },
-    formatDate,
     handleSelectionChange(val) {
       this.saveSelection(val)
     },
@@ -139,7 +137,30 @@ export default {
         text = '登记成功'
       }
       return text
-    }
+    },
+    handerAuditStatus(val) {
+      let text = ""
+      switch(val) {
+      case 0:
+        text = '未审核'
+        break
+      case 1:
+        text = '不能行使选举权'
+        break
+      case 2:
+        text = '被剥夺政治权利'
+        break
+      case 3:
+        text = '迁出'
+        break
+      case 4:
+        text = '死亡'
+        break
+      default:
+        text = '其他'
+      }
+      return text
+    },
   }
 }
 </script>

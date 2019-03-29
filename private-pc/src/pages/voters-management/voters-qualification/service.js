@@ -10,23 +10,26 @@ export async function getList (payload) {
           "content": {
             "data": [
               {
-                "auditStatus": 1,
-                "auditTime": "2019-03-17T10:22:02.382Z",
+                "auditStatus": 0,
+                "auditTime": "2019-03-29T15:21:37.529Z",
                 "auditer": "string",
                 "candidateType": 0,
                 "contactInformation": "string",
-                "gender": 1,
+                "gender": 0,
                 "householdRegistration": "string",
-                "id": 99,
+                "householdRegistrationDetail": "string",
+                "id": 0,
                 "idNum": "string",
                 "living": "string",
+                "livingDetail": "string",
                 "name": "string",
+                "nation": "string",
                 "phoneNum": "string",
                 "registrar": "string",
-                "registrationTime": 1552489000,
-                "registrationType": 1,
-                "status": 9,
-                nation: 1,
+                "registrationTime": "2019-03-29T15:21:37.529Z",
+                "registrationType": 0,
+                "status": 0
+
               }
             ],
             "endRow": 0,
