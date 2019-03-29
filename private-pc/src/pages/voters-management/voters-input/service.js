@@ -10,15 +10,14 @@ export async function getList (payload) {
           "content": {
             "data": [
               {
-                "convener": "string",
-                "convenerPhone": "string",
+                "candidateType": 0,
+                "gender": 0,
                 "id": 0,
-                "manager": "string",
-                "managerPhone": "string",
+                "idNum": "string",
                 "name": "string",
-                "precinctId": 0,
-                "sort": 0,
-                "type": 1
+                "phoneNum": "string",
+                "status": 0,
+                "type": 0
               }
             ],
             "endRow": 0,
@@ -38,7 +37,7 @@ export async function getList (payload) {
   // return api.get('/group/list', { params: payload })
 }
 
-export async function setSubmit (payload) {
+export async function drawIn (payload) {
   console.log(1,payload)
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -49,21 +48,6 @@ export async function setSubmit (payload) {
     }, 500)
   })
   // return api.post('/group/add', payload)
-  // .then(data => data)
-  //   .catch(() => Promise.resolve({data: null}))
-}
-
-export async function modifySubmit (payload) {
-  console.log(2,payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/group/edit', payload)
   // .then(data => data)
   //   .catch(() => Promise.resolve({data: null}))
 }

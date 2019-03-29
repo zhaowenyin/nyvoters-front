@@ -38,7 +38,7 @@
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.card" />
+          v-model.trim="searchForm.idNum" />
       </el-form-item>
       <el-form-item
         v-if="type === 3"
@@ -47,7 +47,7 @@
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.tel" />
+          v-model.trim="searchForm.phoneNum" />
       </el-form-item>
       <el-form-item
         v-if="type === 4"
@@ -86,8 +86,8 @@ export default {
       type: 1,
       searchForm: {
         name: '',
-        card: '',
-        tel: '',
+        idNum: '',
+        phoneNum: '',
         date: []
       },
       createDialogVisible: false,

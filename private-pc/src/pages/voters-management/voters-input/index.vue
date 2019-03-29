@@ -56,7 +56,7 @@ export default {
     this.clearState()
   },
   methods: {
-    ...mapMutations('voterGroup', [
+    ...mapMutations('votersInput', [
       'clearState'
     ]),
     handleNodeClick(data) {

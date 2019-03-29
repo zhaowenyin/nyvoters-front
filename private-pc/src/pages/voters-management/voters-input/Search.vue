@@ -2,7 +2,6 @@
   <div class="search-box">
     <div class="left">
       <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
-      <el-button size="medium" @click="modify" type="primary" icon="el-icon-edit">修改</el-button>
       <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
     </div>
     <el-form
@@ -15,11 +14,13 @@
         <el-select
           v-model="type"
           size="medium"
-          style="width: 120px;"
+          style="width: 108px;"
           placeholder="请选择">
-          <el-option label="小组名称" :value="1"></el-option>
-          <el-option label="组长" :value="2"></el-option>
-          <el-option label="类型" :value="3"></el-option>
+          <el-option label="姓名" :value="1"></el-option>
+          <el-option label="身份证号码" :value="2"></el-option>
+          <el-option label="手机号" :value="3"></el-option>
+          <el-option label="参选地类型" :value="4"></el-option>
+           <el-option label="类型" :value="5"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -31,19 +32,28 @@
           placeholder="请输入关键字"
           v-model.trim="searchForm.name" />
       </el-form-item>
-       <el-form-item
+      <el-form-item
         v-if="type === 2"
-        prop="code">
+        prop="card">
         <el-input
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.manager" />
+          v-model.trim="searchForm.idNum" />
       </el-form-item>
       <el-form-item
         v-if="type === 3"
-        prop="type">
-        <el-select  size="medium" v-model.trim="searchForm.type">
+        prop="tel">
+        <el-input
+          class="item"
+          size="medium"
+          placeholder="请输入关键字"
+          v-model.trim="searchForm.pageNum" />
+      </el-form-item>
+      <el-form-item
+        v-if="type === 4"
+        prop="date">
+        <el-select  size="medium" v-model.trim="searchForm.candidateType">
           <el-option
             v-for="(item, key) in typeList"
             :key="key"
@@ -52,7 +62,19 @@
           </el-option>
         </el-select>
       </el-form-item>
-       <el-form-item>
+        <el-form-item
+        v-if="type === 5"
+        prop="date">
+        <el-select  size="medium" v-model.trim="searchForm.type">
+          <el-option
+            v-for="(item, key) in candidateTypeList"
+            :key="key"
+            :label="item"
+            :value="+key">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item>
         <el-button
           @click="submitForm()"
           size="medium"
@@ -62,9 +84,8 @@
     </el-form>
     <CreateDialog
       v-if="createDialogVisible"
-      :item='item'
       :visible.sync='createDialogVisible'
-      :val="val"
+      :id="id"
       />
   </div>
 </template>
@@ -79,18 +100,25 @@ export default {
       type: 1,
       searchForm: {
         name: '',
-        manager: '',
-        type: ''
+        idNum: '',
+        phoneNum: '',
+        candidateType: '',
+        status: ''
       },
       createDialogVisible: false,
       typeList: {
-        0: '区县小组',
-        1: '乡镇小组'
-      }
+        1: '个人登记',
+        2: '迁出'
+      },
+      candidateTypeList: {
+        0: '户籍地',
+        1: '迁出'
+      },
+      id: ''
     }
   },
   computed: {
-    ...mapState('voterGroup', {
+    ...mapState('votersInput', {
       multipleSelection: state=>state.multipleSelection
     })
   },
@@ -100,7 +128,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('voterGroup', [
+    ...mapActions('votersInput', [
       'getListData',
     ]),
     // 搜索
@@ -113,22 +141,24 @@ export default {
         }
       })
     },
-    create (val) {
-      this.val = +val
-      this.item = {}
-      this.createDialogVisible = true
-    },
-    modify () {
-      if(this.multipleSelection.length !== 1) {
+    create () {
+      if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',
-          message: '请勾选一条数据进行修改！',
+          message: '请勾选数据后再操作！',
           type: 'warning'
         });
         return
       }
-      this.val = -1
-      this.item = this.multipleSelection[0]
+      if(this.multipleSelection.length > 1) {
+        this.$notify({
+          title: '',
+          message: '只能勾选一条！',
+          type: 'warning'
+        })
+        return
+      }
+      this.id = this.multipleSelection[0].id
       this.createDialogVisible = true
     },
     deleteI () {
