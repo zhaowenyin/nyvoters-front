@@ -81,6 +81,7 @@
 <script>
 import { mapState, mapActions,mapMutations } from 'vuex'
 import { formatDate } from '../../../../utils/format.js'
+import { repealTabel } from './service.js'
 
 export default {
   data () {
@@ -174,9 +175,9 @@ export default {
       return text
     },
     formatDate,
-    repeal (row) {
-      console.log(row)
-
+    async repeal (val) {
+      await repealTabel({id: val.id})
+      this.getListData()
     }
   }
 }

@@ -243,7 +243,6 @@ const router = new Router({
         },
         {
           path: 'voters-transfer',
-          name: '选民转移管理',
           component: VotersTransfer,
           children: [
             {

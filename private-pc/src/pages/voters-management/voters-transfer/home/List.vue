@@ -29,25 +29,24 @@
         label="手机号"
         prop="phoneNum" />
       <el-table-column
-        label="参选地类型"
-        width="100"
+        label="原选区"
         prop="candidateType">
          <template slot-scope="scope">
-          {{ scope.row.candidateType === 0 ? '户籍地' : '现居地'}}
+          {{ scope.row.householdRegistration }}
         </template>
       </el-table-column>
       <el-table-column
-        width="180"
-        label="自动对比结果">
-        <template slot-scope="scope">
-          {{handerAuditStatus(scope.row.auditStatus)}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="选民状态"
+        label="转移选区"
         prop="type">
          <template slot-scope="scope">
-          {{handerstatus(scope.row.status)}}
+          {{scope.row.living}}
+        </template>
+      </el-table-column>
+       <el-table-column
+        width="180"
+        label="申请时间">
+        <template slot-scope="scope">
+          {{formatDate(scope.row.registrationTime)}}
         </template>
       </el-table-column>
     </el-table>
@@ -66,6 +65,7 @@
 </template>
 <script>
 import { mapState, mapActions,mapMutations } from 'vuex'
+import { formatDate } from '../../../../utils/format.js'
 
 export default {
   data () {
@@ -74,7 +74,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('votersQualification', {
+    ...mapState('votersTransfer', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
@@ -88,18 +88,15 @@ export default {
     this.getListData()
   },
   methods: {
-    ...mapActions('votersQualification', [
+    ...mapActions('votersTransfer', [
       'getListData'
     ]),
-    ...mapMutations('votersQualification', [
+    ...mapMutations('votersTransfer', [
       'saveSelection'
     ]),
     // 分页
     handleCurrentChange (val) {
       this.getListData({ pageNum: val })
-    },
-    look (id) {
-      console.log(id)
     },
     handleSelectionChange(val) {
       this.saveSelection(val)
@@ -161,6 +158,7 @@ export default {
       }
       return text
     },
+    formatDate
   }
 }
 </script>

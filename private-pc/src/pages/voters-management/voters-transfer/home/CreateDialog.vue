@@ -58,7 +58,7 @@ export default {
 
   },
   methods: {
-    ...mapActions('votersQualification', [
+    ...mapActions('votersTransfer', [
       'getListData'
     ]),
     close () {

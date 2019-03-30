@@ -18,7 +18,7 @@ export async function getList (payload) {
                 "gender": 0,
                 "householdRegistration": "string",
                 "householdRegistrationDetail": "string",
-                "id": 0,
+                "id": '0',
                 "idNum": "string",
                 "living": "string",
                 "livingDetail": "string",
@@ -26,7 +26,7 @@ export async function getList (payload) {
                 "nation": "string",
                 "phoneNum": "string",
                 "registrar": "string",
-                "registrationTime": "2019-03-29T15:21:37.529Z",
+                "registrationTime": 1552489000,
                 "registrationType": 0,
                 "status": 0
 
@@ -46,7 +46,7 @@ export async function getList (payload) {
       })
     }, 500)
   })
-  // return api.get('/review/list', { params: payload })
+  // return api.get('/transfer/list', { params: payload })
 }
 
 export async function throughTabel (payload) {
@@ -59,7 +59,7 @@ export async function throughTabel (payload) {
       })
     }, 500)
   })
-  // return api.post('/review/audit', payload)
+  // return api.post('/transfer/audit', payload)
 }
 
 

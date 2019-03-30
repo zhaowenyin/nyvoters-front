@@ -24,6 +24,7 @@ import votersQualification from './pages/voters-management/voters-qualification/
 import votersInput from './pages/voters-management/voters-input/module'
 import votersOut from './pages/voters-management/voters-drawOut/module'
 import votersTransferHistory from './pages/voters-management/voters-transfer/history/module'
+import votersTransfer from './pages/voters-management/voters-transfer/home/module'
 
 Vue.use(Vuex)
 
@@ -50,6 +51,7 @@ export default new Vuex.Store({
     votersQualification,
     votersInput,
     votersOut,
-    votersTransferHistory
+    votersTransferHistory,
+    votersTransfer
   }
 })

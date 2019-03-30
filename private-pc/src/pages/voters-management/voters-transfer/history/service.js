@@ -45,10 +45,10 @@ export async function getList (payload) {
       })
     }, 500)
   })
-  // return api.get('/out/list', { params: payload })
+  // return api.get('/transfer/history', { params: payload })
 }
 
-export async function drawOut (payload) {
+export async function repealTabel (payload) {
   console.log(payload)
   return new Promise((resolve) => {
     setTimeout(() => {

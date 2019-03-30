@@ -20,9 +20,9 @@
           placeholder="请选择">
           <el-option label="姓名" :value="1"></el-option>
           <el-option label="身份证号码" :value="2"></el-option>
-          <el-option label="手机号" :value="3"></el-option>
-          <el-option label="参选地类型" :value="4"></el-option>
-           <el-option label="类型" :value="5"></el-option>
+          <el-option label="原选区" :value="3"></el-option>
+          <el-option label="转移选区" :value="4"></el-option>
+          <el-option label="申请时间" :value="5"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -36,7 +36,7 @@
       </el-form-item>
       <el-form-item
         v-if="type === 2"
-        prop="card">
+        prop="">
         <el-input
           class="item"
           size="medium"
@@ -50,31 +50,27 @@
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.pageNum" />
+          v-model.trim="searchForm.fromPrecinctId" />
       </el-form-item>
       <el-form-item
         v-if="type === 4"
-        prop="date">
-        <el-select  size="medium" v-model.trim="searchForm.candidateType">
-          <el-option
-            v-for="(item, key) in typeList"
-            :key="key"
-            :label="item"
-            :value="+key">
-          </el-option>
-        </el-select>
+        prop="tel">
+        <el-input
+          class="item"
+          size="medium"
+          placeholder="请输入关键字"
+          v-model.trim="searchForm.toPrecinctId" />
       </el-form-item>
-        <el-form-item
+      <el-form-item
         v-if="type === 5"
         prop="date">
-        <el-select  size="medium" v-model.trim="searchForm.type">
-          <el-option
-            v-for="(item, key) in candidateTypeList"
-            :key="key"
-            :label="item"
-            :value="+key">
-          </el-option>
-        </el-select>
+        <el-date-picker
+          v-model="searchForm.date"
+          size="medium"
+          type="datetimerange"
+          range-separator="至"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期" />
       </el-form-item>
       <el-form-item>
         <el-button
@@ -130,6 +126,13 @@ export default {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           params.pageNum = 1
+          if (params.date && params.date.length > 0) {
+            params.applyTimeStart = new Date(params.date[0]).getTime()
+            params.applyTimeEnd = new Date(params.date[1]).getTime()
+          } else {
+            params.applyTimeStart = ''
+            params.applyTimeEnd = ''
+          }
           this.getListData(params)
         }
       })

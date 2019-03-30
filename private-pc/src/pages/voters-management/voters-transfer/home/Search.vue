@@ -1,8 +1,8 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button size="medium" @click="through" type="primary">通过</el-button>
-      <el-button size="medium" @click="notThrough" type="primary">不通过</el-button>
+      <el-button size="medium" @click="through" type="primary">同意</el-button>
+      <el-button size="medium" @click="notThrough" type="primary">不同意</el-button>
     </div>
       <el-form
       ref="form"
@@ -18,8 +18,9 @@
           placeholder="请选择">
           <el-option label="姓名" :value="1"></el-option>
           <el-option label="身份证号码" :value="2"></el-option>
-          <el-option label="手机号" :value="3"></el-option>
-          <el-option label="登记日期" :value="4"></el-option>
+          <el-option label="原选区" :value="3"></el-option>
+          <el-option label="转移选区" :value="4"></el-option>
+          <el-option label="申请时间" :value="5"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -33,7 +34,7 @@
       </el-form-item>
       <el-form-item
         v-if="type === 2"
-        prop="card">
+        prop="">
         <el-input
           class="item"
           size="medium"
@@ -47,10 +48,19 @@
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.phoneNum" />
+          v-model.trim="searchForm.fromPrecinctId" />
       </el-form-item>
       <el-form-item
         v-if="type === 4"
+        prop="tel">
+        <el-input
+          class="item"
+          size="medium"
+          placeholder="请输入关键字"
+          v-model.trim="searchForm.toPrecinctId" />
+      </el-form-item>
+      <el-form-item
+        v-if="type === 5"
         prop="date">
         <el-date-picker
           v-model="searchForm.date"
@@ -87,15 +97,16 @@ export default {
       searchForm: {
         name: '',
         idNum: '',
-        phoneNum: '',
-        date: []
+        date: [],
+        fromPrecinctId: '',
+        toPrecinctId: ''
       },
       createDialogVisible: false,
       id: ''
     }
   },
   computed: {
-    ...mapState('votersQualification', {
+    ...mapState('votersTransfer', {
       multipleSelection: state=>state.multipleSelection
     })
   },
@@ -105,7 +116,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('votersQualification', [
+    ...mapActions('votersTransfer', [
       'getListData',
     ]),
     // 搜索
@@ -115,11 +126,11 @@ export default {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           params.pageNum = 1
           if (params.date && params.date.length > 0) {
-            params.startTime = new Date(params.date[0]).getTime()
-            params.endTime = new Date(params.date[1]).getTime()
+            params.applyTimeStart = new Date(params.date[0]).getTime()
+            params.applyTimeEnd = new Date(params.date[1]).getTime()
           } else {
-            params.startTime = ''
-            params.endTime = ''
+            params.applyTimeStart = ''
+            params.applyTimeEnd = ''
           }
           delete params.date
           this.getListData(params)
