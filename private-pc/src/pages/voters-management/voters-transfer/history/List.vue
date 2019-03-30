@@ -3,12 +3,7 @@
     <el-table
       :data="list"
       class="add_table"
-      @selection-change="handleSelectionChange"
       v-loading="loading">
-      <el-table-column
-        type="selection"
-        width="55">
-      </el-table-column>
       <el-table-column
         label="姓名"
         width="120"
@@ -29,25 +24,44 @@
         label="手机号"
         prop="phoneNum" />
       <el-table-column
-        label="参选地类型"
-        width="100"
+        label="原选区"
         prop="candidateType">
          <template slot-scope="scope">
-          {{ scope.row.candidateType === 0 ? '户籍地' : '现居地'}}
+          {{ scope.row.householdRegistration }}
         </template>
       </el-table-column>
       <el-table-column
-        label="选民状态"
+        label="转移选区"
         prop="type">
          <template slot-scope="scope">
-          {{handerstatus(scope.row.status)}}
+          {{scope.row.living}}
         </template>
       </el-table-column>
        <el-table-column
-        width="180"
-        label="自动对比结果">
+        label="申请时间">
         <template slot-scope="scope">
-          {{scope.row.type===1 ? '个人登记' : '迁出'}}
+          {{formatDate(scope.row.registrationTime)}}
+        </template>
+      </el-table-column>
+        <el-table-column
+        label="类型">
+        <template slot-scope="scope">
+          {{scope.row.candidateType===0 ? '发起' : '处理'}}
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="状态">
+        <template slot-scope="scope">
+          {{handerstatus(scope.row.status)}}
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="操作">
+        <template slot-scope="scope">
+          <el-button
+          @click="repeal(scope.row)"
+          size="small"
+          type="primary">撤销</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -66,6 +80,7 @@
 </template>
 <script>
 import { mapState, mapActions,mapMutations } from 'vuex'
+import { formatDate } from '../../../../utils/format.js'
 
 export default {
   data () {
@@ -74,7 +89,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('votersOut', {
+    ...mapState('votersTransferHistory', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
@@ -88,10 +103,10 @@ export default {
     this.getListData()
   },
   methods: {
-    ...mapActions('votersOut', [
+    ...mapActions('votersTransferHistory', [
       'getListData'
     ]),
-    ...mapMutations('votersOut', [
+    ...mapMutations('votersTransferHistory', [
       'saveSelection'
     ]),
     // 分页
@@ -100,9 +115,6 @@ export default {
     },
     look (id) {
       console.log(id)
-    },
-    handleSelectionChange(val) {
-      this.saveSelection(val)
     },
     handlegender() {
       let text = ""
@@ -161,6 +173,11 @@ export default {
       }
       return text
     },
+    formatDate,
+    repeal (row) {
+      console.log(row)
+
+    }
   }
 }
 </script>

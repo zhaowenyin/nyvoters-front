@@ -40,6 +40,9 @@ export default {
     saveSelection(state, payload) {
       state.multipleSelection = payload
     },
+    handerList () {
+
+    }
   },
   actions: {
     async getListData ({ commit, state }, payload) {

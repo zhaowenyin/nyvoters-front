@@ -12,7 +12,7 @@ import committeeHome from './pages/district-management/committee/home/module'
 import committeeAcccount from './pages/district-management/committee/account/module'
 import distictHome from './pages/district-management/distric-manage/home/module'
 import districtAccount from './pages/district-management/distric-manage/account/module'
-import  voterGroup from './pages/district-management/voters-group/module'
+import voterGroup from './pages/district-management/voters-group/module'
 import cutPower from './pages/district-management/cutpower-manage/module'
 import qualReview from './pages/qual-review/home/module'
 import qualReviewHistory from './pages/qual-review/history/module'
@@ -23,6 +23,7 @@ import officialBehalf from './pages/official-behalf/module'
 import votersQualification from './pages/voters-management/voters-qualification/module'
 import votersInput from './pages/voters-management/voters-input/module'
 import votersOut from './pages/voters-management/voters-drawOut/module'
+import votersTransferHistory from './pages/voters-management/voters-transfer/history/module'
 
 Vue.use(Vuex)
 
@@ -48,6 +49,7 @@ export default new Vuex.Store({
     officialBehalf,
     votersQualification,
     votersInput,
-    votersOut
+    votersOut,
+    votersTransferHistory
   }
 })

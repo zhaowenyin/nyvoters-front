@@ -1,11 +1,5 @@
 <template>
   <div class="view">
-    <div class="view-left">
-      <CommonTree
-        :data="data"
-        :current-node-key="currentSelect"
-        @node-click="handleNodeClick" />
-    </div>
     <div class="view-content">
       <Search />
       <List />
@@ -16,31 +10,11 @@
 import { mapMutations } from 'vuex'
 import Search from './Search'
 import List from './List'
-import CommonTree from '../../../components/common-tree'
 
 export default {
   data () {
     return {
-      data: [{
-        id: '1',
-        name: '一级 1',
-        access: false,
-        children: [{
-          id: '1_1',
-          name: '二级 1-1',
-          access: true,
-          children: [{
-            id: '1_1_1',
-            name: '三级 1-1-1',
-            access: true,
-          }]
-        }]
-      }, {
-        id: '2',
-        name: '一级 2',
-        children: []
-      }],
-      currentSelect: '1_1'
+
     }
   },
   computed: {
@@ -48,20 +22,16 @@ export default {
   },
   components: {
     Search,
-    List,
-    CommonTree
+    List
   },
   created () {
     // 初始化清除数据
     this.clearState()
   },
   methods: {
-    ...mapMutations('votersOut', [
+    ...mapMutations('votersTransferHistory', [
       'clearState'
-    ]),
-    handleNodeClick(data) {
-      console.log(data);
-    }
+    ])
   }
 }
 </script>

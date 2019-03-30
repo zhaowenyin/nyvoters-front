@@ -1,8 +1,11 @@
 <template>
   <div class="search-box">
-    <div class="left">
-      <el-button size="medium" @click="drawOutI" type="primary" icon="el-icon-delete">划出</el-button>
-    </div>
+  <el-checkbox-group
+    v-model="checkedItem"
+    @change="handleCheckedCitiesChange"
+    class="left">
+    <el-checkbox v-for="item in list" :label="item" :key="item">{{item}}</el-checkbox>
+  </el-checkbox-group>
     <el-form
       ref="form"
       :model="searchForm"
@@ -85,8 +88,7 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import { drawOut} from './service.js'
-import {typeList, candidateTypeList} from '../../../common-data/config.js'
+import {typeList, candidateTypeList} from '../../../../common-data/config.js'
 
 export default {
   data () {
@@ -102,13 +104,14 @@ export default {
       typeList,
       candidateTypeList,
       createDialogVisible: false,
-
-      id: ''
+      list: ['发起申请记录','处理申请记录'],
+      id: '',
+      checkedItem: ['发起申请记录','处理申请记录']
     }
   },
   computed: {
-    ...mapState('votersOut', {
-      multipleSelection: state=>state.multipleSelection
+    ...mapState('votersTransferHistory', {
+      multipleSelection: state=>state.multipleSelection,
     })
   },
   components: {
@@ -117,8 +120,9 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('votersOut', [
+    ...mapActions('votersTransferHistory', [
       'getListData',
+      'handerList'
     ]),
     // 搜索
     submitForm () {
@@ -130,32 +134,9 @@ export default {
         }
       })
     },
-    drawOutI () {
-      if(this.multipleSelection.length === 0) {
-        this.$notify({
-          title: '',
-          message: '请勾选数据后再操作！',
-          type: 'warning'
-        });
-        return
-      }
-      this.$confirm('确认将勾选的选民划出当前所在选区么？')
-        .then(() => {
-          this.drawOutItem()
-        })
-        .catch(() => {})
-
-    },
-    async drawOutItem() {
-      let idList = []
-      for (let i of this.multipleSelection) {
-        idList.push(i.id)
-      }
-      let params = {idList}
-      await drawOut(params)
-      const param = JSON.parse(JSON.stringify(this.searchForm))
-      param.pageNum = 1
-      this.getListData(param)
+    handleCheckedCitiesChange(val) {
+      this.checkedItem = val
+      this.handerList(val)
     }
   }
 }
@@ -166,6 +147,9 @@ export default {
     margin-bottom: -8px;
     & .left {
       flex: 1;
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
     }
     & .form {
 
