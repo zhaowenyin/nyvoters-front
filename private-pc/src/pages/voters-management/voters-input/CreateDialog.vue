@@ -71,7 +71,7 @@ export default {
     }
   },
   created () {
-    this.searchTree({type: 2})
+    this.searchTree({type: 2,id: this.id})
   },
   components: {
     CommonTree
@@ -110,8 +110,8 @@ export default {
       this.loading = false
     },
 
-    async searchTree () {
-      const {data} = await getTree()
+    async searchTree (val) {
+      const {data} = await getTree(val)
       this.data = data
     },
     comfirmClose () {
