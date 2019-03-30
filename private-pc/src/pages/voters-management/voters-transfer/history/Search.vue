@@ -1,9 +1,7 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
-      <el-button size="medium"  @click="modify" type="primary" icon="el-icon-edit">修改</el-button>
-      <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
+      <el-button size="medium" @click="drawOutI" type="primary" icon="el-icon-delete">划出</el-button>
     </div>
     <el-form
       ref="form"
@@ -15,10 +13,13 @@
         <el-select
           v-model="type"
           size="medium"
-          style="width: 120px;"
+          style="width: 108px;"
           placeholder="请选择">
-          <el-option label="选委会" :value="1"></el-option>
-          <el-option label="选委会编码" :value="2"></el-option>
+          <el-option label="姓名" :value="1"></el-option>
+          <el-option label="身份证号码" :value="2"></el-option>
+          <el-option label="手机号" :value="3"></el-option>
+          <el-option label="参选地类型" :value="4"></el-option>
+           <el-option label="类型" :value="5"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -30,16 +31,49 @@
           placeholder="请输入关键字"
           v-model.trim="searchForm.name" />
       </el-form-item>
-       <el-form-item
+      <el-form-item
         v-if="type === 2"
-        prop="code">
+        prop="card">
         <el-input
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.code" />
+          v-model.trim="searchForm.idNum" />
       </el-form-item>
-       <el-form-item>
+      <el-form-item
+        v-if="type === 3"
+        prop="tel">
+        <el-input
+          class="item"
+          size="medium"
+          placeholder="请输入关键字"
+          v-model.trim="searchForm.pageNum" />
+      </el-form-item>
+      <el-form-item
+        v-if="type === 4"
+        prop="date">
+        <el-select  size="medium" v-model.trim="searchForm.candidateType">
+          <el-option
+            v-for="(item, key) in typeList"
+            :key="key"
+            :label="item"
+            :value="+key">
+          </el-option>
+        </el-select>
+      </el-form-item>
+        <el-form-item
+        v-if="type === 5"
+        prop="date">
+        <el-select  size="medium" v-model.trim="searchForm.type">
+          <el-option
+            v-for="(item, key) in candidateTypeList"
+            :key="key"
+            :label="item"
+            :value="+key">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item>
         <el-button
           @click="submitForm()"
           size="medium"
@@ -47,17 +81,12 @@
           type="primary"></el-button>
       </el-form-item>
     </el-form>
-    <CreateDialog
-      v-if="createDialogVisible"
-      :item='item'
-      :visible.sync='createDialogVisible'
-      />
   </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import CreateDialog from './CreateDialog'
-import { deletetTabel} from './service.js'
+import { drawOut} from './service.js'
+import {typeList, candidateTypeList} from '../../../common-data/config.js'
 
 export default {
   data () {
@@ -65,23 +94,30 @@ export default {
       type: 1,
       searchForm: {
         name: '',
-        code: ''
+        idNum: '',
+        phoneNum: '',
+        candidateType: '',
+        status: ''
       },
-      createDialogVisible: false
+      typeList,
+      candidateTypeList,
+      createDialogVisible: false,
+
+      id: ''
     }
   },
   computed: {
-    ...mapState('committeeHome', {
+    ...mapState('votersOut', {
       multipleSelection: state=>state.multipleSelection
     })
   },
   components: {
-    CreateDialog
+
   },
   created () {
   },
   methods: {
-    ...mapActions('committeeHome', [
+    ...mapActions('votersOut', [
       'getListData',
     ]),
     // 搜索
@@ -94,45 +130,29 @@ export default {
         }
       })
     },
-    create () {
-      this.item = {}
-      this.createDialogVisible = true
-    },
-    modify () {
-      if(this.multipleSelection.length !== 1) {
-        this.$notify({
-          title: '',
-          message: '请勾选一条数据进行修改！',
-          type: 'warning'
-        });
-        return
-      }
-      this.item = this.multipleSelection[0]
-      this.createDialogVisible = true
-    },
-    deleteI () {
+    drawOutI () {
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',
-          message: '请勾选数据进删除！',
+          message: '请勾选数据后再操作！',
           type: 'warning'
         });
         return
       }
-      this.$confirm('删除选举机构后，将影响该机构下的所有选民、账号信息不可用，且不可恢复，请确认？')
+      this.$confirm('确认将勾选的选民划出当前所在选区么？')
         .then(() => {
-          this.delectItem()
+          this.drawOutItem()
         })
         .catch(() => {})
 
     },
-    async delectItem() {
+    async drawOutItem() {
       let idList = []
       for (let i of this.multipleSelection) {
         idList.push(i.id)
       }
       let params = {idList}
-      await deletetTabel(params)
+      await drawOut(params)
       const param = JSON.parse(JSON.stringify(this.searchForm))
       param.pageNum = 1
       this.getListData(param)

@@ -33,6 +33,7 @@ export const verifyArr = [
   '/report-file',
   '/voters-qualification',
   '/voters-transfer',
+  '/voters-transfer/history',
   '/voters-input',
   '/voters-draw',
   '/voters-apeal',

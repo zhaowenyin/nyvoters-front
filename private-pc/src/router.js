@@ -48,7 +48,9 @@ const ReportAnalysis = () => import('./pages/report-center/report-analysis')
 const ReportFile = () => import('./pages/report-center/report-file')
 // 选民管理
 const VotersQualification = () =>import('./pages/voters-management/voters-qualification')
-const VotersTransfer = ()=>import('./pages/voters-management/voters-transfer ')
+const VotersTransfer = ()=>import('./pages/voters-management/voters-transfer')
+const VotersTransferHome = ()=>import('./pages/voters-management/voters-transfer/home')
+const VotersTransferHistory = ()=>import('./pages/voters-management/voters-transfer/history')
 const VotersInput = ()=>import('./pages/voters-management/voters-input')
 const VotersDraw = ()=>import('./pages/voters-management/voters-drawOut')
 const VotersApeal = ()=>import('./pages/voters-management/voters-appeal')
@@ -242,7 +244,20 @@ const router = new Router({
         {
           path: 'voters-transfer',
           name: '选民转移管理',
-          component: VotersTransfer
+          component: VotersTransfer,
+          children: [
+            {
+              path: '',
+              name: '待审核',
+              component: VotersTransferHome
+            },
+            {
+              path: 'history',
+              name: '转移记录',
+              component: VotersTransferHistory
+            }
+          ]
+
         },
         {
           path: 'voters-input',
