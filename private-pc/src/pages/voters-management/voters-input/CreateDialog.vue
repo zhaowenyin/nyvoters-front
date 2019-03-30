@@ -85,6 +85,14 @@ export default {
     },
 
     async submitForm () {
+      if(this.selectItem.value) {
+        this.$notify({
+          title: '',
+          message: '请选择区域！',
+          type:'warning'
+        })
+        return
+      }
       this.loading = true
       let params = {
         id: this.id,

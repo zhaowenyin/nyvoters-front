@@ -1,7 +1,7 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
+      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">划入</el-button>
       <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
     </div>
     <el-form
@@ -170,7 +170,7 @@ export default {
         });
         return
       }
-      this.$confirm('选区删除后将不可恢复，请确认是否删除？')
+      this.$confirm('删除后将不可恢复，请确认是否删除？')
         .then(() => {
           this.delectItem()
         })

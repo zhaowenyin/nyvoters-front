@@ -47,7 +47,7 @@ export async function drawIn (payload) {
       })
     }, 500)
   })
-  // return api.post('/group/add', payload)
+  // return api.post('/in/cut', payload)
   // .then(data => data)
   //   .catch(() => Promise.resolve({data: null}))
 }
