@@ -22,6 +22,7 @@ import officialBehalf from './pages/official-behalf/module'
 // 选民管理
 import votersQualification from './pages/voters-management/voters-qualification/module'
 import votersInput from './pages/voters-management/voters-input/module'
+import votersOut from './pages/voters-management/voters-drawOut/module'
 
 Vue.use(Vuex)
 
@@ -46,6 +47,7 @@ export default new Vuex.Store({
     officialCandidate,
     officialBehalf,
     votersQualification,
-    votersInput
+    votersInput,
+    votersOut
   }
 })

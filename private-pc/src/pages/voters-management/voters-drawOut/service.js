@@ -1,4 +1,4 @@
-// import api from '../../../utils/api'
+// import api from '../../utils/api'
 
 // get请求
 export async function getList (payload) {
@@ -10,18 +10,14 @@ export async function getList (payload) {
           "content": {
             "data": [
               {
-                "contactInformation": "string",
-                "endTime":  1552489000,
-                "gender": true,
-                "householdRegistration": "string",
+                "candidateType": 0,
+                "gender": 0,
                 "id": 0,
                 "idNum": "string",
-                "living": "string",
                 "name": "string",
-                "nation": "string",
                 "phoneNum": "string",
-                "startTime":  1552489000
-
+                "result": 0,
+                "status": 0
               }
             ],
             "endRow": 0,
@@ -38,11 +34,11 @@ export async function getList (payload) {
       })
     }, 500)
   })
-  // return api.get('/disempower/list', { params: payload })
+  // return api.get('/out/list', { params: payload })
 }
 
-export async function setSubmit (payload) {
-  console.log(1,payload)
+export async function drawOut (payload) {
+  console.log(payload)
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
@@ -51,9 +47,7 @@ export async function setSubmit (payload) {
       })
     }, 500)
   })
-  // return api.post('/disempower/add', payload)
-  // .then(data => data)
-  //   .catch(() => Promise.resolve({data: null}))
+  // return api.post('/group/delete', payload)
 }
 
 

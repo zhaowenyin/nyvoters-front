@@ -50,7 +50,7 @@ const ReportFile = () => import('./pages/report-center/report-file')
 const VotersQualification = () =>import('./pages/voters-management/voters-qualification')
 const VotersTransfer = ()=>import('./pages/voters-management/voters-transfer ')
 const VotersInput = ()=>import('./pages/voters-management/voters-input')
-const VotersDraw = ()=>import('./pages/voters-management/voters-draw')
+const VotersDraw = ()=>import('./pages/voters-management/voters-drawOut')
 const VotersApeal = ()=>import('./pages/voters-management/voters-appeal')
 const VotersDown = ()=>import('./pages/voters-management/download-file')
 

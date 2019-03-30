@@ -12,7 +12,7 @@ export async function getList (payload) {
               {
                 "candidateType": 0,
                 "gender": 0,
-                "id": 0,
+                "id": '9',
                 "idNum": "string",
                 "name": "string",
                 "phoneNum": "string",

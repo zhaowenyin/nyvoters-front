@@ -57,5 +57,19 @@ export const postList = {
   5: '专业技术人员',
   6: '其他'
 }
+// 自动对比结果
+export const resultList = {
+  0: '未知',
+  1: '正常',
+  2: '其他',
+  3: '死亡',
+  4: '停止行使选举权',
+  5: '被剥夺政治权利',
+}
+// 查询类型
+export const typeList = {
+  1: '个人登记',
+  2: '迁出'
+}
 
 
