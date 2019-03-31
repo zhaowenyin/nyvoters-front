@@ -1,55 +1,101 @@
 <template>
   <el-dialog
-    title="审核"
+    title="详情"
     :visible="visible"
-    width="500px"
+    width="800px"
     :before-close="comfirmClose">
     <el-form
       label-width="110px"
-      :model="form"
-      :rules="rules"
       ref="form"
       class="login-form">
-      <el-form-item
-        label="不通过原因"
-        prop="reason">
-        <el-input
-          type="textarea"
-          :rows="4"
-          placeholder="请填写审核不通过原因"
-          v-model="form.reason">
-        </el-input>
-      </el-form-item>
+      <div class="appeal">申诉内容</div>
+      <el-row>
+         <el-col :span="12">
+          <el-form-item
+            label="申述人："
+            :rules="[{required: true}]">
+            {{data.userName}}
+          </el-form-item>
+        </el-col>
+         <el-col :span="12">
+          <el-form-item
+            label="身份证号："
+            :rules="[{required: true}]">
+            {{data.idNum}}
+          </el-form-item>
+        </el-col>
+         <el-col :span="12">
+          <el-form-item
+            label="联系电话："
+            :rules="[{required: true}]">
+            {{data.phoneNum}}
+          </el-form-item>
+        </el-col>
+         <el-col :span="12">
+          <el-form-item
+            label="申诉时间："
+            :rules="[{required: true}]">
+            {{formatDate(data.appealTime)}}
+          </el-form-item>
+        </el-col>
+         <el-col :span="12">
+          <el-form-item
+            label="申诉书："
+            :rules="[{required: true}]">
+            {{data.appealDocumentId}}
+          </el-form-item>
+        </el-col>
+      </el-row>
+       <div class="appeal">处理详情</div>
+       <el-row>
+         <el-col :span="12">
+          <el-form-item
+            label="处理结论："
+            :rules="[{ required: true}]">
+            {{data.remark}}
+          </el-form-item>
+        </el-col>
+        <el-col :span="12">
+          <el-form-item
+            label="处理人："
+            :rules="[{required: true}]">
+            {{data.auditer}}
+          </el-form-item>
+        </el-col>
+         <el-col :span="12">
+          <el-form-item
+            label="处理时间："
+            :rules="[{required: true}]">
+             {{formatDate(data.appealTime)}}
+          </el-form-item>
+        </el-col>
+         <el-col :span="12">
+          <el-form-item
+            label="处理意见："
+            :rules="[{required: true}]">
+            {{data.remark}}
+          </el-form-item>
+        </el-col>
+      </el-row>
+
     </el-form>
      <div
         slot="footer"
         class="footer">
-        <el-button
-          @click="submitForm()"
-          size="medium"
-          :loading="loading"
-          type="primary">确定</el-button>
           <el-button
-          @click="comfirmClose()"
-          size="medium">取消</el-button>
+          @click="close()"
+          size="medium">关闭</el-button>
       </div>
   </el-dialog>
 </template>
 <script>
-import {throughTabel} from './service.js'
-import { mapActions } from 'vuex'
+import {getDetail} from './service.js'
+import { formatDate } from '../../../../utils/format.js'
 export default {
   data () {
     return {
-      form: {
-        reason: ''
-      },
-      rules: {
-        reason:[
-          { required: true, message: '请填写审核不通过原因', trigger: 'blur' }
-        ]
-      },
       loading: false,
+      data: {}
     }
 
   },
@@ -67,75 +113,30 @@ export default {
 
   },
   created () {
-
+    this.searchDetail({id: this.id})
   },
   methods: {
-    ...mapActions('votersTransfer', [
-      'getListData'
-    ]),
     close () {
       this.$emit('update:visible', false)
     },
-    submitForm () {
-      if(!this.form.reason) {
-        this.$notify({
-          title: '',
-          message: '请填写审核不通过原因！',
-          type: 'warning'
-        })
-        return
-      }
-      this.sumitData()
-    },
-    async sumitData () {
+    async searchDetail(val) {
       this.loading = true
-      let params = {
-        id: this.id,
-        pass: '不同意',
-        reason: this.form.reason
-      }
-      await throughTabel(params)
-      this.close()
-      this.getListData()
+      const {data} = await getDetail(val)
+      this.data = data.content
       this.loading = false
     },
-    comfirmClose () {
-      this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
-        .then(() => {
-          this.close()
-        })
-        .catch(() => {})
-    }
+    formatDate
   }
 }
 </script>
 <style scoped>
-.left {
-  margin: 10px 0;
+.appeal {
+ height: 40px;
+ line-height: 40px;
+ padding-left: 15px;
+ background-color: #f2f2f2;
+ color: #d9840d;
 }
-.list {
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
- & .item {
-   border: 1px solid #ccc;
-   padding: 10px;
-   width: 150px;
-   text-align: center;
-   border-radius: 4px;
-   margin-bottom: 30px;
-
-   &.key{
-    width: 70px;
-   }
-  &.active {
-    background-color: #D41C1A;
-    color: #fff;
-  }
- }
-
-}
-
 </style>
 <style>
   .table-obj .el-form-item {

@@ -1,7 +1,7 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button size="medium" @click="notThrough" type="primary">处理</el-button>
+      <el-button size="medium" @click="handel" type="primary">处理</el-button>
     </div>
       <el-form
       ref="form"
@@ -19,7 +19,6 @@
           <el-option label="申诉时间" :value="2"></el-option>
           <el-option label="审核人" :value="3"></el-option>
           <el-option label="审核时间" :value="4"></el-option>
-
         </el-select>
       </el-form-item>
       <el-form-item
@@ -80,7 +79,6 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
-import {throughTabel} from './service.js'
 
 export default {
   data () {
@@ -97,7 +95,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('votersTransfer', {
+    ...mapState('votersAppealHome', {
       multipleSelection: state=>state.multipleSelection
     })
   },
@@ -107,7 +105,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('votersTransfer', [
+    ...mapActions('votersAppealHome', [
       'getListData',
     ]),
     // 搜索
@@ -116,19 +114,27 @@ export default {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           params.pageNum = 1
-          if (params.date && params.date.length > 0) {
-            params.applyTimeStart = new Date(params.date[0]).getTime()
-            params.applyTimeEnd = new Date(params.date[1]).getTime()
+          if (params.applyTime && params.daapplyTimete.length > 0) {
+            params.applyTimeStart = new Date(params.applyTime[0]).getTime()
+            params.applyTimeEnd = new Date(params.applyTime[1]).getTime()
           } else {
             params.applyTimeStart = ''
             params.applyTimeEnd = ''
           }
-          delete params.date
+          if (params.auditTime && params.auditTime.length > 0) {
+            params.auditTimeStart = new Date(params.auditTime[0]).getTime()
+            params.auditTimeEnd = new Date(params.auditTime[1]).getTime()
+          } else {
+            params.auditTimeStart = ''
+            params.auditTimeEnd = ''
+          }
+          delete params.auditTime
+          delete params.applyTime
           this.getListData(params)
         }
       })
     },
-    notThrough () {
+    handel () {
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',
@@ -147,44 +153,6 @@ export default {
       }
       this.id = this.multipleSelection[0].id
       this.createDialogVisible = true
-    },
-    through () {
-      if(this.multipleSelection.length === 0) {
-        this.$notify({
-          title: '',
-          message: '请勾选数据后再操作！',
-          type: 'warning'
-        });
-        return
-      }
-      if(this.multipleSelection.length > 1) {
-        this.$notify({
-          title: '',
-          message: '只能勾选一条！',
-          type: 'warning'
-        })
-        return
-      }
-      this.$confirm('请确认是否将勾选选民转移至其他选区？','审核')
-        .then(() => {
-          this.throughItem()
-        })
-        .catch(() => {})
-
-    },
-    async throughItem() {
-      let params = {
-        id: this.multipleSelection[0].id,
-        pass: '不通过',
-        reason: ''
-      }
-      await throughTabel(params)
-      this.$notify({
-        title: '',
-        message: '登记成功！',
-        type: 'success'
-      })
-      this.getListData()
     }
   }
 }

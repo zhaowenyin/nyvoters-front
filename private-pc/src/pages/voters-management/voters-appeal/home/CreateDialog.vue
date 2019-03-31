@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="审核"
+    title="处理"
     :visible="visible"
     width="500px"
     :before-close="comfirmClose">
@@ -11,12 +11,20 @@
       ref="form"
       class="login-form">
       <el-form-item
-        label="不通过原因"
+        label="处理结论"
+        prop="reason">
+        <el-radio-group v-model="form.conclusion">
+          <el-radio :label="1">接受</el-radio>
+          <el-radio :label="2">驳回</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item
+        label="处理意见"
         prop="reason">
         <el-input
           type="textarea"
           :rows="4"
-          placeholder="请填写审核不通过原因"
+          placeholder="请填写处理意见"
           v-model="form.reason">
         </el-input>
       </el-form-item>
@@ -42,11 +50,15 @@ export default {
   data () {
     return {
       form: {
-        reason: ''
+        reason: '',
+        conclusion: ''
       },
       rules: {
         reason:[
-          { required: true, message: '请填写审核不通过原因', trigger: 'blur' }
+          { required: true, message: '请填写处理意见', trigger: 'blur' }
+        ],
+        conclusion:[
+          { required: true, message: '请选择处理结论', trigger: 'blur' }
         ]
       },
       loading: false,
@@ -70,29 +82,26 @@ export default {
 
   },
   methods: {
-    ...mapActions('votersTransfer', [
+    ...mapActions('votersAppealHome', [
       'getListData'
     ]),
     close () {
       this.$emit('update:visible', false)
     },
     submitForm () {
-      if(!this.form.reason) {
-        this.$notify({
-          title: '',
-          message: '请填写审核不通过原因！',
-          type: 'warning'
-        })
-        return
-      }
-      this.sumitData()
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          this.sumitData()
+        }
+      })
     },
     async sumitData () {
       this.loading = true
       let params = {
         id: this.id,
-        pass: '不同意',
-        reason: this.form.reason
+        pass: false,
+        reason: this.form.reason,
+        conclusion: this.form.conclusion
       }
       await throughTabel(params)
       this.close()
@@ -110,31 +119,6 @@ export default {
 }
 </script>
 <style scoped>
-.left {
-  margin: 10px 0;
-}
-.list {
-  display: flex;
-  justify-content: center;
-  cursor: pointer;
- & .item {
-   border: 1px solid #ccc;
-   padding: 10px;
-   width: 150px;
-   text-align: center;
-   border-radius: 4px;
-   margin-bottom: 30px;
-
-   &.key{
-    width: 70px;
-   }
-  &.active {
-    background-color: #D41C1A;
-    color: #fff;
-  }
- }
-
-}
 
 </style>
 <style>

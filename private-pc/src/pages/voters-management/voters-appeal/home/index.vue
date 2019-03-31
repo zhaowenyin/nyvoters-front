@@ -29,7 +29,7 @@ export default {
     this.clearState()
   },
   methods: {
-    ...mapMutations('votersTransfer', [
+    ...mapMutations('votersAppealHome', [
       'clearState'
     ]),
     handleNodeClick(data) {

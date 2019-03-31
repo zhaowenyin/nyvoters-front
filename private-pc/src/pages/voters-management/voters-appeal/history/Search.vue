@@ -70,17 +70,10 @@
           type="primary"></el-button>
       </el-form-item>
     </el-form>
-    <CreateDialog
-      v-if="createDialogVisible"
-      :visible.sync='createDialogVisible'
-      :id="id"
-      />
   </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import CreateDialog from './CreateDialog'
-import {throughTabel} from './service.js'
 
 export default {
   data () {
@@ -92,22 +85,20 @@ export default {
         applyTime: [],
         auditTime: []
       },
-      createDialogVisible: false,
-      id: ''
     }
   },
   computed: {
-    ...mapState('votersTransfer', {
+    ...mapState('votersAppealHistory', {
       multipleSelection: state=>state.multipleSelection
     })
   },
   components: {
-    CreateDialog
+
   },
   created () {
   },
   methods: {
-    ...mapActions('votersTransfer', [
+    ...mapActions('votersAppealHistory', [
       'getListData',
     ]),
     // 搜索
@@ -130,68 +121,11 @@ export default {
             params.auditTimeStart = ''
             params.aauditTimeEnd = ''
           }
-          delete params.date
+          delete params.auditTime
+          delete params.applyTime
           this.getListData(params)
         }
       })
-    },
-    notThrough () {
-      if(this.multipleSelection.length === 0) {
-        this.$notify({
-          title: '',
-          message: '请勾选数据后再操作！',
-          type: 'warning'
-        });
-        return
-      }
-      if(this.multipleSelection.length > 1) {
-        this.$notify({
-          title: '',
-          message: '只能勾选一条！',
-          type: 'warning'
-        })
-        return
-      }
-      this.id = this.multipleSelection[0].id
-      this.createDialogVisible = true
-    },
-    through () {
-      if(this.multipleSelection.length === 0) {
-        this.$notify({
-          title: '',
-          message: '请勾选数据后再操作！',
-          type: 'warning'
-        });
-        return
-      }
-      if(this.multipleSelection.length > 1) {
-        this.$notify({
-          title: '',
-          message: '只能勾选一条！',
-          type: 'warning'
-        })
-        return
-      }
-      this.$confirm('请确认是否将勾选选民转移至其他选区？','审核')
-        .then(() => {
-          this.throughItem()
-        })
-        .catch(() => {})
-
-    },
-    async throughItem() {
-      let params = {
-        id: this.multipleSelection[0].id,
-        pass: '不通过',
-        reason: ''
-      }
-      await throughTabel(params)
-      this.$notify({
-        title: '',
-        message: '登记成功！',
-        type: 'success'
-      })
-      this.getListData()
     }
   }
 }

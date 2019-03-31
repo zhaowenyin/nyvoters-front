@@ -17,8 +17,9 @@ export async function getList (payload) {
                 "phoneNum": "string",
                 "remark": "string",
                 "status": 0,
-                "userName": "string"
-
+                "userName": "string",
+                applyTime: 0,
+                auditTime: 111111
               }
             ],
             "endRow": 0,
@@ -38,12 +39,27 @@ export async function getList (payload) {
   // return api.get('/transfer/list', { params: payload })
 }
 
-export async function throughTabel (payload) {
+export async function getDetail (payload) {
   console.log(payload)
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
         data: {
+          "code": "string",
+          "content": {
+            "appealDocumentId": 0,
+            "auditer": "string",
+            "id": 0,
+            "idNum": "string",
+            "phoneNum": "string",
+            "remark": "string",
+            "status": 0,
+            "userName": "string",
+            appealTime: 2222
+
+          },
+          "message": "string",
+          "status": "string"
         }
       })
     }, 500)
