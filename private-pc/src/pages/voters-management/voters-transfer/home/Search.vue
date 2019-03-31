@@ -174,7 +174,11 @@ export default {
         })
         return
       }
-      this.throughItem()
+      this.$confirm('请确认是否将勾选选民转移至其他选区？','审核')
+        .then(() => {
+          this.throughItem()
+        })
+        .catch(() => {})
 
     },
     async throughItem() {

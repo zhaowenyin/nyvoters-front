@@ -18,7 +18,7 @@ export default {
       state.list = []
       state.total = 0
       state.searchParam = {
-        pageSize: 10,
+        pageSize: 20,
         pageNum: 1
       }
       state.multipleSelection = []
@@ -42,7 +42,7 @@ export default {
     },
   },
   actions: {
-    async getListData1 ({ commit, state }, payload) {
+    async getListData ({ commit, state }, payload) {
       commit({
         type: 'showLoading'
       })

@@ -1,20 +1,27 @@
 <template>
-  <div>
-    <el-dialog
-      title="资格不通过原因："
-      :visible="visible"
-      width="500px"
-      :before-close="comfirmClose">
-      <el-row :gutter="20">
-        <el-col
-          class="list"
-          v-for="(i,key) in list"
-          :key="key"
-          :span="key>1 ? 8 : 12">
-          <div @click="clickItem(i)" :class="['item',{'key':key>1},{'active': i===selectItem}]">{{i}}</div>
-        </el-col>
-      </el-row>
-      <div
+  <el-dialog
+    title="审核"
+    :visible="visible"
+    width="500px"
+    :before-close="comfirmClose">
+    <el-form
+      label-width="110px"
+      :model="form"
+      :rules="rules"
+      ref="form"
+      class="login-form">
+      <el-form-item
+        label="不通过原因"
+        prop="reason">
+        <el-input
+          type="textarea"
+          :rows="4"
+          placeholder="请填写审核不通过原因"
+          v-model="form.reason">
+        </el-input>
+      </el-form-item>
+    </el-form>
+     <div
         slot="footer"
         class="footer">
         <el-button
@@ -26,8 +33,7 @@
           @click="comfirmClose()"
           size="medium">取消</el-button>
       </div>
-    </el-dialog>
-  </div>
+  </el-dialog>
 </template>
 <script>
 import {throughTabel} from './service.js'
@@ -35,9 +41,15 @@ import { mapActions } from 'vuex'
 export default {
   data () {
     return {
+      form: {
+        reason: ''
+      },
+      rules: {
+        reason:[
+          { required: true, message: '请填写审核不通过原因', trigger: 'blur' }
+        ]
+      },
       loading: false,
-      list: ['不能行使选举权','被剥夺政治权利', '死亡','迁出','其他'],
-      selectItem: ''
     }
 
   },
@@ -65,10 +77,10 @@ export default {
       this.$emit('update:visible', false)
     },
     submitForm () {
-      if(!this.selectItem) {
+      if(!this.form.reason) {
         this.$notify({
           title: '',
-          message: '资格不通过原因！',
+          message: '请填写审核不通过原因！',
           type: 'warning'
         })
         return
@@ -79,16 +91,13 @@ export default {
       this.loading = true
       let params = {
         id: this.id,
-        pass: '不通过',
-        reason: this.selectItem
+        pass: '不同意',
+        reason: this.form.reason
       }
       await throughTabel(params)
       this.close()
       this.getListData()
       this.loading = false
-    },
-    clickItem (val) {
-      this.selectItem = val
     },
     comfirmClose () {
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')

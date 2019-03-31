@@ -1,14 +1,14 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button size="medium" @click="notThrough" type="primary">处理</el-button>
+
     </div>
-      <el-form
+    <el-form
       ref="form"
       :model="searchForm"
       :inline="true"
       class="from">
-      <el-form-item
+       <el-form-item
         prop="state">
         <el-select
           v-model="type"
@@ -116,12 +116,19 @@ export default {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           params.pageNum = 1
-          if (params.date && params.date.length > 0) {
-            params.applyTimeStart = new Date(params.date[0]).getTime()
-            params.applyTimeEnd = new Date(params.date[1]).getTime()
+          if (params.applyTime && params.daapplyTimete.length > 0) {
+            params.applyTimeStart = new Date(params.applyTime[0]).getTime()
+            params.applyTimeEnd = new Date(params.applyTime[1]).getTime()
           } else {
             params.applyTimeStart = ''
             params.applyTimeEnd = ''
+          }
+          if (params.auditTime && params.auditTime.length > 0) {
+            params.auditTimeStart = new Date(params.auditTime[0]).getTime()
+            params.auditTimeEnd = new Date(params.auditTime[1]).getTime()
+          } else {
+            params.auditTimeStart = ''
+            params.aauditTimeEnd = ''
           }
           delete params.date
           this.getListData(params)

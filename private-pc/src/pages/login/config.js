@@ -38,6 +38,8 @@ export const verifyArr = [
   '/voters-draw',
   '/voters-apeal',
   '/voters-down',
+  '/voters-apeal',
+  '/voters-apeal/history'
 
 ]
 

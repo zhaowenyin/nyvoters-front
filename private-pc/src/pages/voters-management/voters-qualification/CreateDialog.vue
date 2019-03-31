@@ -1,33 +1,31 @@
 <template>
-  <div>
-    <el-dialog
-      title="资格不通过原因："
-      :visible="visible"
-      width="500px"
-      :before-close="comfirmClose">
-      <el-row :gutter="20">
-        <el-col
-          class="list"
-          v-for="(i,key) in list"
-          :key="key"
-          :span="key>1 ? 8 : 12">
-          <div @click="clickItem(i)" :class="['item',{'key':key>1},{'active': i===selectItem}]">{{i}}</div>
-        </el-col>
-      </el-row>
-      <div
-        slot="footer"
-        class="footer">
+  <el-dialog
+    title="资格不通过原因："
+    :visible="visible"
+    width="500px"
+    :before-close="comfirmClose">
+    <el-row :gutter="20">
+      <el-col
+        class="list"
+        v-for="(i,key) in list"
+        :key="key"
+        :span="key>1 ? 8 : 12">
+        <div @click="clickItem(i)" :class="['item',{'key':key>1},{'active': i===selectItem}]">{{i}}</div>
+      </el-col>
+    </el-row>
+    <div
+      slot="footer"
+      class="footer">
+      <el-button
+        @click="submitForm()"
+        size="medium"
+        :loading="loading"
+        type="primary">确定</el-button>
         <el-button
-          @click="submitForm()"
-          size="medium"
-          :loading="loading"
-          type="primary">确定</el-button>
-          <el-button
-          @click="comfirmClose()"
-          size="medium">取消</el-button>
-      </div>
-    </el-dialog>
-  </div>
+        @click="comfirmClose()"
+        size="medium">取消</el-button>
+    </div>
+  </el-dialog>
 </template>
 <script>
 import {throughTabel} from './service.js'

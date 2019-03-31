@@ -54,6 +54,9 @@ const VotersTransferHistory = ()=>import('./pages/voters-management/voters-trans
 const VotersInput = ()=>import('./pages/voters-management/voters-input')
 const VotersDraw = ()=>import('./pages/voters-management/voters-drawOut')
 const VotersApeal = ()=>import('./pages/voters-management/voters-appeal')
+const VotersApealHome = ()=>import('./pages/voters-management/voters-appeal/home')
+const VotersApealistory = ()=>import('./pages/voters-management/voters-appeal/history')
+
 const VotersDown = ()=>import('./pages/voters-management/download-file')
 
 
@@ -270,8 +273,20 @@ const router = new Router({
         },
         {
           path: 'voters-apeal',
-          name: '选民申诉管理',
-          component: VotersApeal
+          component: VotersApeal,
+          children: [
+            {
+              path: '',
+              name: '待处理',
+              component: VotersApealHome
+            },
+            {
+              path: 'history',
+              name: '处理记录',
+              component: VotersApealistory
+            }
+          ]
+
         },
         {
           path: 'voters-down',
