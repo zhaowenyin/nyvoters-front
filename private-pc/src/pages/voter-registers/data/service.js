@@ -38,7 +38,7 @@ export async function getList (payload) {
 }
 
 // post请求
-export async function post (payload) {
+export async function sumitData (payload) {
   console.log(payload)
   return new Promise((resolve) => {
     setTimeout(() => {

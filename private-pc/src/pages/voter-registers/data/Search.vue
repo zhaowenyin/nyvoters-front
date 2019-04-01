@@ -68,6 +68,7 @@
       </el-form-item>
     </el-form>
     <CreateDialog
+      :item="item"
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
       />
@@ -83,11 +84,12 @@ export default {
       type: 1,
       searchForm: {
         name: '',
-        card: '',
-        tel: '',
+        idNum: '',
+        phoneNum: '',
         date: []
       },
-      createDialogVisible: false
+      createDialogVisible: false,
+      item: {}
     }
   },
   computed: {
