@@ -45,6 +45,7 @@
         <el-select
         size="medium"
         placeholder="请选择类型"
+        style="width: 200px;"
         v-model.trim="searchForm.type">
           <el-option
             v-for="(item, key) in typeList"

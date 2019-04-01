@@ -48,14 +48,13 @@
     <div>• 仅支持 *.xls 和 *.xlsx</div>
     </el-form>
     <div
-    class="load"
-    v-if="loading"
+    :class="{'load': active>0}"
     :element-loading-text="handerLoading()"
     element-loading-spinner="el-icon-loading"
     v-loading="loading">
     <ul class="info" v-if="active===4">
-      <li v-if="active===4"><i style="color: green;margin-right: 15px;" class="el-icon-success"/>对比完成！</li>
-      <li v-if="active===4">成功<span style="color:green">{{data.successNum}}</span>条     失败<span style="color: red;">{{data.failNum}}</span>条</li>
+      <li><i style="color: green;margin-right: 15px;" class="el-icon-success"/>对比完成！</li>
+      <li>成功<span style="color:green">{{data.successNum}}</span>条     失败<span style="color: red;">{{data.failNum}}</span>条</li>
     </ul>
     </div>
     <div v-if="active===4">说明：</div>
