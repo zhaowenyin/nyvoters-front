@@ -1,50 +1,77 @@
 <template>
   <div>
-    <el-table
-      :data="list"
-      class="add_table"
-      @selection-change="handleSelectionChange"
-      v-loading="loading">
-      <el-table-column
-        type="selection"
-        width="55">
-      </el-table-column>
-      <el-table-column
-        label="被推荐人"
-         width="120"
-        prop="recommendedPerson" />
-      <el-table-column
-        width="180"
-        label="身份证号码"
-        prop="idNum" />
-      <el-table-column
-        label="性别"
-        prop="gender">
-        <template slot-scope="scope">
-          {{handergender(scope.row.gender)}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="推荐方式">
-         <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '团体推荐' : '选民联名推荐'}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="推荐类型"
-      >
+    <div
+       v-for="(i, index) in list"
+      :key="index">
+      <el-table
+        :show-header="index===0"
+        :data="i.details"
+        class="add_table"
+        border
+        v-loading="loading">
+        <el-table-column
+          align="right"
+          width="55">
+           <template slot-scope="scope">
+            {{scope.row.id==='' ? '-' : ''}}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="分类"
+          prop="type">
           <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '区县代表' : '乡镇代表'}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="belongAreaId"
-        label="所属选区">
-      </el-table-column>
-      <el-table-column
-        label="状态"
-        prop="status" />
-    </el-table>
+            {{handertype(scope.row.type)}}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="导入时间"
+          width='120'
+          prop="importTime">
+          <template slot-scope="scope">
+            {{formatDate(scope.row.importTime)}}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="操作人"
+          prop="operater">
+          <template slot-scope="scope">
+            {{handergender(scope.row.operater)}}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="登记类型">
+          <template slot-scope="scope">
+            {{handerRegistrationType(scope.row.registrationType	)}}
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="总数"
+          prop="num"
+        />
+        <el-table-column
+          prop="successNum"
+          label="成功数">
+        </el-table-column>
+        <el-table-column
+          label="失败数"
+          prop="failNum" />
+          <el-table-column
+          label="进度"
+          prop="processSate" >
+          >
+          <template slot-scope="scope">
+            {{handerProcessSate(scope.row.processSate)}}
+          </template>
+        </el-table-column>
+          <el-table-column
+          label="操作"
+        >
+          <template slot-scope="scope">
+            {{scope.row.gender === 1 ? '区县代表' : '乡镇代表'}}
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
     <div
       v-show="total"
       class="add_pagination">
@@ -113,8 +140,62 @@ export default {
       case 2:
         text = '女'
         break
-      default:
+      case 3:
         text = '其他'
+        break
+      default:
+        text = ''
+      }
+      return text
+    },
+    handerRegistrationType (val) {
+      let text = ""
+      switch(val) {
+      case 0:
+        text = '登记站'
+        break
+      case 1:
+        text = '单位'
+        break
+      case 2:
+        text = '学校'
+        break
+      default:
+        text = ''
+      }
+      return text
+    },
+    handerProcessSate (val) {
+      let text = ""
+      switch(val) {
+      case 0:
+        text = '导入中'
+        break
+      case 1:
+        text = '对比中'
+        break
+      case 2:
+        text = '导入完成'
+        break
+      case 3:
+        text = '待修复'
+        break
+      default:
+        text = ''
+      }
+      return text
+    },
+    handertype (val) {
+      let text = ""
+      switch(val) {
+      case 0:
+        text = '导入'
+        break
+      case 1:
+        text = '修复'
+        break
+      default:
+        text = '导入记录'
       }
       return text
     }
@@ -123,4 +204,9 @@ export default {
 </script>
 <style scoped>
 
+</style>
+<style>
+.table1 .el-table__empty-block {
+  display: none;
+ }
 </style>

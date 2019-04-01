@@ -6,36 +6,64 @@ export async function getList (payload) {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
-        data: {
+        data:{
+          "code": "string",
           "content": {
             "data": [
               {
-                "belongAreaId": 54122356874,
-                "birthDay": "1995-01-01 00:00:00",
-                "education": "本科",
-                "gender": 1,
-                "id": 0,
-                "idNum": 510810199910251100,
-                "jobTitle": "中级会计",
-                "nation": "汉",
-                "party": "中共党员",
-                "phoneNum": 15898412568,
-                "post": "职员",
-                "recommendPersonVOList": [
+                "details": [
                   {
-                    "recommendPersonName": "张三",
-                    "recommendPersonPhone": 15898741563,
-                    "recommendPersonWorkUnit": "中共成都市委"
+                    id: ''
+                  },
+                  {
+                    "failNum": 0,
+                    "id": 0,
+                    "importTime": 9999,
+                    "num": 0,
+                    "operater": "string",
+                    "processSate": 0,
+                    "registrationType": 0,
+                    "successNum": 0,
+                    "type": 0
+                  },
+                  {
+                    "failNum": 0,
+                    "id": 1,
+                    "importTime": 9999,
+                    "num": 0,
+                    "operater": "string",
+                    "processSate": 0,
+                    "registrationType": 0,
+                    "successNum": 0,
+                    "type": 0
                   }
                 ],
-                "recommendReason": "哎哟，不错哟",
-                "recommendType": 1,
-                "recommendUnit": "成都市文化旅游局",
-                "recommendedPerson": "张三",
-                recommendedPersonId:'1',
-                "status": "string",
-                "type": 1,
-                "workUnit": "成都市文化旅游局"
+                "failNum": 0,
+                "num": 0,
+                "processSate": 0,
+                "successNum": 0
+              },
+              {
+                "details": [
+                  {
+                    id: ''
+                  },
+                  {
+                    "failNum": 0,
+                    "id": 1,
+                    "importTime": 9999,
+                    "num": 0,
+                    "operater": "string",
+                    "processSate": 0,
+                    "registrationType": 0,
+                    "successNum": 0,
+                    "type": 0
+                  }
+                ],
+                "failNum": 0,
+                "num": 0,
+                "processSate": 0,
+                "successNum": 0
               }
             ],
             "endRow": 0,
@@ -43,10 +71,9 @@ export async function getList (payload) {
             "pageSize": 0,
             "pages": 0,
             "startRow": 0,
-            "total": 20
+            "total": 0
           },
-          "errorCode": "string",
-          "errorMsg": "string",
+          "message": "string",
           "status": "string"
         }
       })
