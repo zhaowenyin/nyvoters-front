@@ -140,7 +140,7 @@ export default {
       }
       this.item = this.multipleSelection[0]
       this.createDialogVisible = true
-    },
+    }
   }
 }
 </script>

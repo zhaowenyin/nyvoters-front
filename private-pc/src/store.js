@@ -30,6 +30,7 @@ import votersAppealHistory from './pages/voters-management/voters-appeal/history
 // 选民信息查询
 import voterInfo from './pages/voter-info/module'
 import voterRegisters from './pages/voter-registers/home/module'
+import voterRegistersData from './pages/voter-registers/data/module'
 
 
 Vue.use(Vuex)
@@ -62,6 +63,7 @@ export default new Vuex.Store({
     votersAppealHome,
     votersAppealHistory,
     voterInfo,
-    voterRegisters
+    voterRegisters,
+    voterRegistersData
   }
 })

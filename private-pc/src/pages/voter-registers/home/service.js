@@ -64,14 +64,14 @@ export async function getProcessSate(payload) {
         data: {
           "code": "string",
           "content": {
-            "failNum": 0,
+            "failNum": 10,
             "id": 0,
             "importTime": "2019-03-31T13:20:36.880Z",
             "num": 0,
             "operater": "string",
             "processSate": 2,
             "registrationType": 0,
-            "successNum": 0,
+            "successNum": 200,
             "type": 0
           },
           "message": "string",

@@ -1,8 +1,7 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
-      <el-button size="medium" type="primary" icon="el-icon-edit">修改</el-button>
+      <el-button size="medium"  @click="modify" type="primary" icon="el-icon-edit">修改</el-button>
     </div>
     <el-form
       ref="form"
@@ -33,21 +32,21 @@
       </el-form-item>
       <el-form-item
         v-if="type === 2"
-        prop="card">
+        prop="idNum">
         <el-input
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.card" />
+          v-model.trim="searchForm.idNum" />
       </el-form-item>
       <el-form-item
         v-if="type === 3"
-        prop="tel">
+        prop="phoneNum">
         <el-input
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.tel" />
+          v-model.trim="searchForm.phoneNum" />
       </el-form-item>
       <el-form-item
         v-if="type === 4"
@@ -55,7 +54,7 @@
         <el-date-picker
           v-model="searchForm.date"
           size="medium"
-          type="datetimerange"
+          type="daterange"
           range-separator="至"
           start-placeholder="开始日期"
           end-placeholder="结束日期" />
@@ -92,7 +91,8 @@ export default {
     }
   },
   computed: {
-    ...mapState('voterRegister', {
+    ...mapState('voterRegistersData', {
+      multipleSelection: state => state.multipleSelection
     })
   },
   components: {
@@ -101,7 +101,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('voterRegister', [
+    ...mapActions('voterRegistersData', [
       'getListData',
     ]),
     // 搜索
@@ -109,20 +109,29 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
-          params.page = 1
+          params.pageNum = 1
           if (params.date && params.date.length > 0) {
-            params.startTime = new Date(params.date[0]).getTime()
-            params.endTime = new Date(params.date[1]).getTime()
+            params.registrationTimeStart = new Date(params.date[0]).getTime()
+            params.registrationTimeEnd = new Date(params.date[1]).getTime()
           } else {
-            params.startTime = ''
-            params.endTime = ''
+            params.registrationTimeStart = ''
+            params.registrationTimeEnd = ''
           }
           delete params.date
           this.getListData(params)
         }
       })
     },
-    create () {
+    modify () {
+      if(this.multipleSelection.length !== 1) {
+        this.$notify({
+          title: '',
+          message: '请勾选一条数据进行修改！',
+          type: 'warning'
+        });
+        return
+      }
+      this.item = this.multipleSelection[0]
       this.createDialogVisible = true
     }
   }

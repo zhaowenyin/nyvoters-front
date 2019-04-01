@@ -29,7 +29,7 @@ export default {
     this.clearState()
   },
   methods: {
-    ...mapMutations('voterRegister', [
+    ...mapMutations('voterRegistersData', [
       'clearState'
     ])
   }

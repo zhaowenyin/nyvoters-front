@@ -42,22 +42,28 @@
             class="but">请选择需要导入的文件</div>
           </el-upload>
       </el-form-item>
-    <div >上传的excel表符合以下规范</div>
+    <div style="padding-top: 50px;">上传的excel表符合以下规范</div>
     <div>•  请使用标准模板导入数据</div>
     <div>• 文件大小不超过 x</div>
     <div>• 仅支持 *.xls 和 *.xlsx</div>
     </el-form>
     <div
     class="load"
+    v-if="loading"
     :element-loading-text="handerLoading()"
     element-loading-spinner="el-icon-loading"
     v-loading="loading">
-    <div v-if="active===4">对比完成！</div>
-    <div v-if="active===4">成功300条     失败20条</div>
+    <ul class="info" v-if="active===4">
+      <li v-if="active===4"><i style="color: green;margin-right: 15px;" class="el-icon-success"/>对比完成！</li>
+      <li v-if="active===4">成功<span style="color:green">{{data.successNum}}</span>条     失败<span style="color: red;">{{data.failNum}}</span>条</li>
+    </ul>
     </div>
+    <div v-if="active===4">说明：</div>
+    <div v-if="active===4">失败数据，请在导入管理处进行修复上传</div>
 
     <div
       slot="footer"
+      v-if="active===4"
       class="footer">
       <el-button
         @click="submitForm()"
@@ -87,7 +93,8 @@ export default {
       },
       active: 0,
       timer: null,
-      showForm: true
+      showForm: true,
+      data: {}
     }
 
   },
@@ -104,7 +111,7 @@ export default {
   computed: {
     allUrl () {
       let param = {
-        module: '3',
+        type: 0
       }
       let paramStr = ''
       for (const k in param) {
@@ -165,6 +172,7 @@ export default {
     },
     async searchProcessSate (val) {
       const {data} = await getProcessSate(val)
+      this.data = data.content
       if (data.content.processSate === 2) {
         this.active = data.content.processSate + 2
       } else {
@@ -230,11 +238,17 @@ export default {
     background: #fff;
   }
   .load {
-    height: 350px;
+    height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  .info {
+    font-size: 16px;
+    & li {
+      padding-bottom: 15px;
+    }
   }
 
 </style>

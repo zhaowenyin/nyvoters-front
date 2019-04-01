@@ -2,6 +2,7 @@
   <div>
     <el-table
       :data="list"
+      @selection-change="handleSelectionChange"
       class="add_table"
       v-loading="loading">
       <el-table-column
@@ -14,9 +15,13 @@
       <el-table-column
         label="身份证号码"
         prop="card" />
-      <el-table-column
+     <el-table-column
         label="性别"
-        prop="gender" />
+        prop="gender">
+        <template slot-scope="scope">
+          {{handergender(scope.row.gender)}}
+        </template>
+      </el-table-column>
       <el-table-column
         label="手机号"
         prop="tel" />
@@ -31,23 +36,27 @@
       </el-table-column>
       <el-table-column
         label="选民状态"
-        prop="type" />
+        prop="type">
+         <template slot-scope="scope">
+          {{handerstatus(scope.row.status)}}
+        </template>
+      </el-table-column>
     </el-table>
     <div
       v-show="total"
       class="add_pagination">
       <Pagination
         @current-change="handleCurrentChange"
-        :page-size="size"
+        :page-size="pageSize"
         background
-        :current-page="page"
+        :current-page="pageNum"
         layout="prev, pager, next"
         :total="total" />
     </div>
   </div>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import { formatDate } from '../../../utils/format.js'
 import Pagination from '../../../components/Pagination'
 
@@ -58,12 +67,12 @@ export default {
     }
   },
   computed: {
-    ...mapState('voterRegister', {
+    ...mapState('voterRegistersData', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
-      size: state => state.searchParam.size,
-      page: state => state.searchParam.page
+      pageSize: state => state.searchParam.pageSize,
+      pageNum: state => state.searchParam.pageNum
     })
   },
   components: {
@@ -73,17 +82,57 @@ export default {
     this.getListData()
   },
   methods: {
-    ...mapActions('voterRegister', [
+    ...mapActions('voterRegistersData', [
       'getListData'
+    ]),
+    ...mapMutations('voterRegistersData', [
+      'saveSelection'
     ]),
     // 分页
     handleCurrentChange (val) {
-      this.getListData({ page: val })
+      this.getListData({ pageNum: val })
     },
     look (id) {
       console.log(id)
     },
+    handleSelectionChange(val) {
+      this.saveSelection(val)
+    },
     formatDate,
+    handergender(val) {
+      let text = ""
+      switch(val) {
+      case 0:
+        text = '未设置'
+        break
+      case 1:
+        text = '男'
+        break
+      case 2:
+        text = '女'
+        break
+      default:
+        text = '其他'
+      }
+      return text
+    },
+    handerstatus (val) {
+      let text = ""
+      switch(val) {
+      case 0:
+        text = '待对比'
+        break
+      case 1:
+        text = '对比中'
+        break
+      case 2:
+        text = '待资格审查'
+        break
+      default:
+        text = '登记成功'
+      }
+      return text
+    }
   }
 }
 </script>
