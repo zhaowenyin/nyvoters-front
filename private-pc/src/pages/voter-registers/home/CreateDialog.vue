@@ -1,445 +1,93 @@
 <template>
   <el-dialog
-    :title="item.belongAreaId? '修改' : '登记'"
+    title="系统参数设置"
     :visible="visible"
-    width="820px"
-    :before-close="comfirmClose">
+    class="dialog2"
+    width="800px">
+    <el-steps
+      :active="active"
+      class="step"
+      finish-status="success">
+      <el-step title="选择文件"></el-step>
+      <el-step title="数据导入"></el-step>
+      <el-step title="数据对比"></el-step>
+      <el-step title="导入完成"></el-step>
+    </el-steps>
     <el-form
-      label-width="110px"
       :model="form"
-      :rules="rules"
+      v-if="showForm"
       ref="form"
-      class="login-form">
-      <el-row :gutter="20">
-        <el-col :span="12">
-          <el-form-item
-            label="推荐方式"
-            prop="recommendType">
-            <el-radio-group @change="change" size="medium" v-model="form.recommendType">
-              <el-radio :label="1">团体推荐</el-radio>
-              <el-radio :label="2">选民联名推荐</el-radio>
-            </el-radio-group>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="类型"
-            prop="type">
-            <el-radio-group size="medium" v-model="form.type">
-              <el-radio :label="1" :disabled="form.recommendType===2">区县代表</el-radio>
-              <el-radio :label="2" :disabled="form.recommendType===2">乡镇代表</el-radio>
-            </el-radio-group>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-            <el-form-item
-            label="所选区域"
-            prop="belongAreaId">
-            <el-select
-              size="medium"
-              style="width: 100%;"
-              class="item"
-              v-model="form.belongAreaId"
-              clearable placeholder="请选择">
-              <el-option
-                v-for="item in belongAreaList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-            <el-form-item
-            label="被推选人"
-            prop="recommendedPersonId">
-            <el-select
-              size="medium"
-              style="width: 100%;"
-              class="item"
-              @change="personChange"
-              v-model="form.recommendedPersonId"
-              clearable placeholder="请选择">
-              <el-option
-                v-for="item in recommendedPersonList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="身份证号码"
-            prop="idNum">
-            <el-input
-              size="medium"
-              placeholder="请输入"
-              :maxlength="18"
-              class="item"
-              v-model="form.idNum" />
-          </el-form-item>
-        </el-col>
-          <el-col :span="12">
-          <el-form-item
-            label="手机号码"
-            prop="phoneNum">
-            <el-input
-              size="medium"
-              placeholder="请输入"
-              class="item"
-              v-model="form.phoneNum" />
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item
-              label="出生日期"
-              prop="birthDay">
-              <el-date-picker
-                v-model="form.birthDay"
-                type="date"
-                placeholder="请选择">
-              </el-date-picker>
-            </el-form-item>
-          </el-col>
+      class="form">
+       <el-form-item
+        label=""
+        class="complait-content"
+        prop="id">
+          <el-upload
+            style="100%"
+            :class="['commom1',{'uploadcomplait':fileList.length>0}]"
+            :headers="headers"
+            action="https://jsonplaceholder.typicode.com/posts/"
+            ref="upload"
+            :on-change="changeFile"
+            :on-success="successFn"
+            :on-error="errorFn"
+            :on-remove="changeFile"
+            :multiple="false"
+            :before-upload="beforeAvatarUpload"
+            :limit="1"
+            :file-list="fileList"
+            :auto-upload="true">
+            <div
+            v-if="fileList.length===0"
+            class="but">请选择需要导入的文件</div>
+          </el-upload>
+      </el-form-item>
+    <div >上传的excel表符合以下规范</div>
+    <div>•  请使用标准模板导入数据</div>
+    <div>• 文件大小不超过 x</div>
+    <div>• 仅支持 *.xls 和 *.xlsx</div>
+    </el-form>
+    <div
+    class="load"
+    :element-loading-text="handerLoading()"
+    element-loading-spinner="el-icon-loading"
+    v-loading="loading">
+    <div v-if="active===4">对比完成！</div>
+    <div v-if="active===4">成功300条     失败20条</div>
+    </div>
 
-        <el-col :span="12">
-          <el-form-item
-            label="性别："
-            prop="gender">
-            <el-radio-group size="medium" v-model="form.gender">
-              <el-radio :label="1">男</el-radio>
-              <el-radio :label="2">女</el-radio>
-            </el-radio-group>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label=" 民族："
-            prop="nation">
-            <el-select
-              size="medium"
-              style="width: 100%;"
-              class="item"
-              v-model="form.nation"
-              clearable placeholder="请选择">
-              <el-option
-                v-for="item in nationList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="学历"
-            prop="education">
-            <el-select
-              size="medium"
-              style="width: 100%;"
-              class="item"
-              v-model="form.education"
-              clearable placeholder="请选择">
-              <el-option
-                v-for="item in educationList"
-                :key="item"
-                :label="item"
-                :value="item">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="党派"
-            prop="party">
-            <el-select
-              size="medium"
-              style="width: 100%;"
-              class="item"
-              v-model="form.party"
-              clearable placeholder="请选择">
-              <el-option
-                v-for="item in partyList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="职务"
-            prop="education">
-            <el-select
-              size="medium"
-              style="width: 100%;"
-              class="item"
-              v-model="form.post"
-              clearable placeholder="请选择">
-              <el-option
-                v-for="item in postList"
-                :key="item"
-                :label="item"
-                :value="item">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="工作单位"
-            prop="workUnit">
-            <el-input
-              size="medium"
-              placeholder="请输入"
-              class="item"
-              v-model="form.workUnit" />
-          </el-form-item>
-        </el-col>
-        <el-col :span="12">
-          <el-form-item
-            label="职称"
-            prop="jobTitle">
-            <el-input
-              size="medium"
-              placeholder="请输入"
-              class="item"
-              v-model="form.jobTitle" />
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-form-item
-        label="推荐理由"
-        prop="recommendReason">
-        <el-input
-          size="medium"
-          placeholder="请输入"
-          class="item"
-          v-model="form.recommendReason" />
-      </el-form-item>
-      <el-form-item
-        v-if="form.recommendType===1"
-        label="推荐单位"
-        prop="recommendUnit">
-        <el-input
-          placeholder="请输入"
-          class="item"
-          v-model="form.recommendUnit" />
-      </el-form-item>
-    </el-form>
-    <el-form
-      v-if="form.recommendType===2"
-      label-width="0"
-      :model="tableObj"
-      :rules="tableRules"
-      ref="tableObj"
-      class="table-obj">
-        <div class="left">
-          <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">添加</el-button>
-          <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
-        </div>
-        <el-table
-           @selection-change="handleSelectionChange"
-          :data="list"
-          class="add_table">
-          <el-table-column
-            type="selection"
-            width="55">
-          </el-table-column>
-          <el-table-column
-          label="推荐人姓名">
-            <template slot-scope="scope">
-              <el-form-item
-                prop="recommendPersonName">
-                  <el-input
-                  v-if="!scope.row.recommendPersonName"
-                  size="medium"
-                  placeholder="请输入"
-                  class="item"
-                  v-model="tableObj.recommendPersonName" />
-                <div v-else>{{scope.row.recommendPersonName}}</div>
-              </el-form-item>
-            </template>
-          </el-table-column>
-          <el-table-column
-          label="推荐人手机">
-            <template slot-scope="scope">
-              <el-form-item
-              prop="recommendPersonPhone">
-                <el-input
-                  v-if="!scope.row.recommendPersonPhone"
-                  size="medium"
-                  placeholder="请输入"
-                  class="item"
-                  v-model="tableObj.recommendPersonPhone" />
-                <div v-else>{{scope.row.recommendPersonPhone}}</div>
-              </el-form-item>
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="推荐人工作单位">
-          <template slot-scope="scope">
-            <el-form-item
-              prop="recommendPersonWorkUnit">
-              <el-input
-                v-if="!scope.row.recommendPersonWorkUnit"
-                size="medium"
-                placeholder="请输入"
-                class="item"
-                v-model="tableObj.recommendPersonWorkUnit" />
-              <div v-else>{{scope.row.recommendPersonWorkUnit}}</div>
-            </el-form-item>
-          </template>
-        </el-table-column>
-      </el-table>
-    </el-form>
     <div
       slot="footer"
       class="footer">
       <el-button
         @click="submitForm()"
         size="medium"
-        :loading="loading"
-        type="primary">确定</el-button>
+        type="primary">导出失败数据</el-button>
         <el-button
         @click="comfirmClose()"
-        size="medium">取消</el-button>
+        size="medium">返回</el-button>
     </div>
   </el-dialog>
 </template>
 <script>
-import {setSubmit} from './service.js'
+import {getProcessSate} from './service.js'
+import { baseURL } from '../../../utils/api.js'
+import { getSession } from '../../../utils/session.js'
 export default {
   data () {
+    const authToken = getSession()
     return {
       loading: false,
       form: {
-        recommendType: 1,
-        type: '',
-        belongAreaId: '',
-        idNum: '',
-        recommendedPersonId: '',
-        recommendedPerson: '',
-        phoneNum: '',
-        birthDay: '',
-        gender: '',
-        nation: '',
-        education: '',
-        party:'',
-        post: '',
-        workUnit: '',
-        jobTitle: '',
-        recommendReason: '',
-        recommendUnit: '',
-        recommendPersonList: [],
+        id: ''
       },
-      tableObj: {
-        "recommendPersonName": "",
-        "recommendPersonPhone": null,
-        "recommendPersonWorkUnit": ""
+      fileList: [],
+      headers: {
+        Authorization: authToken.token,
       },
-      tableRules: {
-        recommendPersonName: [
-          { required: true, message: '请输入推荐人姓名！', trigger: 'blur' }
-        ],
-        recommendPersonPhone:  [
-          { required: true, message: '请输入推荐人手机！', trigger: 'blur' }
-        ],
-        recommendPersonWorkUnit: [
-          { required: true, message: '请输入推荐人工作单位！', trigger: 'blur' }
-        ],
-      },
-      multipleSelection: [],
-      rules: {
-        recommendType: [
-          { required: true, message: '请选择推荐方式！', trigger: 'blur' }
-        ],
-        type:  [
-          { required: true, message: '请选择类型！', trigger: 'blur' }
-        ],
-        belongAreaId: [
-          { required: true, message: '请选择被推荐人！', trigger: 'blur' }
-        ],
-        idNum: [
-          { required: true, message: '请输入身份证号码！', trigger: 'blur' }
-        ],
-        nation: [
-          { required: true, message: '请选择民族', trigger: 'blur' }
-        ],
-        gender: [
-          { required: true, message: '请选择性别', trigger: 'blur' }
-        ],
-        phoneNum: [
-          { required: true, message: '请输入手机号码', trigger: 'blur' }
-        ],
-        birthDay: [
-          { required: true, message: '请选择出生日期', trigger: 'blur' }
-        ],
-        recommendedPersonId:[
-          { required: true, message: '请选择出生日期', trigger: 'blur' }
-        ]
-      },
-      options: [{
-        value: '1',
-        label: '居住地'
-      }, {
-        value: '2',
-        label: '外地'
-      }],
-      nationList: [{
-        value: '1',
-        label: '居住地'
-      }, {
-        value: '2',
-        label: '外地'
-      }],
-      belongAreaList:[{
-        value: '1',
-        label: '居住地'
-      }, {
-        value: '2',
-        label: '外地'
-      }],
-      recommendedPersonList: [{
-        value: '1',
-        label: '居住地',
-        phoneNum: '1',
-        birthDay: 652806000000,
-        gender: 2,
-        nation: 2,
-        belongAreaId: 1,
-        belongArea: '1',
-        idNum: '1111',
-        workUnit: '8888',
-
-      }, {
-        value: '2',
-        label: '外地',
-        phoneNum: '2',
-        birthDay: 652806000000,
-        gender: 1,
-        nation: 1,
-        belongAreaId: 1,
-        belongArea: '2',
-        idNum: '2222',
-        workUnit: '666'
-      }],
-      educationList:  ['大学以上','大专','中专及高中','中专及以下'],
-      partyList:[{
-        value: '1',
-        label: '居住地'
-      }, {
-        value: '2',
-        label: '外地'
-      }],
-      postList: ['公务员', '企业负责人', '工人', '农民', '专业技术人员','其他'],
-      list: [{}]
+      active: 0,
+      timer: null,
+      showForm: true
     }
 
   },
@@ -453,131 +101,163 @@ export default {
       type: Object
     }
   },
+  computed: {
+    allUrl () {
+      let param = {
+        module: '3',
+      }
+      let paramStr = ''
+      for (const k in param) {
+        if (param[k] !== undefined &&
+            param[k] !== null &&
+            param[k] !== '') {
+          paramStr += `&${k}=${param[k]}`
+        }
+      }
+      paramStr = paramStr.substr(1)
+      return `${baseURL}/doc/upload/?${paramStr}`
+    }
+  },
   created () {
-    this.form = {...this.form, ...this.item }
+    clearInterval(this.timer)
   },
   methods: {
     close () {
       this.$emit('update:visible', false)
     },
     submitForm () {
-      this.$refs.form.validate((valid) => {
-        if (valid) {
-          this.sumitData()
-        }
-      })
+
     },
-    async sumitData () {
-      this.loading = true
-      await setSubmit(this.form)
-      this.close()
-      this.loading = false
-    },
+
     comfirmClose () {
-      this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
-        .then(() => {
-          this.close()
-        })
-        .catch(() => {})
+      this.close()
     },
-    change (val) {
-      if(val===2) {
-        this.form.type = 2
+    changeFile (file, fileList) {
+      this.fileList = fileList
+    },
+    beforeAvatarUpload (file) {
+      const isXlsx = file.type ===
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      if (!isXlsx) {
+        this.$notify.error({title: '只能上传 xlsx 格式的文件!'})
+      }
+      return isXlsx
+    },
+    successFn (response) {
+      // this.$notify.success({title: '上传成功'})
+      console.log(response)
+      this.active = 1
+      this.form.id = 1
+      this.loading = true
+      let sel = this
+      clearInterval(this.timer)
+      this.timer = setInterval(() => {
+        sel.searchProcessSate({id: 1})
+      }, 5000)
+      this.showForm = false
+      // this.form.id = response.data.content
+      // this.$refs.upload.clearFiles()
+    },
+    errorFn (err) {
+      const { message = `{}` } = err
+      const errorObj = JSON.parse(message)
+      this.$notify.error({title: errorObj.message || '上传失败'})
+    },
+    async searchProcessSate (val) {
+      const {data} = await getProcessSate(val)
+      if (data.content.processSate === 2) {
+        this.active = data.content.processSate + 2
+      } else {
+        this.active = data.content.processSate + 1
       }
 
-    },
-    personChange (val) {
-      for(let i of this.recommendedPersonList) {
-        if(val === i.value) {
-          this.form.phoneNum = i.phoneNum
-          this.form.birthDay = i.birthDay
-          this.form.nation = i.nation
-          this.form.belongAreaId = i.belongAreaId
-          this.form.gender = i.gender
-          this.form.idNum = i.idNum
-          this.form.recommendedPerson = i.label
-          break
-        }
+      if(this.active === 4) {
+        clearInterval(this.timer)
+        this.loading = false
       }
     },
-    create () {
-      this.$refs.tableObj.validate((valid) => {
-        if (valid) {
-          for(let i of this.list) {
-            if(i.recommendPersonPhone === this.tableObj.recommendPersonPhone) {
-              this.$notify({
-                title: '',
-                message: '已经添加重复推荐人',
-                type: 'warning'
-              })
-              return
-            }
-          }
-
-          this.list.unshift(this.tableObj)
-          this.tableObj = {
-            "recommendPersonName": "",
-            "recommendPersonPhone": null,
-            "recommendPersonWorkUnit": ""
-          }
-          let list  = JSON.parse(JSON.stringify(this.list))
-          for(let i of list) {
-            if (i.recommendPersonName) {
-              this.form.recommendPersonList.push(i)
-            }
-          }
-        }
-      })
-
-    },
-    deleteI () {
-      if(this.multipleSelection.length === 0) {
-        this.$notify({
-          title: '',
-          message: '请勾选数据进删除！',
-          type: 'warning'
-        });
-        return
+    handerLoading () {
+      let text = ""
+      switch(this.active) {
+      case 1:
+        text = '导入中'
+        break
+      case 2:
+        text = '对比排队中...'
+        break
+      default:
+        text = ''
       }
-      this.tableObj = {
-        "recommendPersonName": "",
-        "recommendPersonPhone": null,
-        "recommendPersonWorkUnit": ""
-      }
-      let list  = JSON.parse(JSON.stringify(this.list))
-      this.list = list.filter(i => {
-        let isI = false
-        for(let obj of this.multipleSelection) {
-          if(obj.recommendPersonPhone&&(!obj.recommendPersonPhone===i.recommendPersonPhone)) {
-            isI = true
-          }
-        }
-        if(!i.recommendPersonPhone) {
-          isI = true
-        }
-        return isI
-      })
-      for(let i of this.list) {
-        if (i.recommendPersonName) {
-          this.form.recommendPersonList.push(i)
-        }
-      }
-    },
-    handleSelectionChange(val) {
-      this.multipleSelection = val
+      return text
     }
+
   }
 
 }
 </script>
 <style scoped>
-.left {
-  margin: 10px 0;
+
+.step {
+  padding-bottom: 50px;
 }
+.footer {
+  text-align: center;
+}
+.but {
+  width: 100%;
+  border: solid 1px #DCDFE6;
+  background: #fff;
+  color: #c0c4cb;
+  padding-left: 15px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 4px;
+
+  }
+ .but:after {
+    content: "";
+    display: inline-block;
+    background: url("../../../assets/img/folder.png") center center no-repeat;
+    background-size: 100% 100%;
+    width: 19px;
+    height: 15px;
+    float: right;
+    margin-right: 9px;
+    transform: translateY(12px);
+  }
+  .uploadcomplait {
+    border:solid 1px #DCDFE6;
+    background: #fff;
+  }
+  .load {
+    height: 350px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 
 </style>
 <style>
   .table-obj .el-form-item {
     margin: 15px 0;
   }
+.commom1 .el-upload {
+  background: #fff;
+  width: 100%;
+  text-align: left;
+}
+.commom1 .el-upload-list__item:first-child {
+  margin: 8px 0;
+}
+.complait-content .el-form-item__content {
+  line-height: 10px;
+}
+.uploadcomplait .el-upload{
+  display: none;
+}
+
+.dialog2 .el-dialog__body {
+    padding: 80px;
+}
 </style>

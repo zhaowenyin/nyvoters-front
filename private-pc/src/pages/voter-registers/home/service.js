@@ -56,12 +56,26 @@ export async function getList (payload) {
 }
 
 // 代表推荐登记修改
-export async function setSubmit (payload) {
+export async function getProcessSate(payload) {
   console.log(payload)
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
         data: {
+          "code": "string",
+          "content": {
+            "failNum": 0,
+            "id": 0,
+            "importTime": "2019-03-31T13:20:36.880Z",
+            "num": 0,
+            "operater": "string",
+            "processSate": 2,
+            "registrationType": 0,
+            "successNum": 0,
+            "type": 0
+          },
+          "message": "string",
+          "status": "string"
         }
       })
     }, 500)
@@ -69,45 +83,5 @@ export async function setSubmit (payload) {
   // return api.post('/repre-recommend/register', payload)
   // .then(data => data)
   //   .catch(() => Promise.resolve({data: null}))
-}
-// 代表推荐登记修改
-export async function modifySubmit (payload) {
-  console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/repre-recommend/modify', payload)
-  // .then(data => data)
-  //   .catch(() => Promise.resolve({data: null}))
-}
-
-export async function submitTabel (payload) {
-  console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/repre-recommend/submit', payload)
-}
-export async function deletetTabel (payload) {
-  console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/repre-recommend/delete', payload)
 }
 

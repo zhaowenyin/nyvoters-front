@@ -26,7 +26,7 @@ export default {
     this.clearState()
   },
   methods: {
-    ...mapMutations('behalfCommended', [
+    ...mapMutations('voterRegisters', [
       'clearState'
     ]),
     handleNodeClick(data) {
