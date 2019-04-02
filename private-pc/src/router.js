@@ -48,7 +48,7 @@ const ReportAnalysis = () => import('./pages/report-center/report-analysis')
 const ReportFile = () => import('./pages/report-center/report-file')
 // 选民管理
 const VotersQualification = () =>import('./pages/voters-management/voters-qualification')
-const VotersTransfer = ()=>import('./pages/voters-management/voters-transfer ')
+const VotersTransfer = ()=>import('./pages/voters-management/voters-transfer')
 const VotersInput = ()=>import('./pages/voters-management/voters-input')
 const VotersDraw = ()=>import('./pages/voters-management/voters-drawOut')
 const VotersApeal = ()=>import('./pages/voters-management/voters-appeal')
