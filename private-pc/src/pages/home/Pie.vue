@@ -1,7 +1,10 @@
 <template>
-  <ve-pie :legend="legend" :grid="grid" :data="chartData" height="300px" :settings="chartSettings"></ve-pie>
+  <ve-pie
+  :extend="chartExtend"
+  :data="chartData"
+  :settings="chartSettings"
+  height="300px"></ve-pie>
 </template>
-
 <script>
 export default {
   data () {
@@ -9,26 +12,41 @@ export default {
       radius: 80,
       offsetY: '40%'
     }
-    this.legend = {
-      bottom: 30,
-      left: 'center',
-    }
-    this.grid = {
-      top: 10,
+    this.chartExtend = {
+      grid: {
+        top: 10,
+        left: 10,
+      },
+      legend: {
+        bottom: 30,
+        left: 'center',
+      },
+      series: {
+        color: ['#6e9cd3','#eb7b3c','#a5a5a5','#fbdf2c','#4674c1','#72ac4d']
+      }
     }
     return {
       chartData: {
-        columns: ['日期', '访问用户'],
-        rows: [
-          { '日期': '1/1', '访问用户': 1393 },
-          { '日期': '1/2', '访问用户': 3530 },
-          { '日期': '1/3', '访问用户': 2923 },
-          { '日期': '1/4', '访问用户': 1723 },
-          { '日期': '1/5', '访问用户': 3792 },
-          { '日期': '1/6', '访问用户': 4593 }
-        ]
+        columns: ['label', 'value'],
+        rows: []
       }
     }
+  },
+  props: {
+    data: {
+      default: () => [],
+      type: Array
+    }
+  },
+  watch: {
+    data () {
+      this.chartData.rows = this.data
+    }
+  },
+  created () {
+    this.chartData.rows = this.data
   }
+
 }
+
 </script>

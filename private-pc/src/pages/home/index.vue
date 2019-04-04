@@ -3,43 +3,43 @@
     <ul class="top-info">
       <li>
         <div class="small-text">总人口数</div>
-        <div class="number">11,029,850</div>
+        <div class="number">{{data.peopleNum}}</div>
       </li>
        <li>
         <div class="small-text">已登记选民数</div>
-        <div class="number">11,029,850</div>
+        <div class="number">{{data.regVotersNum	}}</div>
       </li>
       <li class="last">
         <div class="small-text">正式选民数</div>
-        <div class="number">11,029,850</div>
+        <div class="number">{{data.votersNum}}</div>
       </li>
     </ul>
     <div class="content-title">南阳选民统计图</div>
-    <CenbterChart height="300px"/>
+    <CenbterChart :data="data.votersCounts" height="300px"/>
     <Tabel/>
     <div class="content-title">XX选区登记情况综合统计</div>
     <el-row :gutter="20">
       <el-col :span="8" class="pie">
         <div class="text">登记类型</div>
-        <Pie :data="[]"/>
+        <Pie :data="data.registerTypeGraphs"/>
       </el-col>
       <el-col :span="8" class="pie">
         <div class="text">参选地</div>
-        <Pie :data="[]"/>
+        <Pie :data="data.candidateTypeGraphs"/>
       </el-col>
       <el-col :span="8" class="pie">
         <div class="text">采集方式</div>
-        <Pie :data="[]"/>
+        <Pie :data="data.idTypeGraphs"/>
       </el-col>
     </el-row>
     <el-row :gutter="20">
         <el-col :span="12" class="pie">
           <div class="text">对比不通过人次</div>
-          <Pie :data="[]"/>
+          <Pie :data="data.verifyFailGraphs"/>
         </el-col>
         <el-col :span="12" class="pie">
           <div class="text">未通过资格审查</div>
-          <Pie :data="[]"/>
+          <Pie :data="data.reviewFailGraphs"/>
         </el-col>
     </el-row>
   </div>
@@ -49,12 +49,13 @@ import { mapMutations } from 'vuex'
 import CenbterChart from './CenbterChart'
 import Tabel from './Tabel'
 import Pie from './Pie'
-
+import {getList} from './service.js'
 export default {
   data () {
     return {
       list: [],
-      data: {data1:[],data2:[],data3:[],data4:[]}
+      data: {}
+
     }
   },
   computed: {
@@ -68,11 +69,17 @@ export default {
   created () {
     // 初始化清除数据
     this.clearState()
+    this.Searchlist()
   },
   methods: {
     ...mapMutations('home', [
       'clearState'
-    ])
+    ]),
+    async Searchlist() {
+      const {data} = await getList()
+      this.data = data.content
+      console.log(this.data)
+    }
   }
 }
 </script>
