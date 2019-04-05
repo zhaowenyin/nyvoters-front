@@ -1,6 +1,6 @@
 // import api from '../../utils/api'
 
-// 选民资格审查API
+// get请求
 export async function getList (payload) {
   console.log(payload)
   return new Promise((resolve) => {
@@ -10,26 +10,16 @@ export async function getList (payload) {
           "content": {
             "data": [
               {
-                "auditStatus": 0,
-                "auditTime": "2019-03-29T15:21:37.529Z",
-                "auditer": "string",
-                "candidateType": 0,
-                "contactInformation": "string",
-                "gender": 0,
-                "householdRegistration": "string",
-                "householdRegistrationDetail": "string",
-                "id": '0',
-                "idNum": "string",
-                "living": "string",
-                "livingDetail": "string",
+                "code": "string",
+                "id": 0,
+                "manager": "string",
                 "name": "string",
-                "nation": "string",
-                "phoneNum": "string",
-                "registrar": "string",
-                "registrationTime": 1552489000,
-                "registrationType": 0,
-                "status": 0
-
+                "parentId": 0,
+                "path": "string",
+                "phoneName": "string",
+                "precinct": "string",
+                "precinctId": 0,
+                "sort": 0
               }
             ],
             "endRow": 0,
@@ -46,10 +36,40 @@ export async function getList (payload) {
       })
     }, 500)
   })
-  // return api.get('/transfer/list', { params: payload })
+  // return api.get('/committee/list', { params: payload })
 }
 
-export async function throughTabel (payload) {
+export async function setSubmit (payload) {
+  console.log(1,payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+        }
+      })
+    }, 500)
+  })
+  // return api.post('/committee/add', payload)
+  // .then(data => data)
+  //   .catch(() => Promise.resolve({data: null}))
+}
+
+export async function modifySubmit (payload) {
+  console.log(2,payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+        }
+      })
+    }, 500)
+  })
+  // return api.post('/committee/edit', payload)
+  // .then(data => data)
+  //   .catch(() => Promise.resolve({data: null}))
+}
+
+export async function deletetTabel (payload) {
   console.log(payload)
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -59,7 +79,6 @@ export async function throughTabel (payload) {
       })
     }, 500)
   })
-  // return api.post('/transfer/audit', payload)
+  // return api.post('/committee/delete', payload)
 }
-
 

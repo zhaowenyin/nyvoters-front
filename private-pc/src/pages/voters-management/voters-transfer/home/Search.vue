@@ -1,10 +1,11 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button size="medium" @click="through" type="primary">同意</el-button>
-      <el-button size="medium" @click="notThrough" type="primary">不同意</el-button>
+      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
+      <el-button size="medium"  @click="modify" type="primary" icon="el-icon-edit">修改</el-button>
+      <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
     </div>
-      <el-form
+    <el-form
       ref="form"
       :model="searchForm"
       :inline="true"
@@ -14,13 +15,10 @@
         <el-select
           v-model="type"
           size="medium"
-          style="width: 108px;"
+          style="width: 120px;"
           placeholder="请选择">
-          <el-option label="姓名" :value="1"></el-option>
-          <el-option label="身份证号码" :value="2"></el-option>
-          <el-option label="原选区" :value="3"></el-option>
-          <el-option label="转移选区" :value="4"></el-option>
-          <el-option label="申请时间" :value="5"></el-option>
+          <el-option label="选委会" :value="1"></el-option>
+          <el-option label="选委会编码" :value="2"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -32,45 +30,16 @@
           placeholder="请输入关键字"
           v-model.trim="searchForm.name" />
       </el-form-item>
-      <el-form-item
+       <el-form-item
         v-if="type === 2"
-        prop="">
+        prop="code">
         <el-input
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.idNum" />
+          v-model.trim="searchForm.code" />
       </el-form-item>
-      <el-form-item
-        v-if="type === 3"
-        prop="tel">
-        <el-input
-          class="item"
-          size="medium"
-          placeholder="请输入关键字"
-          v-model.trim="searchForm.fromPrecinctId" />
-      </el-form-item>
-      <el-form-item
-        v-if="type === 4"
-        prop="tel">
-        <el-input
-          class="item"
-          size="medium"
-          placeholder="请输入关键字"
-          v-model.trim="searchForm.toPrecinctId" />
-      </el-form-item>
-      <el-form-item
-        v-if="type === 5"
-        prop="date">
-        <el-date-picker
-          v-model="searchForm.date"
-          size="medium"
-          type="datetimerange"
-          range-separator="至"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期" />
-      </el-form-item>
-      <el-form-item>
+       <el-form-item>
         <el-button
           @click="submitForm()"
           size="medium"
@@ -80,15 +49,15 @@
     </el-form>
     <CreateDialog
       v-if="createDialogVisible"
+      :item='item'
       :visible.sync='createDialogVisible'
-      :id="id"
       />
   </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
-import {throughTabel} from './service.js'
+import { deletetTabel} from './service.js'
 
 export default {
   data () {
@@ -96,17 +65,13 @@ export default {
       type: 1,
       searchForm: {
         name: '',
-        idNum: '',
-        date: [],
-        fromPrecinctId: '',
-        toPrecinctId: ''
+        code: ''
       },
-      createDialogVisible: false,
-      id: ''
+      createDialogVisible: false
     }
   },
   computed: {
-    ...mapState('votersTransfer', {
+    ...mapState('committeeHome', {
       multipleSelection: state=>state.multipleSelection
     })
   },
@@ -116,7 +81,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('votersTransfer', [
+    ...mapActions('committeeHome', [
       'getListData',
     ]),
     // 搜索
@@ -125,75 +90,52 @@ export default {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           params.pageNum = 1
-          if (params.date && params.date.length > 0) {
-            params.applyTimeStart = new Date(params.date[0]).getTime()
-            params.applyTimeEnd = new Date(params.date[1]).getTime()
-          } else {
-            params.applyTimeStart = ''
-            params.applyTimeEnd = ''
-          }
-          delete params.date
           this.getListData(params)
         }
       })
     },
-    notThrough () {
-      if(this.multipleSelection.length === 0) {
-        this.$notify({
-          title: '',
-          message: '请勾选数据后再操作！',
-          type: 'warning'
-        });
-        return
-      }
-      if(this.multipleSelection.length > 1) {
-        this.$notify({
-          title: '',
-          message: '只能勾选一条！',
-          type: 'warning'
-        })
-        return
-      }
-      this.id = this.multipleSelection[0].id
+    create () {
+      this.item = {}
       this.createDialogVisible = true
     },
-    through () {
-      if(this.multipleSelection.length === 0) {
+    modify () {
+      if(this.multipleSelection.length !== 1) {
         this.$notify({
           title: '',
-          message: '请勾选数据后再操作！',
+          message: '请勾选一条数据进行修改！',
           type: 'warning'
         });
         return
       }
-      if(this.multipleSelection.length > 1) {
+      this.item = this.multipleSelection[0]
+      this.createDialogVisible = true
+    },
+    deleteI () {
+      if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',
-          message: '只能勾选一条！',
+          message: '请勾选数据进删除！',
           type: 'warning'
-        })
+        });
         return
       }
-      this.$confirm('请确认是否将勾选选民转移至其他选区？','审核')
+      this.$confirm('删除选举机构后，将影响该机构下的所有选民、账号信息不可用，且不可恢复，请确认？')
         .then(() => {
-          this.throughItem()
+          this.delectItem()
         })
         .catch(() => {})
 
     },
-    async throughItem() {
-      let params = {
-        id: this.multipleSelection[0].id,
-        pass: '不通过',
-        reason: ''
+    async delectItem() {
+      let idList = []
+      for (let i of this.multipleSelection) {
+        idList.push(i.id)
       }
-      await throughTabel(params)
-      this.$notify({
-        title: '',
-        message: '登记成功！',
-        type: 'success'
-      })
-      this.getListData()
+      let params = {idList}
+      await deletetTabel(params)
+      const param = JSON.parse(JSON.stringify(this.searchForm))
+      param.pageNum = 1
+      this.getListData(param)
     }
   }
 }
