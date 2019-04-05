@@ -202,7 +202,7 @@ export default {
       // return isXlsx
     },
     successFn (response) {
-      this.$notify.success({title: '上传成功'})
+      // this.$notify.success({title: '上传成功'})
       console.log(response)
       this.form.id = 1
       // this.form.id = response.data.content

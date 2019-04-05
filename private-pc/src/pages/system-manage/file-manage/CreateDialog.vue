@@ -13,10 +13,10 @@
        <el-form-item
         label="选择文件"
         class="complait-content"
-        prop="fileList">
+        prop="id">
           <el-upload
             style="100%"
-            :class="['commom1',{'uploadcomplait':form.fileList.length>0}]"
+            :class="['commom1',{'uploadcomplait':fileList.length>0}]"
             :headers="headers"
             action="https://jsonplaceholder.typicode.com/posts/"
             ref="upload"
@@ -28,10 +28,10 @@
             :multiple="false"
             :before-upload="beforeAvatarUpload"
             :limit="1"
-            :file-list="form.fileList"
-            :auto-upload="false">
+            :file-list="fileList"
+            :auto-upload="true">
             <div
-            v-if="form.fileList.length===0"
+            v-if="fileList.length===0"
             class="but">选择文件</div>
           </el-upload>
       </el-form-item>
@@ -76,31 +76,24 @@ import {modifySubmit} from './service.js'
 export default {
   data () {
     const authToken = getSession()
-    var valid = (rule, value, callback) => {
-      if (value === ''&&(!this.item.id)) {
-        callback(new Error('请选择所属模块！'));
-      } else {
-        callback();
-      }
-    };
     return {
       loading: false,
       form: {
         fileName: '',
-        fileList: [],
+        id: '',
         module: '',
       },
-
+      fileList: [],
       multipleSelection: [],
       rules: {
         fileName: [
           { required: true, message: '请输入文件名字！', trigger: 'blur' }
         ],
-        fileList: [
-          { validator:valid, message: '请选择文件！', trigger: 'blur' }
-        ],
         module: [
           { required: true,message: '请选择所属模块！', trigger: 'blur' }
+        ],
+        id: [
+          { required: true,message: '请选择文件！', trigger: 'blur' }
         ]
       },
       headers: {
@@ -123,7 +116,6 @@ export default {
   computed: {
     allUrl () {
       let param = {
-        fileName: this.form.fileName,
         module: this.form.module
       }
       let paramStr = ''
@@ -139,7 +131,10 @@ export default {
     }
   },
   created () {
-    this.form = {...this.form, fileName: this.item.fileName,module: this.item.module}
+    if(this.item.id) {
+      this.form = {...this.form, id:this.item.id, fileName: this.item.fileName,module: this.item.module}
+    }
+
   },
   methods: {
     ...mapActions('fileManage', [
@@ -151,10 +146,7 @@ export default {
     submitForm () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          if(this.item.id) {
-            this.sumitData()
-          }
-          this.$refs.upload.submit()
+          this.sumitData()
         }
       })
     },
@@ -162,7 +154,8 @@ export default {
       this.loading = true
       let param = {
         fileName: this.form.fileName,
-        module: this.form.module
+        module: this.form.module,
+        id: this.form.id
       }
       await modifySubmit(param)
       this.getListData()
@@ -177,7 +170,7 @@ export default {
         .catch(() => {})
     },
     changeFile (file, fileList) {
-      this.form.fileList = fileList
+      this.fileList = fileList
     },
     beforeAvatarUpload (file) {
       console.log(file)
@@ -188,10 +181,10 @@ export default {
       // }
       // return isXlsx
     },
-    successFn () {
-      this.$notify.success({title: '上传成功'})
+    successFn (response) {
+      console.log(response)
       this.getListData()
-      this.close()
+      this.form.id = 1
       // this.$refs.upload.clearFiles()
     },
     errorFn (err) {

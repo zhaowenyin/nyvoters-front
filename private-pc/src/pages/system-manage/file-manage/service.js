@@ -62,4 +62,19 @@ export async function modifySubmit (payload) {
   // .then(data => data)
   //   .catch(() => Promise.resolve({data: null}))
 }
+// 修改
+export async function setSubmit (payload) {
+  console.log(payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+        }
+      })
+    }, 500)
+  })
+  // return api.post('/doc/modify/', payload)
+  // .then(data => data)
+  //   .catch(() => Promise.resolve({data: null}))
+}
 
