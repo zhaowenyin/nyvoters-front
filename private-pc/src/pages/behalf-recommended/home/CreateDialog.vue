@@ -10,7 +10,7 @@
         :model="form"
         :rules="rules"
         ref="form"
-        class="login-form">
+       class="table-obj">
         <el-row :gutter="20">
           <el-col :span="12">
             <el-form-item
@@ -228,7 +228,7 @@
         :model="tableObj"
         :rules="tableRules"
         ref="tableObj"
-        class="table-obj">
+        >
           <div class="left">
             <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">添加</el-button>
             <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
