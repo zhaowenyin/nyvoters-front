@@ -46,7 +46,7 @@
         width="180"
         label="申请时间">
         <template slot-scope="scope">
-          {{formatDate(scope.row.applyTime)}}
+          {{formatDate(scope.row.registrationTime)}}
         </template>
       </el-table-column>
     </el-table>
