@@ -570,9 +570,6 @@ export default {
 }
 </style>
 <style>
-  .table-obj .el-form-item {
-    margin: 15px 0;
-  }
   .qual .el-form-item__label {
     line-height: 18px;
     display: block;

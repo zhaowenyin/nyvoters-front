@@ -110,4 +110,3 @@ export async function deletetTabel (payload) {
   })
   // return api.post('/repre-recommend/delete', payload)
 }
-

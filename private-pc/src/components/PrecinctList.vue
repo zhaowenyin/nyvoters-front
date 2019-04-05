@@ -36,8 +36,8 @@
   </el-dialog>
 </template>
 <script>
-import {getTree} from './service.js'
-import CommonTree from '../../../../components/common-tree'
+import {getTree} from '../common-data/service.js'
+import CommonTree from './common-tree'
 export default {
   data () {
     return {

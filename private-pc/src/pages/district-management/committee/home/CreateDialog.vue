@@ -104,7 +104,7 @@
 <script>
 import {setSubmit,modifySubmit} from './service.js'
 import { mapActions } from 'vuex'
-import PrecinctList from './PrecinctList'
+import PrecinctList from '../../../../components/PrecinctList'
 export default {
   data () {
     return {

@@ -71,5 +71,4 @@ export const typeList = {
   1: '个人登记',
   2: '迁出'
 }
-
-
+export const educationList = ['大学以上','大专','中专及高中','中专及以下']

@@ -3,7 +3,7 @@
     <el-dialog
       :title="item.id ? '修改' : '新建'"
       :visible="visible"
-      width="60%"
+      width="700px"
       :before-close="comfirmClose">
 
       <el-form
@@ -50,7 +50,7 @@
               <el-form-item
               label="对应行政区"
               prop="precinctId">
-              <div :class="['select-input',{hasVal: form.distinct}]" @click="select">{{form.distinct ? form.distinct : '请选择对应行政区'}}</div>
+              <div :class="['select-input',{hasVal: form.distinct}]" ><div style="flex: 1;" @click="select">{{form.distinct ? form.distinct : '请选择对应行政区'}}</div><i @click="close1"/></div>
             </el-form-item>
           </el-col>
            <el-col :span="12">
@@ -102,7 +102,7 @@
 <script>
 import {setSubmit, modifySubmit} from './service.js'
 import { mapActions } from 'vuex'
-import PrecinctList from './PrecinctList'
+import PrecinctList from '../../../../components/PrecinctList'
 export default {
   data () {
     return {
@@ -218,6 +218,10 @@ export default {
     saveData (val) {
       this.form.distinct = val.name
       this.form.distinctId = val.id
+    },
+    close1 () {
+      this.form.distinctId = ''
+      this.form.distinct = ''
     }
   }
 
@@ -236,6 +240,17 @@ export default {
   color: #c0c4cb;
   height: 40px;
   padding-left: 15px;
+  display: flex;
+  & i:after {
+    content: "";
+    display: inline-block;
+    background: url("../../../../assets/img/icon-close.png") center center no-repeat;
+    background-size: 100% 100%;
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+    transform: translateY(4px);
+  }
   &.hasVal {
     color: #333;
   }

@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     v-loading="loading"
-    :title="item.id ? '修改' : '登记'"
+    title="新建"
     :visible="visible"
     width="820px"
     :before-close="comfirmClose">
@@ -55,11 +55,11 @@
               class="item"
               v-model="form.nation"
               clearable placeholder="请选择">
-              <el-option
+             <el-option
                 v-for="(item, key) in nationList"
                 :key="key"
-                :label="item"
-                :value="+key">
+                :label="item.desc"
+                :value="item.intCode">
               </el-option>
             </el-select>
           </el-form-item>
@@ -148,7 +148,7 @@
 </template>
 <script>
 import {setSubmit} from './service.js'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -194,9 +194,6 @@ export default {
         endTime:[
           { required: true, message: '请选择剥权恢复时间！', trigger: 'blur' }
         ],
-      },
-      nationList: {
-        1: '汉'
       }
     }
 
@@ -211,12 +208,21 @@ export default {
       type: Object
     }
   },
+  computed: {
+    ...mapState('commonData', {
+      nationList: state => state.nationList,
+    })
+  },
   created () {
     this.form = {...this.form, ...this.item }
+    this.searchnation()
   },
   methods: {
-    ...mapActions('voterRegister', [
+    ...mapActions('cutPower', [
       'getListData'
+    ]),
+    ...mapActions('commonData', [
+      'searchnation'
     ]),
     close () {
       this.$emit('update:visible', false)
