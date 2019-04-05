@@ -1,8 +1,9 @@
 <template>
   <el-dialog
-    title="系统参数设置"
+    title=""
     :visible="visible"
     class="dialog2"
+    :before-close="comfirmClose"
     width="800px">
     <el-steps
       :active="active"

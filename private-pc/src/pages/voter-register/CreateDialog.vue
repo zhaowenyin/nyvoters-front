@@ -57,8 +57,8 @@
               <el-option
                 v-for="(item, key) in nationList"
                 :key="key"
-                :label="item"
-                :value="+key">
+                :label="item.desc"
+                :value="item.intCode">
               </el-option>
             </el-select>
           </el-form-item>
@@ -213,7 +213,7 @@
 <script>
 import {setSubmit} from './service.js'
 import {registrationTypeList, candidateTypeList} from '../../common-data/config.js'
-import { mapActions } from 'vuex'
+import { mapActions,mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -278,9 +278,6 @@ export default {
       },
       registrationTypeList,
       candidateTypeList,
-      nationList: {
-        1: '汉'
-      }
     }
 
   },
@@ -294,12 +291,21 @@ export default {
       type: Object
     }
   },
+  computed: {
+    ...mapState('commonData', {
+      nationList: state => state.nationList,
+    })
+  },
   created () {
     this.form = {...this.form, ...this.item }
+    this.searchnation()
   },
   methods: {
     ...mapActions('voterRegister', [
       'getListData'
+    ]),
+    ...mapActions('commonData', [
+      'searchnation'
     ]),
     close () {
       this.$emit('update:visible', false)
@@ -327,10 +333,6 @@ export default {
     },
     handerParams () {
       let params = {...this.form}
-      params.householdRegistration = params.householdRegistration + params.householdRegistrationDetail
-      params.living = params.living + params.livingDetail
-      delete params.householdRegistrationDetail
-      delete params.livingDetail
       return params
     }
   }
