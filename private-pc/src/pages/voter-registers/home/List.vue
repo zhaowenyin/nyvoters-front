@@ -64,10 +64,14 @@
           </template>
         </el-table-column>
           <el-table-column
+          fixed="right"
+          width="150"
           label="操作"
         >
           <template slot-scope="scope">
-            {{scope.row.gender === 1 ? '区县代表' : '乡镇代表'}}
+            <el-button size="small" @click="repair(scope.row.id)" type="text">修复</el-button>
+            <el-button size="small" @click="exportFile(scope.row.id)" type="text">导出失败数据</el-button>
+            <el-button size="small" @click="contrast(scope.row.id)" type="text">对比</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -198,6 +202,15 @@ export default {
         text = '导入记录'
       }
       return text
+    },
+    repair() {
+
+    },
+    exportFile() {
+
+    },
+    contrast () {
+
     }
   }
 }
