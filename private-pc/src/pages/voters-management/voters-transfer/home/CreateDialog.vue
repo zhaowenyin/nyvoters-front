@@ -91,7 +91,7 @@ export default {
       this.loading = true
       let params = {
         id: this.id,
-        pass: '不同意',
+        pass: true,
         reason: this.form.reason
       }
       await throughTabel(params)
