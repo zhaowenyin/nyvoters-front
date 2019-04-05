@@ -27,6 +27,7 @@ export default {
   created () {
     // 初始化清除数据
     this.clearState()
+
   },
   methods: {
     ...mapMutations('votersTransfer', [
