@@ -40,8 +40,8 @@ export default {
     saveSelection(state, payload) {
       state.multipleSelection = payload
     },
-    handerList () {
-
+    handerList (payload) {
+      console.log(payload)
     }
   },
   actions: {

@@ -83,7 +83,7 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import {typeList, candidateTypeList} from '../../../../common-data/config.js'
 
 export default {
@@ -117,7 +117,9 @@ export default {
   },
   methods: {
     ...mapActions('votersTransferHistory', [
-      'getListData',
+      'getListData'
+    ]),
+    ...mapMutations('votersTransferHistory', [
       'handerList'
     ]),
     // 搜索
