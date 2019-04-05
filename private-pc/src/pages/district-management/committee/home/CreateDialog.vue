@@ -49,7 +49,7 @@
         <el-form-item
           label="对应行政区"
           prop="precinctId">
-          <div :class="['select-input',{hasVal: form.precinct}]" @click="select">{{form.precinct ? form.precinct : '请选择对应行政区'}}</div>
+          <div :class="['select-input',{hasVal: form.precinct}]" ><div style="flex: 1;" @click="select">{{form.precinct ? form.precinct : '请选择对应行政区'}}</div><i @click="close1"/></div>
         </el-form-item>
         <el-form-item
           label="联系人"
@@ -159,7 +159,7 @@ export default {
       name: this.item.name,
       code: this.item.code,
       precinctId: this.item.precinct,
-      manager: this.form.manager,
+      manager: this.item.manager,
       phoneName: this.item.phoneName,
       sort: this.item.sort,
     }
@@ -209,6 +209,10 @@ export default {
     saveData (val) {
       this.form.precinct = val.name
       this.form.precinctId = val.id
+    },
+    close1 () {
+      this.form.precinctId = ''
+      this.form.precinct = ''
     }
   }
 
@@ -226,7 +230,20 @@ export default {
   background: #fff;
   color: #c0c4cb;
   height: 40px;
+  width: 100%;
   padding-left: 15px;
+  display: flex;
+  & i:after {
+    content: "";
+    display: inline-block;
+    background: url("../../../../assets/img/icon-close.png") center center no-repeat;
+    background-size: 100% 100%;
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+    transform: translateY(4px);
+    right: 10px;
+  }
   &.hasVal {
     color: #333;
   }

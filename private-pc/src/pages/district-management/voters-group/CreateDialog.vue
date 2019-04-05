@@ -24,8 +24,8 @@
            <el-col :span="12">
             <el-form-item
               label="所属选区"
-              prop="precinctId">
-              <div :class="['select-input',{hasVal: form.distinct}]" @click="select">{{form.distinct ? form.distinct : '请选择所属选区'}}</div>
+              prop="distinctId">
+                 <div :class="['select-input',{hasVal: form.distinct}]" ><div style="flex: 1;" @click="select">{{form.distinct ? form.distinct : '请选择对应行政区'}}</div><i @click="close1"/></div>
             </el-form-item>
           </el-col>
            <el-col :span="12">
@@ -135,9 +135,10 @@ export default {
         manager: '',
         managerPhone: '',
         sort: '',
-        precinctId: '',
+        distinctId: '',
         type: '',
-        name: ''
+        name: '',
+        distinct: ''
       },
       multipleSelection: [],
       rules: {
@@ -219,6 +220,10 @@ export default {
     saveData (val) {
       this.form.distinct = val.name
       this.form.distinctId = val.id
+    },
+    close1 () {
+      this.form.distinctId = ''
+      this.form.distinct = ''
     }
   }
 
@@ -237,6 +242,17 @@ export default {
   color: #c0c4cb;
   height: 40px;
   padding-left: 15px;
+  display: flex;
+  & i:after {
+    content: "";
+    display: inline-block;
+    background: url("../../../assets/img/icon-close.png") center center no-repeat;
+    background-size: 100% 100%;
+    width: 20px;
+    height: 20px;
+    margin-right: 4px;
+    transform: translateY(4px);
+  }
   &.hasVal {
     color: #333;
   }

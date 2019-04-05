@@ -71,8 +71,8 @@ export default {
       type: Boolean
     },
     id: {
-      default: '',
-      type: String
+      default: null,
+      type: Number
     }
   },
   components: {

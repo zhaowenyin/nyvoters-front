@@ -91,7 +91,7 @@ export default {
         auditTime: []
       },
       createDialogVisible: false,
-      id: ''
+      id: null
     }
   },
   computed: {

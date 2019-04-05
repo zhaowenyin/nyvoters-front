@@ -8,12 +8,8 @@
       <div class="view-left">
         <div>待选</div>
         <div class="content">
-           <el-input
-           style="padding: 10px;"
-          placeholder="输入关键字进行过滤"
-          v-model="filterText">
-          </el-input>
           <CommonTree
+            :hasSearch="true"
             :data="data"
             @node-click="handleNodeClick" />
         </div>
@@ -137,6 +133,7 @@ export default {
     width: 50px;
   }
   .row {
+    margin-bottom: 20px;
       width:0;
       height:0;
       border-left:25px solid #fff;
