@@ -10,16 +10,17 @@ export async function getList (payload) {
           "content": {
             "data": [
               {
-                "code": "string",
+                "applyTime": "2019-04-05T10:51:40.813Z",
+                "fromPrecinctId": 0,
+                "gender": 0,
                 "id": 0,
-                "manager": "string",
+                "idNum": "string",
                 "name": "string",
-                "parentId": 0,
-                "path": "string",
-                "phoneName": "string",
-                "precinct": "string",
-                "precinctId": 0,
-                "sort": 0
+                "phoneNum": "string",
+                "status": 0,
+                "toPrecinctId": 0,
+                "transferReason": "string",
+                "type": 0
               }
             ],
             "endRow": 0,
