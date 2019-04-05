@@ -91,7 +91,7 @@ export default {
         date: []
       },
       createDialogVisible: false,
-      id: ''
+      id: null
     }
   },
   computed: {
@@ -169,7 +169,7 @@ export default {
     async throughItem() {
       let params = {
         id: this.multipleSelection[0].id,
-        pass: '不通过',
+        pass: true,
         reason: ''
       }
       await throughTabel(params)

@@ -45,8 +45,8 @@ export default {
       type: Boolean
     },
     id: {
-      default: '',
-      type: String
+      default: null,
+      type: Number
     }
   },
   components: {
@@ -77,7 +77,7 @@ export default {
       this.loading = true
       let params = {
         id: this.id,
-        pass: '不通过',
+        pass: false,
         reason: this.selectItem
       }
       await throughTabel(params)
