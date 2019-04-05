@@ -14,15 +14,17 @@
           选区
         </td>
         <td  :key="key" v-for="(i, key) in list">
-          <div> {{i.name}}</div>
+          <div> {{i.districtName}}</div>
         </td>
       </tr>
       <tr :key="key" v-for="(i, key) in list1">
         <td>
-          {{i}}
+          {{i.label}}
         </td>
         <td :key="index" v-for="(item, index) in list">
-          {{item.name}}
+          <div :key="elkey" v-for="(el, elkey) in item">
+            <span v-if="elkey===i.key">{{el}}</span>
+          </div>
         </td>
       </tr>
     </tbody>
@@ -32,8 +34,13 @@
 export default {
   data () {
     return {
-      list:[{name: '选区1'},{name: '选区2'},{name: '选区3'},{name: '选区4'},{name: '选区4'}],
-      list1: ['人口数','登记选民数','正式选民数', '选民登记率']
+      list1: [{label: '人口数', key: 'peopleNum'},{label:'登记选民数', key: 'regVotersNum'},{label:'正式选民数',key: 'votersNum'}, {label:'选民登记率', key: 'regRate'}],
+    }
+  },
+  props: {
+    list: {
+      default: () => [],
+      type: Array
     }
   }
 }

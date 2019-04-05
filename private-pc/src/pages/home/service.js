@@ -79,10 +79,10 @@ export async function getList (payload) {
               {
                 "districtId": 0,
                 "districtName": "选区二",
-                "peopleNum": 3000,
+                "peopleNum": 900,
                 "regRate": 0.9,
-                "regVotersNum": 500,
-                "votersNum": 1500
+                "regVotersNum": 100,
+                "votersNum": 500
               }
             ],
             "votersNum": 0
@@ -93,6 +93,6 @@ export async function getList (payload) {
       })
     }, 500)
   })
-  // return api.get('/api', { params: payload })
+  // return api.get('/index/count, { params: payload })
 }
 

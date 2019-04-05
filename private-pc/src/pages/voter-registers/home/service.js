@@ -79,10 +79,9 @@ export async function getList (payload) {
       })
     }, 500)
   })
-  // return api.get('/repre-recommend/list', { params: payload })
+  // return api.get('/import/list', { params: payload })
 }
 
-// 代表推荐登记修改
 export async function getProcessSate(payload) {
   console.log(payload)
   return new Promise((resolve) => {
@@ -107,7 +106,7 @@ export async function getProcessSate(payload) {
       })
     }, 500)
   })
-  // return api.post('/repre-recommend/register', payload)
+  // return api.post(`/import/${payload.id}`)
   // .then(data => data)
   //   .catch(() => Promise.resolve({data: null}))
 }

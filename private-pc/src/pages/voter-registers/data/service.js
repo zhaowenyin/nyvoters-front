@@ -34,10 +34,9 @@ export async function getList (payload) {
       })
     }, 500)
   })
-  // return api.get('/api', { params: payload })
+  // return api.get('/import/data/list', { params: payload })
 }
 
-// post请求
 export async function sumitData (payload) {
   console.log(payload)
   return new Promise((resolve) => {
@@ -48,5 +47,5 @@ export async function sumitData (payload) {
       })
     }, 500)
   })
-  // return api.post('/api', payload)
+  // return api.post('/import/data/edit', payload)
 }

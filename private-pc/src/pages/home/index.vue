@@ -16,7 +16,7 @@
     </ul>
     <div class="content-title">南阳选民统计图</div>
     <CenbterChart :data="data.votersCounts" height="300px"/>
-    <Tabel/>
+    <Tabel :list="data.votersCounts"/>
     <div class="content-title">XX选区登记情况综合统计</div>
     <el-row :gutter="20">
       <el-col :span="8" class="pie">
