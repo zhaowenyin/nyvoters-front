@@ -90,10 +90,10 @@ export default {
           { required: true, message: '请输入文件名字！', trigger: 'blur' }
         ],
         module: [
-          { required: true,message: '请选择所属模块！', trigger: 'blur' }
+          { required: true,message: '请选择所属模块！', trigger: 'change' }
         ],
         id: [
-          { required: true,message: '请选择文件！', trigger: 'blur' }
+          { required: true,message: '请选择文件！', trigger: 'change' }
         ]
       },
       headers: {

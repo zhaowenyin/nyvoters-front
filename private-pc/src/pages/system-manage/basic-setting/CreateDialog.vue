@@ -111,16 +111,16 @@ export default {
       multipleSelection: [],
       rules: {
         registerEndDate: [
-          { required: true, message: '请选择登记截止日期！', trigger: 'blur' }
+          { required: true, message: '请选择登记截止日期！', trigger: 'change' }
         ],
         registerStartDate: [
-          { required: true, message: '请选择登记开始日期！', trigger: 'blur' }
+          { required: true, message: '请选择登记开始日期！', trigger: 'change' }
         ],
         sessionNum: [
           { required: true, message: '请输入选举届数！', trigger: 'blur' }
         ],
         voteDate: [
-          { required: true, message: '请选择选举日！', trigger: 'blur' }
+          { required: true, message: '请选择选举日！', trigger: 'change' }
         ],
         id: [
           { required: true, message: '请上传背景！', trigger: 'blur' }
