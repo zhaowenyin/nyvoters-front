@@ -78,11 +78,11 @@ export default {
       'clearState'
     ]),
     isfirstLogin () {
-      this.$prompt('请输入电话号码', {
+      this.$prompt('手机号','绑定手机号', {
         confirmButtonText: '确定',
         showClose: false,
         showCancelButton: false,
-        closeOnHashChange: false,
+        closeOnClickModal: false,
         inputPattern: /^1[34578]\d{9}$/,
         inputErrorMessage: '手机号格式不正确',
         beforeClose: (action,instance, done) => {
