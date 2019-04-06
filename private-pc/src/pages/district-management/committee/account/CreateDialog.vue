@@ -118,7 +118,7 @@ export default {
           { required: true, message: '请输入选委会！', trigger: 'blur' }
         ],
         precinctId: [
-          { required: true, message: '请选择对应行政区！', trigger: 'blur' }
+          { required: true, message: '请选择对应行政区！', trigger: 'change' }
         ],
 
       },

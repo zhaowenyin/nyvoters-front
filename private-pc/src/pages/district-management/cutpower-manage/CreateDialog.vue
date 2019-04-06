@@ -174,7 +174,7 @@ export default {
           { required: true, message: '请输入身份证！', trigger: 'blur' }
         ],
         gender: [
-          { required: true, message: '请选择性别！', trigger: 'blur' }
+          { required: true, message: '请选择性别！', trigger: 'change' }
         ],
         nation: [
           { required: true, message: '请选择民族！', trigger: 'blur' }
@@ -189,10 +189,10 @@ export default {
           { required: true, message: '请输入现居地！', trigger: 'blur' }
         ],
         startTime:[
-          { required: true, message: '请选择剥权时间！', trigger: 'blur' }
+          { required: true, message: '请选择剥权时间！', trigger: 'change' }
         ],
         endTime:[
-          { required: true, message: '请选择剥权恢复时间！', trigger: 'blur' }
+          { required: true, message: '请选择剥权恢复时间！', trigger: 'change' }
         ],
       }
     }

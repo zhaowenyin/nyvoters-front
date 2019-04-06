@@ -358,10 +358,10 @@ export default {
       multipleSelection: [],
       rules: {
         recommendType: [
-          { required: true, message: '请选择推荐方式！', trigger: 'blur' }
+          { required: true, message: '请选择推荐方式！', trigger: 'change' }
         ],
         type:  [
-          { required: true, message: '请选择类型！', trigger: 'blur' }
+          { required: true, message: '请选择类型！', trigger: 'change' }
         ],
         belongAreaId: [
           { required: true, message: '请选择被推荐人！', trigger: 'blur' }
@@ -370,19 +370,19 @@ export default {
           { required: true, message: '请输入身份证号码！', trigger: 'blur' }
         ],
         nation: [
-          { required: true, message: '请选择民族', trigger: 'blur' }
+          { required: true, message: '请选择民族', trigger: 'change' }
         ],
         gender: [
-          { required: true, message: '请选择性别', trigger: 'blur' }
+          { required: true, message: '请选择性别', trigger: 'change' }
         ],
         phoneNum: [
           { required: true, message: '请输入手机号码', trigger: 'blur' }
         ],
         birthDay: [
-          { required: true, message: '请选择出生日期', trigger: 'blur' }
+          { required: true, message: '请选择出生日期', trigger: 'change' }
         ],
         recommendedPersonId:[
-          { required: true, message: '请选择出生日期', trigger: 'blur' }
+          { required: true, message: '请选择出生日期', trigger: 'change' }
         ]
       },
       educationList,

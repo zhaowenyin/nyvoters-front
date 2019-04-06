@@ -243,10 +243,10 @@ export default {
           { required: true, message: '请输入身份证！', trigger: 'blur' }
         ],
         gender: [
-          { required: true, message: '请选择性别！', trigger: 'blur' }
+          { required: true, message: '请选择性别！', trigger: 'change' }
         ],
         nation: [
-          { required: true, message: '请选择民族！', trigger: 'blur' }
+          { required: true, message: '请选择民族！', trigger: 'change' }
         ],
         phoneNum: [
           { required: true, message: '请输入电话号码！', trigger: 'blur' }
@@ -264,16 +264,16 @@ export default {
           { required: true, message: '请输入详细地址！', trigger: 'blur' }
         ],
         candidateType:[
-          { required: true, message: '请选择参选地类型！', trigger: 'blur' }
+          { required: true, message: '请选择参选地类型！', trigger: 'change' }
         ],
         registrationType:[
-          { required: true, message: '请选择登记方式！', trigger: 'blur' }
+          { required: true, message: '请选择登记方式！', trigger: 'change' }
         ],
         registrationTime:[
-          { required: true, message: '请选择登记日期！', trigger: 'blur' }
+          { required: true, message: '请选择登记日期！', trigger: 'change' }
         ],
         registrar:[
-          { required: true, message: '请输入登记人1', trigger: 'blur' }
+          { required: true, message: '请输入登记人', trigger: 'blur' }
         ]
       },
       registrationTypeList,

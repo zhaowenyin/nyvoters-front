@@ -175,10 +175,10 @@ export default {
           { required: true, message: '请输入身份证号', trigger: 'blur' }
         ],
         nation: [
-          { required: true, message: '请选择民族', trigger: 'blur' }
+          { required: true, message: '请选择民族', trigger: 'change' }
         ],
         gender: [
-          { required: true, message: '请选择性别', trigger: 'blur' }
+          { required: true, message: '请选择性别', trigger: 'change' }
         ],
         phoneNum: [
           { required: true, message: '请输入电话号码', trigger: 'blur' }

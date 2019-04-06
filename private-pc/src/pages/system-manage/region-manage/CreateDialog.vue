@@ -13,15 +13,10 @@
        <el-form-item
         label="行政区"
         prop="parentId">
-        <el-cascader
-        style="width: 100%;"
-          :options="treeList"
-          placeholder="请选择行政区"
-          v-model="form.parentId"
-          filterable
-          change-on-select
-          >
-        </el-cascader>
+        <Tree
+        :options="treeList"
+        v-model="form.parentId"
+        />
       </el-form-item>
       <el-form-item
         label="行政区名"
@@ -95,6 +90,7 @@
 import {setSubmit,getTree,modifySubmit} from './service.js'
 import {levelList} from '../../../common-data/config.js'
 import { mapActions } from 'vuex'
+import Tree from './common-tree'
 export default {
   data () {
     return {
@@ -113,13 +109,13 @@ export default {
           { required: true, message: '请输入行政区代码！', trigger: 'blur' }
         ],
         level:  [
-          { required: true, message: '请选择level！', trigger: 'blur' }
+          { required: true, message: '请选择level！', trigger: 'change' }
         ],
         name:  [
           { required: true, message: '请输入行政区名称！', trigger: 'blur' }
         ],
         parentId:  [
-          { required: true, message: '请选择级行政区！', trigger: 'blur' }
+          { required: true, message: '请选择级行政区！', trigger: 'change' }
         ],
         pnum:  [
           { required: true, message: '请输入人口数！', trigger: 'blur' }
@@ -143,6 +139,9 @@ export default {
       default: () => {},
       type: Object
     }
+  },
+  components: {
+    Tree
   },
   created () {
     this.form = {...this.form, ...this.item }
@@ -184,7 +183,7 @@ export default {
 
     async searchTree () {
       const {data} = await getTree()
-      this.treeList = data.content
+      this.treeList = data
     },
     comfirmClose () {
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
@@ -193,6 +192,10 @@ export default {
         })
         .catch(() => {})
     },
+    close1 () {
+      this.form.parentId = ''
+      this.form.parent = ''
+    }
   }
 
 }
