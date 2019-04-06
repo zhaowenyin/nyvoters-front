@@ -95,4 +95,17 @@ export async function getList (payload) {
   })
   // return api.get('/index/count, { params: payload })
 }
+export async function bindPhone (payload) {
+  console.log(payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+
+        }
+      })
+    }, 500)
+  })
+  // return api.get('/bindPhoneNum, { params: payload })
+}
 

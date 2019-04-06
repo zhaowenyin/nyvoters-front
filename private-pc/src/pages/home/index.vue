@@ -49,12 +49,13 @@ import { mapMutations } from 'vuex'
 import CenbterChart from './CenbterChart'
 import Tabel from './Tabel'
 import Pie from './Pie'
-import {getList} from './service.js'
+import {getList, bindPhone} from './service.js'
 export default {
   data () {
     return {
       list: [],
-      data: {}
+      data: {},
+      bindLoading: false
 
     }
   },
@@ -68,6 +69,7 @@ export default {
   },
   created () {
     // 初始化清除数据
+    this.isfirstLogin()
     this.clearState()
     this.Searchlist()
   },
@@ -75,11 +77,42 @@ export default {
     ...mapMutations('home', [
       'clearState'
     ]),
+    isfirstLogin () {
+      this.$prompt('请输入电话号码', {
+        confirmButtonText: '确定',
+        showClose: false,
+        showCancelButton: false,
+        closeOnHashChange: false,
+        inputPattern: /^1[34578]\d{9}$/,
+        inputErrorMessage: '手机号格式不正确',
+        beforeClose: (action,instance, done) => {
+          if (action === 'confirm') {
+            instance.confirmButtonLoading = true
+            instance.confirmButtonText = '执行中...'
+            if(!this.bindLoading) {
+              instance.confirmButtonLoading = false
+              done()
+            }
+          } else {
+            done()
+          }
+        }
+
+      }).then(({ value }) => {
+        this.bindPhone(value)
+      }).catch(() => {
+
+      })
+    },
     async Searchlist() {
       const {data} = await getList()
       this.data = data.content
-      console.log(this.data)
-    }
+    },
+    async bindPhone(val) {
+      this.bindLoading = true
+      await bindPhone({phoneNum: val})
+      this.bindLoading = false
+    },
   }
 }
 </script>
