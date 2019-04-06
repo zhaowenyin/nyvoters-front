@@ -68,7 +68,7 @@
           width="150"
           label="操作"
         >
-          <template slot-scope="scope">
+          <template v-if="scope.row.processSate === 0 || scope.row.processSate" slot-scope="scope">
             <el-button size="small" @click="repair(scope.row.id)" type="text">修复</el-button>
             <el-button size="small" @click="exportFile(scope.row.id)" type="text">导出失败数据</el-button>
             <el-button size="small" @click="contrast(scope.row.id)" type="text">对比</el-button>
