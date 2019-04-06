@@ -185,7 +185,7 @@ export default {
     },
     async sumitData () {
       this.loading = true
-      await setSubmit({...this.form,parentId: this.form.parentId[this.form.parentId.length]})
+      await setSubmit({...this.form,parentId: this.form.parentId[this.form.parentId.length-1]})
 
       this.getListData()
       this.close()
