@@ -144,13 +144,31 @@ export default {
     Tree
   },
   created () {
-    this.form = {...this.form, ...this.item }
+    this.form = {...this.form, ...this.item, parentId: []}
     this.searchTree()
   },
   methods: {
     ...mapActions('regionManage', [
       'getListData'
     ]),
+    func (list) {
+      let defaultValue = this.item.parentId
+      const re = (array, parentArr) => {
+        if (!array || array.length === 0) return false
+        for (let i = 0; i < array.length; i++) {
+          const newArr = JSON.parse(JSON.stringify(parentArr))
+          newArr.push(array[i].id)
+          if (array[i].id === defaultValue) {
+            this.form.parentId = newArr
+            return true
+          }
+          const bol = re(array[i].children, newArr)
+          if (bol) return true
+        }
+        return false
+      }
+      re(list, [])
+    },
     close () {
       this.$emit('update:visible', false)
     },
@@ -167,7 +185,7 @@ export default {
     },
     async sumitData () {
       this.loading = true
-      await setSubmit(this.form)
+      await setSubmit({...this.form,parentId: this.form.parentId[this.form.parentId.length]})
 
       this.getListData()
       this.close()
@@ -183,6 +201,9 @@ export default {
 
     async searchTree () {
       const {data} = await getTree()
+      if(this.item.parentId) {
+        this.func(data)
+      }
       this.treeList = data
     },
     comfirmClose () {

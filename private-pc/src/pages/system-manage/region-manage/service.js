@@ -13,7 +13,7 @@ export async function getList (payload) {
                 "id": 0,
                 "level": 0,
                 "name": "string",
-                "parentId": ['zhinan'],
+                "parentId": '1',
                 code: '12233',
               }
             ],

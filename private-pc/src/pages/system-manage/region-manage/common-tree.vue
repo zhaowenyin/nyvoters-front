@@ -1,4 +1,5 @@
 <template>
+<div>
   <el-cascader
   size="medium"
   style="width: 100%;"
@@ -9,6 +10,7 @@
   change-on-select
   v-model="val">
 </el-cascader>
+  </div>
 </template>
 <script>
 
@@ -45,6 +47,10 @@ export default {
   watch: {
     val(val) {
       this.$emit('input', val)
+    },
+    value(val) {
+      this.val = val
+
     }
   },
   components: {
