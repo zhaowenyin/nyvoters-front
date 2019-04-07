@@ -32,6 +32,9 @@ import voterInfo from './pages/voter-info/module'
 import voterRegisters from './pages/voter-registers/home/module'
 import voterRegistersData from './pages/voter-registers/data/module'
 
+// 选区公共部分
+import districtCommon from './pages/district-management/distric-manage/module'
+
 
 Vue.use(Vuex)
 
@@ -64,6 +67,7 @@ export default new Vuex.Store({
     votersAppealHistory,
     voterInfo,
     voterRegisters,
-    voterRegistersData
+    voterRegistersData,
+    districtCommon
   }
 })

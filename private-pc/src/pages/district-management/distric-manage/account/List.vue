@@ -71,12 +71,20 @@ export default {
       size: state => state.searchParam.size,
       page: state => state.searchParam.page,
 
-    })
+    }),
+    ...mapState('districtCommon', {
+      commonDistrictId: state => state.commonDistrictId
+    }),
   },
   components: {
   },
+  watch: {
+    commonDistrictId () {
+      this.getListData1({commonDistrictId: this.commonDistrictId })
+    }
+  },
   created () {
-    this.getListData1()
+    this.getListData1({commonDistrictId: this.commonDistrictId })
   },
   methods: {
     ...mapActions('districtAccount', [

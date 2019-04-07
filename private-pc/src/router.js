@@ -56,7 +56,6 @@ const VotersDraw = ()=>import('./pages/voters-management/voters-drawOut')
 const VotersApeal = ()=>import('./pages/voters-management/voters-appeal')
 const VotersApealHome = ()=>import('./pages/voters-management/voters-appeal/home')
 const VotersApealistory = ()=>import('./pages/voters-management/voters-appeal/history')
-
 const VotersDown = ()=>import('./pages/voters-management/download-file')
 
 
