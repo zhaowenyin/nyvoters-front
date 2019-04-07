@@ -4,7 +4,6 @@
       <!-- :hasSearch="true" 可搜索 -->
       <CommonTree
         :data="data"
-        :current-node-key="currentSelect"
         @node-click="handleNodeClick" />
     </div>
     <div class="view-content">
@@ -14,7 +13,7 @@
   </div>
 </template>
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations,mapActions,mapState } from 'vuex'
 import Search from './Search'
 import List from './List'
 import CommonTree from '../../components/common-tree'
@@ -22,30 +21,13 @@ import CommonTree from '../../components/common-tree'
 export default {
   data () {
     return {
-      data: [{
-        id: '1',
-        name: '一级 1',
-        access: false,
-        children: [{
-          id: '1_1',
-          name: '二级 1-1',
-          access: true,
-          children: [{
-            id: '1_1_1',
-            name: '三级 1-1-1',
-            access: true,
-          }]
-        }]
-      }, {
-        id: '2',
-        name: '一级 2',
-        children: []
-      }],
-      currentSelect: '1_1'
+
     }
   },
   computed: {
-
+    ...mapState('commonData', {
+      data: state => state.treeList
+    })
   },
   components: {
     Search,
@@ -55,13 +37,21 @@ export default {
   created () {
     // 初始化清除数据
     this.clearState()
+    this.searchTree()
+    this.saveDistrictId('')
   },
   methods: {
     ...mapMutations('officialBehalf', [
       'clearState'
     ]),
+    ...mapMutations('commonData', [
+      'saveDistrictId',
+    ]),
+    ...mapActions('commonData', [
+      'searchTree',
+    ]),
     handleNodeClick(data) {
-      console.log(data);
+      this.saveDistrictId(data.id)
     }
   }
 }

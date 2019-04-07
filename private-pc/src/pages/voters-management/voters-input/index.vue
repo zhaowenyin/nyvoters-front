@@ -15,26 +15,7 @@ import List from './List'
 export default {
   data () {
     return {
-      data: [{
-        id: '1',
-        name: '一级 1',
-        access: false,
-        children: [{
-          id: '1_1',
-          name: '二级 1-1',
-          access: true,
-          children: [{
-            id: '1_1_1',
-            name: '三级 1-1-1',
-            access: true,
-          }]
-        }]
-      }, {
-        id: '2',
-        name: '一级 2',
-        children: []
-      }],
-      currentSelect: '1_1'
+
     }
   },
   computed: {

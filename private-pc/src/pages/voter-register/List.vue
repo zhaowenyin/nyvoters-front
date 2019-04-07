@@ -82,13 +82,21 @@ export default {
       total: state => state.total,
       size: state => state.searchParam.size,
       page: state => state.searchParam.page
+    }),
+    ...mapState('commonData', {
+      commonDistrictId: state => state.commonDistrictId
     })
   },
   components: {
     Pagination
   },
+  watch: {
+    commonDistrictId () {
+      this.getListData({ commonDistrictId: this.commonDistrictId })
+    }
+  },
   created () {
-    this.getListData()
+    this.getListData({commonDistrictId: this.commonDistrictId })
   },
   methods: {
     ...mapMutations('voterRegister', [

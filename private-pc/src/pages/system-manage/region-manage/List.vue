@@ -53,13 +53,20 @@ export default {
       total: state => state.total,
       size: state => state.searchParam.size,
       page: state => state.searchParam.page,
-
-    })
+    }),
+    ...mapState('commonData', {
+      commonDistrictId: state => state.commonDistrictId
+    }),
   },
   components: {
   },
   created () {
-    this.getListData()
+    this.getListData({ commonDistrictId: this.commonDistrictId })
+  },
+  watch: {
+    commonDistrictId () {
+      this.getListData({commonDistrictId: this.commonDistrictId })
+    }
   },
   methods: {
     ...mapActions('regionManage', [
