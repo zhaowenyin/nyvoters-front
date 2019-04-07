@@ -29,27 +29,41 @@
 
 <script>
 import CommonTree from '../../components/common-tree'
+import { mapMutations, mapActions, mapState } from 'vuex'
 
 export default {
   data () {
     return {
-      data: []
+
     }
   },
   computed: {
     activeIndex () {
       return this.$route.path
-    }
+    },
+    ...mapState('commonData', {
+      data: state => state.treeList
+    })
   },
   components: {
     CommonTree
+  },
+  created () {
+    this.searchTree()
+    this.saveDistrictId('')
   },
   methods: {
     change (index) {
       this.$router.push({ path: index })
     },
+    ...mapMutations('commonData', [
+      'saveDistrictId',
+    ]),
+    ...mapActions('commonData', [
+      'searchTree',
+    ]),
     handleNodeClick(data) {
-      console.log(data);
+      this.saveDistrictId(data.id)
     }
   }
 }

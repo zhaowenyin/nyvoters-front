@@ -79,13 +79,21 @@ export default {
       total: state => state.total,
       pageSize: state => state.searchParam.pageSize,
       pageNum: state => state.searchParam.pageNum,
-
-    })
+    }),
+    ...mapState('commonData', {
+      commonDistrictId: state => state.commonDistrictId
+    }),
   },
   components: {
   },
   created () {
-    this.getListData()
+    this.getListData({ commonDistrictId: this.commonDistrictId })
+  },
+  watch: {
+    commonDistrictId () {
+      console.log(111)
+      this.getListData({commonDistrictId: this.commonDistrictId })
+    }
   },
   methods: {
     ...mapActions('qualReview', [
