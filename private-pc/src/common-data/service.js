@@ -37,25 +37,34 @@ export async function getTree (payload) {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
-        data: [{
-          id: '1',
-          name: '一级 1',
-          access: false,
-          children: [{
-            id: '1_1',
-            name: '二级 1-1',
-            access: true,
-            children: [{
-              id: '1_1_1',
-              name: '三级 1-1-1',
-              access: true,
-            }]
-          }]
-        }, {
-          id: '2',
-          name: '一级 2',
-          children: []
-        }]
+        data: {
+          "code": "string",
+          "content": [{
+            "access": true,
+            "children": [
+              {
+                "code": "string",
+                "id": 1,
+                "level": 0,
+                "name": "string",
+                "parentId": 0,
+                "path": "string",
+                "pnum": 0,
+                "sort": 0
+              }
+            ],
+            "code": "string",
+            "distinct": "string",
+            "distinctId": 0,
+            "id": 2,
+            "name": "string",
+            "pnum": 0,
+            "sort": 0,
+            "type": 0
+          }],
+          "message": "string",
+          "status": "string"
+        }
       })
     }, 500)
   })

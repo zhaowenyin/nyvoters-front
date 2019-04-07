@@ -29,7 +29,7 @@
 <script>
 import CommonTree from '../../../components/common-tree'
 import { mapMutations } from 'vuex'
-import {getTree} from './service.js'
+import {getTree} from '../../../common-data/service.js'
 
 export default {
   data () {
@@ -47,9 +47,10 @@ export default {
   },
   created () {
     this.searchTree()
+    this.saveDistrictId('')
   },
   methods: {
-    ...mapMutations('districtCommon', [
+    ...mapMutations('commonData', [
       'saveDistrictId',
     ]),
     change (index) {

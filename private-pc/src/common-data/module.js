@@ -5,7 +5,8 @@ export default {
   namespaced: true,
   state: {
     userInfo: {},
-    nationList: []
+    nationList: [],
+    commonDistrictId: ''
   },
   mutations: {
     updateUserInfo (state, payload) {
@@ -14,6 +15,9 @@ export default {
     updateNation (state, payload) {
       state.nationList = payload.data.content
     },
+    saveDistrictId(state, payload) {
+      state.commonDistrictId = payload
+    }
   },
   actions: {
     async getUserInfo ({ commit, state }) {

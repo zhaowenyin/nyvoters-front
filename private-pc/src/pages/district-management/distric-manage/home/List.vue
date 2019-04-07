@@ -64,7 +64,7 @@ export default {
       pageNum: state => state.searchParam.pageNum,
 
     }),
-    ...mapState('districtCommon', {
+    ...mapState('commonData', {
       commonDistrictId: state => state.commonDistrictId
     }),
   },
@@ -74,8 +74,7 @@ export default {
     this.getListData({commonDistrictId: this.commonDistrictId })
   },
   watch: {
-    commonDistrictId (val) {
-      console.log(8,val)
+    commonDistrictId () {
       this.getListData({commonDistrictId: this.commonDistrictId })
     }
   },

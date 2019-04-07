@@ -29,49 +29,13 @@
 
 <script>
 import CommonTree from '../../components/common-tree'
+import {getTree} from '../../common-data/service.js'
+import { mapMutations } from 'vuex'
 
 export default {
   data () {
     return {
-      data: [{
-        label: '一级 1',
-        children: [{
-          label: '二级 1-1',
-          children: [{
-            label: '三级 1-1-1'
-          }]
-        }]
-      }, {
-        label: '一级 2',
-        children: [{
-          label: '二级 2-1',
-          children: [{
-            label: '三级 2-1-1'
-          }]
-        }, {
-          label: '二级 2-2',
-          children: [{
-            label: '三级 2-2-1'
-          }]
-        }]
-      }, {
-        label: '一级 3',
-        children: [{
-          label: '二级 3-1',
-          children: [{
-            label: '三级 3-1-1'
-          }]
-        }, {
-          label: '二级 3-2',
-          children: [{
-            label: '三级 3-2-1'
-          }]
-        }]
-      }],
-      defaultProps: {
-        children: 'children',
-        label: 'label'
-      }
+      data: []
     }
   },
   computed: {
@@ -82,13 +46,24 @@ export default {
   components: {
     CommonTree
   },
+  created () {
+    this.searchTree()
+    this.saveDistrictId('')
+  },
   methods: {
     change (index) {
       this.$router.push({ path: index })
     },
+    ...mapMutations('commonData', [
+      'saveDistrictId',
+    ]),
     handleNodeClick(data) {
-      console.log(data);
-    }
+      this.saveDistrictId(data.id)
+    },
+    async searchTree () {
+      const {data} = await getTree()
+      this.data = data.content
+    },
   }
 }
 </script>

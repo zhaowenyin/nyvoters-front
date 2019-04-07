@@ -62,13 +62,20 @@ export default {
       total: state => state.total,
       pageSize: state => state.searchParam.pageSize,
       pageNum: state => state.searchParam.pageNum,
-
-    })
+    }),
+    ...mapState('commonData', {
+      commonDistrictId: state => state.commonDistrictId
+    }),
   },
   components: {
   },
+  watch: {
+    commonDistrictId () {
+      this.getListData({ commonDistrictId: this.commonDistrictId })
+    }
+  },
   created () {
-    this.getListData()
+    this.getListData({commonDistrictId: this.commonDistrictId })
   },
   methods: {
     ...mapActions('committeeHome', [

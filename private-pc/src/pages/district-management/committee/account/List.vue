@@ -68,7 +68,12 @@ export default {
   components: {
   },
   created () {
-    this.getListData1()
+    this.getListData1({commonDistrictId: this.commonDistrictId })
+  },
+  watch: {
+    commonDistrictId () {
+      this.getListData1({commonDistrictId: this.commonDistrictId })
+    }
   },
   methods: {
     ...mapActions('committeeAcccount', [

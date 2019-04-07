@@ -72,7 +72,7 @@ export default {
       page: state => state.searchParam.page,
 
     }),
-    ...mapState('districtCommon', {
+    ...mapState('commonData', {
       commonDistrictId: state => state.commonDistrictId
     }),
   },
