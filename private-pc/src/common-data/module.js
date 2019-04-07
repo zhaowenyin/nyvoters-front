@@ -20,7 +20,7 @@ export default {
       state.commonDistrictId = payload
     },
     updateTreeList (state, payload) {
-      state.treeList = payload.content
+      state.treeList = payload.data.content
     }
   },
   actions: {
@@ -47,6 +47,6 @@ export default {
         type: 'updateTreeList',
         data
       })
-    },
+    }
   }
 }

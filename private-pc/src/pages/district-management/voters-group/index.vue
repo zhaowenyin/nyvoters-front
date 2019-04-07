@@ -3,7 +3,6 @@
     <div class="view-left">
       <CommonTree
         :data="data"
-        :current-node-key="currentSelect"
         @node-click="handleNodeClick" />
     </div>
     <div class="view-content">
