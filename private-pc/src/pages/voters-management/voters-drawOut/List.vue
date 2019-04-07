@@ -16,6 +16,7 @@
       <el-table-column
         width="180"
         label="身份证号码"
+        :maxlength="18"
         prop="idNum" />
        <el-table-column
         width="100"
@@ -27,6 +28,7 @@
       </el-table-column>
       <el-table-column
         label="手机号"
+        :maxlength="11"
         prop="phoneNum" />
       <el-table-column
         label="参选地类型"
