@@ -16,31 +16,13 @@
 import { mapMutations } from 'vuex'
 import Search from './Search'
 import List from './List'
+import {getTree} from '../../../common-data/service.js'
 import CommonTree from '../../../components/common-tree'
 
 export default {
   data () {
     return {
-      data: [{
-        id: '1',
-        name: '一级 1',
-        access: false,
-        children: [{
-          id: '1_1',
-          name: '二级 1-1',
-          access: true,
-          children: [{
-            id: '1_1_1',
-            name: '三级 1-1-1',
-            access: true,
-          }]
-        }]
-      }, {
-        id: '2',
-        name: '一级 2',
-        children: []
-      }],
-      currentSelect: '1_1'
+      data: []
     }
   },
   computed: {
@@ -54,14 +36,23 @@ export default {
   created () {
     // 初始化清除数据
     this.clearState()
+    this.searchTree()
+    this.saveDistrictId('')
   },
   methods: {
     ...mapMutations('voterGroup', [
       'clearState'
     ]),
+    ...mapMutations('commonData', [
+      'saveDistrictId',
+    ]),
     handleNodeClick(data) {
-      console.log(data);
-    }
+      this.saveDistrictId(data.id)
+    },
+    async searchTree () {
+      const {data} = await getTree()
+      this.data = data.content
+    },
   }
 }
 </script>

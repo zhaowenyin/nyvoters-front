@@ -65,7 +65,7 @@ export default {
     }),
     ...mapState('commonData', {
       commonDistrictId: state => state.commonDistrictId
-    }),
+    })
   },
   components: {
   },

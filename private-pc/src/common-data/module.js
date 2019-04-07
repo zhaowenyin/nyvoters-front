@@ -1,4 +1,4 @@
-import { getUserInfo,getNation } from './service'
+import { getUserInfo,getNation,getTree } from './service'
 import { isEmptyObj } from '../utils/validate'
 
 export default {
@@ -6,7 +6,8 @@ export default {
   state: {
     userInfo: {},
     nationList: [],
-    commonDistrictId: ''
+    commonDistrictId: '',
+    treeList: []
   },
   mutations: {
     updateUserInfo (state, payload) {
@@ -17,6 +18,9 @@ export default {
     },
     saveDistrictId(state, payload) {
       state.commonDistrictId = payload
+    },
+    updateTreeList (state, payload) {
+      state.treeList = payload.content
     }
   },
   actions: {
@@ -33,6 +37,14 @@ export default {
       const { data } = await getNation()
       commit({
         type: 'updateNation',
+        data
+      })
+    },
+    async searchTree ({ commit, state }) {
+      if (!isEmptyObj(state.treeList)) return
+      const { data } = await getTree()
+      commit({
+        type: 'updateTreeList',
         data
       })
     },
