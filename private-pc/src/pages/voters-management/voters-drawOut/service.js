@@ -47,7 +47,7 @@ export async function drawOut (payload) {
       })
     }, 500)
   })
-  // return api.post('/group/delete', payload)
+  // return api.post('/out/cut', payload)
 }
 
 
