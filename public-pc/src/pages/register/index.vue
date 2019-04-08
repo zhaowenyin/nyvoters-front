@@ -279,13 +279,6 @@ export default {
     background-color: #d8d8d8;
     font-size: 16px;
   }
-  /* .remind-info {
-    font-size: 16px;
-	color: #d02626;
-    width: 960px;
-    text-align: right;
-    margin-bottom: 73px;
-  } */
   .login-form {
     width: 960px;
     padding:0 60px;
@@ -295,14 +288,10 @@ export default {
   }
   .item {
     width: 100%;
-    background-color: #ffffff;
     border-radius: 4px;
-    border: solid 1px #b1b8c2;
   }
   .item3 {
-    background-color: #ffffff;
     border-radius: 4px;
-    border: solid 1px #b1b8c2;
   }
   .loginBtn {
     width: 80px;
@@ -353,7 +342,4 @@ export default {
 
 </style>
 <style>
-.el-input--medium .el-input__inner {
-   border: none;
-}
 </style>

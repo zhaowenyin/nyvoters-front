@@ -32,15 +32,15 @@
         <el-form-item
           label="验证码："
           class="out-valid"
-          prop="valid">
+          prop="captcha">
           <div class="valid">
             <el-input
              size="medium"
               placeholder="请输入验证码"
               :maxlength="18"
               class="item"
-              v-model="userLogin.valid" />
-            <div class="out-img"><img class="img" src="../../assets/img/guohui.png"/></div>
+              v-model="userLogin.captcha" />
+            <div class="out-img"><img class="img" :src="captchaImg"/></div>
           </div>
           <div class="change" @click="change">[换一张]</div>
         </el-form-item>
@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { searchSubmit } from './service.js'
+import { searchSubmit,  getCode} from './service.js'
 
 export default {
   data () {
@@ -66,7 +66,8 @@ export default {
       userLogin: {
         username: '',
         idNum: '',
-        valid: ''
+        captcha: '',
+        captchaId: '',
       },
       rules: {
         username: [
@@ -75,16 +76,17 @@ export default {
         idNum: [
           { required: true, message: '请输入身份证号码', trigger: 'blur' }
         ],
-        valid: [
+        captcha: [
           { required: true, message: '请输入验证码', trigger: 'blur' }
         ]
-      }
+      },
+      captchaImg: ''
     }
   },
   components: {
   },
   created () {
-
+    this.searchCode()
   },
   methods: {
     submitForm () {
@@ -101,7 +103,12 @@ export default {
       })
     },
     change () {
-
+      this.searchCode()
+    },
+    async searchCode () {
+      const {data} = await getCode()
+      this.captchaImg = data.content.captcha
+      this.userLogin.captchaId = data.content.captchaId
     }
   }
 }
@@ -131,13 +138,11 @@ export default {
   }
   .item {
     width: 100%;
-    background-color: #ffffff;
     border-radius: 4px;
-    border: solid 1px #b1b8c2;
+
   }
   .loginBtn {
     width: 200px;
-    background-color: #d41c1a;
     border-radius: 2px;
 
   }
@@ -166,7 +171,7 @@ export default {
     padding-left: 82px;
     & .change {
       position: absolute;
-      right: 43px;
+      right: 30px;
       top: 0px;
       font-size: 14px;
       color: #222222;
@@ -185,7 +190,5 @@ export default {
 
 </style>
 <style>
-.el-input--medium .el-input__inner {
-   border: none;
-}
+
 </style>

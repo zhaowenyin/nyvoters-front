@@ -67,6 +67,7 @@
             placeholder="请输入联系电话"
             :maxlength="11"
             class="item"
+            size="medium"
             v-model="userLogin.phoneNum" />
         </el-form-item>
         <el-form-item
@@ -102,7 +103,7 @@
 </template>
 
 <script>
-import {taskDownload,complaitSubmit,getCode} from './service.js'
+import {complaitSubmit,getCode} from './service.js'
 import output from '../../utils/output.js'
 import { baseURL } from '../../utils/api.js'
 
@@ -131,7 +132,7 @@ export default {
         captcha: [
           { required: true, message: '请输入验证码', trigger: 'blur' }
         ],
-        id:[{ required: true, message: '请上传申诉书', trigger: 'blur' }]
+        id:[{ required: true, message: '请上传申诉书', trigger: '' }]
       },
       headers: {
         // Authorization: authToken.token,
@@ -181,7 +182,7 @@ export default {
       })
     },
     change () {
-
+      this.searchCode()
     },
     cancelForm () {
 
@@ -250,15 +251,12 @@ export default {
   }
   .login-form {
     width: 100%;
-    /* background:rgba(255,255,255,1); */
     border-radius:4px;
     padding: 0 150px;
   }
   .item {
     width: 100%;
-    background-color: #ffffff;
     border-radius: 4px;
-    border: solid 1px #b1b8c2;
   }
   .loginBtn {
     width: 80px;
@@ -292,7 +290,7 @@ export default {
     margin-bottom: 20px;
     & .change {
       position: absolute;
-      right: 43px;
+      right: 30px;
       top: 0px;
       font-size: 14px;
       color: #222222;
@@ -312,14 +310,14 @@ export default {
 
 .but {
     width: 100%;
-    border: solid 1px #b1b8c2;
     background: #fff;
     color: #999;
     padding-left: 15px;
+    height: 36px;
+   line-height: 36px;
 
   }
   .uploadcomplait {
-    border:solid 1px #b1b8c2;
     background: #fff;
   }
   .down {
@@ -341,6 +339,10 @@ export default {
     margin-right: 9px;
     transform: translateY(12px);
   }
+  .uploadcomplait {
+    border:solid 1px #DCDFE6;
+    background: #fff;
+  }
 
 </style>
 <style>
@@ -357,8 +359,5 @@ export default {
 }
 .complait-content .el-form-item__content {
   line-height: 10px;
-}
-.el-input--medium .el-input__inner {
-   border: none;
 }
 </style>
