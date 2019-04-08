@@ -31,10 +31,10 @@
          <el-form-item
           class="padding "
           label="申诉书："
-          prop="fileList">
+          prop="id">
             <el-upload
               style="100%"
-              :class="['commom',{'uploadcomplait':userLogin.fileList.length>0}]"
+              :class="['commom',{'uploadcomplait':fileList.length>0}]"
               :headers="headers"
               action="https://jsonplaceholder.typicode.com/posts/"
               ref="upload"
@@ -45,10 +45,10 @@
               :multiple="false"
               :before-upload="beforeAvatarUpload"
               :limit="1"
-              :file-list="userLogin.fileList"
-              :auto-upload="false">
+              :file-list="fileList"
+              :auto-upload="true">
               <div
-              v-if="userLogin.fileList.length===0"
+              v-if="fileList.length===0"
               class="but">请上传申请书</div>
             </el-upload>
         </el-form-item>
@@ -64,7 +64,7 @@
           label="联系电话："
           prop="phoneNum">
           <el-input
-            placeholder="请输入联系电话："
+            placeholder="请输入联系电话"
             :maxlength="11"
             class="item"
             v-model="userLogin.phoneNum" />
@@ -72,15 +72,15 @@
         <el-form-item
           label="验证码："
           class="out-valid"
-          prop="valid">
+          prop="captcha">
           <div class="valid">
             <el-input
               size="medium"
               placeholder="请输入验证码"
               :maxlength="18"
               class="item"
-              v-model="userLogin.valid" />
-            <div class="out-img"><img class="img" src="../../assets/img/guohui.png"/></div>
+              v-model="userLogin.captcha" />
+            <div class="out-img"><img class="img" :src="captchaImg"/></div>
           </div>
           <div class="change" @click="change">[换一张]</div>
         </el-form-item>
@@ -102,8 +102,9 @@
 </template>
 
 <script>
-import {taskDownload,complaitSubmit} from './service.js'
+import {taskDownload,complaitSubmit,getCode} from './service.js'
 import output from '../../utils/output.js'
+import { baseURL } from '../../utils/api.js'
 
 export default {
   data () {
@@ -112,8 +113,9 @@ export default {
         username: '',
         idNum: '',
         phoneNum: '',
-        valid: '',
-        fileList: [],
+        id: '',
+        captcha: '',
+        captchaId: '',
         type: 1
       },
       rules: {
@@ -126,24 +128,43 @@ export default {
         phoneNum: [
           { required: true, message: '请输入联系电话', trigger: 'blur' }
         ],
-        valid: [
+        captcha: [
           { required: true, message: '请输入验证码', trigger: 'blur' }
         ],
-        fileList:[{ required: true, message: '请上传申诉书', trigger: 'blur' }]
+        id:[{ required: true, message: '请上传申诉书', trigger: 'blur' }]
       },
       headers: {
         // Authorization: authToken.token,
         // AuthID: authToken.id
       },
-      loading: false
+      loading: false,
+      captchaImg: '',
+      fileList: []
     }
 
   },
   components: {
 
   },
+  computed: {
+    allUrl () {
+      let param = {
+        module: 4
+      }
+      let paramStr = ''
+      for (const k in param) {
+        if (param[k] !== undefined &&
+            param[k] !== null &&
+            param[k] !== '') {
+          paramStr += `&${k}=${param[k]}`
+        }
+      }
+      paramStr = paramStr.substr(1)
+      return `${baseURL}/doc/upload/?${paramStr}`
+    }
+  },
   created () {
-
+    this.searchCode()
   },
 
   methods: {
@@ -165,42 +186,40 @@ export default {
     cancelForm () {
 
     },
-    submit () {
-      if (this.userLogin.fileList.length === 0) {
-        this.$notify.error({title: '上传文件不能为空'})
-        return
-      }
-      this.$emit('upload', {ref: 'upload'})
-      this.$refs.upload.submit()
-    },
     changeFile (file, fileList) {
-      this.userLogin.fileList = fileList
+      this.fileList = fileList
     },
     beforeAvatarUpload (file) {
-      const isXlsx = file.type ===
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      if (!isXlsx) {
-        this.$notify.error({title: '只能上传 xlsx 格式的文件!'})
-      }
-      return isXlsx
+      console.log(file)
+
+      // const isXlsx = file.type ===
+      //   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      // if (!isXlsx) {
+      //   this.$notify.error({title: '只能上传 xlsx 格式的文件!'})
+      // }
+      // return isXlsx
     },
-    successFn () {
-      this.$notify.success({title: '上传成功'})
-      this.$refs.upload.clearFiles()
+    successFn (response) {
+      console.log(response)
+      this.userLogin.id = 1
     },
     errorFn (err) {
       const { message = `{}` } = err
       const errorObj = JSON.parse(message)
       this.$notify.error({title: errorObj.message || '上传失败'})
     },
-    async download (item) {
+    async download () {
       try {
-        const { data = {} } = await taskDownload({id: item.result_id,citizen_name: item.citizen_name,operate_name: item.name,doctor_name: item.doctor_name})
-        output({ data: data.data, download: data.filename, type: data.type })
+        output({url: '/doc/download', params: {module: 4}})
       } catch (err) {
         console.log(err)
       }
     },
+    async searchCode () {
+      const {data} = await getCode()
+      this.captchaImg = data.content.captcha
+      this.userLogin.captchaId = data.content.captchaId
+    }
   }
 }
 </script>

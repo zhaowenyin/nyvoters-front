@@ -47,16 +47,16 @@
               label=" 民族："
               prop="nation">
                <el-select
-               size="medium"
+                size="medium"
                 style="width: 100%;"
                 class="item"
                 v-model="form.nation"
                 clearable placeholder="请选择民族">
                 <el-option
-                  v-for="item in nationList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
+                  v-for="(item, key) in nationList"
+                  :key="key"
+                  :label="item.desc"
+                  :value="item.intCode">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -112,15 +112,15 @@
             v-model="form.candidateType"
             clearable placeholder="请选择参选地类型">
             <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
+              v-for="(item,key) in candidateTypeList"
+              :key="key"
+              :label="item"
+              :value="+key">
             </el-option>
           </el-select>
         </el-form-item>
         <el-form-item
-          prop="valid"
+          prop="captcha"
           label="有效验证码："
           class="out-valid">
           <div class="valid">
@@ -129,8 +129,8 @@
               placeholder="请输入验证码"
               maxlength="18"
               class="item3"
-              v-model="form.valid" />
-            <div class="out-img"><img class="img" src="../../assets/img/home.png"/></div>
+              v-model="form.captcha" />
+            <div class="out-img"><img class="img" :src="captchaImg"/></div>
             <div class="change" @click="change">[换一张]</div>
           </div>
         </el-form-item>
@@ -149,7 +149,9 @@
 </template>
 
 <script>
-import { registerSubmit } from './service.js'
+import { registerSubmit, getCode } from './service.js'
+import {candidateTypeList} from '../../common-data/config.js'
+import { mapActions,mapState } from 'vuex'
 
 export default {
   data () {
@@ -159,13 +161,14 @@ export default {
         idNum: '',
         householdRegistration: '',
         living: '',
-        valid: '',
         candidateType: '',
         nation: '',
         gender: '',
         phoneNum: '',
         contactInformation: '',
-        type: 1
+        type: 1,
+        captcha: '',
+        captchaId: ''
       },
       rules: {
         userName: [
@@ -189,56 +192,59 @@ export default {
         living: [
           { required: true, message: '请输入现居住地', trigger: 'blur' }
         ],
-        valid: [
+        captcha: [
           { required: true, message: '请输入验证码', trigger: 'blur' }
         ],
         candidateType: [
           { required: true, message: '请输入参选地址类型', trigger: 'blur' }
         ]
       },
-      options: [{
-        value: '1',
-        label: '居住地'
-      }, {
-        value: '2',
-        label: '外地'
-      }],
-      nationList: [{
-        value: '1',
-        label: '居住地'
-      }, {
-        value: '2',
-        label: '外地'
-      }]
+      candidateTypeList,
+      captchaImg: ''
     }
   },
   components: {
   },
   created () {
-
+    this.searchCode()
+    this.searchnation()
+  },
+  computed: {
+    ...mapState('commonData', {
+      nationList: state => state.nationList,
+    })
   },
 
   methods: {
+    ...mapActions('commonData', [
+      'searchnation'
+    ]),
     submitForm () {
-      // this.$refs.form.validate((valid) => {
-      //   if (valid) {
-      this.loading = true
-      registerSubmit(this.form)
-        .then(() => {
-          this.$router.push({path:'/register-success',query: {type: 1}})
-          this.loading = false
-        })
-      //   }
-      // })
+      this.$refs.form.validate((valid) => {
+        if (valid) {
+          this.loading = true
+          registerSubmit(this.form)
+            .then(() => {
+              this.$router.push({path:'/register-success',query: {type: 1}})
+              this.loading = false
+            })
+        }
+      })
     },
     cancelForm () {
 
     },
     change () {
+      this.searchCode()
 
     },
     handerParam(){
 
+    },
+    async searchCode () {
+      const {data} = await getCode()
+      this.captchaImg = data.content.captcha
+      this.form.captchaId = data.content.captchaId
     }
 
   }

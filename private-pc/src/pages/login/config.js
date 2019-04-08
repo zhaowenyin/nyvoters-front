@@ -40,7 +40,6 @@ export const verifyArr = [
   '/voters-down',
   '/voters-apeal',
   '/voters-apeal/history'
-
 ]
 
 // 不需要登录验证的地址
