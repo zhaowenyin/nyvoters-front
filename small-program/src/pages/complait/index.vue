@@ -47,14 +47,14 @@
       <div class="label-width">
         <span></span>
       </div>
-      <div class="template">请根据<span @click="complait" class="complait-label">《公民申诉书》</span>模板，填写相应内容后，上传文件</div>
+      <div class="template">请根据<span @click="download" class="complait-label">《公民申诉书》</span>模板，填写相应内容后，上传文件</div>
     </div>
 
     <div class="valid">
       <div class="label-width">
         <span>有效验证码</span>
       </div>
-      <div class="out-img"><img class="img" src="../../assets/img/code.png"/></div>
+      <div class="out-img"><img class="img" :src="captchaImg"/></div>
       <div class="change" @click="change">换一张</div>
     </div>
     <div class="out-input">
@@ -78,22 +78,27 @@
 <script>
 import { Toast,Indicator } from 'mint-ui'
 import output from '../../utils/output.js'
-import {taskDownload,complaitSubmit} from './service.js'
+import {complaitSubmit,getCode} from './service.js'
 export default {
   data () {
     return {
       form: {
         userName: '',
         idNum: '',
-        valid: '',
+        captcha: '',
+        captchaId: '',
         phoneNum: '',
-        type: 1
+        type: 2
       },
-      error: ''
+      error: '',
+      captchaImg: ''
     }
   },
   components: {
 
+  },
+  created () {
+    this.searchCode()
   },
   watch: {
     loading (val) {
@@ -120,11 +125,13 @@ export default {
       this.$router.push({path:'/success',query: {type: 3}})
       this.loading = false
     },
-    change(){
-
+    change () {
+      this.searchCode()
     },
-    complait() {
-
+    async searchCode () {
+      const {data} = await getCode()
+      this.captchaImg = data.content.captcha
+      this.form.captchaId = data.content.captchaId
     },
     verify() {
       if(!this.form.userName) {
@@ -139,7 +146,7 @@ export default {
         this.error = '请填写联系电话'
         return false
       }
-      if(!this.form.valid) {
+      if(!this.form.captcha) {
         this.error = '请输入验证码'
         return false
       }
@@ -148,13 +155,11 @@ export default {
     },
     async download (item) {
       try {
-        const { data = {} } = await taskDownload({id: item.result_id,citizen_name: item.citizen_name,operate_name: item.name,doctor_name: item.doctor_name})
-        output({ data: data.data, download: data.filename, type: data.type })
+        output({url: '/doc/download', params: {id: item, module: 4}})
       } catch (err) {
         console.log(err)
       }
-    },
-
+    }
   }
 }
 </script>
