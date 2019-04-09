@@ -25,8 +25,8 @@
       <div class="label-width">
         <span>有效验证码</span>
       </div>
-      <div class="out-img"><img class="img" src="../../assets/img/code.png"/></div>
-      <div class="change" @click="change">换一张</div>
+    <div class="out-img"><img class="img" :src="captchaImg"/></div>
+    <div class="change" @click="change">换一张</div>
     </div>
     <div class="out-input">
       <div class="label-width">
@@ -47,6 +47,7 @@
 
 </template>
 <script>
+import { getCode } from './service.js'
 import { Toast,Indicator } from 'mint-ui'
 import {searchSubmit} from './service.js'
 export default {
@@ -54,12 +55,13 @@ export default {
     return {
       form: {
         userName: '',
-        idNum: '',
-        valid: '',
-        type: 1
+        captcha: '',
+        captchaId: '',
+        type: 2
       },
       error: '',
-      loading: false
+      loading: false,
+      captchaImg: ''
     }
   },
   components: {
@@ -69,6 +71,9 @@ export default {
     loading (val) {
       val ? Indicator.open() : Indicator.close()
     }
+  },
+  created () {
+    this.searchCode()
   },
   methods: {
     cancel () {
@@ -87,7 +92,7 @@ export default {
 
     },
     change(){
-
+      this.searchCode()
     },
     async submitSearch() {
       this.loading = true
@@ -109,6 +114,11 @@ export default {
         return false
       }
       return true
+    },
+    async searchCode () {
+      const {data} = await getCode()
+      this.captchaImg = data.content.captcha
+      this.form.captchaId = data.content.captchaId
     }
 
   }

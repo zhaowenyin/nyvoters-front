@@ -41,7 +41,7 @@
       </div>
       <Select
         class="input"
-        :options="[{value: '1',label: '男'},{value: '2',label: '女'}]"
+        :options="nationList"
         :multiple="false"
         placeholder="请选择民族"
         v-model="form.nation"/>
@@ -94,7 +94,7 @@
       </div>
       <Select
         class="input"
-        :options="[{value: '1',label: '男'},{value: '2',label: '女'}]"
+        :options="candidateTypeList"
         :multiple="false"
         placeholder="请选择参选地类型"
         v-model="form.candidateType"/>
@@ -110,6 +110,7 @@
 import { Toast } from 'mint-ui'
 import Select from './Audio'
 import { mapState, mapMutations, mapActions } from 'vuex'
+import {candidateTypeList} from '../../common-data/confiig.js'
 export default {
   data () {
     return {
@@ -126,6 +127,7 @@ export default {
         type: 1
       },
       error: '',
+      candidateTypeList
     }
   },
   components: {
@@ -134,9 +136,14 @@ export default {
   computed: {
     ...mapState('register', {
 
+    }),
+    ...mapState('commonData', {
+      nationList: state => state.nationList,
     })
   },
-
+  created () {
+    this.searchnation()
+  },
   methods: {
     ...mapMutations('register', [
       'clearState',
@@ -144,6 +151,9 @@ export default {
     ]),
     ...mapActions('register', [
       'submitForm'
+    ]),
+    ...mapActions('commonData', [
+      'searchnation'
     ]),
     cancel () {
       this.$router.push({path:'/'})

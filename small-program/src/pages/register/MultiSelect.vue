@@ -45,8 +45,8 @@ export default {
       type: Array
     },
     value: {
-      default: '',
-      type: String
+      default: null,
+      type: [Number, String]
     }
   },
   computed: {

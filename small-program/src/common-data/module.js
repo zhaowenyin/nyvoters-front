@@ -1,33 +1,26 @@
-import { getDimension } from './service'
+import { getNation } from './service'
+import { isEmptyObj } from '../utils/validate'
 
 export default {
   namespaced: true,
   state: {
-    dimension: []
+    nationList: []
   },
   mutations: {
-    updateDimension (state, payload) {
-      const newArr = []
-      for (let key in payload.data) {
-        const children = payload.data[key].map(obj => {
-          return {value: obj, label: obj}
-        })
-        newArr.push({
-          value: key,
-          label: key,
-          children
-        })
-      }
-      console.log(newArr)
-      state.dimension = newArr
+    updateNation (state, payload) {
+      state.nationList = payload.data.content.map(i => {
+        i.value = i.intCode
+        i.label = i.desc
+        return i
+      })
     }
   },
   actions: {
-    async getDimension ({ commit, state }) {
-      if (state.dimension.length > 0) return
-      const { data } = await getDimension()
+    async searchnation ({ commit, state }) {
+      if (!isEmptyObj(state.nationList)) return
+      const { data } = await getNation()
       commit({
-        type: 'updateDimension',
+        type: 'updateNation',
         data
       })
     }

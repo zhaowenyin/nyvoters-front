@@ -35,8 +35,8 @@ export default {
       type: Array
     },
     value: {
-      default: '',
-      type: String
+      default: null,
+      type: [Number, String]
     },
     disabled: {
       default: false,
@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     comfire (val) {
-      let value = val.value ? val.value : ''
+      let value = val.value !==null ? val.value : ''
       this.$emit('input', value)
     },
     showselect () {

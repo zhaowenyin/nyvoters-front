@@ -1,13 +1,25 @@
 // import api from '../utils/api'
 
-// 获取维度筛选项
-export async function getDimension () {
-  // return api.get('/options')
+// 民族
+export async function getNation (payload) {
+  console.log(payload)
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
-        data: {}
+        data: {
+          "code": "string",
+          "content": [
+            {
+              "desc": "汉",
+              "intCode": 1,
+              "stringCode": "string"
+            }
+          ],
+          "message": "string",
+          "status": "string"
+        }
       })
     }, 500)
   })
+  // return api.post('/enum-mapping/nation, payload)
 }

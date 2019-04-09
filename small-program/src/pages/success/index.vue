@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import {taskDownload} from './service.js'
 import output from '../../utils/output.js'
 
 export default {
@@ -39,8 +38,7 @@ export default {
   methods:{
     async download (item) {
       try {
-        const { data = {} } = await taskDownload({id: item.result_id,citizen_name: item.citizen_name,operate_name: item.name,doctor_name: item.doctor_name})
-        output({ data: data.data, download: data.filename, type: data.type })
+        output({url: '/doc/download', params: {id: item, module: 4}})
       } catch (err) {
         console.log(err)
       }

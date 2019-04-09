@@ -4,7 +4,7 @@
     <div class="label-width">
       <span>有效验证码</span>
     </div>
-    <div class="out-img"><img class="img" src="../../../assets/img/code.png"/></div>
+    <div class="out-img"><img class="img" :src="captchaImg"/></div>
     <div class="change" @click="change">换一张</div>
   </div>
    <div class="out-input">
@@ -13,7 +13,7 @@
       <span>验证码</span>
     </div>
     <input
-      v-model="form.valid"
+      v-model="form.captcha"
       placeholder="请输入验证码"
       class="input"/>
   </div>
@@ -25,15 +25,19 @@
 
 </template>
 <script>
+import { getCode } from '../service.js'
 import { Toast,Indicator } from 'mint-ui'
 import { mapState, mapMutations, mapActions } from 'vuex'
 export default {
   data () {
     return {
       form: {
-        valid: '',
+        captcha: '',
+        captchaId: '',
+        type: 2
       },
-      error: ''
+      error: '',
+      captchaImg: ''
     }
   },
   components: {
@@ -43,6 +47,9 @@ export default {
     loading (val) {
       val ? Indicator.open() : Indicator.close()
     }
+  },
+  created () {
+    this.searchCode()
   },
   computed: {
     ...mapState('register', {
@@ -69,14 +76,19 @@ export default {
         })
         return
       }
-      this.submitForm({...this.formData, valid: this.form.valid})
+      this.submitForm({...this.formData, captcha: this.form.captcha})
 
     },
     change(){
-
+      this.searchCode()
     },
     verify() {
       return true
+    },
+    async searchCode () {
+      const {data} = await getCode()
+      this.captchaImg = data.content.captcha
+      this.form.captchaId = data.content.captchaId
     }
   }
 }
