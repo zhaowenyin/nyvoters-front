@@ -109,7 +109,7 @@ export default {
         this.error = '请填写身份证号'
         return false
       }
-      if(!this.form.valid) {
+      if(!this.form.captcha) {
         this.error = '请输入验证码'
         return false
       }
