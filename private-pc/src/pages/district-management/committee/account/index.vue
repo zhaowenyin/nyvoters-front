@@ -28,10 +28,7 @@ export default {
   methods: {
     ...mapMutations('committeeAcccount', [
       'clearState'
-    ]),
-    handleNodeClick(data) {
-      console.log(data);
-    }
+    ])
   }
 }
 </script>

@@ -117,7 +117,7 @@ export default {
 
   },
   methods: {
-    ...mapActions('committeeAcccount', [
+    ...mapActions('districtAccount', [
       'getListData1'
     ]),
     close () {

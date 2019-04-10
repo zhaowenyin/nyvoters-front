@@ -28,10 +28,7 @@ export default {
   methods: {
     ...mapMutations('districtAccount', [
       'clearState'
-    ]),
-    handleNodeClick(data) {
-      console.log(data);
-    }
+    ])
   }
 }
 </script>

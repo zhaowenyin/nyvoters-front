@@ -10,16 +10,25 @@ export async function getList (payload) {
           "content": {
             "data": [
               {
-                "code": "string",
+                "account": "string",
+                "accountRole": 0,
+                "accountType": 0,
+                "committeeId": 0,
+                "contactInformation": "string",
+                "createTime": "2019-04-10T13:56:12.776Z",
+                "createUserId": 0,
+                "createUserName": "string",
                 "id": 0,
-                "manager": "string",
                 "name": "string",
-                "parentId": 0,
-                "path": "string",
-                "phoneName": "string",
-                "precinct": "string",
+                "password": "string",
+                "phoneNum": '18788888888',
                 "precinctId": 0,
-                "sort": 0
+                "sort": 0,
+                "status": 0,
+                "telephone": "string",
+                "updateTime": "2019-04-10T13:56:12.776Z",
+                "updateUserId": 0,
+                "updateUserName": "string"
               }
             ],
             "endRow": 0,
@@ -36,7 +45,7 @@ export async function getList (payload) {
       })
     }, 500)
   })
-  // return api.get('/committee/list', { params: payload })
+  // return api.get('/user/list', { params: payload })
 }
 
 export async function setSubmit (payload) {
@@ -49,7 +58,7 @@ export async function setSubmit (payload) {
       })
     }, 500)
   })
-  // return api.post('/committee/add', payload)
+  // return api.post('/user/committee/add', payload)
   // .then(data => data)
   //   .catch(() => Promise.resolve({data: null}))
 }
@@ -64,12 +73,24 @@ export async function modifySubmit (payload) {
       })
     }, 500)
   })
-  // return api.post('/committee/edit', payload)
+  // return api.post('/user/committee/edit', payload)
   // .then(data => data)
   //   .catch(() => Promise.resolve({data: null}))
 }
 
 export async function deletetTabel (payload) {
+  console.log(11,payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+        }
+      })
+    }, 500)
+  })
+  // return api.get(`/user/delete/${payload}`, payload)
+}
+export async function resetPassword (payload) {
   console.log(payload)
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -79,6 +100,6 @@ export async function deletetTabel (payload) {
       })
     }, 500)
   })
-  // return api.post('/committee/delete', payload)
+  // return api.post('/resetPassword', payload)
 }
 

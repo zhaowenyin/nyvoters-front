@@ -10,27 +10,24 @@
         width="55">
       </el-table-column>
       <el-table-column
-        label="选委会"
+        label="姓名"
          width="120"
         prop="name" />
       <el-table-column
         width="180"
-        label="选委会编码"
-        prop="code" />
-      <el-table-column
-        label="联系人"
-        prop="gender">
-        <template slot-scope="scope">
-          {{scope.row.manager}}
-        </template>
-      </el-table-column>
+        label="登录账号"
+        prop="account" />
       <el-table-column
         label="手机号码"
         prop="gender">
         <template slot-scope="scope">
-          {{scope.row.phoneName}}
+          {{scope.row.phoneNum}}
         </template>
       </el-table-column>
+      <el-table-column
+        width="180"
+        label="排序码"
+        prop="sort" />
     </el-table>
     <div
       v-show="total"
@@ -63,7 +60,10 @@ export default {
       pageSize: state => state.searchParam.pageSize,
       pageNum: state => state.searchParam.pageNum,
 
-    })
+    }),
+    ...mapState('commonData', {
+      commonDistrictId: state => state.commonDistrictId
+    }),
   },
   components: {
   },
@@ -92,23 +92,6 @@ export default {
     formatDate,
     handleSelectionChange(val) {
       this.saveSelection(val)
-    },
-    handlegender() {
-      let text = ""
-      switch(module) {
-      case 0:
-        text = '未设置'
-        break
-      case 1:
-        text = '男'
-        break
-      case 2:
-        text = '女'
-        break
-      default:
-        text = '其他'
-      }
-      return text
     }
   }
 }

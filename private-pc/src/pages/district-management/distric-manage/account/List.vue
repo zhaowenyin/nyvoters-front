@@ -10,44 +10,33 @@
         width="55">
       </el-table-column>
       <el-table-column
-        label="被推荐人"
-        prop="recommendedPerson" />
+        label="姓名"
+         width="120"
+        prop="name" />
       <el-table-column
         width="180"
-        label="身份证号码"
-        prop="idNum"/>
-       <el-table-column
-        label="性别"
+        label="登录账号"
+        prop="account" />
+      <el-table-column
+        label="手机号码"
         prop="gender">
         <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '男' : '女'}}
+          {{scope.row.phoneNum}}
         </template>
       </el-table-column>
       <el-table-column
-        label="推荐方式">
-         <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '团体推荐' : '选民联名推荐'}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="类型"
-      >
-        <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '区县代表' : '乡镇代表'}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="belongAreaId"
-        label="所属选区"/>
+        width="180"
+        label="排序码"
+        prop="sort" />
     </el-table>
     <div
       v-show="total"
       class="add_pagination">
       <el-pagination
         @current-change="handleCurrentChange"
-        :page-size="size"
+        :page-size="pageSize"
         background
-        :current-page="page"
+        :current-page="pageNum"
         layout="prev, pager, next"
         :total="total" />
     </div>
@@ -68,8 +57,8 @@ export default {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
-      size: state => state.searchParam.size,
-      page: state => state.searchParam.page,
+      pageSize: state => state.searchParam.pageSize,
+      pageNum: state => state.searchParam.pageNum,
 
     }),
     ...mapState('commonData', {
@@ -78,13 +67,13 @@ export default {
   },
   components: {
   },
+  created () {
+    this.getListData1({commonDistrictId: this.commonDistrictId })
+  },
   watch: {
     commonDistrictId () {
       this.getListData1({commonDistrictId: this.commonDistrictId })
     }
-  },
-  created () {
-    this.getListData1({commonDistrictId: this.commonDistrictId })
   },
   methods: {
     ...mapActions('districtAccount', [
@@ -95,7 +84,7 @@ export default {
     ]),
     // 分页
     handleCurrentChange (val) {
-      this.getListData1({ page: val })
+      this.getListData1({ pageNum: val })
     },
     look (id) {
       console.log(id)
@@ -110,4 +99,3 @@ export default {
 <style scoped>
 
 </style>
-

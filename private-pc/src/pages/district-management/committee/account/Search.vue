@@ -43,15 +43,17 @@
       :item='item'
       :visible.sync='createDialogVisible'
       />
-      <PrecinctList
-      v-if="createDialogVisible"
-      :visible.sync='createDialogVisible'
+      <Reset
+      v-if="resetDialogVisible"
+      :item='item'
+      :visible.sync='resetDialogVisible'
       />
   </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
+import Reset from './Reset'
 import { deletetTabel} from './service.js'
 
 export default {
@@ -61,7 +63,8 @@ export default {
       searchForm: {
         name: ''
       },
-      createDialogVisible: false
+      createDialogVisible: false,
+      resetDialogVisible: false
     }
   },
   computed: {
@@ -70,7 +73,8 @@ export default {
     })
   },
   components: {
-    CreateDialog
+    CreateDialog,
+    Reset
   },
   created () {
   },
@@ -104,7 +108,7 @@ export default {
       this.item = this.multipleSelection[0]
       this.createDialogVisible = true
     },
-    async deleteI () {
+    deleteI () {
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',
@@ -113,18 +117,36 @@ export default {
         });
         return
       }
-      let idList = []
-      for (let i of this.multipleSelection) {
-        idList.push(i.id)
+      if(this.multipleSelection.length !== 1) {
+        this.$notify({
+          title: '',
+          message: '请选择一条数据删除！',
+          type: 'warning'
+        });
+        return
       }
-      let params = {idList,status: "REVIEW_FAIL"}
-      await deletetTabel(params)
-      const param = JSON.parse(JSON.stringify(this.searchForm))
-      param.pageNum = 1
-      this.getListData1(param)
+      this.$confirm('账号删除后将不可恢复，请确认是否删除？')
+        .then(() => {
+          this.deleteitem()
+        })
+        .catch(() => {})
+
+    },
+    async deleteitem () {
+      await deletetTabel(this.multipleSelection[0].id)
+      this.getListData1()
     },
     reset () {
-
+      if(this.multipleSelection.length !== 1) {
+        this.$notify({
+          title: '',
+          message: '请选择一条数据重置密码！',
+          type: 'warning'
+        });
+        return
+      }
+      this.item = this.multipleSelection[0]
+      this.resetDialogVisible = true
     }
 
   }
