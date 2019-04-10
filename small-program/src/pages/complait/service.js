@@ -18,4 +18,18 @@ export async function getCode () {
   })
   // return api.get('/getcode')
 }
+export async function complaitSubmit (payload) {
+  console.log(payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+
+        }
+      })
+    }, 500)
+  })
+  // return api.get('/getcode')
+}
+
 

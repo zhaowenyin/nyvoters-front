@@ -39,8 +39,23 @@
         <span>申诉书</span>
       </div>
     <div class="a-upload">
-        <input type="file" class="file"/>
-        <div class="text">请上传申请书</div>
+        <div class="text">
+            <VueUploadComponent
+              ref="upload"
+              v-model="files"
+              post-action="https://jsonplaceholder.typicode.com/posts/"
+              @input-file="inputFile"
+              @input="updatetValue"
+            >
+            <span v-if="files.length===0">请上传申请书</span>
+            </VueUploadComponent>
+            <span style="width: 100%;" v-if="file.name">
+               {{file.name}}
+              <mt-progress style="width: 100%;" :value="+progress">
+              </mt-progress>
+            </span>
+          <!-- 请上传申请书 -->
+        </div>
       </div>
     </div>
     <div class="out-input">
@@ -63,7 +78,7 @@
         <span>验证码</span>
       </div>
       <input
-        v-model="form.valid"
+        v-model="form.captcha"
         placeholder="请输入验证码"
         class="input"/>
     </div>
@@ -79,6 +94,7 @@
 import { Toast,Indicator } from 'mint-ui'
 import output from '../../utils/output.js'
 import {complaitSubmit,getCode} from './service.js'
+import VueUploadComponent from 'vue-upload-component'
 export default {
   data () {
     return {
@@ -88,14 +104,18 @@ export default {
         captcha: '',
         captchaId: '',
         phoneNum: '',
+        id: '',
         type: 2
       },
       error: '',
-      captchaImg: ''
+      captchaImg: '',
+      files: [],
+      progress: '0',
+      file: {}
     }
   },
   components: {
-
+    VueUploadComponent
   },
   created () {
     this.searchCode()
@@ -118,6 +138,7 @@ export default {
         })
         return
       }
+      this.submitSearch()
     },
     async submitSearch() {
       this.loading = true
@@ -142,6 +163,10 @@ export default {
         this.error = '请填写身份证号'
         return false
       }
+      if(!this.form.id) {
+        this.error = '请上传申述书'
+        return false
+      }
       if(!this.form.phoneNum) {
         this.error = '请填写联系电话'
         return false
@@ -159,6 +184,33 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    getimg(e) {
+      // let that = this
+      var files = e.target.files
+      console.log(files)
+      if (!e || !window.FileReader) return;
+      let fd = new FormData()
+
+      // console.log(this.$refs.upload.value)
+      fd.append('fileName', files[0])
+      let reader = new FileReader();
+      reader.readAsDataURL(files);  // 读取文件
+      reader.onloadend = function() {
+
+      }
+    },
+    inputFile (newFile) {
+      console.log(newFile)
+      this.progress=newFile.progress
+      this.file = newFile
+      if (this.file.response&&this.file.response.id) {
+        this.form.id = this.file.response.id
+      }
+
+    },
+    updatetValue () {
+      this.$refs.upload.active = true
     }
   }
 }
@@ -248,7 +300,15 @@ export default {
 
 }
 .file {
-  display: none;
+  width: 100%;
+  position: relative;
+  & input {
+    position: absolute;/*相对定位*/
+    right: 0;
+    top: 0;
+    opacity: 0;/*将上传组件设置为透明的*/
+    font-size: 100px;
+  }
 }
 .a-upload {
   display: flex;
@@ -257,6 +317,7 @@ export default {
   font-size: 15px;
   color: #999;
   & .text {
+    width: 100%;
     padding: 20px 0;
   }
 }
