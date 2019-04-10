@@ -11,7 +11,7 @@
       <div v-if="type===3" class="text">申诉提交成功！</div>
       <div v-if="type===3" class="complain">您的在线申诉已成功提交，待工作人员进行处理核实！</div>
       <div v-if="type===1" class="text">提交成功！</div>
-      <div v-if="type===1" class="register">您的选民信息已成功提交，待系统审核！后续可通过<span class="search">[在线查询]</span>及时了解进度</div>
+      <div v-if="type===1" class="register">您的选民信息已成功提交，待系统审核！后续可通过<span class="search" @click="search"> [在线查询]</span>及时了解进度</div>
        <span
         v-if="type===2"
         class="quit"
@@ -48,6 +48,9 @@ export default {
     },
     back() {
       this.$router.push({ path: '/' })
+    },
+    search () {
+      this.$router.push({ path: '/search' })
     }
   }
 }
@@ -98,12 +101,12 @@ export default {
 }
 .quit {
  font-size: 18px;
-  padding-top: 86px;
+  margin-top: 86px;
   text-decoration:underline;
 }
 .quit1 {
  font-size: 18px;
-  padding-top: 83px;
+  margin-top: 83px;
   text-decoration:underline;
 }
 .complain {

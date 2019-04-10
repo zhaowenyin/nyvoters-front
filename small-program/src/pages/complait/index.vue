@@ -49,9 +49,9 @@
             >
             <span v-if="files.length===0">请上传申请书</span>
             </VueUploadComponent>
-            <span style="width: 100%;" v-if="file.name">
-               {{file.name}}
-              <mt-progress style="width: 100%;" :value="+progress">
+            <span v-if="files.length > 0">
+                {{file.name}}<img @click.prevent="remove(files[0])" style="width: 20px;height: 20px; margin-left: 8px;" src="../../assets/img/icon-close.png"/>
+              <mt-progress style="width: 100%;" v-if="!(file.response&&file.response.id)" :value="+progress">
               </mt-progress>
             </span>
           <!-- 请上传申请书 -->
@@ -185,23 +185,10 @@ export default {
         console.log(err)
       }
     },
-    getimg(e) {
-      // let that = this
-      var files = e.target.files
-      console.log(files)
-      if (!e || !window.FileReader) return;
-      let fd = new FormData()
-
-      // console.log(this.$refs.upload.value)
-      fd.append('fileName', files[0])
-      let reader = new FileReader();
-      reader.readAsDataURL(files);  // 读取文件
-      reader.onloadend = function() {
-
-      }
-    },
     inputFile (newFile) {
-      console.log(newFile)
+      if(!newFile) {
+        return
+      }
       this.progress=newFile.progress
       this.file = newFile
       if (this.file.response&&this.file.response.id) {
@@ -211,6 +198,11 @@ export default {
     },
     updatetValue () {
       this.$refs.upload.active = true
+    },
+    remove(file) {
+      this.form.id = ''
+      this.$refs.upload.remove(file)
+      this.progress = '0'
     }
   }
 }
@@ -317,8 +309,8 @@ export default {
   font-size: 15px;
   color: #999;
   & .text {
-    width: 100%;
     padding: 20px 0;
+    width: 100%;
   }
 }
 

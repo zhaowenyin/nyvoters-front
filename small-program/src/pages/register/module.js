@@ -35,11 +35,12 @@ export default {
         type: 'updateData',
         data
       })
-      router.push({path:'/success',query: {type: 1}})
       commit({
         type: 'hideLoading'
       })
-
+      setTimeout(() => {
+        router.push({path:'/success',query: {type: 1}})
+      }, 500)
     }
   }
 }

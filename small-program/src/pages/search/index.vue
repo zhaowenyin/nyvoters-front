@@ -34,7 +34,7 @@
         <span>验证码</span>
       </div>
       <input
-        v-model="form.valid"
+        v-model="form.captcha"
         placeholder="请输入验证码"
         class="input"/>
     </div>
