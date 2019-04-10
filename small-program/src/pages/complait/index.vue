@@ -41,15 +41,16 @@
     <div class="a-upload">
         <div class="text">
             <VueUploadComponent
+              style="width: 100%; text-align: left;"
               ref="upload"
               v-model="files"
               post-action="https://jsonplaceholder.typicode.com/posts/"
               @input-file="inputFile"
               @input="updatetValue"
             >
-            <span v-if="files.length===0">请上传申请书</span>
+            <span v-if="files.length===0" >请上传申请书</span>
             </VueUploadComponent>
-            <span v-if="files.length > 0">
+            <span class="load-file" v-if="files.length > 0">
                 {{file.name}}<img @click.prevent="remove(files[0])" style="width: 20px;height: 20px; margin-left: 8px;" src="../../assets/img/icon-close.png"/>
               <mt-progress style="width: 100%;" v-if="!(file.response&&file.response.id)" :value="+progress">
               </mt-progress>
@@ -313,7 +314,11 @@ export default {
     width: 100%;
   }
 }
-
-
+.file-uploads {
+  display: initial;
+}
+.load-file {
+  color: #333;
+}
 
 </style>
