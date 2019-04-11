@@ -36,7 +36,15 @@
             <el-form-item
               label="所选区域"
               prop="belongAreaId">
-              <div :class="['select-input',{hasVal: form.belongArea}]" ><div style="flex: 1;" @click="select">{{form.belongArea ? form.belongArea : '请选择对应行政区'}}</div><i @click="close1"/></div>
+              <!-- <div :class="['select-input',{hasVal: form.belongArea}]" ><div style="flex: 1;" @click="select">{{form.belongArea ? form.belongArea : '请选择对应行政区'}}</div><i @click="close1"/></div> -->
+              <DistrictSelect
+                :labels="form.belongArea"
+                :multiple="false"
+                @setData="setData"
+                @clear="clear"
+                v-model="form.belongAreaId"
+                :item='item'
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -87,6 +95,7 @@
                 label="出生日期"
                 prop="birthDay">
                 <el-date-picker
+                  style="width: 100%;"
                   v-model="form.birthDay"
                   type="date"
                   placeholder="请选择">
@@ -301,18 +310,19 @@
           size="medium">取消</el-button>
       </div>
     </el-dialog>
-    <PrecinctList
+    <!-- <PrecinctList
       @saveData="saveData"
       :item="item"
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
-    />
+    /> -->
 </div>
 </template>
 <script>
 import {setSubmit} from './service.js'
 import { mapActions,mapState } from 'vuex'
-import PrecinctList from '../../../components/PrecinctList'
+// import PrecinctList from '../../../components/PrecinctList'
+import DistrictSelect from '../../../components/DistrictSelect'
 import {educationList, postList,partyList} from '../../../common-data/config.js'
 export default {
   data () {
@@ -423,7 +433,8 @@ export default {
     })
   },
   components: {
-    PrecinctList
+    // PrecinctList
+    DistrictSelect
   },
   props:{
     visible: {
@@ -559,13 +570,19 @@ export default {
     select () {
       this.createDialogVisible = true
     },
-    saveData (val) {
-      this.form.belongArea = val.name
-      this.form.belongAreaId = val.id
+    // saveData (val) {
+    //   this.form.belongArea = val.name
+    //   this.form.belongAreaId = val.id
+    // },
+    // close1 () {
+    //   this.form.belongAreaId = ''
+    //   this.form.belongArea = ''
+    // },
+    setData (val) {
+      this.form.belongArea = val
     },
-    close1 () {
-      this.form.belongAreaId = ''
-      this.form.belongArea = ''
+    clear (val) {
+      this.form.belongArea = val
     }
   }
 

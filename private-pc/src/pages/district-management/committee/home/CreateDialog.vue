@@ -129,12 +129,6 @@ export default {
         ],
 
       },
-      parentList: {
-        1: '11'
-      },
-      precinctList: {
-        1: '9090'
-      },
       createDialogVisible: false,
     }
 

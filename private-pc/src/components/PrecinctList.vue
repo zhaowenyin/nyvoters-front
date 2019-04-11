@@ -1,8 +1,11 @@
 <template>
   <el-dialog
+    :modal='false'
+    ref="dia"
+    class="dia"
     title=""
     :visible="visible"
-    width="700px"
+    width="750px"
     :before-close="comfirmClose">
     <div class="view">
       <div class="view-left">
@@ -18,7 +21,11 @@
       <div class="row-ccontent"><div class="row"/><div class="row up"/></div>
       <div class="view-content">
           已选
-        <div class="content">{{selectItem.name}}</div>
+        <ul class="content">
+          <li
+            v-for="(i, key) in nameList"
+            :key="key">{{i}}</li>
+        </ul>
       </div>
     </div>
     <div
@@ -44,8 +51,8 @@ export default {
       loading: false,
       data: [],
       filterText: '',
-      selectItem: {}
-
+      selectList: [],
+      nameList: []
     }
 
   },
@@ -57,6 +64,18 @@ export default {
     item: {
       default: () => {},
       type: Object
+    },
+    multiple: {
+      default: false,
+      type: Boolean
+    },
+    value: {
+      default: null,
+      type: [String, Array,Number]
+    },
+    labels: {
+      default: null,
+      type: [String, Array]
     },
   },
   watch: {
@@ -77,32 +96,56 @@ export default {
       }
     }
     this.searchTree(val)
+    if (this.multiple) {
+      this.nameList = JSON.parse(JSON.stringify(this.labels))
+    } else {
+      this.nameList.push(this.labels)
+    }
   },
   components: {
     CommonTree
+  },
+  mounted () {
+    this.$refs.dia.style.Color="red"
   },
   methods: {
     close () {
       this.$emit('update:visible', false)
     },
     submitForm () {
-      this.$emit('saveData', this.selectItem)
+      let val = null
+      if (this.multiple) {
+        val = this.selectList
+      } else {
+        val = this.selectList[0]
+      }
+      this.$emit('saveData', val)
       this.close()
     },
 
     async searchTree () {
       const {data} = await getTree()
-      this.data = data
+      this.data = data.content
     },
     comfirmClose () {
-      this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
-        .then(() => {
-          this.close()
-        })
-        .catch(() => {})
+      this.close()
     },
     handleNodeClick(data) {
-      this.selectItem = data
+      if(!this.multiple) {
+        this.selectList = []
+        this.nameList = []
+      }
+      let isSimilar = false
+      for(let i of this.selectList) {
+        if(i.id === data.id) {
+          isSimilar = true
+        }
+      }
+      if(!isSimilar) {
+        this.selectList.push(data)
+        this.nameList.push(data.name)
+      }
+
     }
   }
 

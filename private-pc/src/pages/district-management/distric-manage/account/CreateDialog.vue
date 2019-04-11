@@ -5,7 +5,6 @@
       :visible="visible"
       width="600px"
       :before-close="comfirmClose">
-
       <el-form
         label-width="110px"
         :model="form"
@@ -15,8 +14,11 @@
          <el-form-item
             label="帐号类型"
             prop="gender">
-            <el-radio-group size="medium" v-model="form.gender">
-              <el-radio :label="1">男</el-radio>
+            <el-radio-group size="medium" v-model="form.registrationType">
+              <el-radio
+                v-for="(i, key) in registrationTypeList"
+                :key="+key"
+                :label="+key">{{i}}</el-radio>
             </el-radio-group>
           </el-form-item>
          <el-form-item
@@ -50,23 +52,16 @@
             v-model="form.password" />
         </el-form-item>
         <el-form-item
-          label="手机号码"
-          prop="phoneNum">
-          <el-input
-            size="medium"
-            :maxlength="11"
-            placeholder="请输入手机号码"
-            class="item"
-            v-model="form.phoneNum" />
-        </el-form-item><el-form-item
-          label="联系电话"
-          :maxlength="20"
-          prop="contactInformation">
-          <el-input
-            size="medium"
-            placeholder="请输入联系电话"
-            class="item"
-            v-model="form.contactInformation" />
+          label="对应行政区"
+          prop="precinctId">
+          <DistrictSelect
+          :labels="form.precinct"
+          :multiple="true"
+          @setData="setData"
+          @clear="clear"
+          v-model="form.precinctId"
+          :item='item'
+          />
         </el-form-item>
         <el-form-item
           label="排序码"
@@ -98,6 +93,7 @@
 import {setSubmit} from './service.js'
 import { mapActions } from 'vuex'
 import {registrationTypeList} from '../../../../common-data/config.js'
+import DistrictSelect from '../../../../components/DistrictSelect'
 export default {
   data () {
     let validate = (rule, value, callback) => {
@@ -117,9 +113,10 @@ export default {
         account: '',
         name: '',
         password: '',
-        phoneNum: '',
         sort: '',
-        contactInformation: ''
+        registrationType: '',
+        precinctId: [],
+        precinct: []
       },
       multipleSelection: [],
 
@@ -134,10 +131,13 @@ export default {
           { required: true, message: '请输入密码！', trigger: 'blur' }
         ],
         phoneNum: [
-          {  validator: validate,required: true, trigger: 'blur' }
+          { validator: validate,required: true, trigger: 'blur' }
         ],
+        registrationType: [
+          { required: true, message: '请选择帐号类型！' ,trigger: 'change' }
+        ]
       },
-      registrationTypeList: {}
+      registrationTypeList
     }
 
   },
@@ -152,7 +152,7 @@ export default {
     }
   },
   components: {
-
+    DistrictSelect
   },
   created () {
     let params = {}
@@ -162,9 +162,8 @@ export default {
         committeeId: this.item.committeeId,
         name: this.item.name,
         password: this.item.password,
-        phoneNum: this.item.phoneNum,
         sort: this.item.sort,
-        contactInformation: this.item.contactInformation
+        registrationType: this.item.registrationType
       }
     }
 
@@ -202,9 +201,11 @@ export default {
       let params = {...this.form}
       return params
     },
-    saveData (val) {
-      this.form.precinct = val.name
-      this.form.precinctId = val.id
+    setData (val) {
+      this.form.precinct = val
+    },
+    clear (val) {
+      this.form.precinct = val
     }
   }
 
