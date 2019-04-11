@@ -5,12 +5,20 @@
       :visible="visible"
       width="600px"
       :before-close="comfirmClose">
+
       <el-form
         label-width="110px"
         :model="form"
         :rules="rules"
         ref="form"
         class="login-form">
+         <el-form-item
+            label="帐号类型"
+            prop="gender">
+            <el-radio-group size="medium" v-model="form.gender">
+              <el-radio :label="1">男</el-radio>
+            </el-radio-group>
+          </el-form-item>
          <el-form-item
           label="姓名"
           prop="name">
@@ -89,6 +97,7 @@
 <script>
 import {setSubmit} from './service.js'
 import { mapActions } from 'vuex'
+import {registrationTypeList} from '../../../../common-data/config.js'
 export default {
   data () {
     let validate = (rule, value, callback) => {
@@ -127,8 +136,8 @@ export default {
         phoneNum: [
           {  validator: validate,required: true, trigger: 'blur' }
         ],
-
-      }
+      },
+      registrationTypeList: {}
     }
 
   },
