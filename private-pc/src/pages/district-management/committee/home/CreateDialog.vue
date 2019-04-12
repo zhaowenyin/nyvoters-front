@@ -23,7 +23,7 @@
             <el-option
               v-for="(item, key) in parentList"
               :key="key"
-              :label="item.value"
+              :label="item.name"
               :value="item.id">
             </el-option>
           </el-select>
@@ -219,9 +219,9 @@ export default {
       const {data} = await getTree()
       this.data = data.content
     },
-    async getParentList () {
+    async getParentList (val) {
       this.parentList = []
-      const {data} = await parentList()
+      const {data} = await parentList(val)
       this.parentList.push(data.content)
     }
   }

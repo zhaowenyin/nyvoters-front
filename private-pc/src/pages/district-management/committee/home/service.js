@@ -152,7 +152,7 @@ export async function parentList (payload) {
         data: {
           content: {
             "code": "string",
-            "id": 2.1,
+            "id": 0,
             "level": 0,
             "name": "二区1",
             "parentId": 0,
@@ -164,7 +164,7 @@ export async function parentList (payload) {
       })
     }, 500)
   })
-  // return api.post('/committee/add', payload)
+  // return api.post(`/committee/${payload.parentId}/nextSort`, payload)
   // .then(data => data)
   //   .catch(() => Promise.resolve({data: null}))
 }
