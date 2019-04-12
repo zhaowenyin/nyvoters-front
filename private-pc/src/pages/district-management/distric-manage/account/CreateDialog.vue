@@ -218,16 +218,6 @@ export default {
 .item {
   width: 100%;
 }
-.select-input {
-  border: solid 1px #DCDFE6;
-  background: #fff;
-  color: #c0c4cb;
-  height: 40px;
-  padding-left: 15px;
-  &.hasVal {
-    color: #333;
-  }
-}
 </style>
 <style>
   .table-obj .el-form-item {

@@ -570,14 +570,6 @@ export default {
     select () {
       this.createDialogVisible = true
     },
-    // saveData (val) {
-    //   this.form.belongArea = val.name
-    //   this.form.belongAreaId = val.id
-    // },
-    // close1 () {
-    //   this.form.belongAreaId = ''
-    //   this.form.belongArea = ''
-    // },
     setData (val) {
       this.form.belongArea = val
     },
@@ -592,29 +584,6 @@ export default {
 <style scoped>
 .left {
   margin: 10px 0;
-}
-.select-input {
-  border: solid 1px #DCDFE6;
-  background: #fff;
-  color: #c0c4cb;
-  height: 40px;
-  width: 100%;
-  padding-left: 15px;
-  display: flex;
-  & i:after {
-    content: "";
-    display: inline-block;
-    background: url("../../../assets/img/icon-close.png") center center no-repeat;
-    background-size: 100% 100%;
-    width: 20px;
-    height: 20px;
-    margin-right: 4px;
-    transform: translateY(4px);
-    right: 10px;
-  }
-  &.hasVal {
-    color: #333;
-  }
 }
 </style>
 <style>

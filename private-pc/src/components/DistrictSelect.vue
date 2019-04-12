@@ -5,8 +5,8 @@
       @click="showselect"
       class="select-input">
       <div class="value">{{valueStr}}</div>
-      <!-- <input
-        class="selectContent" disabled/> -->
+      <input
+        class="selectContent" disabled/>
     </ul>
      <div
         v-if="!disabled"

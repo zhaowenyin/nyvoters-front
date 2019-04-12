@@ -335,10 +335,6 @@
         <el-form-item
           label="提名推荐人签名"
           prop="nominateRecommenderSignature">
-          <!-- <div  :class="['select-input',{hasVal: form.nominateRecommenderSignature}]" @click="select">
-            <div v-if="!form.nominateRecommenderSignature">请选择</div>
-            <img style="width: 100%;height: 100%;" v-else :src="form.nominateRecommenderSignature"/>
-          </div> -->
            <el-input
             type="textarea"
             :rows="2"
@@ -558,16 +554,7 @@ export default {
 .item {
   width: 100%;
 }
-.select-input {
-  border: solid 1px #DCDFE6;
-  background: #fff;
-  color: #c0c4cb;
-  height: 80px;
-  padding-left: 15px;
-  &.hasVal {
-    color: #333;
-  }
-}
+
 </style>
 <style>
   .qual .el-form-item__label {

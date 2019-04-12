@@ -49,7 +49,14 @@
         <el-form-item
           label="对应行政区"
           prop="precinctId">
-          <div :class="['select-input',{hasVal: form.precinct}]" ><div style="flex: 1;" @click="select">{{form.precinct ? form.precinct : '请选择对应行政区'}}</div><i @click="close1"/></div>
+           <DistrictSelect
+              :labels="form.precinct"
+              :multiple="false"
+              @setData="setData"
+              @clear="clear"
+              v-model="form.precinctId"
+              :item='item'
+            />
         </el-form-item>
         <el-form-item
           label="联系人"
@@ -93,18 +100,12 @@
           size="medium">取消</el-button>
       </div>
     </el-dialog>
-     <PrecinctList
-      @saveData="saveData"
-      :item="item"
-      v-if="createDialogVisible"
-      :visible.sync='createDialogVisible'
-      />
   </div>
 </template>
 <script>
 import {setSubmit,modifySubmit} from './service.js'
 import { mapActions } from 'vuex'
-import PrecinctList from '../../../../components/PrecinctList'
+import DistrictSelect from '../../../../components/DistrictSelect'
 export default {
   data () {
     return {
@@ -144,7 +145,7 @@ export default {
     }
   },
   components: {
-    PrecinctList
+    DistrictSelect
   },
   created () {
     const params = {
@@ -200,13 +201,11 @@ export default {
     select () {
       this.createDialogVisible = true
     },
-    saveData (val) {
-      this.form.precinct = val.name
-      this.form.precinctId = val.id
+    setData (val) {
+      this.form.precinct = val
     },
-    close1 () {
-      this.form.precinctId = ''
-      this.form.precinct = ''
+    clear (val) {
+      this.form.precinct = val
     }
   }
 
@@ -219,29 +218,7 @@ export default {
 .item {
   width: 100%;
 }
-.select-input {
-  border: solid 1px #DCDFE6;
-  background: #fff;
-  color: #c0c4cb;
-  height: 40px;
-  width: 100%;
-  padding-left: 15px;
-  display: flex;
-  & i:after {
-    content: "";
-    display: inline-block;
-    background: url("../../../../assets/img/icon-close.png") center center no-repeat;
-    background-size: 100% 100%;
-    width: 20px;
-    height: 20px;
-    margin-right: 4px;
-    transform: translateY(4px);
-    right: 10px;
-  }
-  &.hasVal {
-    color: #333;
-  }
-}
+
 </style>
 <style>
   .table-obj .el-form-item {

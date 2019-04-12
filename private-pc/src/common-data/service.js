@@ -46,7 +46,7 @@ export async function getTree (payload) {
                 "code": "string",
                 "id": 1.1,
                 "level": 0,
-                "name": "一区1的机会接电话和等价交换的机会华鼎奖华鼎奖华鼎奖华鼎奖华鼎奖的环境华鼎奖华鼎奖华鼎奖好华鼎奖华鼎奖华鼎奖",
+                "name": "一区1的机会接电话和等价交换的机会华鼎奖华鼎",
                 "parentId": 0,
                 "path": "string",
                 "pnum": 0,
