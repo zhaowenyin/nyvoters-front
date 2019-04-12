@@ -6,6 +6,7 @@
       class="select-input">
       <div class="value">{{valueStr}}</div>
       <input
+        :placeholder="valueStr ? '' : '请选择'"
         class="selectContent" disabled/>
     </ul>
      <div
@@ -139,10 +140,13 @@ export default {
     & .selectContent {
       position: absolute;
       color:#666;
-      left:0;
+      left:15px;
       width: 100%;
       height: 100%;
       background: transparent;
+      &::placeholder {
+        color: #cac1d1;
+      }
     }
   }
   & .show-icon {
