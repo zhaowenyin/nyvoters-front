@@ -2,7 +2,7 @@
   <div class="search-box">
     <div class="left">
       <el-button @click="upload" size="medium" type="primary" icon="el-icon-upload2">导入</el-button>
-      <div class="down">模板下载：<span class="label">选民登记</span></div>
+      <div class="down">模板下载：<span class="label" @click="download">选民登记</span></div>
     </div>
     <CreateDialog
       v-if="createDialogVisible"

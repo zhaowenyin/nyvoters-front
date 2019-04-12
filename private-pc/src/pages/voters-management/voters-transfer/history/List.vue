@@ -101,7 +101,7 @@ export default {
   components: {
   },
   created () {
-    this.getListData()
+    this.getListData({type:0})
   },
   methods: {
     ...mapActions('votersTransferHistory', [
@@ -112,7 +112,7 @@ export default {
     ]),
     // 分页
     handleCurrentChange (val) {
-      this.getListData({ pageNum: val })
+      this.getListData({ pageNum: val})
     },
     look (id) {
       console.log(id)
@@ -138,39 +138,13 @@ export default {
       let text = ""
       switch(val) {
       case 0:
-        text = '待对比'
+        text = '待审核'
         break
       case 1:
-        text = '对比中'
-        break
-      case 2:
-        text = '待资格审查'
+        text = '转移成功'
         break
       default:
-        text = '登记成功'
-      }
-      return text
-    },
-    handerAuditStatus(val) {
-      let text = ""
-      switch(val) {
-      case 0:
-        text = '未审核'
-        break
-      case 1:
-        text = '不能行使选举权'
-        break
-      case 2:
-        text = '被剥夺政治权利'
-        break
-      case 3:
-        text = '迁出'
-        break
-      case 4:
-        text = '死亡'
-        break
-      default:
-        text = '其他'
+        text = '不同意转移'
       }
       return text
     },

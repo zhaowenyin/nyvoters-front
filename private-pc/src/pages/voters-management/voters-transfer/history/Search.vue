@@ -4,7 +4,7 @@
     v-model="checkedItem"
     @change="handleCheckedCitiesChange"
     class="left">
-    <el-checkbox v-for="item in list" :label="item" :key="item">{{item}}</el-checkbox>
+    <el-checkbox v-for="(item, key) in list" :label="+key" :key="+key">{{item}}</el-checkbox>
   </el-checkbox-group>
     <el-form
       ref="form"
@@ -95,14 +95,15 @@ export default {
         idNum: '',
         phoneNum: '',
         candidateType: '',
-        status: ''
+        status: '',
+        type: 0
       },
       typeList,
       candidateTypeList,
       createDialogVisible: false,
-      list: ['发起申请记录','处理申请记录'],
+      list: {1: '发起申请记录',2:'处理申请记录'},
       id: '',
-      checkedItem: ['发起申请记录','处理申请记录']
+      checkedItem: [1,2]
     }
   },
   computed: {
@@ -140,8 +141,13 @@ export default {
       })
     },
     handleCheckedCitiesChange(val) {
+      if(val.length === 0 || val.length === 2) {
+        this.searchForm.type=0
+      } else {
+        this.searchForm.type = val[0]
+      }
       this.checkedItem = val
-      this.handerList(val)
+      this.getListData({type: this.searchForm.type})
     }
   }
 }
