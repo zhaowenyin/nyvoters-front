@@ -52,7 +52,7 @@
             v-model="form.password" />
         </el-form-item>
         <el-form-item
-          label="对应行政区"
+          label="管理选区"
           prop="precinctId">
           <DistrictSelect
           :labels="form.precinct"
