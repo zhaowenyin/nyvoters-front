@@ -50,7 +50,15 @@
               <el-form-item
               label="对应行政区"
               prop="precinctId">
-              <div :class="['select-input',{hasVal: form.distinct}]" ><div style="flex: 1;" @click="select">{{form.distinct ? form.distinct : '请选择对应行政区'}}</div><i @click="close1"/></div>
+              <DistrictSelect
+                :labels="form.distinct"
+                :multiple="false"
+                @setData="setData"
+                @clear="clear"
+                v-model="form.distinctId"
+                :item='item'
+                :data="data"
+                />
             </el-form-item>
           </el-col>
            <el-col :span="12">
@@ -101,8 +109,8 @@
 </template>
 <script>
 import {setSubmit, modifySubmit} from './service.js'
-import { mapActions } from 'vuex'
-import PrecinctList from '../../../../components/PrecinctList'
+import { mapActions, mapState } from 'vuex'
+import DistrictSelect from '../../../../components/DistrictSelect'
 export default {
   data () {
     return {
@@ -127,12 +135,6 @@ export default {
         ],
 
       },
-      parentList: {
-        1: '11'
-      },
-      precinctList: {
-        1: '9090'
-      },
       createDialogVisible: false,
     }
 
@@ -152,7 +154,12 @@ export default {
     }
   },
   components: {
-    PrecinctList
+    DistrictSelect
+  },
+  computed: {
+    ...mapState('commonData', {
+      data: state => state.treeList
+    })
   },
   created () {
     let params = {}
@@ -172,11 +179,19 @@ export default {
       params.type = this.val
     }
     this.form = {...this.form, ...params }
+    let id = ''
+    if(this.item.id || this.item.id===0) {
+      id = this.item.id
+    }
+    this.searchTree({type: 0, id})
 
   },
   methods: {
     ...mapActions('committeeHome', [
       'getListData'
+    ]),
+    ...mapActions('commonData', [
+      'searchTree',
     ]),
     close () {
       this.$emit('update:visible', false)
@@ -215,13 +230,11 @@ export default {
     select () {
       this.createDialogVisible = true
     },
-    saveData (val) {
-      this.form.distinct = val.name
-      this.form.distinctId = val.id
+    setData (val) {
+      this.form.distinct = val
     },
-    close1 () {
-      this.form.distinctId = ''
-      this.form.distinct = ''
+    clear (val) {
+      this.form.distinct = val
     }
   }
 
@@ -234,27 +247,7 @@ export default {
 .item {
   width: 100%;
 }
-.select-input {
-  border: solid 1px #DCDFE6;
-  background: #fff;
-  color: #c0c4cb;
-  height: 40px;
-  padding-left: 15px;
-  display: flex;
-  & i:after {
-    content: "";
-    display: inline-block;
-    background: url("../../../../assets/img/icon-close.png") center center no-repeat;
-    background-size: 100% 100%;
-    width: 20px;
-    height: 20px;
-    margin-right: 4px;
-    transform: translateY(4px);
-  }
-  &.hasVal {
-    color: #333;
-  }
-}
+
 </style>
 <style>
   .table-obj .el-form-item {

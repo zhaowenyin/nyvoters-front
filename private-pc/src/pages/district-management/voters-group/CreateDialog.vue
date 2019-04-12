@@ -25,13 +25,21 @@
             <el-form-item
               label="所属选区"
               prop="distinctId">
-                 <div :class="['select-input',{hasVal: form.distinct}]" ><div style="flex: 1;" @click="select">{{form.distinct ? form.distinct : '请选择对应行政区'}}</div><i @click="close1"/></div>
+                <DistrictSelect
+                :labels="form.distinct"
+                :multiple="false"
+                @setData="setData"
+                @clear="clear"
+                v-model="form.distinctId"
+                :item='item'
+                :data="data"
+                />
             </el-form-item>
           </el-col>
            <el-col :span="12">
             <el-form-item
               label="类型">
-              <el-select  size="medium" v-model.trim="form.type" placeholder="请选择类型">
+              <el-select class="item" size="medium" v-model.trim="form.type" placeholder="请选择类型">
                 <el-option
                   v-for="(item, key) in typeList"
                   :key="key"
@@ -113,18 +121,12 @@
           size="medium">取消</el-button>
       </div>
     </el-dialog>
-     <PrecinctList
-     @saveData="saveData"
-      v-if="createDialogVisible"
-      :item="item"
-      :visible.sync='createDialogVisible'
-      />
   </div>
 </template>
 <script>
 import {setSubmit, modifySubmit} from './service.js'
-import { mapActions } from 'vuex'
-import PrecinctList from './PrecinctList'
+import DistrictSelect from '../../../components/DistrictSelect'
+import { mapActions,mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -170,13 +172,25 @@ export default {
     }
   },
   components: {
-    PrecinctList
+    DistrictSelect
+  },
+  computed: {
+    ...mapState('commonData', {
+      data: state => state.treeList
+    })
   },
   created () {
     this.form = {...this.form, ...this.item }
-
+    let id = ''
+    if(this.item.id || this.item.id===0) {
+      id = this.item.id
+    }
+    this.searchTree({type: 0, id})
   },
   methods: {
+    ...mapActions('commonData', [
+      'searchTree',
+    ]),
     ...mapActions('voterGroup', [
       'getListData'
     ]),
@@ -217,13 +231,11 @@ export default {
     select () {
       this.createDialogVisible = true
     },
-    saveData (val) {
-      this.form.distinct = val.name
-      this.form.distinctId = val.id
+    setData (val) {
+      this.form.distinct = val
     },
-    close1 () {
-      this.form.distinctId = ''
-      this.form.distinct = ''
+    clear (val) {
+      this.form.distinct = val
     }
   }
 

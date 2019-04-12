@@ -36,7 +36,6 @@
             <el-form-item
               label="所选区域"
               prop="belongAreaId">
-              <!-- <div :class="['select-input',{hasVal: form.belongArea}]" ><div style="flex: 1;" @click="select">{{form.belongArea ? form.belongArea : '请选择对应行政区'}}</div><i @click="close1"/></div> -->
               <DistrictSelect
                 :labels="form.belongArea"
                 :multiple="false"
@@ -44,6 +43,7 @@
                 @clear="clear"
                 v-model="form.belongAreaId"
                 :item='item'
+                :data="data"
               />
             </el-form-item>
           </el-col>
@@ -310,18 +310,11 @@
           size="medium">取消</el-button>
       </div>
     </el-dialog>
-    <!-- <PrecinctList
-      @saveData="saveData"
-      :item="item"
-      v-if="createDialogVisible"
-      :visible.sync='createDialogVisible'
-    /> -->
 </div>
 </template>
 <script>
 import {setSubmit} from './service.js'
 import { mapActions,mapState } from 'vuex'
-// import PrecinctList from '../../../components/PrecinctList'
 import DistrictSelect from '../../../components/DistrictSelect'
 import {educationList, postList,partyList} from '../../../common-data/config.js'
 export default {
@@ -430,10 +423,10 @@ export default {
   computed: {
     ...mapState('commonData', {
       nationList: state => state.nationList,
+      data: state => state.treeList
     })
   },
   components: {
-    // PrecinctList
     DistrictSelect
   },
   props:{
@@ -452,7 +445,8 @@ export default {
   },
   methods: {
     ...mapActions('commonData', [
-      'searchnation'
+      'searchnation',
+      'searchTree'
     ]),
     ...mapActions('behalfCommended', [
       'getListData'

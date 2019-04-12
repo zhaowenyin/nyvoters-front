@@ -22,6 +22,7 @@
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
       :labels="labels"
+      :data="data"
       />
   </div>
 </template>
@@ -66,6 +67,10 @@ export default {
     multiple: {
       default: false,
       type: Boolean
+    },
+    data: {
+      default: () => [],
+      type: Array
     }
 
   },
@@ -87,7 +92,6 @@ export default {
       this.$emit('clear',value)
     },
     saveData (val) {
-      console.log(val)
       let value = []
       let name=[]
       if(this.multiple) {

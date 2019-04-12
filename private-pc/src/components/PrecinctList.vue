@@ -43,13 +43,11 @@
   </el-dialog>
 </template>
 <script>
-import {getTree} from '../common-data/service.js'
 import CommonTree from './common-tree'
 export default {
   data () {
     return {
       loading: false,
-      data: [],
       filterText: '',
       selectList: [],
       nameList: []
@@ -77,6 +75,10 @@ export default {
       default: null,
       type: [String, Array]
     },
+    data: {
+      default: () => [],
+      type: Array
+    }
   },
   watch: {
     filterText(val) {
@@ -84,18 +86,6 @@ export default {
     }
   },
   created () {
-    let val = {}
-    if(this.item.id) {
-      val = {
-        id: this.item.id,
-        type: 2
-      }
-    } else {
-      val = {
-        type: 2
-      }
-    }
-    this.searchTree(val)
     if (this.multiple) {
       this.nameList = JSON.parse(JSON.stringify(this.labels))
     } else {
@@ -123,10 +113,6 @@ export default {
       this.close()
     },
 
-    async searchTree () {
-      const {data} = await getTree()
-      this.data = data.content
-    },
     comfirmClose () {
       this.close()
     },
@@ -167,6 +153,9 @@ export default {
     height: 350px;
     border: 1px solid #ccc;
     padding: 10px;
+    & li {
+      line-height: 16px;
+    }
   }
   .row-ccontent {
     display: flex;

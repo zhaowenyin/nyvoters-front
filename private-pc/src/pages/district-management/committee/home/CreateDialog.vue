@@ -56,6 +56,7 @@
               @clear="clear"
               v-model="form.precinctId"
               :item='item'
+              :data="data"
             />
         </el-form-item>
         <el-form-item
@@ -103,7 +104,7 @@
   </div>
 </template>
 <script>
-import {setSubmit,modifySubmit} from './service.js'
+import {setSubmit,modifySubmit,getTree} from './service.js'
 import { mapActions } from 'vuex'
 import DistrictSelect from '../../../../components/DistrictSelect'
 export default {
@@ -131,6 +132,7 @@ export default {
 
       },
       createDialogVisible: false,
+      data: []
     }
 
   },
@@ -159,6 +161,7 @@ export default {
       sort: this.item.sort,
     }
     this.form = {...this.form, ...params }
+    this.searchTree({id: '',type: 0})
   },
   methods: {
     ...mapActions('committeeHome', [
@@ -206,7 +209,12 @@ export default {
     },
     clear (val) {
       this.form.precinct = val
+    },
+    async searchTree () {
+      const {data} = await getTree()
+      this.data = data.content
     }
+
   }
 
 }

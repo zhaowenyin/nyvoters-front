@@ -61,6 +61,7 @@
           @clear="clear"
           v-model="form.precinctId"
           :item='item'
+          :data="data"
           />
         </el-form-item>
         <el-form-item
@@ -91,7 +92,7 @@
 </template>
 <script>
 import {setSubmit} from './service.js'
-import { mapActions } from 'vuex'
+import { mapActions,mapState } from 'vuex'
 import {registrationTypeList} from '../../../../common-data/config.js'
 import DistrictSelect from '../../../../components/DistrictSelect'
 export default {
@@ -141,6 +142,11 @@ export default {
     }
 
   },
+  computed: {
+    ...mapState('commonData', {
+      data: state => state.treeList
+    })
+  },
   props:{
     visible: {
       default: false,
@@ -166,12 +172,19 @@ export default {
         registrationType: this.item.registrationType
       }
     }
-
-    this.form = {...this.form, ...params }
+    let id = ''
+    if(this.item.id || this.item.id===0) {
+      id = this.item.id
+    }
+    this.searchTree({type: 0, id})
+    this.form = {...this.form, ...params}
   },
   methods: {
     ...mapActions('committeeAcccount', [
       'getListData1'
+    ]),
+    ...mapActions('commonData', [
+      'searchTree',
     ]),
     close () {
       this.$emit('update:visible', false)

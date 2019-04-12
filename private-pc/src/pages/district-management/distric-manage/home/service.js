@@ -79,33 +79,6 @@ export async function deletetTabel (payload) {
   })
   // return api.post('/precinct/delete', payload)
 }
-export async function getTree (payload) {
-  console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: [{
-          id: '1',
-          name: '一级 1',
-          access: false,
-          children: [{
-            id: '1_1',
-            name: '二级 1-1',
-            access: true,
-            children: [{
-              id: '1_1_1',
-              name: '三级 1-1-1',
-              access: true,
-            }]
-          }]
-        }, {
-          id: '2',
-          name: '一级 2',
-          children: []
-        }]
-      })
-    }, 500)
-  })
-}
+
 
 

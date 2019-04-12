@@ -40,8 +40,8 @@ export default {
         data
       })
     },
-    async searchTree ({ commit, state }) {
-      if (!isEmptyObj(state.treeList)) return
+    async searchTree ({ commit, state }, payload) {
+      if (!isEmptyObj(state.treeList)&&payload.type===0) return
       const { data } = await getTree()
       commit({
         type: 'updateTreeList',

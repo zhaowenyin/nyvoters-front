@@ -48,7 +48,7 @@ export default {
     CommonTree
   },
   created () {
-    this.searchTree()
+    this.searchTree({type: 0, id: ''})
     this.saveDistrictId('')
   },
   methods: {
