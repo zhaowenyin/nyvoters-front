@@ -51,6 +51,7 @@ export default {
   created () {
     this.searchTree({type: 0, id: ''})
     this.saveDistrictId('')
+    this.saveDistrictName('')
   },
   methods: {
     ...mapMutations('commonData', [
@@ -64,6 +65,7 @@ export default {
     },
     handleNodeClick(data) {
       this.saveDistrictId(data.id)
+      this.saveDistrictName(data.name)
     }
   }
 }

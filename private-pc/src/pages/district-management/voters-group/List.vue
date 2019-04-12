@@ -67,18 +67,18 @@ export default {
       pageNum: state => state.searchParam.pageNum
     }),
     ...mapState('commonData', {
-      commonDistrictId: state => state.commonDistrictId
+      belongAreaId: state => state.belongAreaId
     }),
   },
   components: {
   },
   watch: {
-    commonDistrictId () {
-      this.getListData({ commonDistrictId: this.commonDistrictId })
+    belongAreaId () {
+      this.getListData({ belongAreaId: this.belongAreaId })
     }
   },
   created () {
-    this.getListData({commonDistrictId: this.commonDistrictId })
+    this.getListData({belongAreaId: this.belongAreaId })
   },
   methods: {
     ...mapActions('voterGroup', [

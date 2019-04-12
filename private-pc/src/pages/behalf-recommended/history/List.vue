@@ -72,17 +72,17 @@ export default {
       page: state => state.searchParam.page,
     }),
     ...mapState('commonData', {
-      commonDistrictId: state => state.commonDistrictId
+      belongAreaId: state => state.belongAreaId
     }),
   },
   components: {
   },
   created () {
-    this.getListData({commonDistrictId: this.commonDistrictId })
+    this.getListData({belongAreaId: this.belongAreaId })
   },
   watch: {
-    commonDistrictId () {
-      this.getListData({commonDistrictId: this.commonDistrictId })
+    belongAreaId () {
+      this.getListData({belongAreaId: this.belongAreaId })
     }
   },
   methods: {

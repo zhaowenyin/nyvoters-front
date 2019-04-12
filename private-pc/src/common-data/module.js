@@ -6,7 +6,8 @@ export default {
   state: {
     userInfo: {},
     nationList: [],
-    commonDistrictId: '',
+    belongAreaId: '',
+    belongArea: '',
     treeList: []
   },
   mutations: {
@@ -17,7 +18,10 @@ export default {
       state.nationList = payload.data.content
     },
     saveDistrictId(state, payload) {
-      state.commonDistrictId = payload
+      state.belongAreaId = payload
+    },
+    saveDistrictName(state, payload) {
+      state.belongArea = payload
     },
     updateTreeList (state, payload) {
       state.treeList = payload.data.content
