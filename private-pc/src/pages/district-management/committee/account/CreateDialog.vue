@@ -192,10 +192,6 @@ export default {
     handerParams () {
       let params = {...this.form}
       return params
-    },
-    saveData (val) {
-      this.form.precinct = val.name
-      this.form.precinctId = val.id
     }
   }
 

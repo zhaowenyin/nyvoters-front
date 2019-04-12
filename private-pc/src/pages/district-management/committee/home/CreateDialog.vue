@@ -23,8 +23,8 @@
             <el-option
               v-for="(item, key) in parentList"
               :key="key"
-              :label="item"
-              :value="+key">
+              :label="item.value"
+              :value="item.id">
             </el-option>
           </el-select>
         </el-form-item>
@@ -104,7 +104,7 @@
   </div>
 </template>
 <script>
-import {setSubmit,modifySubmit,getTree} from './service.js'
+import {setSubmit,modifySubmit,getTree,parentList} from './service.js'
 import { mapActions } from 'vuex'
 import DistrictSelect from '../../../../components/DistrictSelect'
 export default {
@@ -132,7 +132,8 @@ export default {
 
       },
       createDialogVisible: false,
-      data: []
+      data: [],
+      parentList: []
     }
 
   },
@@ -162,6 +163,10 @@ export default {
     }
     this.form = {...this.form, ...params }
     this.searchTree({id: '',type: 0})
+    if(this.item.parentId || this.item.parentId===0) {
+      this.getParentList({parentId:this.item.parentId})
+    }
+
   },
   methods: {
     ...mapActions('committeeHome', [
@@ -213,8 +218,12 @@ export default {
     async searchTree () {
       const {data} = await getTree()
       this.data = data.content
+    },
+    async getParentList () {
+      this.parentList = []
+      const {data} = await parentList()
+      this.parentList.push(data.content)
     }
-
   }
 
 }
