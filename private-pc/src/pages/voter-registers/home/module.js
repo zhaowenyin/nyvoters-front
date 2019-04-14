@@ -31,7 +31,12 @@ export default {
     },
     updateList (state, payload) {
       const { data = [], total = 0 } = payload.data
-      state.list = data
+      state.list = data.map(i => {
+        i.lastFailNum = i.details[i.details.length-1].failNum>0
+        i.lastId = i.details[i.details.length-1].id
+        i.lastProcessSate = i.details[i.details.length-1].processSate
+        return i
+      })
       state.total = total
     },
     updataSearchParam (state, payload) {

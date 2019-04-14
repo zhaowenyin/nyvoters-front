@@ -24,7 +24,10 @@
         <ul class="content">
           <li
             v-for="(i, key) in nameList"
-            :key="key">{{i}}</li>
+            :key="key">
+            <span>{{i}}</span>
+            <i/>
+          </li>
         </ul>
       </div>
     </div>
@@ -155,6 +158,7 @@ export default {
     padding: 10px;
     & li {
       line-height: 16px;
+      margin-bottom: 30px;
     }
   }
   .row-ccontent {

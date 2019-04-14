@@ -1,81 +1,124 @@
 <template>
   <div>
-    <div
-       v-for="(i, index) in list"
-      :key="index">
-      <el-table
-        :show-header="index===0"
-        :data="i.details"
-        class="add_table"
-        border
-        v-loading="loading">
-        <el-table-column
-          align="right"
-          width="55">
-           <template slot-scope="scope">
-            {{scope.row.id==='' ? '-' : ''}}
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="分类"
-          prop="type">
-          <template slot-scope="scope">
-            {{handertype(scope.row.type)}}
-          </template>
-        </el-table-column>
-        <el-table-column
+    <el-table
+      :show-header="true"
+      :data="list"
+      class="add_table expand-tabel"
+      border
+      v-loading="loading"
+    >
+      <el-table-column type="expand">
+        <template slot-scope="props">
+          <el-table
+            :show-header="false"
+            :data="props.row.details"
+            class="add_table"
+            >
+            <el-table-column
+              label="分类"
+              width="48"
+              prop="">
+            </el-table-column>
+            <el-table-column
+              label="分类"
+              prop="type">
+              <template slot-scope="scope">
+                {{handertype(scope.row.type)}}
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="导入时间"
+              width='120'
+              prop="importTime">
+              <template slot-scope="scope">
+                {{formatDate(scope.row.importTime)}}
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="操作人"
+              prop="operater">
+              <template slot-scope="scope">
+                {{handergender(scope.row.operater)}}
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="登记类型">
+              <template slot-scope="scope">
+                {{handerRegistrationType(scope.row.registrationType	)}}
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="总数"
+              prop="num"
+            />
+            <el-table-column
+              prop="successNum"
+              label="成功数">
+            </el-table-column>
+            <el-table-column
+              label="失败数"
+              prop="failNum" />
+              <el-table-column
+              label="进度"
+              prop="processSate" >
+              <template slot-scope="scope">
+                {{handerProcessSate(scope.row.processSate)}}
+              </template>
+            </el-table-column>
+              <el-table-column
+              width="150"
+              label="操作"
+            >
+            </el-table-column>
+          </el-table>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="分类"
+        prop="">
+        <template slot-scope="scope">
+          {{scope.row.type}}
+           导入记录
+        </template>
+      </el-table-column>
+      <el-table-column
           label="导入时间"
           width='120'
-          prop="importTime">
-          <template slot-scope="scope">
-            {{formatDate(scope.row.importTime)}}
-          </template>
+          prop="">
         </el-table-column>
         <el-table-column
           label="操作人"
-          prop="operater">
-          <template slot-scope="scope">
-            {{handergender(scope.row.operater)}}
-          </template>
+          prop="">
         </el-table-column>
         <el-table-column
           label="登记类型">
-          <template slot-scope="scope">
-            {{handerRegistrationType(scope.row.registrationType	)}}
-          </template>
         </el-table-column>
         <el-table-column
           label="总数"
-          prop="num"
+          prop=""
         />
         <el-table-column
-          prop="successNum"
+          prop=""
           label="成功数">
         </el-table-column>
         <el-table-column
           label="失败数"
-          prop="failNum" />
+          prop="" />
           <el-table-column
           label="进度"
-          prop="processSate" >
-          >
-          <template slot-scope="scope">
-            {{handerProcessSate(scope.row.processSate)}}
-          </template>
+          prop="" >
         </el-table-column>
-          <el-table-column
-          fixed="right"
+        <el-table-column
           width="150"
           label="操作"
         >
-          <template v-if="scope.row.processSate === 0 || scope.row.processSate" slot-scope="scope">
-            <el-button size="small" @click="repair(scope.row.id)" type="text">修复</el-button>
-            <el-button size="small" @click="exportFile(scope.row.id)" type="text">导出失败数据</el-button>
-            <el-button size="small" @click="contrast(scope.row.id)" type="text">对比</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
+        <template slot-scope="scope">
+          <el-button v-if="scope.row.lastFailNum>0&&scope.row.lastProcessSate!==1" size="small" @click="repair(scope.row)" type="text">修复</el-button>
+          <el-button  v-if="scope.row.lastFailNum>0&&scope.row.lastProcessSate!==1" size="small" @click="exportFile(scope.row)" type="text">导出失败数据</el-button>
+          <el-button size="small" v-if="scope.row.lastProcessSate==1"  @click="contrast(scope.row)" type="text">对比</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
     <div
       v-show="total"
       class="add_pagination">
@@ -87,16 +130,25 @@
         layout="prev, pager, next"
         :total="total" />
     </div>
+      <CreateDialog
+      v-if="createDialogVisible"
+      :visible.sync='createDialogVisible'
+      :last-id="lastId"
+      />
   </div>
 </template>
 <script>
 import { mapState, mapActions,mapMutations } from 'vuex'
 import { formatDate } from '../../../utils/format.js'
+import CreateDialog from './CreateDialog'
+import  output from '../../../utils/output.js'
 
 export default {
   data () {
     return {
       downLoading: false,
+      createDialogVisible: false,
+      lastId: null
     }
   },
   computed: {
@@ -110,6 +162,7 @@ export default {
     })
   },
   components: {
+    CreateDialog
   },
   created () {
     this.getListData()
@@ -204,13 +257,20 @@ export default {
       return text
     },
     repair() {
-
+      this.createDialogVisible = true
+      this.lastId = null
     },
-    exportFile() {
-
+    exportFile(val) {
+      try {
+        output({url: '/doc/download', params: {id: val.id, module: 1}})
+      } catch (err) {
+        console.log(err)
+      }
     },
-    contrast () {
-
+    contrast (val) {
+      console.log(val)
+      this.createDialogVisible = true
+      this.lastId = val.lastId
     }
   }
 }
@@ -222,4 +282,7 @@ export default {
 .table1 .el-table__empty-block {
   display: none;
  }
+ .expand-tabel .el-table__expanded-cell[class*=cell] {
+    padding: 0px 0px;
+}
 </style>

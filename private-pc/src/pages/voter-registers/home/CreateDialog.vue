@@ -16,7 +16,7 @@
     </el-steps>
     <el-form
       :model="form"
-      v-if="showForm"
+      v-if="showForm&&active===0"
       ref="form"
       class="form">
        <el-form-item
@@ -79,6 +79,7 @@
 import {getProcessSate} from './service.js'
 import { baseURL } from '../../../utils/api.js'
 import { getSession } from '../../../utils/session.js'
+import { mapActions } from 'vuex'
 export default {
   data () {
     const authToken = getSession()
@@ -106,6 +107,10 @@ export default {
     item: {
       default: () => {},
       type: Object
+    },
+    lastId: {
+      default: null,
+      type: Number
     }
   },
   computed: {
@@ -127,10 +132,21 @@ export default {
   },
   created () {
     clearInterval(this.timer)
+    if (this.lastId) {
+      this.active = +(this.lastId + 1)
+      this.loading = true
+      this.searchProcessSate({id: this.lastId})
+    }
+
   },
   methods: {
+    ...mapActions('voterRegisters', [
+      'getListData'
+    ]),
     close () {
       this.$emit('update:visible', false)
+      this.getListData()
+      clearInterval(this.timer)
     },
     submitForm () {
 

@@ -3,7 +3,7 @@
     <el-dialog
       :title="(item.id || item.id===0) ? '修改' : '新建'"
       :visible="visible"
-      width="600px"
+      width="60%"
       :before-close="comfirmClose">
       <el-form
         label-width="110px"

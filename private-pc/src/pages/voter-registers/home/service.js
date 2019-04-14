@@ -13,11 +13,8 @@ export async function getList (payload) {
               {
                 "details": [
                   {
-                    id: ''
-                  },
-                  {
-                    "failNum": 0,
-                    "id": 0,
+                    "failNum": 7,
+                    "id": 1,
                     "importTime": 9999,
                     "num": 0,
                     "operater": "string",
@@ -27,7 +24,7 @@ export async function getList (payload) {
                     "type": 0
                   },
                   {
-                    "failNum": 0,
+                    "failNum": 100,
                     "id": 1,
                     "importTime": 9999,
                     "num": 0,
@@ -41,20 +38,17 @@ export async function getList (payload) {
                 "failNum": 0,
                 "num": 0,
                 "processSate": 0,
-                "successNum": 0
+                "successNum": 0,
               },
               {
                 "details": [
                   {
-                    id: ''
-                  },
-                  {
-                    "failNum": 0,
+                    "failNum": 100,
                     "id": 1,
                     "importTime": 9999,
                     "num": 0,
                     "operater": "string",
-                    "processSate": 0,
+                    "processSate": 1,
                     "registrationType": 0,
                     "successNum": 0,
                     "type": 0

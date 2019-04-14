@@ -38,7 +38,6 @@ export default {
     ]),
     // 搜索
     upload () {
-      console.log(111)
       this.createDialogVisible = true
     },
     async download (item) {
