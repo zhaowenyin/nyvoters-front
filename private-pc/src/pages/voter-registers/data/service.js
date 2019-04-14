@@ -7,29 +7,40 @@ export async function getList (payload) {
     setTimeout(() => {
       resolve({
         data: {
-          total: 100,
-          list: [
-            {
-              id: 1,
-              name: '张三',
-              card: '510922199608254411',
-              gender: '男',
-              tel: '15590001222',
-              address_type: '居住地',
-              time: 1551621599434,
-              type: '登记成功'
-            },
-            {
-              id: 2,
-              name: '李四',
-              card: '510922199608254411',
-              gender: '男',
-              tel: '15590001222',
-              address_type: '居住地',
-              time: 1551621599434,
-              type: '登记成功'
-            }
-          ]
+          "code": "string",
+          "content": {
+            "data": [
+              {
+                "auditStatus": 0,
+                "auditTime": "2019-04-05T10:14:15.886Z",
+                "auditer": "string",
+                "candidateType": 0,
+                "contactInformation": "string",
+                "gender": 1,
+                "householdRegistration": "string",
+                "householdRegistrationDetail": "string",
+                "id": 0,
+                "idNum": "string",
+                "living": "string",
+                "livingDetail": "string",
+                "name": "string",
+                "nation": "string",
+                "phoneNum": "string",
+                "registrar": "string",
+                "registrationTime": "2019-04-05T10:14:15.892Z",
+                "registrationType": 0,
+                "status": 0
+              }
+            ],
+            "endRow": 0,
+            "pageNum": 0,
+            "pageSize": 0,
+            "pages": 0,
+            "startRow": 0,
+            "total": 20
+          },
+          "message": "string",
+          "status": "string"
         }
       })
     }, 500)
@@ -37,7 +48,7 @@ export async function getList (payload) {
   // return api.get('/import/data/list', { params: payload })
 }
 
-export async function sumitData (payload) {
+export async function setSubmit (payload) {
   console.log(payload)
   return new Promise((resolve) => {
     setTimeout(() => {

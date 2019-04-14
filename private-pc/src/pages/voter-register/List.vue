@@ -45,7 +45,7 @@
       </el-table-column>
       <el-table-column
         label="选民状态"
-        prop="type">
+        prop="status">
          <template slot-scope="scope">
           {{handerstatus(scope.row.status)}}
         </template>

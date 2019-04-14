@@ -18,8 +18,8 @@
             :key="key"
             class="item"
             v-for="(i,key) in filterList">
-            <div>{{i.name}}</div>
-            <div>{{i.precinct}}</div>
+            <div>{{i.recommendedPerson}}</div>
+            <div>{{i.belongAreaName}}</div>
           </li>
         </ul>
 
@@ -32,8 +32,8 @@
             :key="key"
             class="item"
             v-for="(i,key) in selectedList">
-            <div>{{i.name}}</div>
-            <div>{{i.precinct}}</div>
+            <div>{{i.recommendedPerson}}</div>
+            <div>{{i.belongAreaName}}</div>
             <i @click="deleteI(i)" class="el-icon-circle-close"></i>
           </li>
         </ul>
@@ -54,8 +54,8 @@
   </el-dialog>
 </template>
 <script>
-import {getCandidate,setSubmit} from './service.js'
-import { mapActions } from 'vuex'
+import {getList,setSubmit} from './service.js'
+import { mapActions,mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -87,13 +87,18 @@ export default {
       this.timer = setTimeout(() => {
         if (value) {
           this.filterList = list.filter(i => {
-            return i.name.indexOf(value) >= 0
+            return i.recommendedPerson.indexOf(value) >= 0
           })
         } else {
           this.filterList = list
         }
       }, 100)
     }
+  },
+  computed: {
+    ...mapState('commonData', {
+      belongAreaId: state => state.belongAreaId
+    })
   },
   created () {
     this.searchCandidate()
@@ -117,7 +122,7 @@ export default {
         })
         return
       }
-      this.$confirm('确认将已选人员作为正式候选人？')
+      this.$confirm('确认将已选人员作为初步候选人？')
         .then(() => {
           this.sumitData()
         })
@@ -127,16 +132,24 @@ export default {
 
     async searchCandidate () {
       this.loading = true
-      const {data} = await getCandidate()
-      this.list = data.content
+      const {data} = await getList({pageSize: 20,pageNum: 1,belongAreaId: this.belongAreaId})
+      this.list = data.content.data
       this.filterList = JSON.parse(JSON.stringify(this.list))
       this.loading = false
+    },
+    submit () {
+      this.$confirm('确认将已选人员作为正式候选人？', '提示')
+        .then(() => {
+          this.close()
+          this.sumitData()
+        })
+        .catch(() => {})
     },
     async sumitData () {
       this.loading = true
       let idList = []
       for (let i of this.selectedList) {
-        idList.push(i.precinctId)
+        idList.push(i.id)
       }
       let params = {idList}
       await setSubmit(params)
@@ -156,7 +169,7 @@ export default {
     },
     deleteI(val) {
       this.selectedList = this.selectedList.filter(i => {
-        return i.precinctId!==val.precinctId
+        return i.id!==val.id
       })
 
     }

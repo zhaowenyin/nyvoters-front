@@ -66,53 +66,5 @@ export async function setSubmit (payload) {
   })
   // return api.post('/formal-candidate/add', payload)
 }
-export async function getCandidate (payload) {
-  console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-          content: [{
-            name: '李佳怡',
-            precinctId: '1',
-            precinct: '云阳镇第1选区'
-          },
-          {
-            name: '李佳怡',
-            precinctId: '2',
-            precinct: '云阳镇第1选区'
-          },
-          {
-            name: '李佳怡',
-            precinctId: '3',
-            precinct: '云阳镇第1选区'
-          },
-          {
-            name: '李佳怡',
-            precinctId: '4',
-            precinct: '云阳镇第1选区'
-          },
-          {
-            name: '李佳怡',
-            precinctId: '5',
-            precinct: '云阳镇第1选区'
-          },
-          {
-            name: '李佳怡',
-            precinctId: '6',
-            precinct: '云阳镇第1选区'
-          },
-          {
-            name: '李佳怡',
-            precinctId: '7',
-            precinct: '云阳镇第1选区'
-          }]
-
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/', payload)
-}
 
 

@@ -90,3 +90,6 @@ textarea { resize: none; }
   border-top: solid 1px #dddddd;
   border-bottom: solid 1px #dddddd !important;
 }
+.add_table .el-table__body-wrapper{
+  overflow: hidden;
+}

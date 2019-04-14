@@ -329,8 +329,6 @@ export default {
       let params = {...this.form}
       params.householdRegistration = params.householdRegistration + params.householdRegistrationDetail
       params.living = params.living + params.livingDetail
-      delete params.householdRegistrationDetail
-      delete params.livingDetail
       return params
     }
   }

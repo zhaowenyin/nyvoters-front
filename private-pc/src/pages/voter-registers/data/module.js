@@ -7,8 +7,8 @@ export default {
     list: [],
     total: 0,
     searchParam: {
-      pageSize: 20,
-      pageNum: 1
+      size: 20,
+      page: 1
     },
     multipleSelection: []
   },
@@ -18,8 +18,8 @@ export default {
       state.list = []
       state.total = 0
       state.searchParam = {
-        pageSize: 20,
-        pageNum: 1
+        size: 10,
+        page: 1
       }
       state.multipleSelection = []
     },
@@ -30,8 +30,8 @@ export default {
       state.loading = false
     },
     updateList (state, payload) {
-      const { list = [], total = 0 } = payload.data
-      state.list = list
+      const { data = [], total = 0 } = payload.data
+      state.list = data
       state.total = total
     },
     updataSearchParam (state, payload) {
@@ -53,7 +53,7 @@ export default {
       })
       commit({
         type: 'updateList',
-        data
+        data: data.content
       })
       commit({
         type: 'hideLoading'

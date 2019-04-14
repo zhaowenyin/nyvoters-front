@@ -23,6 +23,20 @@ export async function getList (payload) {
                 "recommendedPersonId": 12345678,
                 "status": "PRELIMINARY_CANDIDATE",
                 "type": 1
+              },
+              {
+                "belongAreaId": 54122356874,
+                "belongAreaName": "云阳镇第2选区",
+                "birthDay": 605894400000,
+                "gender": 1,
+                "id": 2,
+                "idNum": 510810199910251100,
+                "phoneNum": 15898412568,
+                "recommendType": 1,
+                "recommendedPerson": "张三",
+                "recommendedPersonId": 12345678,
+                "status": "PRELIMINARY_CANDIDATE",
+                "type": 1
               }
             ],
             "endRow": 0,
@@ -65,54 +79,6 @@ export async function setSubmit (payload) {
     }, 500)
   })
   // return api.post('/preliminary-candidate/add', payload)
-}
-export async function getCandidate (payload) {
-  console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-          content: [{
-            name: '李佳怡',
-            precinctId: '1',
-            precinct: '云阳镇第1选区'
-          },
-          {
-            name: '李佳怡',
-            precinctId: '2',
-            precinct: '云阳镇第1选区'
-          },
-          {
-            name: '李佳怡',
-            precinctId: '3',
-            precinct: '云阳镇第1选区'
-          },
-          {
-            name: '李佳怡',
-            precinctId: '4',
-            precinct: '云阳镇第1选区'
-          },
-          {
-            name: '李佳怡',
-            precinctId: '5',
-            precinct: '云阳镇第1选区'
-          },
-          {
-            name: '李佳怡',
-            precinctId: '6',
-            precinct: '云阳镇第1选区'
-          },
-          {
-            name: '李佳怡',
-            precinctId: '7',
-            precinct: '云阳镇第1选区'
-          }]
-
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/', payload)
 }
 
 

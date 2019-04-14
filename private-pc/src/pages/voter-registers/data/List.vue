@@ -5,17 +5,20 @@
       @selection-change="handleSelectionChange"
       class="add_table"
       v-loading="loading">
-      <el-table-column
+   <el-table-column
         type="selection"
         width="55">
       </el-table-column>
       <el-table-column
         label="姓名"
+        width="120"
         prop="name" />
       <el-table-column
+        width="180"
         label="身份证号码"
-        prop="card" />
-     <el-table-column
+        prop="idNum" />
+       <el-table-column
+        width="100"
         label="性别"
         prop="gender">
         <template slot-scope="scope">
@@ -24,19 +27,25 @@
       </el-table-column>
       <el-table-column
         label="手机号"
-        prop="tel" />
+        prop="phoneNum" />
       <el-table-column
         label="参选地类型"
-        prop="address_type" />
+        width="100"
+        prop="candidateType">
+         <template slot-scope="scope">
+          {{ scope.row.candidateType === 0 ? '户籍地' : '现居地'}}
+        </template>
+      </el-table-column>
       <el-table-column
+        width="180"
         label="登记日期">
         <template slot-scope="scope">
-          {{ formatDate(scope.row.time) }}
+          {{ formatDate(scope.row.registrationTime) }}
         </template>
       </el-table-column>
       <el-table-column
         label="选民状态"
-        prop="type">
+        prop="status">
          <template slot-scope="scope">
           {{handerstatus(scope.row.status)}}
         </template>
@@ -73,13 +82,21 @@ export default {
       total: state => state.total,
       pageSize: state => state.searchParam.pageSize,
       pageNum: state => state.searchParam.pageNum
-    })
+    }),
+    ...mapState('commonData', {
+      belongAreaId: state => state.belongAreaId
+    }),
   },
   components: {
     Pagination
   },
   created () {
-    this.getListData()
+    this.getListData({ belongAreaId: this.belongAreaId })
+  },
+  watch: {
+    belongAreaId () {
+      this.getListData({belongAreaId: this.belongAreaId })
+    }
   },
   methods: {
     ...mapActions('voterRegistersData', [
