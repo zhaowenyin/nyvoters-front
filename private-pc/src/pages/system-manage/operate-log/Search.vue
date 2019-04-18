@@ -15,8 +15,8 @@
           size="medium"
           style="width: 120px;"
           placeholder="请选择">
-          <el-option label="姓名" :value="1"></el-option>
-          <el-option label="剥权时间" :value="2"></el-option>
+          <el-option label="操作人" :value="1"></el-option>
+          <el-option label="时间" :value="2"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -25,7 +25,7 @@
         <el-input
           class="item"
           size="medium"
-          placeholder="请输入姓名"
+          placeholder="请输入关键字"
           v-model.trim="searchForm.userName" />
       </el-form-item>
       <el-form-item
@@ -33,7 +33,7 @@
         prop="startTime">
          <el-date-picker
           v-model="searchForm.date"
-          placeholder="请选择"
+          placeholder="请选择时间"
           type="daterange"
           range-separator="至"
           start-placeholder="开始日期"

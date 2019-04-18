@@ -5,10 +5,6 @@
     class="add_table"
     v-loading="loading">
       <el-table-column
-        type="selection"
-        width="55">
-      </el-table-column>
-      <el-table-column
         label="时间"
         prop="opTime">
         <template slot-scope="scope">
