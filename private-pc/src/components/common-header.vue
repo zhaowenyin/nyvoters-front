@@ -8,6 +8,27 @@
     </div>
     <div class="user">
       <span class="time">{{ currentTime }}</span>
+      <el-popover
+      placement="bottom"
+      width="350"
+      trigger="click">
+        <ul class="news">
+          <li
+          class="item"
+          :key="index"
+            v-for="(i, index) in news">
+            <div class="top">
+              <div class="text">{{i.a}}</div>
+              <div class="time">{{formatDate(i.b)}}</div>
+            </div>
+            <div>{{i.c}}</div>
+          </li>
+          <li class="news-center" @click="jupNews">通知中心</li>
+        </ul>
+      <el-badge :value="12" slot="reference" class="item">
+        <i class='el-icon-bell icon-news'></i>
+      </el-badge>
+    </el-popover>
       <span class="username">{{ userInfo.name }}</span>
       <span
         class="quit"
@@ -18,33 +39,41 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import { formatDateTimeZn } from '../utils/format.js'
+import { formatDateTimeZn,formatDate } from '../utils/format.js'
 
 export default {
   data () {
     return {
       currentTime: null,
-      timer: null
+      timer: null,
+      time1: null
     }
   },
   computed: {
     ...mapState('commonData', {
-      userInfo: state => state.userInfo
+      userInfo: state => state.userInfo,
+      news:state => state.news
     })
   },
   created () {
     this.getUserInfo()
     this.currentTime = this.formatDateTimeZn(Date.now())
+    this.getNews()
+    this.timer = setInterval(() => {
+      this.getNews()
+    }, 10000)
     this.timer = setInterval(() => {
       this.currentTime = this.formatDateTimeZn(Date.now())
     }, 1000)
   },
   destroyed() {
     clearInterval(this.timer)
+    clearInterval(this.timer2)
   },
   methods: {
     ...mapActions('commonData', [
-      'getUserInfo'
+      'getUserInfo',
+      'getNews'
     ]),
     quit () {
       this.$confirm('确认退出？')
@@ -55,7 +84,11 @@ export default {
         })
         .catch(()=> {})
     },
-    formatDateTimeZn
+    jupNews () {
+      this.$router.push({path: '/news'})
+    },
+    formatDateTimeZn,
+    formatDate
   }
 }
 </script>
@@ -123,4 +156,37 @@ export default {
       cursor: pointer;
     }
   }
+  .icon-news {
+    font-size: 26px;
+    color: #000;
+    cursor: pointer;
+  }
+  .news {
+    & .item{
+      padding-bottom: 8px;
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 12px;
+      cursor: pointer;
+      & .top {
+        display: flex;
+        justify-content: space-between;
+        & .text {
+          padding-bottom: 8px;
+          font-weight: bold;
+          color: #000;
+        }
+      }
+    }
+    & .news-center {
+      margin-top: 30px;
+      height: 40px;
+      width: 100%;
+      line-height: 40px;
+      text-align: center;
+      background-color: #ddd;
+      color: #000;
+      cursor: pointer;
+    }
+  }
+
 </style>

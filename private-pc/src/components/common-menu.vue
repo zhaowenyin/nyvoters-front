@@ -67,7 +67,9 @@
         <el-menu-item class="item" index="/basic">基础设置</el-menu-item>
         <el-menu-item class="item" index="/file">文件资料管理</el-menu-item>
         <el-menu-item class="item" index="/operate">操作日志</el-menu-item>
-        </el-submenu>
+      </el-submenu>
+
+      <el-menu-item class="item" index="/news"> <img src="../assets/img/77.png" class="icon"/>消息中心</el-menu-item>
     </el-menu>
 
   </div>

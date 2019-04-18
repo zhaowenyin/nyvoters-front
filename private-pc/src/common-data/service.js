@@ -93,5 +93,38 @@ export async function getTree (payload) {
   })
   // return api.post('/precinct/tree, payload)
 }
-
-
+export async function getNews (payload) {
+  console.log(payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+          news: [
+            {
+              a: '选民转移申请处理',
+              b: 555689600000,
+              c: '您有新的选民转移申请，请及时处理！',
+              id: '1',
+              type: 1
+            },
+            {
+              a: '选民转移申请处理结果通知',
+              b: 555689600000,
+              c: '您发起的【张一】转移申请已被【云阳镇第3选区】 处理',
+              id: '2',
+              type: 2
+            },
+            {
+              a: '选民申诉处理',
+              b: 555689600000,
+              c: '您有新的选民申诉待处理',
+              id: '3',
+              type: 3
+            }
+          ]
+        }
+      })
+    }, 500)
+  })
+  // return api.post('/enum-mapping/nation, payload)
+}

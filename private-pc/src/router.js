@@ -57,6 +57,8 @@ const VotersApeal = ()=>import('./pages/voters-management/voters-appeal')
 const VotersApealHome = ()=>import('./pages/voters-management/voters-appeal/home')
 const VotersApealistory = ()=>import('./pages/voters-management/voters-appeal/history')
 const VotersDown = ()=>import('./pages/voters-management/download-file')
+// 消息中心
+const News = () => import('./pages/news-center')
 
 
 
@@ -285,13 +287,28 @@ const router = new Router({
               component: VotersApealistory
             }
           ]
-
         },
         {
           path: 'voters-down',
           name: '选民文件资料',
           component: VotersDown
-        }
+        },
+        {
+          path: 'news',
+          component: News,
+          children: [
+            {
+              path: '',
+              name: '代表推荐',
+              component: BehalfCommended
+            },
+            {
+              path: 'read',
+              name: '代表推荐记录',
+              component: BehalfCommendedHistory
+            }
+          ]
+        },
       ]
     },
 
