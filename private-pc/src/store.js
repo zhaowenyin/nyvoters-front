@@ -32,6 +32,7 @@ import voterInfo from './pages/voter-info/module'
 import voterRegisters from './pages/voter-registers/home/module'
 import voterRegistersData from './pages/voter-registers/data/module'
 
+import log from './pages/system-manage/operate-log/module'
 
 
 Vue.use(Vuex)
@@ -65,6 +66,7 @@ export default new Vuex.Store({
     votersAppealHistory,
     voterInfo,
     voterRegisters,
-    voterRegistersData
+    voterRegistersData,
+    log
   }
 })
