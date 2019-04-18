@@ -92,7 +92,7 @@ export default {
     }
   },
   created () {
-    this.getListData({belongAreaId: this.belongAreaId })
+    this.getListData({belongAreaId: this.belongAreaId,statusList:['PRELIMINARY_CANDIDATE'] })
   },
   methods: {
     ...mapActions('initialCandidate', [

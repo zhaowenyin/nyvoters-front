@@ -92,7 +92,7 @@ export default {
     }
   },
   created () {
-    this.getListData({belongAreaId: this.belongAreaId })
+    this.getListData({belongAreaId: this.belongAreaId,statusList: ['FORMAL_REPRESENTATIVE'] })
   },
   methods: {
     ...mapActions('officialBehalf', [

@@ -131,7 +131,7 @@ export default {
 
     async searchCandidate () {
       this.loading = true
-      const {data} = await getList({pageSize: 20,pageNum: 1,belongAreaId: this.belongAreaId})
+      const {data} = await getList({belongAreaId: this.belongAreaId,statusList:['REVIEW_SUCCESS']})
       this.list = data.content.data
       this.filterList = JSON.parse(JSON.stringify(this.list))
       this.loading = false
