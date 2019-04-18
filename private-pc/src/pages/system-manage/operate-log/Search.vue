@@ -26,13 +26,13 @@
           class="item"
           size="medium"
           placeholder="请输入姓名"
-          v-model.trim="searchForm.name" />
+          v-model.trim="searchForm.userName" />
       </el-form-item>
       <el-form-item
         v-if="type === 2"
         prop="startTime">
          <el-date-picker
-          v-model="searchForm.startTime"
+          v-model="searchForm.date"
           placeholder="请选择"
           type="daterange"
           range-separator="至"
@@ -58,10 +58,8 @@ export default {
     return {
       type: 1,
       searchForm: {
-        name: '',
-        startTime: [],
-        endTime: [],
-        idNum: ''
+        userName: '',
+        date: [],
 
       },
     }
@@ -85,13 +83,13 @@ export default {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           console.log(params.startTime)
           if(params.startTime !== null && params.startTime.length!==0){
-            params.endTimeStart = new Date(params.startTime[0]).getTime()
-            params.startTimeEnd = new Date(params.startTime[1]).getTime()
+            params.startDate = new Date(params.data[0]).getTime()
+            params.endDate = new Date(params.date[1]).getTime()
           } else {
-            params.endTimeStart = ''
-            params.startTimeEnd = ''
+            params.startDate = ''
+            params.endDate = ''
           }
-          delete params.startTime
+          delete params.date
           params.pageNum = 1
           this.getListData(params)
         }
