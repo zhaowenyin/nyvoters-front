@@ -14,6 +14,7 @@
         prop="state">
         <el-select
           v-model="type"
+          @change="change"
           size="medium"
           style="width: 120px;"
           placeholder="请选择">
@@ -24,12 +25,12 @@
       </el-form-item>
       <el-form-item
         v-if="type === 1"
-        prop="recommendedPerson">
+        prop="name">
         <el-input
           class="item"
           size="medium"
           placeholder="请输入行政区名"
-          v-model.trim="searchForm.recommendedPerson" />
+          v-model.trim="searchForm.name" />
       </el-form-item>
       <el-form-item
         v-if="type === 2"
@@ -105,7 +106,7 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
-          params.page = 1
+          params.pageNum = 1
           this.getListData(params)
         }
       })
@@ -150,15 +151,27 @@ export default {
         });
         return
       }
+      if(this.multipleSelection.length !== 1) {
+        this.$notify({
+          title: '',
+          message: '请勾选一条数据进行删除！',
+          type: 'warning'
+        });
+        return
+      }
       let idList = []
       for (let i of this.multipleSelection) {
         idList.push(i.id)
       }
-      let params = {idList,status: "REVIEW_FAIL"}
+      let params = {id: idList[0]}
       await deletetTabel(params)
       const param = JSON.parse(JSON.stringify(this.searchForm))
       param.page = 1
       this.getListData(param)
+    },
+    change () {
+
+
     }
   }
 }

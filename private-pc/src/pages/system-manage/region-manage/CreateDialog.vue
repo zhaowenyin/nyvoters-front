@@ -11,7 +11,7 @@
       ref="form"
       class="login-form">
        <el-form-item
-        label="行政区"
+        label="上级行政区"
         prop="parentId">
         <Tree
         :options="treeList"
@@ -57,6 +57,7 @@
         label="人口数"
         prop="pnum">
         <el-input
+          type="number"
           size="medium"
           placeholder="请输入人口数"
           class="item"
@@ -66,6 +67,7 @@
         label="排序码"
         prop="sort">
         <el-input
+          type="number"
           size="medium"
           placeholder="请输入排序吗"
           class="item"
@@ -152,6 +154,7 @@ export default {
       'getListData'
     ]),
     func (list) {
+      console.log(this.item.parentId)
       let defaultValue = this.item.parentId
       const re = (array, parentArr) => {
         if (!array || array.length === 0) return false
@@ -175,7 +178,7 @@ export default {
     submitForm () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          if(this.item.id) {
+          if(this.item.parentId) {
             this.modifyData()
           } else {
             this.sumitData()
@@ -185,7 +188,13 @@ export default {
     },
     async sumitData () {
       this.loading = true
-      await setSubmit({...this.form,parentId: this.form.parentId[this.form.parentId.length-1]})
+      const params = {
+        ...this.form,
+        parentId: this.form.parentId[this.form.parentId.length-1]
+      }
+      params.sort = +params.sort
+      params.pnum = +params.pnum
+      await setSubmit(params)
 
       this.getListData()
       this.close()
@@ -193,18 +202,25 @@ export default {
     },
     async modifyData () {
       this.loading = true
-      await modifySubmit(this.form)
+      const params = {
+        ...this.form,
+        parentId: this.form.parentId[this.form.parentId.length-1]
+      }
+      params.sort = +params.sort
+      params.pnum = +params.pnum
+      delete params.path
+      await modifySubmit(params)
       this.getListData()
       this.close()
       this.loading = false
     },
 
     async searchTree () {
-      const {data} = await getTree()
-      if(this.item.parentId) {
-        this.func(data)
+      const {data} = await getTree({id: '',type: 0})
+      if(this.item.id) {
+        this.func([data.content])
       }
-      this.treeList = data
+      this.treeList = [data.content]
     },
     comfirmClose () {
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
@@ -212,10 +228,6 @@ export default {
           this.close()
         })
         .catch(() => {})
-    },
-    close1 () {
-      this.form.parentId = ''
-      this.form.parent = ''
     }
   }
 

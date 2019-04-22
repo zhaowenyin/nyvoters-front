@@ -25,7 +25,7 @@ export default {
       state.belongArea = payload
     },
     updateTreeList(state, payload) {
-      state.treeList = payload.data.content
+      state.treeList = [payload.data.content]
     },
     updateNews(state, payload) {
       state.news = payload.data.news
@@ -50,7 +50,7 @@ export default {
     },
     async searchTree ({ commit, state }, payload) {
       if (!isEmptyObj(state.treeList)&&payload.type===0) return
-      const { data } = await getTree()
+      const { data } = await getTree({type: payload.type,id:''})
       commit({
         type: 'updateTreeList',
         data

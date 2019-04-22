@@ -28,9 +28,9 @@
       class="add_pagination">
       <el-pagination
         @current-change="handleCurrentChange"
-        :page-size="size"
+        :page-size="pageSize"
         background
-        :current-page="page"
+        :current-page="pageNum"
         layout="prev, pager, next"
         :total="total" />
     </div>
@@ -50,9 +50,9 @@ export default {
     ...mapState('regionManage', {
       loading: state => state.loading,
       list: state => state.list,
-      total: state => state.total,
-      size: state => state.searchParam.size,
-      page: state => state.searchParam.page,
+      total: state => +state.total,
+      pageSize: state => state.searchParam.pageSize,
+      pageNum: state => state.searchParam.pageNum,
     }),
     ...mapState('commonData', {
       belongAreaId: state => state.belongAreaId
@@ -77,7 +77,7 @@ export default {
     ]),
     // 分页
     handleCurrentChange (val) {
-      this.getListData({ page: val })
+      this.getListData({ pageNum: val })
     },
     look (id) {
       console.log(id)

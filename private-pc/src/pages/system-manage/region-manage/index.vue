@@ -1,7 +1,7 @@
 <template>
   <div class="view">
     <div class="view-left">
-      <CommonTree
+       <CommonTree
         :data="data"
         @node-click="handleNodeClick" />
     </div>
@@ -35,6 +35,8 @@ export default {
   created () {
     // 初始化清除数据
     this.clearState()
+    this.searchTree({type: 0, id: ''})
+    this.saveDistrictId('')
   },
   methods: {
     ...mapMutations('regionManage', [
