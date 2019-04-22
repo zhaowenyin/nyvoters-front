@@ -105,7 +105,7 @@ export default {
     },
     async getCode () {
       const {data} = await getCode()
-      this.captchaImg = data.content.captcha
+      this.captchaImg = 'data:imagepng;base64,' + data.content.captcha
       this.userLogin.captchaId = data.content.captchaId
     }
   }
