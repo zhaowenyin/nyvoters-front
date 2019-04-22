@@ -55,7 +55,7 @@
                 :multiple="false"
                 @setData="setData"
                 @clear="clear"
-                v-model="form.distinctId"
+                v-model="form.districtId"
                 :item='item'
                 :data="data"
                 />
@@ -118,12 +118,13 @@ export default {
       form: {
         name: '',
         code: '',
-        distinctId: '',
+        districtId: '',
         pnum: '',
         sort: '',
         distinct: '',
         type: '',
-        typeName: ''
+        typeName: '',
+        parentId: ''
       },
       multipleSelection: [],
       rules: {
@@ -158,7 +159,8 @@ export default {
   },
   computed: {
     ...mapState('commonData', {
-      data: state => state.treeList
+      data: state => state.treeList,
+      belongAreaId: state => state.belongAreaId
     })
   },
   created () {
@@ -223,6 +225,8 @@ export default {
     },
     handerParams () {
       let params = {...this.form}
+      params.pnum = +params.pnum
+      params.parentId = this.belongAreaId
       delete params.distinct
       delete params.typeName
       return params

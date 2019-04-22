@@ -56,7 +56,7 @@ export default {
     ...mapState('districtAccount', {
       loading: state => state.loading,
       list: state => state.list,
-      total: state => state.total,
+      total: state => +state.total,
       pageSize: state => state.searchParam.pageSize,
       pageNum: state => state.searchParam.pageNum,
 

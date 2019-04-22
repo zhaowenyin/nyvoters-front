@@ -55,11 +55,11 @@
           label="管理选区"
           prop="precinctId">
           <DistrictSelect
-          :labels="form.precinct"
+          :labels="form.managePrecinct"
           :multiple="true"
           @setData="setData"
           @clear="clear"
-          v-model="form.precinctId"
+          v-model="form.managePrecinctIds"
           :item='item'
           :data="data"
           />
@@ -110,14 +110,14 @@ export default {
     return {
       loading: false,
       form: {
-        committeeId: '',
         account: '',
         name: '',
         password: '',
         sort: '',
         registrationType: '',
-        precinctId: [],
-        precinct: []
+        precinctId: '',
+        managePrecinctIds: [],
+        managePrecinct: []
       },
       multipleSelection: [],
 
@@ -140,11 +140,13 @@ export default {
       },
       registrationTypeList
     }
-
   },
   computed: {
     ...mapState('commonData', {
-      data: state => state.treeList
+      data: state => state.treeList,
+      belongAreaId: state => state.belongAreaId,
+      belongArea: state => state.belongArea
+
     })
   },
   props:{
@@ -180,7 +182,7 @@ export default {
     this.form = {...this.form, ...params}
   },
   methods: {
-    ...mapActions('committeeAcccount', [
+    ...mapActions('districtAccount', [
       'getListData1'
     ]),
     ...mapActions('commonData', [
@@ -212,13 +214,15 @@ export default {
     },
     handerParams () {
       let params = {...this.form}
+      delete params.managePrecinct
+      params.precinctId = this.belongAreaId
       return params
     },
     setData (val) {
-      this.form.precinct = val
+      this.form.managePrecinct = val
     },
     clear (val) {
-      this.form.precinct = val
+      this.form.managePrecinct = val
     }
   }
 

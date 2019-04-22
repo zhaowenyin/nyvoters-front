@@ -156,6 +156,7 @@ export default {
     height: 350px;
     border: 1px solid #ccc;
     padding: 10px;
+    overflow: auto;
     & li {
       line-height: 16px;
       margin-bottom: 30px;
