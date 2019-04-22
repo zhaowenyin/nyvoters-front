@@ -15,7 +15,7 @@
             placeholder="请输入用户名"
             :maxlength="11"
             class="item"
-            v-model="userLogin.username" />
+            v-model="userLogin.userName" />
         </el-form-item>
         <el-form-item
           label="密码："
@@ -59,13 +59,13 @@ export default {
   data () {
     return {
       userLogin: {
-        username: '',
+        userName: '',
         password: '',
         captcha: '',
         captchaId: ''
       },
       rules: {
-        username: [
+        userName: [
           { required: true, message: '请输入用户名', trigger: 'blur' }
         ],
         password: [

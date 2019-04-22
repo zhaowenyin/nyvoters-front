@@ -59,6 +59,8 @@ const VotersApealistory = ()=>import('./pages/voters-management/voters-appeal/hi
 const VotersDown = ()=>import('./pages/voters-management/download-file')
 // 消息中心
 const News = () => import('./pages/news-center')
+const Read = () => import('./pages//news-center/read')
+const Unread = () => import('./pages//news-center/unread')
 
 
 
@@ -299,13 +301,13 @@ const router = new Router({
           children: [
             {
               path: '',
-              name: '代表推荐',
-              component: BehalfCommended
+              name: '未读消息',
+              component: Unread
             },
             {
               path: 'read',
-              name: '代表推荐记录',
-              component: BehalfCommendedHistory
+              name: '已读消息',
+              component: Read
             }
           ]
         },
