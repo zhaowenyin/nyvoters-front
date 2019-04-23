@@ -12,20 +12,20 @@
   </div>
 </template>
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations,mapActions,mapState } from 'vuex'
 import Search from './Search'
 import List from './List'
-import {getTree} from '../../../common-data/service.js'
 import CommonTree from '../../../components/common-tree'
 
 export default {
   data () {
     return {
-      data: []
     }
   },
   computed: {
-
+    ...mapState('commonData', {
+      data: state => state.treeList
+    })
   },
   components: {
     Search,
@@ -45,13 +45,12 @@ export default {
     ...mapMutations('commonData', [
       'saveDistrictId',
     ]),
+    ...mapActions('commonData', [
+      'searchTree',
+    ]),
     handleNodeClick(data) {
       this.saveDistrictId(data.id)
-    },
-    async searchTree () {
-      const {data} = await getTree()
-      this.data = data.content
-    },
+    }
   }
 }
 </script>

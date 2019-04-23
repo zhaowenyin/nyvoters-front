@@ -61,18 +61,18 @@ export default {
       pageNum: state => state.searchParam.pageNum,
 
     }),
-    ...mapState('commonData', {
+    ...mapState('commonCommittee', {
       belongAreaId: state => state.belongAreaId
     }),
   },
   components: {
   },
   created () {
-    this.getListData1({belongAreaId: this.belongAreaId })
+    this.getListData1({committeeId: this.belongAreaId })
   },
   watch: {
     belongAreaId () {
-      this.getListData1({belongAreaId: this.belongAreaId })
+      this.getListData1({committeeId: this.belongAreaId })
     }
   },
   methods: {

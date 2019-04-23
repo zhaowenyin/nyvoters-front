@@ -41,7 +41,7 @@ export default {
     activeIndex () {
       return this.$route.path
     },
-    ...mapState('commonData', {
+    ...mapState('commonCommittee', {
       data: state => state.treeList
     })
   },
@@ -54,10 +54,10 @@ export default {
     this.saveDistrictName('')
   },
   methods: {
-    ...mapMutations('commonData', [
+    ...mapMutations('commonCommittee', [
       'saveDistrictId',
     ]),
-    ...mapActions('commonData', [
+    ...mapActions('commonCommittee', [
       'searchTree',
     ]),
     change (index) {

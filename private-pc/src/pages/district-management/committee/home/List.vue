@@ -63,7 +63,7 @@ export default {
       pageSize: state => state.searchParam.pageSize,
       pageNum: state => state.searchParam.pageNum,
     }),
-    ...mapState('commonData', {
+    ...mapState('commonCommittee', {
       belongAreaId: state => state.belongAreaId
     })
   },
@@ -71,11 +71,11 @@ export default {
   },
   watch: {
     belongAreaId () {
-      this.getListData({ belongAreaId: this.belongAreaId })
+      this.getListData({ committeeId: this.belongAreaId })
     }
   },
   created () {
-    this.getListData({belongAreaId: this.belongAreaId })
+    this.getListData({committeeId: this.belongAreaId })
   },
   methods: {
     ...mapActions('committeeHome', [

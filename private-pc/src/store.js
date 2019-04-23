@@ -33,6 +33,8 @@ import voterRegisters from './pages/voter-registers/home/module'
 import voterRegistersData from './pages/voter-registers/data/module'
 
 import log from './pages/system-manage/operate-log/module'
+//选委会公共
+import commonCommittee from './pages/district-management/committee/module'
 
 
 Vue.use(Vuex)
@@ -46,6 +48,7 @@ export default new Vuex.Store({
     behalfCommendedHistory,
     regionManage,
     fileManage,
+    commonCommittee,
     committeeHome,
     committeeAcccount,
     distictHome,

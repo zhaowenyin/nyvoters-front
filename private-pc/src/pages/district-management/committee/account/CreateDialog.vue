@@ -88,7 +88,7 @@
 </template>
 <script>
 import {setSubmit} from './service.js'
-import { mapActions } from 'vuex'
+import { mapActions,mapState } from 'vuex'
 export default {
   data () {
     let validate = (rule, value, callback) => {
@@ -145,12 +145,16 @@ export default {
   components: {
 
   },
+  computed: {
+    ...mapState('commonCommittee', {
+      belongAreaId: state => state.belongAreaId
+    })
+  },
   created () {
     let params = {}
     if(this.item.id || this.item.id===0) {
       params = {
         account: this.item.account,
-        committeeId: this.item.committeeId,
         name: this.item.name,
         password: this.item.password,
         phoneNum: this.item.phoneNum,
@@ -158,7 +162,7 @@ export default {
         contactInformation: this.item.contactInformation
       }
     }
-
+    this.form.committeeId = this.belongAreaId
     this.form = {...this.form, ...params }
   },
   methods: {
