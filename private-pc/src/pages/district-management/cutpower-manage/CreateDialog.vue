@@ -151,6 +151,16 @@ import {setSubmit} from './service.js'
 import { mapActions, mapState } from 'vuex'
 export default {
   data () {
+    let validate = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入手机号'))
+      } else {
+        if (!/^1[34578]\d{9}$/.test(value)) {
+          callback(new Error('请输入正确手机号'))
+        }
+        callback()
+      }
+    }
     return {
       loading: false,
       form: {
@@ -180,7 +190,7 @@ export default {
           { required: true, message: '请选择民族！', trigger: 'blur' }
         ],
         phoneNum: [
-          { required: true, message: '请输入电话号码！', trigger: 'blur' }
+          { validator: validate,required: true, trigger: 'blur' }
         ],
         householdRegistration: [
           { required: true, message: '请输入户籍地！', trigger: 'blur' }

@@ -1,4 +1,4 @@
-import api from '../ß../../../utils/api'
+import api from '../../../utils/api'
 
 // get请求
 export async function getList (payload) {
