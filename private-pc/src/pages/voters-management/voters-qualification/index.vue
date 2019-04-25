@@ -15,8 +15,7 @@
 import { mapMutations,mapActions,mapState } from 'vuex'
 import Search from './Search'
 import List from './List'
-import CommonTree from '../../../components/common-tree'
-import { Toast } from 'mint-ui'
+import CommonTree from '../../../components/common-tree''
 
 export default {
   data () {
