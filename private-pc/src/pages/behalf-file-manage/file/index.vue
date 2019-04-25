@@ -1,6 +1,12 @@
 <template>
   <div class="info">
-    <div class="top-title">>> 选举委员会关于初步代表候选人名单公告（1）</div>
+    <div class="top-title">
+      <div>>> 选举委员会关于初步代表候选人名单公告（1）</div>
+      <el-button
+      type="primary"
+      size="small">下载</el-button>
+    </div>
+
     <div class="content" v-if="+type === 1">
       <div class="announcement-title">公告</div>
       <div>
@@ -47,6 +53,8 @@ export default {
     background: #f8f8f8;
     & .top-title {
       padding: 15px;
+      display: flex;
+      justify-content:space-between;
     }
   }
   .content {
