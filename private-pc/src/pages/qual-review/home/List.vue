@@ -87,12 +87,12 @@ export default {
   components: {
   },
   created () {
-    this.getListData({ belongAreaId: this.belongAreaId })
+    this.getListData({ precinctId: this.belongAreaId })
   },
   watch: {
     belongAreaId () {
       console.log(111)
-      this.getListData({belongAreaId: this.belongAreaId })
+      this.getListData({precinctId: this.belongAreaId })
     }
   },
   methods: {

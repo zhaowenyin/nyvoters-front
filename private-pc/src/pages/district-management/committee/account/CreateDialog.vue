@@ -125,7 +125,7 @@ export default {
           { required: true, message: '请输入密码！', trigger: 'blur' }
         ],
         phoneNum: [
-          {  validator: validate,required: true, trigger: 'blur' }
+          { validator: validate,required: true, trigger: 'blur' }
         ],
 
       }

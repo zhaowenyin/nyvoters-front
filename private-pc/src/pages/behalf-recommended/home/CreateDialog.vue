@@ -86,6 +86,7 @@
               <el-input
                 size="medium"
                 placeholder="请输入"
+                :maxlength="11"
                 class="item"
                 v-model="form.phoneNum" />
               </el-form-item>
@@ -319,6 +320,16 @@ import DistrictSelect from '../../../components/DistrictSelect'
 import {educationList, postList,partyList} from '../../../common-data/config.js'
 export default {
   data () {
+    let validate = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入手机号'))
+      } else {
+        if (!/^1[34578]\d{9}$/.test(value)) {
+          callback(new Error('请输入正确手机号'))
+        }
+        callback()
+      }
+    }
     return {
       loading: false,
       form: {
@@ -379,7 +390,7 @@ export default {
           { required: true, message: '请选择性别', trigger: 'change' }
         ],
         phoneNum: [
-          { required: true, message: '请输入手机号码', trigger: 'blur' }
+          { required: true,  validator: validate, trigger: 'blur' }
         ],
         birthDay: [
           { required: true, message: '请选择出生日期', trigger: 'change' }
