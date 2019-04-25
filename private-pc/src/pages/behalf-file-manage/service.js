@@ -40,3 +40,44 @@ export async function getList (payload) {
   })
   // return api.get('/disempower/list', { params: payload })
 }
+export async function getInfo () {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+          a: '南阳',
+          b: '第一',
+          c: '阳阳',
+          list: [
+            { name: '花湖',
+              gender: 30,
+              age: 25,
+              nation: '汉',
+              job: '普通科员',
+              recommendedPerson: '飞飞'
+
+            },
+            { name: '花湖',
+              gender: 30,
+              age: 25,
+              nation: '汉',
+              job: '普通科员',
+              recommendedPerson: '飞飞'
+
+            },
+            { name: '花湖',
+              gender: 30,
+              age: 25,
+              nation: '汉',
+              job: '普通科员',
+              recommendedPerson: '飞飞'
+
+            }
+          ]
+        }
+      })
+    }, 500)
+  })
+  // return api.post('/logout')
+}
+

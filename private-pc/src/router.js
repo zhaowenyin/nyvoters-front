@@ -47,20 +47,22 @@ const BehalfFile = () => import('@/pages/behalf-file-manage')
 const ReportAnalysis = () => import('./pages/report-center/report-analysis')
 const ReportFile = () => import('./pages/report-center/report-file')
 // 选民管理
-const VotersQualification = () =>import('./pages/voters-management/voters-qualification')
-const VotersTransfer = ()=>import('./pages/voters-management/voters-transfer')
-const VotersTransferHome = ()=>import('./pages/voters-management/voters-transfer/home')
-const VotersTransferHistory = ()=>import('./pages/voters-management/voters-transfer/history')
-const VotersInput = ()=>import('./pages/voters-management/voters-input')
-const VotersDraw = ()=>import('./pages/voters-management/voters-drawOut')
-const VotersApeal = ()=>import('./pages/voters-management/voters-appeal')
-const VotersApealHome = ()=>import('./pages/voters-management/voters-appeal/home')
-const VotersApealistory = ()=>import('./pages/voters-management/voters-appeal/history')
-const VotersDown = ()=>import('./pages/voters-management/download-file')
+const VotersQualification = () =>import('@/pages/voters-management/voters-qualification')
+const VotersTransfer = ()=>import('@/pages/voters-management/voters-transfer')
+const VotersTransferHome = ()=>import('@/pages/voters-management/voters-transfer/home')
+const VotersTransferHistory = ()=>import('@/pages/voters-management/voters-transfer/history')
+const VotersInput = ()=>import('@/pages/voters-management/voters-input')
+const VotersDraw = ()=>import('@/pages/voters-management/voters-drawOut')
+const VotersApeal = ()=>import('@/pages/voters-management/voters-appeal')
+const VotersApealHome = ()=>import('@/pages/voters-management/voters-appeal/home')
+const VotersApealistory = ()=>import('@/pages/voters-management/voters-appeal/history')
+const VotersDown = ()=>import('@/pages/voters-management/download-file')
 // 消息中心
-const News = () => import('./pages/news-center')
-const Read = () => import('./pages//news-center/read')
-const Unread = () => import('./pages//news-center/unread')
+const News = () => import('@/pages/news-center')
+const Read = () => import('@/pages//news-center/read')
+const Unread = () => import('@/pages//news-center/unread')
+// 文件资料
+const File = () => import('./pages/behalf-file-manage/file')
 
 
 
@@ -311,6 +313,12 @@ const router = new Router({
             }
           ]
         },
+        {
+          path: 'create-file',
+          name: '生成文件',
+          component: File
+        }
+
       ]
     },
 

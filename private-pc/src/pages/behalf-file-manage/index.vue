@@ -32,7 +32,7 @@
   </template>
 <script>
 import {getList} from './service.js'
-import output from '../../utils/output.js'
+// import output from '../../utils/output.js'
 export default {
   data() {
     return {
@@ -51,11 +51,16 @@ export default {
       this.loading = false
     },
     async download (item) {
-      try {
-        output({url: '/doc/download', params: {id: item, module: 3}})
-      } catch (err) {
-        console.log(err)
-      }
+      this.$router.push({
+        path:'/create-file',
+        query: {type: 1}
+      })
+      console.log(item)
+      // try {
+      //   output({url: '/doc/download', params: {id: item, module: 3}})
+      // } catch (err) {
+      //   console.log(err)
+      // }
     },
   }
 }
