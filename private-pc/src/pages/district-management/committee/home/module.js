@@ -7,7 +7,7 @@ export default {
     list: [],
     total: 0,
     searchParam: {
-      pageSize: 10,
+      pageSize: 20,
       pageNum: 1
     },
     multipleSelection: []
@@ -18,7 +18,7 @@ export default {
       state.list = []
       state.total = 0
       state.searchParam = {
-        pageSize: 10,
+        pageSize: 20,
         pageNum: 1
       }
       state.multipleSelection = []
@@ -32,7 +32,7 @@ export default {
     updateList (state, payload) {
       const { data = [], total = 0 } = payload.data
       state.list = data
-      state.total = total
+      state.total = +total
     },
     updataSearchParam (state, payload) {
       state.searchParam = { ...state.searchParam, ...payload.payload }

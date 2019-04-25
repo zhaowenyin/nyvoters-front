@@ -25,7 +25,7 @@
           <el-button
           @click="download(scope.row.id)"
           size="medium"
-          type="primary">下载</el-button>
+          type="primary">在线生成</el-button>
         </template>
       </el-table-column>
     </el-table>

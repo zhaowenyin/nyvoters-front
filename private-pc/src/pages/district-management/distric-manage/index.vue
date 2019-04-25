@@ -55,6 +55,7 @@ export default {
   methods: {
     ...mapMutations('commonData', [
       'saveDistrictId',
+      'saveDistrictName'
     ]),
     ...mapActions('commonData', [
       'searchTree',

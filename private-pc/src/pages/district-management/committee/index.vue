@@ -56,6 +56,7 @@ export default {
   methods: {
     ...mapMutations('commonCommittee', [
       'saveDistrictId',
+      'saveDistrictName'
     ]),
     ...mapActions('commonCommittee', [
       'searchTree',

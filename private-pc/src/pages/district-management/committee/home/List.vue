@@ -41,7 +41,7 @@
         background
         :current-page="pageNum"
         layout="prev, pager, next"
-        :total="total" />
+        :total="+total" />
     </div>
   </div>
 </template>
@@ -59,7 +59,7 @@ export default {
     ...mapState('committeeHome', {
       loading: state => state.loading,
       list: state => state.list,
-      total: state => state.total,
+      total: state => +state.total,
       pageSize: state => state.searchParam.pageSize,
       pageNum: state => state.searchParam.pageNum,
     }),
