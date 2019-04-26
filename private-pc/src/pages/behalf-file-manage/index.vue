@@ -53,7 +53,7 @@ export default {
     async download (item) {
       this.$router.push({
         path:'/create-file',
-        query: {type: item.type,status: item.status}
+        query: {type: item.type,status: item.status,title: item.name}
       })
       console.log(item)
       // try {

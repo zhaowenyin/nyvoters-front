@@ -1,68 +1,66 @@
 <template>
-  <div>
-    <el-table
+  <el-table
+    align="center"
+    :data="list"
+    class="tabel1"
+    border>
+    <el-table-column
+      width="80"
       align="center"
-      :data="list"
-      class="tabel1"
-      border>
-      <el-table-column
-        width="80"
-        align="center"
-        label="姓名"
-        prop="recommendedPerson" />
-      <el-table-column
-        align="center"
-        label="性别"
-        prop="gender">
-        <template slot-scope="scope">
-          {{handlegender(scope.row.gender)}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        align="center"
-        label="年龄"
-        prop="age">
-      </el-table-column>
-      <el-table-column
-        label="民族"
-        align="center"
-        prop="nation">
-      </el-table-column>
-      <el-table-column
-        label="党派"
-        align="center"
-         width="90"
-        prop="party">
-        <template slot-scope="scope">
-          {{handlepath(scope.row.path)}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        min-width="110"
-        align="center"
-        label="文化程度">
-        <template slot-scope="scope">
-          {{handleeducation(scope.row.education)}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        width="130"
-        align="center"
-        label="单位及职务">
-          <template slot-scope="scope">
-          {{scope.row.workUnit+scope.row.post}}
-        </template>
-      </el-table-column>
-      <el-table-column
+      label="姓名"
+      prop="recommendedPerson" />
+    <el-table-column
+      align="center"
+      label="性别"
+      prop="gender">
+      <template slot-scope="scope">
+        {{handlegender(scope.row.gender)}}
+      </template>
+    </el-table-column>
+    <el-table-column
+      align="center"
+      label="年龄"
+      prop="age">
+    </el-table-column>
+    <el-table-column
+      label="民族"
+      align="center"
+      prop="nation">
+    </el-table-column>
+    <el-table-column
+      label="党派"
+      align="center"
         width="90"
-        align="center"
-        label="推荐者">
+      prop="party">
+      <template slot-scope="scope">
+        {{handlepath(scope.row.path)}}
+      </template>
+    </el-table-column>
+    <el-table-column
+      min-width="110"
+      align="center"
+      label="文化程度">
+      <template slot-scope="scope">
+        {{handleeducation(scope.row.education)}}
+      </template>
+    </el-table-column>
+    <el-table-column
+      width="130"
+      align="center"
+      label="单位及职务">
         <template slot-scope="scope">
-          {{scope.row.recommendedPerson}}
-        </template>
-      </el-table-column>
-    </el-table>
-  </div>
+        {{scope.row.workUnit+scope.row.post}}
+      </template>
+    </el-table-column>
+    <el-table-column
+      width="90"
+      align="center"
+      label="推荐者">
+      <template slot-scope="scope">
+        {{scope.row.recommendedPerson}}
+      </template>
+    </el-table-column>
+  </el-table>
 </template>
 <script>
 import { formatDate } from '../../../utils/format.js'

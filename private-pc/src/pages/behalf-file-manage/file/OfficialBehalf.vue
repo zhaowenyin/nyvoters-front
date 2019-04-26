@@ -1,18 +1,23 @@
 <template>
   <div class="info">
     <div class="top-title">
-      <div>>> 选举委员会关于初步代表候选人名单公告（1）</div>
+      <div>>> {{$route.query.title}}</div>
       <el-button
       type="primary"
       size="small">下载</el-button>
     </div>
     <div class="content content2">
       <div class="announcement1">{{data.countyName}}选举委员会公告</div>
-      <div class="announcement2">第xx号</div>
-       &nbsp;&nbsp;&nbsp;&nbsp;根据选举法的规定，现将{{data.belongAreaName}}选区政党、人民团体推荐和选民10人以上
-        联名推荐的{{data.countyName}}第{{data.sessionNum}}届人民代表大会初步代表候选人名单以姓名笔画为序公告如下。请选民依法进行酝酿讨论
-        以便协商确定本选区的正式代表候选人。
-        <Tabel style="margin-top: 20px;" :list="data.list"/>
+      <div class="announcement2">(第xx号)</div>
+       &nbsp;&nbsp;{{data.belongAreaName}}于xxxx年x月x日按照{{data.countyName}}人大
+       代表选举办法，并采用无记名投票的方式，选举产生{{data.countyName}}第{{data.sessionNum}}届人民代表大会
+       代表xx名，经县选举委员会审核，符合选举法和省选举实施细规有段规定，确定选举结果有效，现将各候选人名单以得票多少顺序公告如下：
+        <div>
+           <Tabel style="margin: 20px 0;" :list="data.list"/>
+        </div>
+        <div>
+          &nbsp;&nbsp;根据有关法律规定及代表选举办法，确认xxx,xxx,xxx当选为{{data.countyName}}县第x届人民代表大会代表。
+        </div>
         <div class="mark mark1">{{data.countyName}}选举委员会</div>
         <div class="mark">{{`${data.year}年${data.month}月${data.day}日`}}</div>
     </div>
@@ -51,7 +56,8 @@ export default {
   .info {
     background: #f8f8f8;
     font-family: SimSun;
-    height: 100%;
+     height: 100%;
+    overflow: auto;
     & .top-title {
       padding: 15px;
       display: flex;
@@ -59,17 +65,15 @@ export default {
     }
   }
   .content {
-    width: 900px;
+    width: 800px;
     margin: 0 auto;
     background-color: #fff;
-    min-height: 90%;
     padding: 30px;
     line-height: 40px;
     font-size: 18px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 10px;
     letter-spacing: 4px;
     color: #55585f;
     & .announcement-title {
