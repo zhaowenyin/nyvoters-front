@@ -13,7 +13,7 @@
         label="文件下载">
         <template slot-scope="scope">
           <el-button
-          @click="download(scope.row.id)"
+          @click="download(scope.row)"
           size="medium"
           type="primary">下载</el-button>
         </template>
@@ -23,7 +23,7 @@
         label="在线生成">
         <template slot-scope="scope">
           <el-button
-          @click="download(scope.row.id)"
+          @click="download(scope.row)"
           size="medium"
           type="primary">在线生成</el-button>
         </template>
@@ -53,7 +53,7 @@ export default {
     async download (item) {
       this.$router.push({
         path:'/create-file',
-        query: {type: 1}
+        query: {type: item.type,status: item.status}
       })
       console.log(item)
       // try {
