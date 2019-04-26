@@ -33,9 +33,6 @@
       <div  v-if="+type===4" class="mark">{{`${data.year}年${data.month}月${data.day}日`}}</div>
 
     </div>
-    <div class="content content2" >
-
-    </div>
   </div>
 </template>
 <script>
@@ -72,7 +69,7 @@ export default {
     background: #f8f8f8;
     font-family: SimSun;
      height: 100%;
-    overflow: auto;
+     overflow: auto;
     & .top-title {
       padding: 15px;
       display: flex;
@@ -81,6 +78,8 @@ export default {
   }
   .content {
     width: 800px;
+    overflow: auto;
+    height: 100%;
     margin: 0 auto;
     background-color: #fff;
     padding: 30px;
@@ -101,6 +100,7 @@ export default {
        display: flex;
       flex-direction: column;
       padding-left: 50px;
+      margin: 20px 0;
     }
   }
   .announcement1,.announcement2{

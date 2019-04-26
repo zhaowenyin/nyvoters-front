@@ -12,9 +12,7 @@
        &nbsp;&nbsp;{{data.belongAreaName}}于xxxx年x月x日按照{{data.countyName}}人大
        代表选举办法，并采用无记名投票的方式，选举产生{{data.countyName}}第{{data.sessionNum}}届人民代表大会
        代表xx名，经县选举委员会审核，符合选举法和省选举实施细规有段规定，确定选举结果有效，现将各候选人名单以得票多少顺序公告如下：
-        <div>
-           <Tabel style="margin: 20px 0;" :list="data.list"/>
-        </div>
+        <Tabel style="margin: 20px 0;" :list="data.list"/>
         <div>
           &nbsp;&nbsp;根据有关法律规定及代表选举办法，确认xxx,xxx,xxx当选为{{data.countyName}}县第x届人民代表大会代表。
         </div>
@@ -65,6 +63,8 @@ export default {
     }
   }
   .content {
+    overflow: auto;
+    height: 100%;
     width: 800px;
     margin: 0 auto;
     background-color: #fff;
@@ -86,6 +86,7 @@ export default {
        display: flex;
       flex-direction: column;
       align-items: center;
+      margin: 20px 0;
     }
   }
   .announcement1,.announcement2{
@@ -102,7 +103,7 @@ export default {
     width: 100%;
   }
   .mark1 {
-    padding-top: 50px;
+    padding-top: 60px;
   }
 </style>
 

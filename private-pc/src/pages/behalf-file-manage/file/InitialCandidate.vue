@@ -31,9 +31,6 @@
       <div class="mark mark1">{{data.countyName}}选举委员会</div>
       <div  v-if="+type===2" class="mark">{{`${data.year}年${data.month}月${data.day}日`}}</div>
     </div>
-    <div class="content content2" >
-
-    </div>
   </div>
 </template>
 <script>
@@ -78,6 +75,8 @@ export default {
     }
   }
   .content {
+    overflow: auto;
+    height: 100%;
     width: 800px;
     margin: 0 auto;
     background-color: #fff;
