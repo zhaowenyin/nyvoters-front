@@ -32,6 +32,12 @@ export async function getList (payload) {
                 name: '选举委员会关于正式代表候选人名单公告(2)'
               },
               {
+                id: 6,
+                type: 6,
+                status:"FORMAL_REPRESENTATIVE",
+                name: '选区选举大会公告'
+              },
+              {
                 id: 5,
                 type: 5,
                 status:"FORMAL_REPRESENTATIVE",

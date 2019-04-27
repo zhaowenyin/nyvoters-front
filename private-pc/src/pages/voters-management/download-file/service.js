@@ -9,19 +9,39 @@ export async function getList (payload) {
             "data": [
               {
                 id: 1,
-                name: '县人大代表名额分配的决定'
+                type: 1,
+                status:'PRELIMINARY_CANDIDATE',
+                name: '选举委员会关于初步代表候选人名单公告(1)'
               },
               {
                 id: 2,
-                name: '乡（镇）人大代表名额分配的决定'
+                type: 2,
+                status:'PRELIMINARY_CANDIDATE',
+                name: '选举委员会关于初步代表候选人名单公告(2)'
               },
               {
                 id: 3,
-                name: '县级人大代表名额分配的通知'
+                type: 3,
+                status:'FORMAL_CANDIDATE',
+                name: '选举委员会关于正式代表候选人名单公告(1)'
               },
               {
                 id: 4,
-                name: '乡（镇）选区划分及代表名额分配的通知'
+                type: 4,
+                status:"FORMAL_CANDIDATE",
+                name: '选举委员会关于正式代表候选人名单公告(2)'
+              },
+              {
+                id: 6,
+                type: 6,
+                status:"FORMAL_REPRESENTATIVE",
+                name: '选区选举大会公告'
+              },
+              {
+                id: 5,
+                type: 5,
+                status:"FORMAL_REPRESENTATIVE",
+                name: '选举委员会关于代表当选公告'
               }
             ],
             "endRow": 0,
@@ -40,3 +60,75 @@ export async function getList (payload) {
   })
   // return api.get('/disempower/list', { params: payload })
 }
+export async function getInfo (payload) {
+  console.log(payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+          "code": "string",
+          "content": {
+            "belongAreaId": 54122356874,
+            "belongAreaName": "云阳镇第1选区",
+            "countyName": "南召县",
+            "day": 15,
+            "list": [
+              {
+                "age": "30",
+                "education": 1,
+                "gender": 1,
+                "idNum": 510810199910251100,
+                "nation": "HAN",
+                "party": 1,
+                "post": "文职",
+                "recommendPersonList": [
+                  "string"
+                ],
+                "recommendedPerson": "张三",
+                "status": "string",
+                "workUnit": "成都市文化旅游局"
+              },
+              {
+                "age": "20",
+                "education": 1,
+                "gender": 1,
+                "idNum": 510810199910251100,
+                "nation": "HAN",
+                "party": 1,
+                "post": "文职",
+                "recommendPersonList": [
+                  "string"
+                ],
+                "recommendedPerson": "张三",
+                "status": "string",
+                "workUnit": "成都市文化旅游局"
+              },
+              {
+                "age": "100",
+                "education": 1,
+                "gender": 1,
+                "idNum": 510810199910251100,
+                "nation": "HAN",
+                "party": 1,
+                "post": "文职",
+                "recommendPersonList": [
+                  "string"
+                ],
+                "recommendedPerson": "张三",
+                "status": "string",
+                "workUnit": "成都市文化旅游局"
+              }
+            ],
+            "month": 4,
+            "sessionNum": "六",
+            "year": 2019
+          },
+          "message": "string",
+          "status": "string"
+        }
+      })
+    }, 500)
+  })
+  // return api.post('/repre-affairs/word/list', payload)
+}
+

@@ -22,7 +22,7 @@
 </template>
 <script>
 import Tabel2 from './Tabel2'
-import output from '../../../utils/output.js'
+import output from '../../../../utils/output.js'
 export default {
   data(){
     return {

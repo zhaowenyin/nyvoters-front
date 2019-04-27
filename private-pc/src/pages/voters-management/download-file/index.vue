@@ -13,16 +13,26 @@
         label="文件下载">
         <template slot-scope="scope">
           <el-button
-          @click="download(scope.row.id)"
+          @click="download(scope.row)"
           size="medium"
           type="primary">下载</el-button>
-           </template>
+        </template>
+      </el-table-column>
+       <el-table-column
+        prop="action"
+        label="在线生成">
+        <template slot-scope="scope">
+          <el-button
+          @click="download(scope.row)"
+          size="medium"
+          type="primary">在线生成</el-button>
+        </template>
       </el-table-column>
     </el-table>
   </template>
 <script>
 import {getList} from './service.js'
-import output from '../../../utils/output.js'
+// import output from '../../utils/output.js'
 export default {
   data() {
     return {
@@ -41,11 +51,16 @@ export default {
       this.loading = false
     },
     async download (item) {
-      try {
-        output({url: '/doc/download', params: {id: item, module: 2}})
-      } catch (err) {
-        console.log(err)
-      }
+      this.$router.push({
+        path:'/create-file',
+        query: {type: item.type,status: item.status,title: item.name}
+      })
+      console.log(item)
+      // try {
+      //   output({url: '/doc/download', params: {id: item, module: 3}})
+      // } catch (err) {
+      //   console.log(err)
+      // }
     },
   }
 }
