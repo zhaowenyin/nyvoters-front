@@ -7,36 +7,32 @@
       size="small">下载</el-button>
     </div>
     <div class="content">
-      <div v-if="+type === 3" class="announcement-title">公告</div>
+      <div v-if="+type===3" class="announcement-title">公告</div>
       <div v-if="+type===4" class="announcement1">{{data.countyName}}选举委员会公告</div>
-      <div v-if="+type===4" class="announcement2">第xx号</div>
+      <div v-if="+type===4" class="announcement2">(第xx号)</div>
       <div>
-        &nbsp;&nbsp;根据《选举法》的规定，经{{data.countyName}} 第{{data.belongAreaName}}选民酝酿协商，
-        根据较多数选民意见，确定下列人员为第{{data.belongAreaName}}{{data.countyName}}第{{data.sessionNum}}届人民代表大会正式代表候选人。
-        现以姓名笔画排序公告如下：
-        <ul v-if="+type === 3" class="message">
-          <li
-            :key="index"
-            v-for="(i,index) in data.list">
-              {{`${i.name || '暂无名字'}，${i.gender}，${i.age}，${i.nation}，${i.workUnit+i.post}`}}
-          </li>
-        </ul>
+        &nbsp;&nbsp;根据《选举法》和《xxx省县、乡两级人民代表大会代表选举工作实施细则》的规定，现将xxx选区选民名单公告后的选民增减情况做如下补正：
       </div>
-      <div v-if="+type===4" style="margin: 20px 0;" >
-        <Tabel :list="data.list"/>
+      <div class="message">
+        <div>一、增加的选民：</div>
+        <div>XXXXXX</div>
+        <div>二、迁出出名的选民：</div>
+        <div>XXXXXX</div>
+        <div>三、死亡除名的选民：</div>
+        <div>XXXXXX</div>
+        <div>四、停止行使选举权利除名的选民：</div>
+        <div>XXXXXX</div>
+        <div>五、本选区原登记选民 xxx人，现实有选民xxx人。</div>
+        <div>特此公告</div>
       </div>
-       <div>
-        &nbsp;&nbsp;xx选区的选举大会定于xxxx年x月x日x时，在xx召开，请全体
-        请全体选民提前做好准备，按时参加选举大会，并到制定地点参加投票。
-      </div>
+
       <div class="mark mark1">{{data.countyName}}选举委员会</div>
-      <div  v-if="+type===4" class="mark">{{`${data.year}年${data.month}月${data.day}日`}}</div>
+      <div class="mark">{{`${data.year}年${data.month}月${data.day}日`}}</div>
 
     </div>
   </div>
 </template>
 <script>
-import Tabel from './Tabel'
 import output from '../../../../utils/output.js'
 export default {
   data(){
@@ -55,7 +51,7 @@ export default {
     }
   },
   components: {
-    Tabel
+
   },
   created(){
 
@@ -94,7 +90,6 @@ export default {
     font-size: 18px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     letter-spacing: 4px;
     color: #55585f;
     & .announcement-title {
@@ -102,18 +97,19 @@ export default {
       color: #000;
       font-weight: bold;
       padding-bottom: 40px;
+      text-align: center;
     }
     & .message {
-       display: flex;
+      display: flex;
       flex-direction: column;
       padding-left: 50px;
-      margin: 20px 0;
     }
   }
   .announcement1,.announcement2{
     font-size: 24px;
     color: #000;
     font-weight: bold;
+    text-align: center;
   }
   .announcement2 {
     padding-bottom: 30px;

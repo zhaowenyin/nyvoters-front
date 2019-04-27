@@ -37,6 +37,18 @@ export async function getList (payload) {
                 status:"FORMAL_REPRESENTATIVE",
                 name: '选举委员会关于选举日及选举登记时间的公告'
               },
+              {
+                id: 6,
+                type: 6,
+                status:"FORMAL_REPRESENTATIVE",
+                name: '选民证（1)'
+              },
+              {
+                id: 7,
+                type: 7,
+                status:"FORMAL_REPRESENTATIVE",
+                name: '选民证（2）'
+              },
             ],
             "endRow": 0,
             "pageNum": 0,

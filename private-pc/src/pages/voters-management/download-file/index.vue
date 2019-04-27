@@ -52,7 +52,7 @@ export default {
     },
     async download (item) {
       this.$router.push({
-        path:'/create-file',
+        path:'/create-votersfile',
         query: {type: item.type,status: item.status,title: item.name}
       })
       console.log(item)

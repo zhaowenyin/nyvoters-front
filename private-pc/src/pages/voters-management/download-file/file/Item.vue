@@ -12,6 +12,11 @@
     :type="type"
     :data="data"
     v-if="+type===5"/>
+    <VoterCertificate
+    :type="type"
+    :data="data"
+     v-if="+type===6 || +type===7"
+    />
   </div>
 </template>
 <script>
@@ -19,6 +24,7 @@ import {getInfo} from '../service'
 import VoterLists from './VoterLists'
 import VoterListsRevised from './VoterListsRevised'
 import TimeRegistration from './TimeRegistration'
+import VoterCertificate from './VoterCertificate'
 export default {
   data(){
     return {
@@ -36,7 +42,8 @@ export default {
   components: {
     VoterLists,
     VoterListsRevised,
-    TimeRegistration
+    TimeRegistration,
+    VoterCertificate
   },
   watch: {
     belongAreaId () {

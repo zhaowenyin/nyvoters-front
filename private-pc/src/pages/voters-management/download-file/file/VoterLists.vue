@@ -8,39 +8,42 @@
       size="small">下载</el-button>
     </div>
     <div class="content">
-      <div v-if="+type === 1" class="announcement-title">公告</div>
+      <div v-if="+type===1" class="announcement1">{{data.countyName}}选举委员会公告</div>
+      <div v-if="+type===1" class="announcement2">(第xx号)</div>
       <div v-if="+type === 1">
-        &nbsp;&nbsp;根据《选举法》的规定，现将{{data.countyName}} 第{{data.belongAreaName}}政党、
-        人民团体推荐和选民10人以上联名推荐的{{data.countyName}}第{{data.sessionNum}}届人民代表大会初步代表候选人名单
-        以姓名笔画排序公告如下。请选民依法进行酝酿讨论，以便协商确定本选区正式代表候选人。
+        &nbsp;&nbsp;根据《选举法》的规定，现将XX选区选民名单列表公告如下，如有不同意见，可依照选举法第二十八条规定，向县选举委员会提出申诉。
+        <div v-if="+type===1" class="announcement1">{{data.countyName}}选举委员会公告</div>
         <ul class="message">
+          <li style="font-weight: bold;" class="person">
+            <div
+            :key="index"
+            v-for="(i,index) in list">
+              {{i}}
+            </div>
+          </li>
           <li
             :key="index"
+            class="person"
             v-for="(i,index) in data.list">
-              {{`${i.name || '暂无名字'}，${i.gender}，${i.age}，${i.nation}，${i.workUnit+i.post}，${i.recommendedPerson}`}}
+              <div>{{i.name || '暂无名字'}}</div>
+              <div>{{handlegender(i.gender)}}</div>
+              <div>{{i.q || '1993年12月'}}</div>
+              <div>{{i.q || '2018-12-01'}}</div>
           </li>
         </ul>
       </div>
-      <div v-if="+type===2" class="announcement1">{{data.countyName}}选举委员会公告</div>
-      <div v-if="+type===2" class="announcement2">第xx号</div>
-      <div v-if="+type===2">
-         &nbsp;&nbsp;根据选举法的规定，现将{{data.belongAreaName}}选区政党、人民团体推荐和选民10人以上
-          联名推荐的{{data.countyName}}第{{data.sessionNum}}届人民代表大会初步代表候选人名单以姓名笔画为序公告如下。请选民依法进行酝酿讨论
-          以便协商确定本选区的正式代表候选人。
-        <Tabel style="margin: 20px 0;"  :list="data.list"/>
-      </div>
       <div class="mark mark1">{{data.countyName}}选举委员会</div>
-      <div  v-if="+type===2" class="mark">{{`${data.year}年${data.month}月${data.day}日`}}</div>
+      <div class="mark">{{`${data.year}年${data.month}月${data.day}日`}}</div>
     </div>
   </div>
 </template>
 <script>
-import Tabel from './Tabel'
 import output from '../../../../utils/output.js'
 export default {
   data(){
     return {
-      loading: false
+      loading: false,
+      list: ['姓名','年龄','出生日期','登记日期']
     }
   },
   props: {
@@ -54,7 +57,7 @@ export default {
     }
   },
   components: {
-    Tabel
+
   },
   created(){
 
@@ -66,6 +69,23 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    handlegender(module) {
+      let text = ""
+      switch(module) {
+      case 0:
+        text = '未设置'
+        break
+      case 1:
+        text = '男'
+        break
+      case 2:
+        text = '女'
+        break
+      default:
+        text = '其他'
+      }
+      return text
     },
   }
 }
@@ -103,9 +123,8 @@ export default {
       padding-bottom: 40px;
     }
     & .message {
-       display: flex;
+      display: flex;
       flex-direction: column;
-      padding-left: 50px;
       margin: 20px 0;
     }
   }
@@ -113,6 +132,7 @@ export default {
     font-size: 24px;
     color: #000;
     font-weight: bold;
+    text-align: center;
   }
   .announcement2 {
     padding-bottom: 30px;
@@ -124,6 +144,13 @@ export default {
   }
   .mark1 {
     padding-top: 50px;
+  }
+  .person {
+    display: flex;
+    & div {
+      flex: 1;
+      text-align: center;
+    }
   }
 </style>
 

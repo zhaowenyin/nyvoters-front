@@ -17,7 +17,7 @@
           <li
             :key="index"
             v-for="(i,index) in data.list">
-              {{`${i.name || '暂无名字'}，${i.gender}，${i.age}，${i.nation}，${i.workUnit+i.post}，${i.recommendedPerson}`}}
+              {{`${i.name || '暂无名字'}，${handlegender(i.gender)}，${i.age}，${i.nation}，${i.workUnit+i.post}，${i.recommendedPerson}`}}
           </li>
         </ul>
       </div>
@@ -66,6 +66,23 @@ export default {
       } catch (err) {
         console.log(err)
       }
+    },
+    handlegender(module) {
+      let text = ""
+      switch(module) {
+      case 0:
+        text = '未设置'
+        break
+      case 1:
+        text = '男'
+        break
+      case 2:
+        text = '女'
+        break
+      default:
+        text = '其他'
+      }
+      return text
     },
   }
 }
