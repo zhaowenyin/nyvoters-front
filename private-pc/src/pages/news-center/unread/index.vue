@@ -1,15 +1,6 @@
 <template>
-  <ul class="news">
-    <li
-      class="item"
-      :key="index"
-      v-for="(i, index) in news">
-      <div class="top">
-        <div class="text">{{i.messageType}}</div>
-        <div class="time">{{formatDate(i.createTime)}}</div>
-      </div>
-      <div>{{i.messageContent}}</div>
-    </li>
+  <div class="news">
+    <CommonNew :news="news" />
   <div
     v-show="total"
     class="add_pagination">
@@ -21,11 +12,12 @@
       layout="prev, pager, next"
       :total="total" />
     </div>
-  </ul>
+  </div>
 </template>
 <script>
 import { formatDate } from '../../../utils/format.js'
 import {getNews} from '../service'
+import CommonNew from '../../../components/CommonNew'
 export default {
   data() {
     return{
@@ -33,13 +25,16 @@ export default {
       params: {
         pageNum: 1,
         pageSize: 20,
-        isRead: 0,
+        isRead: 1,
       },
       total: 0,
       timer: null
     }
   },
   computed: {
+  },
+  components: {
+    CommonNew
   },
   created () {
     this.searchNews(this.params)

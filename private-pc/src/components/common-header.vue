@@ -13,16 +13,18 @@
       width="350"
       trigger="click">
         <ul class="news">
-          <li
+          <!-- <li
           class="item"
           :key="index"
+          click="look(i)"
             v-for="(i, index) in news">
             <div class="top">
               <div class="text">{{i.messageType}}</div>
               <div class="time">{{formatDate(i.createTime)}}</div>
             </div>
             <div>{{i.messageContent}}</div>
-          </li>
+          </li> -->
+          <CommonNew :news="news"/>
           <li class="news-center" @click="jupNews">通知中心</li>
         </ul>
       <el-badge :value="12" slot="reference" class="item">
@@ -41,6 +43,7 @@
 import { mapState, mapActions } from 'vuex'
 import { formatDateTimeZn,formatDate } from '../utils/format.js'
 // import{logout} from '../pages/login/service.js'
+import CommonNew from './CommonNew'
 
 export default {
   data () {
@@ -55,6 +58,9 @@ export default {
       userInfo: state => state.userInfo,
       news:state => state.news
     })
+  },
+  components: {
+    CommonNew
   },
   created () {
     this.getUserInfo()
