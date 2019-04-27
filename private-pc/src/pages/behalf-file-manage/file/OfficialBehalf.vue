@@ -6,13 +6,12 @@
       type="primary"
       size="small">下载</el-button>
     </div>
-    <div class="content content2">
+    <div class="content">
       <div class="announcement1">{{data.countyName}}选举委员会公告</div>
       <div class="announcement2">(第xx号)</div>
        &nbsp;&nbsp;{{data.belongAreaName}}于xxxx年x月x日按照{{data.countyName}}人大
-       代表选举办法，并采用无记名投票的方式，选举产生{{data.countyName}}第{{data.sessionNum}}届人民代表大会
-       代表xx名，经县选举委员会审核，符合选举法和省选举实施细规有段规定，确定选举结果有效，现将各候选人名单以得票多少顺序公告如下：
-        <Tabel style="margin: 20px 0;" :list="data.list"/>
+       代表选举办法，并采用无记名投票的方式，选举产生{{data.countyName}}第{{data.sessionNum}}届人民代表大会代表xx名，经县选举委员会审核，符合选举法和省选举实施细规有关规定，确定选举结果有效，现将各候选人名单以得票多少顺序公告如下：
+        <Tabel2 style="margin: 20px 0;" class="message" :list="data.list"/>
         <div>
           &nbsp;&nbsp;根据有关法律规定及代表选举办法，确认xxx,xxx,xxx当选为{{data.countyName}}县第x届人民代表大会代表。
         </div>
@@ -22,7 +21,8 @@
   </div>
 </template>
 <script>
-import Tabel from './Tabel'
+import Tabel2 from './Tabel2'
+import output from '../../../utils/output.js'
 export default {
   data(){
     return {
@@ -40,13 +40,19 @@ export default {
     }
   },
   components: {
-    Tabel
+    Tabel2
   },
   created(){
 
   },
   methods: {
-
+    async download (item) {
+      try {
+        output({url: '/doc/download', params: {id: item, module: 2}})
+      } catch (err) {
+        console.log(err)
+      }
+    },
   }
 }
 </script>
@@ -73,7 +79,6 @@ export default {
     font-size: 18px;
     display: flex;
     flex-direction: column;
-    align-items: center;
     letter-spacing: 4px;
     color: #55585f;
     & .announcement-title {
@@ -82,17 +87,12 @@ export default {
       font-weight: bold;
       padding-bottom: 40px;
     }
-    & .message {
-       display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 20px 0;
-    }
   }
   .announcement1,.announcement2{
     font-size: 24px;
     color: #000;
     font-weight: bold;
+    text-align: center;
   }
   .announcement2 {
     padding-bottom: 30px;

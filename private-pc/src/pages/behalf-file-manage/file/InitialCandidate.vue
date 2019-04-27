@@ -4,6 +4,7 @@
       <div>>> {{$route.query.title}}</div>
       <el-button
       type="primary"
+      @click="download"
       size="small">下载</el-button>
     </div>
     <div class="content">
@@ -35,6 +36,7 @@
 </template>
 <script>
 import Tabel from './Tabel'
+import output from '../../../utils/output.js'
 export default {
   data(){
     return {
@@ -58,7 +60,13 @@ export default {
 
   },
   methods: {
-
+    async download (item) {
+      try {
+        output({url: '/doc/download', params: {id: item, module: 2}})
+      } catch (err) {
+        console.log(err)
+      }
+    },
   }
 }
 </script>
