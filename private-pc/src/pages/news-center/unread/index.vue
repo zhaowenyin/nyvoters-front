@@ -55,7 +55,7 @@ export default {
     },
     handleCurrentChange (val) {
       clearInterval(this.timer)
-      this.searchNewsNot({...this.params,pageNum: val})
+      this.searchNews({...this.params,pageNum: val})
       this.timer = setInterval(() => {
         this.searchNews({...this.params,pageNum: val})
       }, 10000)
