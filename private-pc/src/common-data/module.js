@@ -28,7 +28,8 @@ export default {
       state.treeList = [payload.data.content]
     },
     updateNews(state, payload) {
-      state.news = payload.data.news
+      const list =  payload.data.content.data
+      state.news = [list[0],list[1],list[2]]
     }
   },
   actions: {
@@ -57,8 +58,8 @@ export default {
         data
       })
     },
-    async getNews ({ commit }) {
-      const { data } = await getNews()
+    async getNews ({ commit },payload) {
+      const { data } = await getNews(payload)
       commit({
         type: 'updateNews',
         data

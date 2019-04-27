@@ -18,10 +18,10 @@
           :key="index"
             v-for="(i, index) in news">
             <div class="top">
-              <div class="text">{{i.a}}</div>
-              <div class="time">{{formatDate(i.b)}}</div>
+              <div class="text">{{i.messageType}}</div>
+              <div class="time">{{formatDate(i.createTime)}}</div>
             </div>
-            <div>{{i.c}}</div>
+            <div>{{i.messageContent}}</div>
           </li>
           <li class="news-center" @click="jupNews">通知中心</li>
         </ul>
@@ -47,7 +47,7 @@ export default {
     return {
       currentTime: null,
       timer: null,
-      time1: null
+      timeout: null
     }
   },
   computed: {
@@ -59,9 +59,9 @@ export default {
   created () {
     this.getUserInfo()
     this.currentTime = this.formatDateTimeZn(Date.now())
-    this.getNews()
-    this.timer = setInterval(() => {
-      this.getNews()
+    this.getNews({isRead: null})
+    this.timeout = setInterval(() => {
+      this.getNews({isRead: null})
     }, 10000)
     this.timer = setInterval(() => {
       this.currentTime = this.formatDateTimeZn(Date.now())
@@ -69,7 +69,7 @@ export default {
   },
   destroyed() {
     clearInterval(this.timer)
-    clearInterval(this.timer2)
+    clearInterval(this.timeout)
   },
   methods: {
     ...mapActions('commonData', [
