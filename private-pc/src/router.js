@@ -63,6 +63,7 @@ const Read = () => import('@/pages//news-center/read')
 const Unread = () => import('@/pages//news-center/unread')
 // 文件资料
 const File = () => import('./pages/behalf-file-manage/file')
+const FileVoters = () => import('./pages/voters-management/download-file/file')
 
 
 
@@ -315,8 +316,13 @@ const router = new Router({
         },
         {
           path: 'create-file',
-          name: '生成文件',
+          name: '生成文件代表事物',
           component: File
+        },
+        {
+          path: 'create-votersfile',
+          name: '生成文件选民管理',
+          component: FileVoters
         }
 
       ]

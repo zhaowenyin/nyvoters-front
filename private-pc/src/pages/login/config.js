@@ -42,7 +42,8 @@ export const verifyArr = [
   '/voters-apeal/history',
   '/news',
   '/news/read',
-  '/create-file'
+  '/create-file',
+  '/create-votersfile'
 
 ]
 

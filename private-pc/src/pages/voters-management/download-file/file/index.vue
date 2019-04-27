@@ -13,23 +13,25 @@
 </template>
 
 <script>
-import CommonTree from '../../../components/common-tree'
-import { mapMutations, mapActions, mapState } from 'vuex'
+import CommonTree from '../../../../components/common-tree'
+import {getTree} from '../service'
+// import { mapMutations, mapActions, mapState } from 'vuex'
 import Item from './Item'
 export default {
   data () {
     return {
-
+      data: [],
+      belongAreaId: ''
     }
   },
   computed: {
     activeIndex () {
       return this.$route.path
     },
-    ...mapState('commonData', {
-      data: state => state.treeList,
-      belongAreaId: state => state.belongAreaId
-    })
+    // ...mapState('commonData', {
+    //   data: state => state.treeList,
+    //   belongAreaId: state => state.belongAreaId
+    // })
   },
   components: {
     CommonTree,
@@ -37,20 +39,23 @@ export default {
   },
   created () {
     this.searchTree({type: 0, id: ''})
-    this.saveDistrictId('')
   },
   methods: {
     change (index) {
       this.$router.push({ path: index })
     },
-    ...mapMutations('commonData', [
-      'saveDistrictId',
-    ]),
-    ...mapActions('commonData', [
-      'searchTree',
-    ]),
+    // ...mapMutations('commonData', [
+    //   'saveDistrictId',
+    // ]),
+    // ...mapActions('commonData', [
+    //   'searchTree',
+    // ]),
     handleNodeClick(data) {
-      this.saveDistrictId(data.id)
+      this.belongAreaId = data.id
+    },
+    async searchTree (val) {
+      const {data} = await getTree(val)
+      this.data = [data.content]
     }
   }
 }

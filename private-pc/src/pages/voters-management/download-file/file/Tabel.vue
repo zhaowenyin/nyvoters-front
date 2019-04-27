@@ -65,7 +65,7 @@
   </div>
 </template>
 <script>
-import { formatDate } from '../../../utils/format.js'
+import { formatDate } from '../../../../utils/format.js'
 
 export default {
   data () {

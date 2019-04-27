@@ -93,6 +93,7 @@ export default {
     font-size: 18px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     letter-spacing: 4px;
     color: #55585f;
     & .announcement-title {
@@ -104,13 +105,14 @@ export default {
     & .message {
        display: flex;
       flex-direction: column;
+      padding-left: 50px;
+      margin: 20px 0;
     }
   }
   .announcement1,.announcement2{
     font-size: 24px;
     color: #000;
     font-weight: bold;
-    text-align: center;
   }
   .announcement2 {
     padding-bottom: 30px;

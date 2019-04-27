@@ -1,29 +1,24 @@
 <template>
   <div class="out" v-loading="loading">
-    <InitialCandidate
-    v-if="+type===1 || +type===2"
+    <VoterLists
+    v-if="+type===1"
     :type="type"
     :data="data"/>
-    <OfficialCandidate
+    <VoterListsRevised
     v-if="+type===3 || +type===4"
     :type="type"
     :data="data"/>
-    <OfficialBehalf
-    v-if="+type===5"
-    :type="type"
-    :data="data"/>
-    <Announcement
+    <TimeRegistration
     :type="type"
     :data="data"
-    v-if="+type===6"/>
+    v-if="+type===5"/>
   </div>
 </template>
 <script>
 import {getInfo} from '../service'
-import InitialCandidate from './InitialCandidate'
-import OfficialCandidate from './OfficialCandidate'
-import OfficialBehalf from './OfficialBehalf'
-import Announcement from './Announcement'
+import VoterLists from './VoterLists'
+import VoterListsRevised from './VoterListsRevised'
+import TimeRegistration from './TimeRegistration'
 export default {
   data(){
     return {
@@ -39,10 +34,9 @@ export default {
     },
   },
   components: {
-    InitialCandidate,
-    OfficialCandidate,
-    OfficialBehalf,
-    Announcement
+    VoterLists,
+    VoterListsRevised,
+    TimeRegistration
   },
   watch: {
     belongAreaId () {
