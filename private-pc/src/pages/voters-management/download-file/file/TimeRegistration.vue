@@ -8,8 +8,15 @@
     </div>
     <div class="content">
       <div class="announcement1">{{data.belongAreaName}}选举大会公告</div>
-       &nbsp;&nbsp;根据{{data.belongAreaName}}选举委员会的统一要求，本选区定于xxxx年x月x日x时在xx处召开选举大会选举xx县第x届人民
-       代表大会代表。请选民回想转告，届时请携带选民证（身份证），准时到会参加投票选举。
+       <div class="announcement2">(第xx号)</div>
+       &nbsp;&nbsp;根据《中华人民共和国全国人民代表大会和地方各级人民代表大会选举法》、《xxx县乡两集人民代表大会代表选举工作实施细则》以及我县人大常委会关于县人大换届是时间的决定及安排意见，经研究确定xxxx年x月x 日为县人大代表的选举日，选民工作从xx月x日起，到x月x日止。务请给喂选民在此期间积极做好选民登记工作。
+         <br/>&nbsp;&nbsp;对于外来人员的选民登记问题作如下规定：凡常住户口不在本地
+         的外来暂住人员，应当回原户口所在地或原工作单位的选区进行选民
+         登记，参加选举。如本人要求参加现居住地和工作单位所在地选举的，必
+         须向原户口所在地或原工作单位索取选民资格证明后，在选民登记载
+         止日前到现所在单位或现暂住地的选区进行选民登记，列入选民名单，
+         参加选举活动。
+         <br/>&nbsp;&nbsp;特此公告。
         <div class="mark mark1">{{data.countyName}}选举委员会</div>
         <div class="mark">{{`${data.year}年${data.month}月${data.day}日`}}</div>
     </div>
@@ -65,10 +72,10 @@ export default {
   .content {
     overflow: auto;
     height: 100%;
-    width: 700px;
+    width: 760px;
     margin: 0 auto;
     background-color: #fff;
-    padding: 30px;
+    padding: 30px 50px ;
     line-height: 40px;
     font-size: 18px;
     display: flex;
@@ -83,7 +90,10 @@ export default {
     text-align: center;
   }
   .announcement2 {
-    padding-bottom: 30px;
+    padding-bottom: 50px;
+  }
+  .announcement1 {
+    padding-bottom: 20px;
   }
   .mark {
     display: flex;
