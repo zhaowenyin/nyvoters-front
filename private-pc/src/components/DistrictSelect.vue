@@ -1,4 +1,5 @@
 <template>
+
   <div :class="['multiple',{'isfocus': valueStr},{'diabled': disabled}]">
     <ul
       ref="select"
@@ -22,7 +23,7 @@
       :item="item"
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
-      :labels="labels"
+      :labels="nameList"
       :data="data"
       />
   </div>
@@ -133,7 +134,6 @@ export default {
         name = val.name
       }
       this.$emit('input', value)
-      this.$emit('setData', name)
     }
 
   }

@@ -89,11 +89,7 @@ export default {
     }
   },
   created () {
-    if (this.multiple) {
-      this.nameList = JSON.parse(JSON.stringify(this.labels))
-    } else {
-      this.nameList.push(this.labels)
-    }
+    this.nameList = JSON.parse(JSON.stringify(this.labels))
   },
   components: {
     CommonTree

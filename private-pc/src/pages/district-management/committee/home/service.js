@@ -40,46 +40,46 @@ export async function getList (payload) {
 }
 
 export async function setSubmit (payload) {
-  console.log(1,payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/committee/add', payload)
-  // .then(data => data)
-  //   .catch(() => Promise.resolve({data: null}))
+  // console.log(1,payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.post('/committee/add', payload)
+    .then(data => data)
+    .catch(() => Promise.resolve({data: null}))
 }
 
 export async function modifySubmit (payload) {
-  console.log(2,payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/committee/edit', payload)
-  // .then(data => data)
-  //   .catch(() => Promise.resolve({data: null}))
+  // console.log(2,payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.post('/committee/edit', payload)
+    .then(data => data)
+    .catch(() => Promise.resolve({data: null}))
 }
 
 export async function deletetTabel (payload) {
-  console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/committee/delete', payload)
+  // console.log(payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.post('/committee/delete', payload)
 }
 export async function getTree (payload) {
   // console.log(payload)
@@ -143,29 +143,4 @@ export async function getTree (payload) {
   return api.post('/precinct/tree', payload)
 }
 
-
-export async function parentList (payload) {
-  console.log(1,payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-          content: {
-            "code": "string",
-            "id": 0,
-            "level": 0,
-            "name": "二区1",
-            "parentId": 0,
-            "path": "string",
-            "pnum": 0,
-            "sort": 0
-          }
-        }
-      })
-    }, 500)
-  })
-  // return api.post(`/committee/${payload.parentId}/nextSort`, payload)
-  //   .then(data => data)
-  //   .catch(() => Promise.resolve({data: null}))
-}
 

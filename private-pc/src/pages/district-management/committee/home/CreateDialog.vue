@@ -48,12 +48,10 @@
         </el-form-item>
         <el-form-item
           label="对应行政区"
-          prop="precinctId">
+          prop="districtId">
            <DistrictSelect
               :multiple="false"
-              @setData="setData"
-              @clear="clear"
-              v-model="form.precinctId"
+              v-model="form.districtId"
               :item='item'
               :data="data"
             />
@@ -103,7 +101,7 @@
   </div>
 </template>
 <script>
-import {setSubmit,modifySubmit,getTree,parentList} from './service.js'
+import {setSubmit,modifySubmit,getTree} from './service.js'
 import { mapActions } from 'vuex'
 import DistrictSelect from '../../../../components/DistrictSelect'
 export default {
@@ -114,18 +112,17 @@ export default {
         parentId: '',
         name: '',
         code: '',
-        precinctId: '',
+        districtId: '',
         manager: '',
         phoneName: '',
         sort: '',
-        // precinct: ''
       },
       multipleSelection: [],
       rules: {
         name: [
           { required: true, message: '请输入选委会！', trigger: 'blur' }
         ],
-        precinctId: [
+        districtId: [
           { required: true, message: '请选择对应行政区！', trigger: 'change' }
         ],
 
@@ -155,20 +152,20 @@ export default {
   created () {
 
     const params = {
-      // precinct: this.item.precinct,
       parentId: this.item.parentId,
       name: this.item.name,
       code: this.item.code,
-      precinctId: this.item.precinct,
+      districtId: this.item.districtId,
       manager: this.item.manager,
       phoneName: this.item.phoneName,
       sort: this.item.sort,
     }
     this.form = {...this.form, ...params }
     this.searchTree({id: '',type: 0})
-    if(this.item.parentId || this.item.parentId===0) {
-      this.getParentList({parentId:this.item.parentId})
+    if(this.item.parentId) {
+      this.parentList.push({name:this.item.name,id:this.item.parentId})
     }
+
 
   },
   methods: {
@@ -212,21 +209,10 @@ export default {
     select () {
       this.createDialogVisible = true
     },
-    setData (val) {
-      this.form.precinct = val
-    },
-    clear (val) {
-      this.form.precinct = val
-    },
     async searchTree () {
       const {data} = await getTree({type: 0, id: ''})
       this.data = [data.content]
     },
-    async getParentList (val) {
-      this.parentList = []
-      const {data} = await parentList(val)
-      this.parentList.push(data.content)
-    }
   }
 
 }
