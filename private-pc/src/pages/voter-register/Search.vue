@@ -33,21 +33,21 @@
       </el-form-item>
       <el-form-item
         v-if="type === 2"
-        prop="card">
+        prop="idNum">
         <el-input
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.card" />
+          v-model.trim="searchForm.idNum" />
       </el-form-item>
       <el-form-item
         v-if="type === 3"
-        prop="tel">
+        prop="phoneNum">
         <el-input
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.tel" />
+          v-model.trim="searchForm.phoneNum" />
       </el-form-item>
       <el-form-item
         v-if="type === 4"
@@ -85,8 +85,8 @@ export default {
       type: 1,
       searchForm: {
         name: '',
-        card: '',
-        tel: '',
+        idNum: '',
+        phoneNum: '',
         date: []
       },
       createDialogVisible: false,
@@ -112,7 +112,7 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
-          params.page = 1
+          params.pageNum = 1
           if (params.date && params.date.length > 0) {
             params.startTime = new Date(params.date[0]).getTime()
             params.endTime = new Date(params.date[1]).getTime()

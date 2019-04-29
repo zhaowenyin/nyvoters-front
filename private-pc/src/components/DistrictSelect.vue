@@ -32,16 +32,26 @@ import PrecinctList from './PrecinctList'
 export default {
   data () {
     return  {
-      createDialogVisible: false
+      createDialogVisible: false,
+      nameList: []
     }
   },
   computed: {
     valueStr () {
-      if(this.multiple) {
-        return this.labels&&this.labels.join(',')
+      console.log(99,this.value)
+      // if(this.multiple) {
+      //   return this.labels&&this.labels.join(',')
+      // } else {
+      //   return this.labels
+      // }
+      if(toString.call(this.value) === '[object Array]') {
+        for(let i of this.value) {
+          this.func(this.data,i)
+        }
       } else {
-        return this.labels
+        this.func(this.data,this.value)
       }
+      return this.nameList.join(',')
 
     }
   },
@@ -76,6 +86,24 @@ export default {
 
   },
   methods: {
+    func (list,i) {
+      console.log(8888,list,i)
+      let defaultValue = i
+      const re = (array) => {
+        if (!array || array.length === 0) return false
+        for (let i = 0; i < array.length; i++) {
+          if (array[i].id === defaultValue) {
+            this.nameList.push(array[i].name)
+            console.log(9, this.nameList)
+            return true
+          }
+          const bol = re(array[i].children)
+          if (bol) return true
+        }
+        return false
+      }
+      re(list, [])
+    },
     showselect () {
       if (this.disabled) {
         return

@@ -50,7 +50,6 @@
           label="对应行政区"
           prop="precinctId">
            <DistrictSelect
-              :labels="form.precinct"
               :multiple="false"
               @setData="setData"
               @clear="clear"
@@ -119,7 +118,7 @@ export default {
         manager: '',
         phoneName: '',
         sort: '',
-        precinct: ''
+        // precinct: ''
       },
       multipleSelection: [],
       rules: {
@@ -154,8 +153,9 @@ export default {
     DistrictSelect
   },
   created () {
+
     const params = {
-      precinct: this.item.precinct,
+      // precinct: this.item.precinct,
       parentId: this.item.parentId,
       name: this.item.name,
       code: this.item.code,
@@ -219,8 +219,8 @@ export default {
       this.form.precinct = val
     },
     async searchTree () {
-      const {data} = await getTree()
-      this.data = data.content
+      const {data} = await getTree({type: 0, id: ''})
+      this.data = [data.content]
     },
     async getParentList (val) {
       this.parentList = []

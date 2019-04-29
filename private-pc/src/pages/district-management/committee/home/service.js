@@ -140,7 +140,7 @@ export async function getTree (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post('/committee/tree', payload)
+  return api.post('/precinct/tree', payload)
 }
 
 
@@ -165,7 +165,7 @@ export async function parentList (payload) {
     }, 500)
   })
   // return api.post(`/committee/${payload.parentId}/nextSort`, payload)
-  // .then(data => data)
+  //   .then(data => data)
   //   .catch(() => Promise.resolve({data: null}))
 }
 

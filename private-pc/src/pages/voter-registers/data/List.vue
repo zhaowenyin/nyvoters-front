@@ -91,11 +91,11 @@ export default {
     Pagination
   },
   created () {
-    this.getListData({ belongAreaId: this.belongAreaId })
+    this.getListData({ precinctId: this.belongAreaId })
   },
   watch: {
     belongAreaId () {
-      this.getListData({belongAreaId: this.belongAreaId })
+      this.getListData({precinctId: this.belongAreaId })
     }
   },
   methods: {

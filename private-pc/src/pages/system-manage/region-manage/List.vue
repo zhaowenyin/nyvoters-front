@@ -61,11 +61,11 @@ export default {
   components: {
   },
   created () {
-    this.getListData({ belongAreaId: this.belongAreaId })
+    this.getListData({ districtId: this.belongAreaId })
   },
   watch: {
     belongAreaId () {
-      this.getListData({belongAreaId: this.belongAreaId })
+      this.getListData({districtId: this.belongAreaId })
     }
   },
   methods: {
