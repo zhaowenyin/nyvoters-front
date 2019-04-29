@@ -73,6 +73,9 @@ export default {
   computed: {
     ...mapState('committeeHome', {
       multipleSelection: state=>state.multipleSelection
+    }),
+    ...mapState('commonCommittee', {
+      belongAreaId: state => state.belongAreaId
     })
   },
   components: {

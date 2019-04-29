@@ -39,25 +39,33 @@ export default {
   },
   computed: {
     valueStr () {
-      console.log(99,this.value)
-      // if(this.multiple) {
-      //   return this.labels&&this.labels.join(',')
-      // } else {
-      //   return this.labels
-      // }
       if(toString.call(this.value) === '[object Array]') {
+        if(this.value.length===0) {
+          return ''
+        }
         for(let i of this.value) {
           this.func(this.data,i)
         }
       } else {
+        if(!this.value) {
+          return ''
+        }
         this.func(this.data,this.value)
       }
       return this.nameList.join(',')
 
-    }
+    },
   },
   components: {
     PrecinctList
+  },
+  watch: {
+    valueStr (val) {
+      if(!val) {
+        this.nameList = []
+      }
+    },
+
   },
   props: {
     value: {
@@ -88,14 +96,12 @@ export default {
   },
   methods: {
     func (list,i) {
-      console.log(8888,list,i)
       let defaultValue = i
       const re = (array) => {
         if (!array || array.length === 0) return false
         for (let i = 0; i < array.length; i++) {
           if (array[i].id === defaultValue) {
             this.nameList.push(array[i].name)
-            console.log(9, this.nameList)
             return true
           }
           const bol = re(array[i].children)
@@ -119,7 +125,6 @@ export default {
         value = ''
       }
       this.$emit('input', value)
-      this.$emit('clear',value)
     },
     saveData (val) {
       let value = []

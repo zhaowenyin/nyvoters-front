@@ -62,9 +62,6 @@ export default {
       total: state => +state.total,
       pageSize: state => state.searchParam.pageSize,
       pageNum: state => state.searchParam.pageNum,
-    }),
-    ...mapState('commonCommittee', {
-      belongAreaId: state => state.belongAreaId
     })
   },
   components: {

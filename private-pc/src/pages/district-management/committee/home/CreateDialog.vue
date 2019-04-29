@@ -102,7 +102,8 @@
 </template>
 <script>
 import {setSubmit,modifySubmit,getTree} from './service.js'
-import { mapActions } from 'vuex'
+import { mapActions,mapState } from 'vuex'
+
 import DistrictSelect from '../../../../components/DistrictSelect'
 export default {
   data () {
@@ -134,7 +135,10 @@ export default {
 
   },
   computed: {
-
+    ...mapState('commonCommittee', {
+      committeeId: state => state.belongAreaId,
+      belongArea: state => state.belongArea
+    })
   },
   props:{
     visible: {
@@ -144,13 +148,14 @@ export default {
     item: {
       default: () => {},
       type: Object
-    }
+    },
+
   },
   components: {
     DistrictSelect
   },
   created () {
-
+    this.form.parentId = this.committeeId
     const params = {
       parentId: this.item.parentId,
       name: this.item.name,
@@ -160,11 +165,12 @@ export default {
       phoneName: this.item.phoneName,
       sort: this.item.sort,
     }
-    this.form = {...this.form, ...params }
-    this.searchTree({id: '',type: 0})
-    if(this.item.parentId) {
-      this.parentList.push({name:this.item.name,id:this.item.parentId})
+    if (!this.item.id) {
+      this.form = {...this.form, ...params }
     }
+
+    this.searchTree({id: '',type: 0})
+    this.parentList.push({name:this.item.name || this.belongArea,id:this.item.parentId || this.committeeId})
 
 
   },
@@ -186,7 +192,7 @@ export default {
       this.loading = true
       this.loading = true
       if(this.item.name) {
-        await modifySubmit(this.handerParams())
+        await modifySubmit({...this.handerParams(), id: this.item.id})
       }else {
         await setSubmit(this.handerParams())
       }
