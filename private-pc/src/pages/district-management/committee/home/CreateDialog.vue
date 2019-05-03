@@ -165,7 +165,7 @@ export default {
       phoneName: this.item.phoneName,
       sort: this.item.sort,
     }
-    if (!this.item.id) {
+    if (this.item.id) {
       this.form = {...this.form, ...params }
     }
 
