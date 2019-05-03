@@ -23,10 +23,10 @@
           已选
         <ul class="content">
           <li
-            v-for="(i, key) in nameList"
+            v-for="(i, key) in selectList"
             :key="key">
-            <span>{{i}}</span>
-            <i/>
+            <span>{{i.name}}</span>
+            <img @click.prevent="remove(i.id)" class="img" src="../assets/img/icon-close.png"/>
           </li>
         </ul>
       </div>
@@ -53,7 +53,6 @@ export default {
       loading: false,
       filterText: '',
       selectList: [],
-      nameList: []
     }
 
   },
@@ -70,13 +69,9 @@ export default {
       default: false,
       type: Boolean
     },
-    value: {
+    list: {
       default: null,
       type: [String, Array,Number]
-    },
-    labels: {
-      default: null,
-      type: [String, Array]
     },
     data: {
       default: () => [],
@@ -89,7 +84,7 @@ export default {
     }
   },
   created () {
-    this.nameList = JSON.parse(JSON.stringify(this.labels))
+    this.selectList = JSON.parse(JSON.stringify(this.list))
   },
   components: {
     CommonTree
@@ -118,7 +113,6 @@ export default {
     handleNodeClick(data) {
       if(!this.multiple) {
         this.selectList = []
-        this.nameList = []
       }
       let isSimilar = false
       for(let i of this.selectList) {
@@ -128,9 +122,13 @@ export default {
       }
       if(!isSimilar) {
         this.selectList.push(data)
-        this.nameList.push(data.name)
       }
 
+    },
+    remove (val){
+      this.selectList = this.selectList.filter(i => {
+        return i.id !== val
+      })
     }
   }
 
@@ -156,6 +154,8 @@ export default {
     & li {
       line-height: 16px;
       margin-bottom: 30px;
+      display: flex;
+      justify-content:space-between;
     }
   }
   .row-ccontent {
@@ -165,28 +165,32 @@ export default {
     justify-content: center;
     width: 50px;
   }
-  .row {
-    margin-bottom: 20px;
-      width:0;
-      height:0;
-      border-left:25px solid #fff;
-      border-top:15px solid transparent;
-      border-bottom:15px solid transparent;
-      position: relative;
-      &:after{
-        content: '';
-        display: block;
-        position: absolute;
-        top: -12px;
-        left: -25px;
-        border-left:25px solid #444;
-        border-top:15px solid transparent;
-        border-bottom:15px solid transparent;
-      }
-       &.up{
-        transform: rotate(180deg);
-      }
-    }
+.row {
+  margin-bottom: 20px;
+  width:0;
+  height:0;
+  border-left:25px solid #fff;
+  border-top:15px solid transparent;
+  border-bottom:15px solid transparent;
+  position: relative;
+  &:after{
+    content: '';
+    display: block;
+    position: absolute;
+    top: -12px;
+    left: -25px;
+    border-left:25px solid #444;
+    border-top:15px solid transparent;
+    border-bottom:15px solid transparent;
+  }
+    &.up{
+    transform: rotate(180deg);
+  }
+}
+.img {
+  width: 20px;
+  height: 20px;
+}
 </style>
 <style>
   .table-obj .el-form-item {

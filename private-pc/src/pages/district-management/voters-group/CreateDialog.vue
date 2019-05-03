@@ -26,10 +26,7 @@
               label="所属选区"
               prop="distinctId">
                 <DistrictSelect
-                :labels="form.distinct"
                 :multiple="false"
-                @setData="setData"
-                @clear="clear"
                 v-model="form.distinctId"
                 :item='item'
                 :data="data"
@@ -230,12 +227,6 @@ export default {
     },
     select () {
       this.createDialogVisible = true
-    },
-    setData (val) {
-      this.form.distinct = val
-    },
-    clear (val) {
-      this.form.distinct = val
     }
   }
 

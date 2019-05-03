@@ -55,10 +55,7 @@
           label="管理选区"
           prop="precinctId">
           <DistrictSelect
-          :labels="form.managePrecinct"
           :multiple="true"
-          @setData="setData"
-          @clear="clear"
           v-model="form.managePrecinctIds"
           :item='item'
           :data="data"
@@ -217,12 +214,6 @@ export default {
       delete params.managePrecinct
       params.precinctId = this.belongAreaId
       return params
-    },
-    setData (val) {
-      this.form.managePrecinct = val
-    },
-    clear (val) {
-      this.form.managePrecinct = val
     }
   }
 

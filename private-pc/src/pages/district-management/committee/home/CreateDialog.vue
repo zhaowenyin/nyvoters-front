@@ -217,7 +217,7 @@ export default {
     },
     async searchTree () {
       const {data} = await getTree({type: 0, id: ''})
-      this.data = [data.content]
+      this.data = data.content
     },
   }
 

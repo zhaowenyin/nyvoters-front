@@ -21,9 +21,9 @@
       @saveData="saveData"
       :multiple="multiple"
       :item="item"
+      :list="list"
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
-      :labels="nameList"
       :data="data"
       />
   </div>
@@ -34,7 +34,7 @@ export default {
   data () {
     return  {
       createDialogVisible: false,
-      nameList: []
+      list: []
     }
   },
   computed: {
@@ -52,7 +52,11 @@ export default {
         }
         this.func(this.data,this.value)
       }
-      return this.nameList.join(',')
+      let str = []
+      for(let i of this.list) {
+        str.push(i.name)
+      }
+      return str.join(',')
 
     },
   },
@@ -62,7 +66,7 @@ export default {
   watch: {
     valueStr (val) {
       if(!val) {
-        this.nameList = []
+        this.list = []
       }
     },
 
@@ -71,10 +75,6 @@ export default {
     value: {
       default: null,
       type: [String, Array,Number]
-    },
-    labels: {
-      default: null,
-      type: [String, Array]
     },
     disabled: {
       default: false,
@@ -101,7 +101,7 @@ export default {
         if (!array || array.length === 0) return false
         for (let i = 0; i < array.length; i++) {
           if (array[i].id === defaultValue) {
-            this.nameList.push(array[i].name)
+            this.list.push(array[i])
             return true
           }
           const bol = re(array[i].children)

@@ -37,10 +37,7 @@
               label="所选区域"
               prop="belongAreaId">
               <DistrictSelect
-                :labels="form.belongArea"
                 :multiple="false"
-                @setData="setData"
-                @clear="clear"
                 v-model="form.belongAreaId"
                 :item='item'
                 :data="data"
@@ -574,12 +571,6 @@ export default {
     },
     select () {
       this.createDialogVisible = true
-    },
-    setData (val) {
-      this.form.belongArea = val
-    },
-    clear (val) {
-      this.form.belongArea = val
     }
   }
 
