@@ -98,11 +98,7 @@ export default {
     },
     submitForm () {
       let val = null
-      if (this.multiple) {
-        val = this.selectList
-      } else {
-        val = this.selectList[0]
-      }
+      val = this.selectList
       this.$emit('saveData', val)
       this.close()
     },

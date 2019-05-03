@@ -49,12 +49,12 @@
         <el-form-item
           label="对应行政区"
           prop="districtId">
-           <DistrictSelect
-              :multiple="false"
-              v-model="form.districtId"
-              :item='item'
-              :data="data"
-            />
+          <DistrictSelect
+            :multiple="false"
+            v-model="form.districtId"
+            :item='item'
+            :data="data"
+          />
         </el-form-item>
         <el-form-item
           label="联系人"

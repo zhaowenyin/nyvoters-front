@@ -124,20 +124,22 @@ export default {
       } else {
         value = ''
       }
+      this.list = []
       this.$emit('input', value)
     },
     saveData (val) {
       let value = []
-      let name=[]
-      if(this.multiple) {
-        for(let i of val) {
-          value.push(i.id)
-          name.push(i.name)
-        }
-      } else {
-        value = val.id
-        name = val.name
+      for(let i of val) {
+        value.push(i.id)
       }
+      if(!this.multiple) {
+        if (value.length > 0) {
+          value = value[0]
+        } else {
+          value = ''
+        }
+      }
+      this.list = []
       this.$emit('input', value)
     }
 
