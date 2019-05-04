@@ -168,14 +168,14 @@ export default {
     },
     successFn (response) {
       // this.$notify.success({title: '上传成功'})
-      console.log(response)
+      console.log(55,response)
       this.active = 1
-      this.form.id = 1
+      this.form.id = response.id
       this.loading = true
       let sel = this
       clearInterval(this.timer)
       this.timer = setInterval(() => {
-        sel.searchProcessSate({id: 1})
+        sel.searchProcessSate({id:  this.form.id})
       }, 5000)
       this.showForm = false
       // this.form.id = response.data.content
