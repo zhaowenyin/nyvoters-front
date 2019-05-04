@@ -26,6 +26,8 @@ export default {
     },
     updateTreeList(state, payload) {
       state.treeList = [payload.data.content]
+      state.belongAreaId = payload.data.content.id
+      state.belongArea = payload.data.content.name
     },
     updateNews(state, payload) {
       const list =  payload.data.content.data
@@ -56,6 +58,7 @@ export default {
         type: 'updateTreeList',
         data
       })
+
     },
     async getNews ({ commit },payload) {
       const { data } = await getNews(payload)

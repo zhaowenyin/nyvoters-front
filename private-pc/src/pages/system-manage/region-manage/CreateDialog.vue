@@ -55,7 +55,7 @@
             v-for="(item,key) in levelList"
             :key="key"
             :label="item"
-            :value="key">
+            :value="+key">
           </el-option>
         </el-select>
       </el-form-item>
@@ -209,8 +209,7 @@ export default {
     async sumitData () {
       this.loading = true
       const params = {
-        ...this.form,
-        parentId: this.form.parentId[this.form.parentId.length-1]
+        ...this.form
       }
       params.sort = +params.sort
       params.pnum = +params.pnum
@@ -223,12 +222,12 @@ export default {
     async modifyData () {
       this.loading = true
       const params = {
-        ...this.form,
-        parentId: this.form.parentId[this.form.parentId.length-1]
+        ...this.form
+
       }
       params.sort = +params.sort
       params.pnum = +params.pnum
-      delete params.path
+      params.level = +params.level
       await modifySubmit(params)
       this.getListData()
       this.close()

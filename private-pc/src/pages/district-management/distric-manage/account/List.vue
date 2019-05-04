@@ -68,11 +68,13 @@ export default {
   components: {
   },
   created () {
-    this.getListData1({belongAreaId: this.belongAreaId })
+    if(this.belongAreaId!=='') {
+      this.getListData({precinctId: this.belongAreaId })
+    }
   },
   watch: {
     belongAreaId () {
-      this.getListData1({belongAreaId: this.belongAreaId })
+      this.getListData({precinctId: this.belongAreaId })
     }
   },
   methods: {

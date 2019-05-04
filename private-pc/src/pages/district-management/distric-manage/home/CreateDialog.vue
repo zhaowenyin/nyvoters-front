@@ -5,7 +5,6 @@
       :visible="visible"
       width="60%"
       :before-close="comfirmClose">
-
       <el-form
         label-width="110px"
         :model="form"
@@ -96,16 +95,10 @@
           size="medium">取消</el-button>
       </div>
     </el-dialog>
-     <PrecinctList
-     @saveData="saveData"
-      v-if="createDialogVisible"
-      :item="item"
-      :visible.sync='createDialogVisible'
-      />
   </div>
 </template>
 <script>
-import {setSubmit, modifySubmit} from './service.js'
+import {setSubmit, modifySubmit,getTree} from './service.js'
 import { mapActions, mapState } from 'vuex'
 import DistrictSelect from '../../../../components/DistrictSelect'
 export default {
@@ -118,7 +111,6 @@ export default {
         districtId: '',
         pnum: '',
         sort: '',
-        distinct: '',
         type: '',
         typeName: '',
         parentId: ''
@@ -133,7 +125,7 @@ export default {
         ],
 
       },
-      createDialogVisible: false,
+      data: []
     }
 
   },
@@ -156,7 +148,6 @@ export default {
   },
   computed: {
     ...mapState('commonData', {
-      data: state => state.treeList,
       belongAreaId: state => state.belongAreaId
     })
   },
@@ -167,30 +158,28 @@ export default {
         pnum: this.item.pnum,
         name: this.item.name,
         code: this.item.code,
-        distinctId: this.item.distinctId,
-        distinct: this.item.distinct,
+        districtId: this.item.districtId,
         sort: this.item.sort,
-        type: this.item.distinctId,
-        typeName:(+this.item.distinctId)=== 0 ? '区县选区' : '乡镇选区'
+        type: this.item.type,
+        typeName:(+this.item.type)=== 0 ? '区县选区' : '乡镇选区'
       }
-    } else if((+this.val) !== -1) {
+    }
+    if((+this.val) !== -1) {
       params.typeName = (+this.val)=== 0 ? '区县选区' : '乡镇选区'
       params.type = this.val
+      this.form.parentId = this.belongAreaId
     }
-    this.form = {...this.form, ...params }
     let id = ''
     if(this.item.id || this.item.id===0) {
       id = this.item.id
     }
+    this.form = {...this.form, ...params }
     this.searchTree({type: 0, id})
 
   },
   methods: {
     ...mapActions('committeeHome', [
       'getListData'
-    ]),
-    ...mapActions('commonData', [
-      'searchTree',
     ]),
     close () {
       this.$emit('update:visible', false)
@@ -223,14 +212,14 @@ export default {
     handerParams () {
       let params = {...this.form}
       params.pnum = +params.pnum
-      params.parentId = this.belongAreaId
-      delete params.distinct
+      params.parentType = 0
       delete params.typeName
       return params
     },
-    select () {
-      this.createDialogVisible = true
-    }
+    async searchTree (val) {
+      const {data} = await getTree(val)
+      this.data = [data.content]
+    },
   }
 
 }

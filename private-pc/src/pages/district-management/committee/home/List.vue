@@ -75,7 +75,9 @@ export default {
     }
   },
   created () {
-    this.getListData({committeeId: this.committeeId })
+    if(this.committeeId !== '') {
+      this.getListData({committeeId: this.committeeId })
+    }
   },
   methods: {
     ...mapActions('committeeHome', [

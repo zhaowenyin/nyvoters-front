@@ -49,8 +49,6 @@ export default {
   },
   created () {
     this.searchTree({type: 0, id: ''})
-    this.saveDistrictId('')
-    this.saveDistrictName('')
   },
   methods: {
     ...mapMutations('commonData', [

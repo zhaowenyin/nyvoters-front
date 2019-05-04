@@ -16,6 +16,8 @@ export default {
     },
     updateTreeList(state, payload) {
       state.treeList = [payload.data.content]
+      state.belongArea = payload.data.content.name
+      state.belongAreaId = payload.data.content.id
     }
   },
   actions: {

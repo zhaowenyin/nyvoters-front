@@ -41,7 +41,7 @@
         background
         :current-page="pageNum"
         layout="prev, pager, next"
-        :total="total" />
+        :total="+total" />
     </div>
   </div>
 </template>
@@ -71,11 +71,13 @@ export default {
   components: {
   },
   created () {
-    this.getListData({belongAreaId: this.belongAreaId })
+    if(this.belongAreaId!=='') {
+      this.getListData({precinctId: this.belongAreaId })
+    }
   },
   watch: {
     belongAreaId () {
-      this.getListData({belongAreaId: this.belongAreaId })
+      this.getListData({precinctId: this.belongAreaId })
     }
   },
   methods: {

@@ -67,12 +67,14 @@ export default {
   },
   components: {
   },
-  created () {
-    this.getListData1({committeeId: this.belongAreaId })
-  },
   watch: {
-    belongAreaId () {
-      this.getListData1({committeeId: this.belongAreaId })
+    committeeId () {
+      this.getListData1({ committeeId: this.committeeId })
+    }
+  },
+  created () {
+    if(this.committeeId !== '') {
+      this.getListData1({committeeId: this.committeeId })
     }
   },
   methods: {

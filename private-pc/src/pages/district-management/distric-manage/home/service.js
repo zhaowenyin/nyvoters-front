@@ -79,6 +79,9 @@ export async function deletetTabel (payload) {
   // })
   return api.post('/precinct/delete', payload)
 }
+export async function getTree (payload) {
+  return api.post('/district/tree', payload)
+}
 
 
 
