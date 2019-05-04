@@ -27,7 +27,7 @@
           <CommonNew :news="news"/>
           <li class="news-center" @click="jupNews">通知中心</li>
         </ul>
-      <el-badge :value="12" slot="reference" class="item">
+      <el-badge :value="news.length" slot="reference" class="item">
         <i class='el-icon-bell icon-news'></i>
       </el-badge>
     </el-popover>
@@ -65,10 +65,9 @@ export default {
   created () {
     this.getUserInfo()
     this.currentTime = this.formatDateTimeZn(Date.now())
-    this.getNews({isRead: null})
-    this.timeout = setInterval(() => {
-      this.getNews({isRead: null})
-    }, 10000)
+    // this.timeout = setInterval(() => {
+    //   this.getNews({isRead: null})
+    // }, 10000)
     this.timer = setInterval(() => {
       this.currentTime = this.formatDateTimeZn(Date.now())
     }, 1000)

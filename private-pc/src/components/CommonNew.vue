@@ -15,6 +15,7 @@
 </template>
 <script>
 import { formatDate } from '../utils/format.js'
+import {setRead} from '../common-data/service.js'
 export default {
   data() {
     return{
@@ -37,7 +38,10 @@ export default {
   },
   methods: {
     formatDate,
-    look(i) {
+    async look(i) {
+      if (i.isRead === 0) {
+        await setRead({id: i.id})
+      }
       if(i.messageType === '选民转移申请处理'){
         this.$router.push({path: '/voters-transfer'})
       } else if(i.messageType === '选民转移申请处理结果通知') {

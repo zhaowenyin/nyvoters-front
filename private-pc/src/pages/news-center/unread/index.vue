@@ -25,7 +25,7 @@ export default {
       params: {
         pageNum: 1,
         pageSize: 20,
-        isRead: 1,
+        isRead: 0,
       },
       total: 0,
       timer: null
@@ -37,7 +37,6 @@ export default {
     CommonNew
   },
   created () {
-    this.searchNews(this.params)
     this.timer = setInterval(() => {
       this.searchNews(this.params)
     }, 10000)
@@ -55,7 +54,6 @@ export default {
     },
     handleCurrentChange (val) {
       clearInterval(this.timer)
-      this.searchNews({...this.params,pageNum: val})
       this.timer = setInterval(() => {
         this.searchNews({...this.params,pageNum: val})
       }, 10000)
