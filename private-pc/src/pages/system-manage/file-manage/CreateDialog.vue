@@ -18,7 +18,7 @@
             style="100%"
             :class="['commom1',{'uploadcomplait':fileList.length>0}]"
             :headers="headers"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="allUrl"
             ref="upload"
             :on-change="changeFile"
             :on-success="successFn"
@@ -32,8 +32,13 @@
             :auto-upload="true">
             <div
             v-if="fileList.length===0"
-            class="but">选择文件</div>
+            class="but">
+            <span style="color: #606266" v-if="item.fileName">{{item.fileName}}</span>
+            <span v-else>选择文件</span>
+          </div>
+
           </el-upload>
+
       </el-form-item>
       <el-form-item
         label="文件名称"
@@ -72,7 +77,7 @@ import { baseURL } from '../../../utils/api.js'
 import {moudel} from '../../../common-data/config.js'
 import { getSession } from '../../../utils/session.js'
 import { mapActions } from 'vuex'
-import {modifySubmit} from './service.js'
+import {modifySubmit,setSubmit} from './service.js'
 export default {
   data () {
     const authToken = getSession()
@@ -116,7 +121,7 @@ export default {
   computed: {
     allUrl () {
       let param = {
-        module: this.form.module
+        isFillData: 0
       }
       let paramStr = ''
       for (const k in param) {
@@ -157,7 +162,12 @@ export default {
         module: this.form.module,
         id: this.form.id
       }
-      await modifySubmit(param)
+      if(this.item.id) {
+        await modifySubmit(param)
+      } else {
+        await setSubmit(param)
+      }
+
       this.getListData()
       this.close()
       this.loading = false
@@ -183,8 +193,7 @@ export default {
     },
     successFn (response) {
       console.log(response)
-      this.getListData()
-      this.form.id = 1
+      this.form.id = response.id
       // this.$refs.upload.clearFiles()
     },
     errorFn (err) {

@@ -59,7 +59,7 @@
             style="100%"
             :class="['commom1',{'uploadcomplait':fileList.length>0}]"
             :headers="headers"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="allUrl"
             ref="upload"
             :on-change="changeFile"
             :on-success="successFn"
@@ -73,7 +73,11 @@
             :auto-upload="true">
             <div
             v-if="fileList.length===0"
-            class="but">请上传登录背景地址</div>
+            class="but">
+            <span style="color: #606266" v-if="data&&data[4]&&data[4].name">{{data&&data[4].name}}</span>
+            <span v-else>请上传登录背景地址</span>
+
+            </div>
           </el-upload>
       </el-form-item>
     </el-form>
@@ -92,7 +96,7 @@
   </el-dialog>
 </template>
 <script>
-import {setSubmit} from './service.js'
+import {setSubmit,getConfig} from './service.js'
 import { baseURL } from '../../../utils/api.js'
 import { getSession } from '../../../utils/session.js'
 export default {
@@ -109,6 +113,7 @@ export default {
       },
       fileList: [],
       multipleSelection: [],
+      data: [],
       rules: {
         registerEndDate: [
           { required: true, message: '请选择登记截止日期！', trigger: 'change' }
@@ -146,6 +151,7 @@ export default {
     allUrl () {
       let param = {
         module: '3',
+        isFillData: 1
       }
       let paramStr = ''
       for (const k in param) {
@@ -160,6 +166,7 @@ export default {
     }
   },
   created () {
+    this.getConfig()
   },
   methods: {
     close () {
@@ -171,6 +178,20 @@ export default {
           this.sumitData()
         }
       })
+    },
+    async getConfig () {
+      this.loading = true
+      const{data} = await getConfig()
+      this.data = data.content
+      const content = data.content
+      this.form = {
+        sessionNum: content[0].value,
+        voteDate: new Date(+content[1].value),
+        registerStartDate: new Date(+content[2].value),
+        registerEndDate: new Date(+content[3].value),
+        id: content[4].value,
+      }
+      this.loading = false
     },
     async sumitData () {
       this.loading = true
@@ -203,8 +224,7 @@ export default {
     },
     successFn (response) {
       // this.$notify.success({title: '上传成功'})
-      console.log(response)
-      this.form.id = 1
+      this.form.id = response.id
       // this.form.id = response.data.content
       // this.$refs.upload.clearFiles()
     },

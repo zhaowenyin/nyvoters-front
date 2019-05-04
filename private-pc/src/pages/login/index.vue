@@ -93,8 +93,10 @@ export default {
         if (valid) {
           login({...this.userLogin,password: md5(this.userLogin.password)})
             .then(({ data }) => {
-              data.verifyArr = verifyArr
-              setSession(data)
+              let param = {}
+              param.verifyArr = verifyArr
+              param = {...param,...data.content}
+              setSession(param)
               this.$router.push({ path: '/' })
             })
         }

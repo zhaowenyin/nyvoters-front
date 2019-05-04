@@ -82,8 +82,8 @@ export default {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           console.log(params.startTime)
-          if(params.startTime !== null && params.startTime.length!==0){
-            params.startDate = new Date(params.data[0]).getTime()
+          if(params.date !== null && params.date.length!==0){
+            params.startDate = new Date(params.date[0]).getTime()
             params.endDate = new Date(params.date[1]).getTime()
           } else {
             params.startDate = ''

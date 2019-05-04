@@ -2,27 +2,27 @@ import api from '../../utils/api'
 
 // 登录
 export async function login (payload) {
-  console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-          "code": "string",
-          "content": {
-            "powers": [
-              0
-            ],
-            "token": "string",
-            "userId": 0,
-            "userName": "string"
-          },
-          "message": "string",
-          "status": "string"
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/login', payload)
+  // console.log(payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //         "code": "string",
+  //         "content": {
+  //           "powers": [
+  //             0
+  //           ],
+  //           "token": "string",
+  //           "userId": 0,
+  //           "userName": "string"
+  //         },
+  //         "message": "string",
+  //         "status": "string"
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.post('/login', payload)
 }
 
 // 退出

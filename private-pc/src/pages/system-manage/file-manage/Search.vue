@@ -71,7 +71,7 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
-          params.page = 1
+          params.pageNum = 1
           this.getListData(params)
         }
       })
@@ -101,11 +101,11 @@ export default {
         });
         return
       }
-      let idList = []
+      let id = []
       for (let i of this.multipleSelection) {
-        idList.push(i.id)
+        id.push(i.id)
       }
-      let params = {idList,status: "REVIEW_FAIL"}
+      let params = {id}
       await deletetTabel(params)
       const param = JSON.parse(JSON.stringify(this.searchForm))
       param.page = 1

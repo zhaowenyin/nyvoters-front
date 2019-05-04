@@ -1,7 +1,7 @@
 <template>
   <div class="basic">
      <el-button size="medium" @click="setting">系统参数设置</el-button>
-     <span class="text">余：<span class="num">270</span>  天可登记</span>
+     <span class="text">余：<span class="num">{{info.canRegisterDays}}</span>  天可登记</span>
      <CreateDialog
       v-if="createDialogVisible"
       :item='item'
@@ -11,12 +11,14 @@
 </template>
 <script>
 import CreateDialog from './CreateDialog'
+import {getinfo} from './service.js'
 
 export default {
   data () {
     return {
       createDialogVisible: false,
-      item: {}
+      item: {},
+      info: {}
     }
   },
   computed: {
@@ -26,13 +28,18 @@ export default {
     CreateDialog,
   },
   created () {
-
-
+    this.getinfo()
   },
   methods: {
     setting(){
       this.createDialogVisible = true
-    }
+    },
+    async getinfo () {
+      this.loading = true
+      const {data} = await getinfo()
+      this.info = data.content
+      this.loading = false
+    },
   }
 }
 </script>
