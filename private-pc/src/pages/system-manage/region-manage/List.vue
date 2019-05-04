@@ -54,7 +54,7 @@ export default {
       pageSize: state => state.searchParam.pageSize,
       pageNum: state => state.searchParam.pageNum,
     }),
-    ...mapState('commonData', {
+    ...mapState('regionManage', {
       belongAreaId: state => state.belongAreaId
     }),
   },

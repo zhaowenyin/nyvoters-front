@@ -50,7 +50,6 @@ export default {
       })
     },
     async searchTree ({ commit, state }, payload) {
-      console.log(111,payload)
       if (!isEmptyObj(state.treeList)&&payload.type===0) return
       const { data } = await getTree({type: payload.type,id:payload.id})
       commit({

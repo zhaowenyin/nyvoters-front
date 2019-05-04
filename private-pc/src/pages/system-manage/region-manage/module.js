@@ -1,4 +1,5 @@
-import { getList } from './service'
+import { getList,getTree } from './service'
+import { isEmptyObj } from '../../../utils/validate'
 
 export default {
   namespaced: true,
@@ -10,7 +11,10 @@ export default {
       pageSize: 10,
       pageNum: 1
     },
-    multipleSelection: []
+    multipleSelection: [],
+    treeList: [],
+    belongAreaId: '',
+    belongArea: ''
   },
   mutations: {
     clearState (state) {
@@ -40,6 +44,15 @@ export default {
     saveSelection(state, payload) {
       state.multipleSelection = payload
     },
+    updateTreeList(state, payload) {
+      state.treeList = [payload.data.content]
+    },
+    saveDistrictId(state, payload) {
+      state.belongAreaId = payload
+    },
+    saveDistrictName(state, payload) {
+      state.belongArea = payload
+    },
   },
   actions: {
     async getListData ({ commit, state }, payload) {
@@ -58,6 +71,14 @@ export default {
       commit({
         type: 'hideLoading'
       })
-    }
+    },
+    async searchDistrictTree ({state, commit }, payload) {
+      if (!isEmptyObj(state.treeList)&&payload.type===0) return
+      const { data } = await getTree({type: payload.type,id:payload.id})
+      commit({
+        type: 'updateTreeList',
+        data
+      })
+    },
   }
 }

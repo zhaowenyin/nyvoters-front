@@ -47,7 +47,7 @@ export default {
           this.func(this.data,i)
         }
       } else {
-        if(!this.value) {
+        if(this.value==='') {
           return ''
         }
         this.func(this.data,this.value)

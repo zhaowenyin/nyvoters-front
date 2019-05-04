@@ -13,9 +13,15 @@
        <el-form-item
         label="上级行政区"
         prop="parentId">
-        <Tree
+        <!-- <Tree
         :options="treeList"
         v-model="form.parentId"
+        /> -->
+        <DistrictSelect
+          :multiple="false"
+          v-model="form.parentId"
+          :item='item'
+          :data="data"
         />
       </el-form-item>
       <el-form-item
@@ -89,10 +95,11 @@
   </el-dialog>
 </template>
 <script>
-import {setSubmit,getTree,modifySubmit} from './service.js'
+import {setSubmit,modifySubmit} from './service.js'
 import {levelList} from '../../../common-data/config.js'
-import { mapActions } from 'vuex'
-import Tree from './common-tree'
+import { mapActions,mapState } from 'vuex'
+// import Tree from './common-tree'
+import DistrictSelect from '../../../components/DistrictSelect'
 export default {
   data () {
     return {
@@ -101,7 +108,7 @@ export default {
         code: '',
         level: '',
         name: '',
-        parentId: [],
+        parentId: '',
         pnum: '',
         sort: ''
       },
@@ -132,6 +139,12 @@ export default {
     }
 
   },
+  computed: {
+    ...mapState('regionManage', {
+      data: state => state.treeList,
+      belongAreaId: state => state.belongAreaId
+    })
+  },
   props:{
     visible: {
       default: false,
@@ -143,35 +156,42 @@ export default {
     }
   },
   components: {
-    Tree
+    // Tree
+    DistrictSelect
   },
   created () {
-    this.form = {...this.form, ...this.item, parentId: []}
-    this.searchTree()
+    if(this.item.id) {
+      this.form = {...this.form, ...this.item}
+    } else {
+      this.form.parentId = this.belongAreaId
+    }
+
+    this.searchDistrictTree({type: 0, id: ''})
   },
   methods: {
     ...mapActions('regionManage', [
-      'getListData'
+      'getListData',
+      'searchDistrictTree'
     ]),
-    func (list) {
-      console.log(this.item.parentId)
-      let defaultValue = this.item.parentId
-      const re = (array, parentArr) => {
-        if (!array || array.length === 0) return false
-        for (let i = 0; i < array.length; i++) {
-          const newArr = JSON.parse(JSON.stringify(parentArr))
-          newArr.push(array[i].id)
-          if (array[i].id === defaultValue) {
-            this.form.parentId = newArr
-            return true
-          }
-          const bol = re(array[i].children, newArr)
-          if (bol) return true
-        }
-        return false
-      }
-      re(list, [])
-    },
+    // func (list) {
+    //   console.log(this.item.parentId)
+    //   let defaultValue = this.item.parentId
+    //   const re = (array, parentArr) => {
+    //     if (!array || array.length === 0) return false
+    //     for (let i = 0; i < array.length; i++) {
+    //       const newArr = JSON.parse(JSON.stringify(parentArr))
+    //       newArr.push(array[i].id)
+    //       if (array[i].id === defaultValue) {
+    //         this.form.parentId = newArr
+    //         return true
+    //       }
+    //       const bol = re(array[i].children, newArr)
+    //       if (bol) return true
+    //     }
+    //     return false
+    //   }
+    //   re(list, [])
+    // },
     close () {
       this.$emit('update:visible', false)
     },
@@ -213,14 +233,6 @@ export default {
       this.getListData()
       this.close()
       this.loading = false
-    },
-
-    async searchTree () {
-      const {data} = await getTree({id: '',type: 0})
-      if(this.item.id) {
-        this.func([data.content])
-      }
-      this.treeList = [data.content]
     },
     comfirmClose () {
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')

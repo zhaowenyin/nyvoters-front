@@ -103,7 +103,6 @@
 <script>
 import {setSubmit,modifySubmit,getTree} from './service.js'
 import { mapActions,mapState } from 'vuex'
-
 import DistrictSelect from '../../../../components/DistrictSelect'
 export default {
   data () {
@@ -217,7 +216,7 @@ export default {
     },
     async searchTree () {
       const {data} = await getTree({type: 0, id: ''})
-      this.data = data.content
+      this.data = [data.content]
     },
   }
 

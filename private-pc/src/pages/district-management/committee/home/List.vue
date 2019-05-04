@@ -62,17 +62,20 @@ export default {
       total: state => +state.total,
       pageSize: state => state.searchParam.pageSize,
       pageNum: state => state.searchParam.pageNum,
+    }),
+    ...mapState('commonCommittee', {
+      committeeId: state => state.belongAreaId
     })
   },
   components: {
   },
   watch: {
-    belongAreaId () {
-      this.getListData({ committeeId: this.belongAreaId })
+    committeeId () {
+      this.getListData({ committeeId: this.committeeId })
     }
   },
   created () {
-    this.getListData({committeeId: this.belongAreaId })
+    this.getListData({committeeId: this.committeeId })
   },
   methods: {
     ...mapActions('committeeHome', [

@@ -23,7 +23,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('commonData', {
+    ...mapState('regionManage', {
       data: state => state.treeList
     })
   },
@@ -35,21 +35,21 @@ export default {
   created () {
     // 初始化清除数据
     this.clearState()
-    this.searchTree({type: 0, id: ''})
+    this.searchDistrictTree({type: 0, id: ''})
     this.saveDistrictId('')
   },
   methods: {
     ...mapMutations('regionManage', [
-      'clearState'
-    ]),
-    ...mapMutations('commonData', [
+      'clearState',
       'saveDistrictId',
+      'saveDistrictName'
     ]),
-    ...mapActions('commonData', [
-      'searchTree',
+    ...mapActions('regionManage', [
+      'searchDistrictTree',
     ]),
     handleNodeClick(data) {
       this.saveDistrictId(data.id)
+      this.saveDistrictName(data.name)
     }
   }
 }
