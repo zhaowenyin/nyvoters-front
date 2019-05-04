@@ -37,7 +37,6 @@ export default {
   },
   created () {
     this.searchTree({type: 0, id: ''})
-    this.saveDistrictId('')
   },
   methods: {
     change (index) {

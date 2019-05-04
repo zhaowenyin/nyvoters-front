@@ -38,7 +38,6 @@ export default {
     // 初始化清除数据
     this.clearState()
     this.searchTree()
-    this.saveDistrictId('')
   },
   methods: {
     ...mapMutations('votersOut', [

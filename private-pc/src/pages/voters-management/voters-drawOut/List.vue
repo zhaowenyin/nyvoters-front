@@ -95,6 +95,9 @@ export default {
     }
   },
   created () {
+    if (this.belongAreaId === '') {
+      return
+    }
     this.getListData({belongAreaId: this.belongAreaId })
   },
   methods: {

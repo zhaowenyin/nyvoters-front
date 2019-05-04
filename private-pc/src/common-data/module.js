@@ -53,6 +53,8 @@ export default {
     },
     async searchTree ({ commit, state }, payload) {
       if (!isEmptyObj(state.treeList)&&payload.type===0) return
+      state.belongAreaId = ''
+      state.belongArea = ''
       const { data } = await getTree({type: payload.type,id:payload.id})
       commit({
         type: 'updateTreeList',

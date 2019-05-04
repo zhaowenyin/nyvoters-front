@@ -61,6 +61,9 @@ export default {
   components: {
   },
   created () {
+    if (this.belongAreaId === '') {
+      return
+    }
     this.getListData({ districtId: this.belongAreaId })
   },
   watch: {

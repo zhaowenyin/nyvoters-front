@@ -91,6 +91,9 @@ export default {
     Pagination
   },
   created () {
+    if (this.belongAreaId === '') {
+      return
+    }
     this.getListData({ precinctId: this.belongAreaId })
   },
   watch: {

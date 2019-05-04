@@ -87,6 +87,9 @@ export default {
   components: {
   },
   created () {
+    if (this.belongAreaId === '') {
+      return
+    }
     this.getListData({ belongAreaId: this.belongAreaId })
   },
   watch: {

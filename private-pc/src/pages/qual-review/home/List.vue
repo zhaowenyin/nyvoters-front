@@ -87,11 +87,13 @@ export default {
   components: {
   },
   created () {
+    if (this.belongAreaId === '') {
+      return
+    }
     this.getListData({ precinctId: this.belongAreaId })
   },
   watch: {
     belongAreaId () {
-      console.log(111)
       this.getListData({precinctId: this.belongAreaId })
     }
   },

@@ -53,6 +53,9 @@ export default {
   created(){
     const {status} = this.$route.query
     this.type = this.$route.query.type
+    if (this.belongAreaId === '') {
+      return
+    }
     this.searchInfo({belongAreaId: this.belongAreaId,statusList: [status]})
   },
   methods: {

@@ -92,6 +92,9 @@ export default {
     }
   },
   created () {
+    if (this.belongAreaId === '') {
+      return
+    }
     this.getListData({belongAreaId: this.belongAreaId,statusList:['PRELIMINARY_CANDIDATE'] })
   },
   methods: {
