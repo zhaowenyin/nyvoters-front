@@ -56,7 +56,7 @@
                   v-for="(item, key) in nationList"
                   :key="key"
                   :label="item.desc"
-                  :value="item.intCode">
+                  :value="item.stringCode">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -155,6 +155,16 @@ import { mapActions,mapState } from 'vuex'
 
 export default {
   data () {
+    let validate = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入手机号'))
+      } else {
+        if (!/^1[34578]\d{9}$/.test(value)) {
+          callback(new Error('请输入正确手机号'))
+        }
+        callback()
+      }
+    }
     return {
       form: {
         userName: '',
@@ -184,7 +194,7 @@ export default {
           { required: true, message: '请选择性别', trigger: 'change' }
         ],
         phoneNum: [
-          { required: true, message: '请输入电话号码', trigger: 'blur' }
+          { validator: validate,required: true, trigger: 'blur'  }
         ],
         householdRegistration: [
           { required: true, message: '请输入户籍地', trigger: 'blur' }
@@ -224,9 +234,12 @@ export default {
         if (valid) {
           this.loading = true
           registerSubmit(this.form)
-            .then(() => {
-              this.$router.push({path:'/register-success',query: {type: 1}})
+            .then(({data}) => {
+              if(data) {
+                this.$router.push({path:'/register-success',query: {type: 1}})
+              }
               this.loading = false
+
             })
         }
       })
@@ -243,7 +256,7 @@ export default {
     },
     async searchCode () {
       const {data} = await getCode()
-      this.captchaImg = data.content.captcha
+      this.captchaImg = 'data:imagepng;base64,'+ data.content.captcha
       this.form.captchaId = data.content.captchaId
     }
 

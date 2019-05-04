@@ -10,13 +10,13 @@
         <el-form-item
           class="padding"
           label="用户名："
-          prop="username">
+          prop="userName">
           <el-input
            size="medium"
             placeholder="请输入用户名"
             :maxlength="18"
             class="item"
-            v-model="userLogin.username" />
+            v-model="userLogin.userName" />
         </el-form-item>
         <el-form-item
           class="padding"
@@ -64,13 +64,13 @@ export default {
   data () {
     return {
       userLogin: {
-        username: '',
+        userName: '',
         idNum: '',
         captcha: '',
         captchaId: '',
       },
       rules: {
-        username: [
+        userName: [
           { required: true, message: '请输入用户名', trigger: 'blur' }
         ],
         idNum: [
@@ -94,8 +94,10 @@ export default {
         if (valid) {
           this.loading =  true
           searchSubmit(this.userLogin)
-            .then(() => {
-              this.$router.push({path:'/search-success',query: {type: 2}})
+            .then(({data}) => {
+              if(data) {
+                this.$router.push({path:'/search-success',query: {type: 2,info: data.content.info,id:data.content.id}})
+              }
               this.loading =  false
 
             })
@@ -107,7 +109,7 @@ export default {
     },
     async searchCode () {
       const {data} = await getCode()
-      this.captchaImg = data.content.captcha
+      this.captchaImg = 'data:imagepng;base64,' + data.content.captcha
       this.userLogin.captchaId = data.content.captchaId
     }
   }

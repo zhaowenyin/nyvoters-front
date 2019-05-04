@@ -10,12 +10,12 @@
         <el-form-item
           class="padding"
           label="申诉人："
-          prop="username">
+          prop="userName">
           <el-input
             size="medium"
             placeholder="请输入申诉人"
             class="item"
-            v-model="userLogin.username" />
+            v-model="userLogin.userName" />
         </el-form-item>
         <el-form-item
           class="padding"
@@ -111,7 +111,7 @@ export default {
   data () {
     return {
       userLogin: {
-        username: '',
+        userName: '',
         idNum: '',
         phoneNum: '',
         id: '',
@@ -120,7 +120,7 @@ export default {
         type: 1
       },
       rules: {
-        username: [
+        userName: [
           { required: true, message: '请输入申诉人', trigger: 'blur' }
         ],
         idNum: [
@@ -218,7 +218,7 @@ export default {
     },
     async searchCode () {
       const {data} = await getCode()
-      this.captchaImg = data.content.captcha
+      this.captchaImg = 'data:imagepng;base64,'+data.content.captcha
       this.userLogin.captchaId = data.content.captchaId
     }
   }

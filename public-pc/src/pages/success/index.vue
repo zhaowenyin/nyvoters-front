@@ -3,9 +3,9 @@
     <div class="out">
       <div class="true-border"></div>
     </div>
-    <div v-if="type===2" class="text"> 该人员已登记成功！</div>
+    <div v-if="type===2" class="text"> {{$route.query.info}}</div>
      <el-button
-     v-if="type===2"
+     v-if="type===2&&$route.query.id"
       class="loginBtn"
       @click="download()">选民证下载</el-button>
       <span
@@ -20,7 +20,6 @@
 </template>
 
 <script>
-import {taskDownload} from './service.js'
 import output from '../../utils/output.js'
 
 export default {
