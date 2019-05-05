@@ -9,8 +9,6 @@ export async function complaitSubmit (payload) {
   //   }, 500)
   // })
   return api.post(`/online-appeal/create`,  payload)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
 }
 
 export async function getCode () {

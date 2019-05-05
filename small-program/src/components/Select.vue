@@ -4,7 +4,7 @@
       ref="select"
        @click="showselect"
       :class="['select-input']">
-      <div :class="['value',{'grey9': !value}]">{{valueStr().text}}</div>
+      <div :class="['value',{'grey9': !value || +value===0}]">{{valueStr().text}}</div>
       <div
         v-if="!disabled"
         :class="['down', {up: visible}]"/>
