@@ -235,8 +235,9 @@ export default {
           this.loading = true
           registerSubmit(this.form)
             .then(({data}) => {
+              const content = data
               if(data) {
-                this.$router.push({path:'/register-success',query: {type: 1}})
+                this.$router.push({path:'/register-success',query: {type: 1, info: content.info}})
               }
               this.loading = false
 

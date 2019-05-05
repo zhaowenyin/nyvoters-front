@@ -143,8 +143,8 @@ export default {
     },
     async submitSearch() {
       this.loading = true
-      await complaitSubmit(this.form)
-      this.$router.push({path:'/success',query: {type: 3}})
+      const {data} = await complaitSubmit(this.form)
+      this.$router.push({path:'/success',query: {type: 3,info: data.content.info}})
       this.loading = false
     },
     change () {
@@ -152,7 +152,7 @@ export default {
     },
     async searchCode () {
       const {data} = await getCode()
-      this.captchaImg = data.content.captcha
+      this.captchaImg = 'data:imagepng;base64,' + data.content.captcha
       this.form.captchaId = data.content.captchaId
     },
     verify() {

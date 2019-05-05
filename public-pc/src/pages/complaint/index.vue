@@ -174,8 +174,9 @@ export default {
         if (valid) {
           this.loading = true
           complaitSubmit(this.userLogin)
-            .then(() => {
-              this.$router.push({path:'/complaint-success',query: {type: 3}})
+            .then((data) => {
+              let content = data.content
+              this.$router.push({path:'/complaint-success',query: {type: 3,info: content.info}})
             })
           this.loading = false
         }

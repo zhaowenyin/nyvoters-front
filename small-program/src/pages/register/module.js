@@ -39,7 +39,7 @@ export default {
         type: 'hideLoading'
       })
       setTimeout(() => {
-        router.push({path:'/success',query: {type: 1}})
+        router.push({path:'/success',query: {type: 1,info: data.content.info}})
       }, 500)
     }
   }

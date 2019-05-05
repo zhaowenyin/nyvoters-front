@@ -97,7 +97,8 @@ export default {
     async submitSearch() {
       this.loading = true
       const {data} = await searchSubmit(this.form)
-      this.$router.push({path:'/success',query: {type: 2, id: data.id}})
+      let content = data.content
+      this.$router.push({path:'/success',query: {type: 2, id: content.id,info: content.info}})
       this.loading = false
     },
     verify() {
