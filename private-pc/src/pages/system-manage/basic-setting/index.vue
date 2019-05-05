@@ -1,5 +1,5 @@
 <template>
-  <div class="basic">
+  <div v-loading="loading" class="basic">
      <el-button size="medium" @click="setting">系统参数设置</el-button>
      <span class="text">余：<span class="num">{{info.canRegisterDays}}</span>  天可登记</span>
      <CreateDialog
