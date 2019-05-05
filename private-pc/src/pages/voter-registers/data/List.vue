@@ -60,7 +60,7 @@
         background
         :current-page="pageNum"
         layout="prev, pager, next"
-        :total="total" />
+        :total="+total" />
     </div>
   </div>
 </template>
