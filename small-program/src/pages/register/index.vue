@@ -29,9 +29,11 @@
       </div>
       <Select
         class="input"
+        placeholder="请选择性别"
         :options="[{value: '1',label: '男'},{value: '2',label: '女'}]"
         :multiple="false"
-        placeholder="请选择性别"
+        :getItemLabel="(item)=>item.label"
+        :getItemValue="(item)=>item.value"
         v-model="form.gender"/>
     </div>
     <div class="out-input">
@@ -44,6 +46,8 @@
         :options="nationList"
         :multiple="false"
         placeholder="请选择民族"
+        :getItemLabel="(item)=>item.desc"
+        :getItemValue="(item)=>item.stringCode"
         v-model="form.nation"/>
     </div>
     <div class="out-input">
@@ -97,7 +101,9 @@
         :options="candidateTypeList"
         :multiple="false"
         placeholder="请选择参选地类型"
-        v-model="form.candidateType"/>
+        v-model="form.candidateType"
+        :getItemLabel="(item)=>item.label"
+        :getItemValue="(item)=>item.value"/>
     </div>
   </div>
   <ul class="button">
@@ -108,7 +114,7 @@
 </template>
 <script>
 import { Toast } from 'mint-ui'
-import Select from './Audio'
+import Select from '../../components/Select'
 import { mapState, mapMutations, mapActions } from 'vuex'
 import {candidateTypeList} from '../../common-data/confiig.js'
 export default {
@@ -260,6 +266,8 @@ export default {
     }
     & .input {
       flex:1;
+      display: flex;
+      align-items: center;
       min-height: 61px;
       margin-left: 17px;
       font-size: 15px;

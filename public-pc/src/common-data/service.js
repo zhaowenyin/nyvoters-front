@@ -1,7 +1,7 @@
 import api from '../utils/api'
 
 // 民族
-export async function getNation (payload) {
+export async function getNation () {
   // console.log(payload)
   // return new Promise((resolve) => {
   //   setTimeout(() => {
@@ -21,5 +21,5 @@ export async function getNation (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post('/enum-mapping/nation', payload)
+  return api.post('/enum-mapping/nation')
 }
