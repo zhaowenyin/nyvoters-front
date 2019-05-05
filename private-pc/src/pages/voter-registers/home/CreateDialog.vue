@@ -159,16 +159,17 @@ export default {
       this.fileList = fileList
     },
     beforeAvatarUpload (file) {
-      const isXlsx = file.type ===
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      if (!isXlsx) {
-        this.$notify.error({title: '只能上传 xlsx 格式的文件!'})
-      }
-      return isXlsx
+      console.log(file)
+      // const isXlsx = file.type ===
+      //   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      // if (!isXlsx) {
+      //   this.$notify.error({title: '只能上传 xlsx 格式的文件!'})
+      // }
+      // return isXlsx
+      return true
     },
     successFn (response) {
       // this.$notify.success({title: '上传成功'})
-      console.log(55,response)
       this.active = 1
       this.form.id = response.id
       this.loading = true
@@ -188,17 +189,25 @@ export default {
     },
     async searchProcessSate (val) {
       const {data} = await getProcessSate(val)
-      this.data = data.content
-      if (data.content.processSate === 2) {
-        this.active = data.content.processSate + 2
-      } else {
-        this.active = data.content.processSate + 1
-      }
+      try {
+        this.data = data.content
+        if (data.content.processSate === 2) {
+          this.active = data.content.processSate + 2
+        } else {
+          this.active = data.content.processSate + 1
+        }
 
-      if(this.active === 4) {
+        if(this.active === 4) {
+          clearInterval(this.timer)
+          this.loading = false
+        }
+      } catch (e) {
+        console.log(e)
+      }finally {
         clearInterval(this.timer)
         this.loading = false
       }
+
     },
     handerLoading () {
       let text = ""
