@@ -13,17 +13,6 @@
       width="350"
       trigger="click">
         <ul class="news">
-          <!-- <li
-          class="item"
-          :key="index"
-          click="look(i)"
-            v-for="(i, index) in news">
-            <div class="top">
-              <div class="text">{{i.messageType}}</div>
-              <div class="time">{{formatDate(i.createTime)}}</div>
-            </div>
-            <div>{{i.messageContent}}</div>
-          </li> -->
           <CommonNew :news="news"/>
           <li class="news-center" @click="jupNews">通知中心</li>
         </ul>
