@@ -262,7 +262,7 @@ export default {
     },
     exportFile(val) {
       try {
-        output({url: '/doc/download', params: {id: val.id, module: 1}})
+        output({url: '/doc/download', param: {id: val.id, module: 1}})
       } catch (err) {
         console.log(err)
       }

@@ -212,7 +212,7 @@ export default {
     },
     async download () {
       try {
-        output({url: '/doc/download', params: {module: 4}})
+        output({url: '/doc/download', param: {module: 4}})
       } catch (err) {
         console.log(err)
       }

@@ -38,7 +38,7 @@ export default {
   methods:{
     async download (item) {
       try {
-        output({url: '/doc/download', params: {id: item, module: 4}})
+        output({url: '/doc/download', param: {id: item, module: 4}})
       } catch (err) {
         console.log(err)
       }
