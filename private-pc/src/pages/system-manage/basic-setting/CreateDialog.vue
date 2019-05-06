@@ -54,7 +54,7 @@
        <el-form-item
         label="登录背景地址"
         class="complait-content"
-        prop="id">
+        prop="loginBackgroudId">
           <el-upload
             style="100%"
             :class="['commom1',{'uploadcomplait':fileList.length>0}]"
@@ -105,7 +105,7 @@ export default {
     return {
       loading: false,
       form: {
-        id: '',
+        loginBackgroudId: '',
         registerEndDate:'',
         registerStartDate: '',
         sessionNum: null,
@@ -127,7 +127,7 @@ export default {
         voteDate: [
           { required: true, message: '请选择选举日！', trigger: 'change' }
         ],
-        id: [
+        loginBackgroudId: [
           { required: true, message: '请上传背景！', trigger: 'blur' }
         ]
       },
@@ -150,7 +150,7 @@ export default {
   computed: {
     allUrl () {
       let param = {
-        module: '3',
+        module: 5,
         isFillData: 1
       }
       let paramStr = ''
@@ -224,7 +224,8 @@ export default {
     },
     successFn (response) {
       // this.$notify.success({title: '上传成功'})
-      this.form.id = response.id
+      console.log()
+      this.form.loginBackgroudId = response.content
       // this.form.id = response.data.content
       // this.$refs.upload.clearFiles()
     },

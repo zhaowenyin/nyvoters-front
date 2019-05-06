@@ -96,7 +96,7 @@ export default {
           searchSubmit(this.userLogin)
             .then(({data}) => {
               if(data) {
-                this.$router.push({path:'/search-success',query: {type: 2,info: data.content.info,id:data.content.id}})
+                this.$router.push({path:'/search-success',query: {type: 2,info: data.content.info,id:data.content.fileId}})
               }
               this.loading =  false
 

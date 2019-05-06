@@ -7,7 +7,9 @@
     </div>
     <div class="view-content">
       <Item
+      v-if="$route.query.fileSuffix==='docx'"
       :belongAreaId="belongAreaId"/>
+      <div v-else>888</div>
     </div>
   </div>
 </template>

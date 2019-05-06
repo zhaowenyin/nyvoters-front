@@ -13,10 +13,10 @@
        <el-form-item
         label="选择文件"
         class="complait-content"
-        prop="id">
+        prop="fileList">
           <el-upload
             style="100%"
-            :class="['commom1',{'uploadcomplait':fileList.length>0}]"
+            :class="['commom1',{'uploadcomplait':form.fileList.length>0}]"
             :headers="headers"
             :action="allUrl"
             ref="upload"
@@ -28,10 +28,10 @@
             :multiple="false"
             :before-upload="beforeAvatarUpload"
             :limit="1"
-            :file-list="fileList"
-            :auto-upload="true">
+            :file-list="form.fileList"
+            :auto-upload="false">
             <div
-            v-if="fileList.length===0"
+            v-if="form.fileList.length===0"
             class="but">
             <span style="color: #606266" v-if="item.fileName">{{item.fileName}}</span>
             <span v-else>选择文件</span>
@@ -77,7 +77,7 @@ import { baseURL } from '../../../utils/api.js'
 import {moudel} from '../../../common-data/config.js'
 import { getSession } from '../../../utils/session.js'
 import { mapActions } from 'vuex'
-import {modifySubmit,setSubmit} from './service.js'
+// import {modifySubmit,setSubmit} from './service.js'
 export default {
   data () {
     const authToken = getSession()
@@ -85,10 +85,9 @@ export default {
       loading: false,
       form: {
         fileName: '',
-        id: '',
+        fileList: [],
         module: '',
       },
-      fileList: [],
       multipleSelection: [],
       rules: {
         fileName: [
@@ -121,7 +120,8 @@ export default {
   computed: {
     allUrl () {
       let param = {
-        isFillData: 0
+        module: this.form.module,
+        fileName: this.form.fileName
       }
       let paramStr = ''
       for (const k in param) {
@@ -151,26 +151,27 @@ export default {
     submitForm () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          this.sumitData()
+          // this.sumitData()
+          this.$refs.upload.submit();
         }
       })
     },
     async sumitData () {
-      this.loading = true
-      let param = {
-        fileName: this.form.fileName,
-        module: this.form.module,
-        id: this.form.id
-      }
-      if(this.item.id) {
-        await modifySubmit(param)
-      } else {
-        await setSubmit(param)
-      }
+      // this.loading = true
+      // let param = {
+      //   fileName: this.form.fileName,
+      //   module: this.form.module,
+      //   id: this.form.id
+      // }
+      // if(this.item.id) {
+      //   await modifySubmit(param)
+      // } else {
+      //   await setSubmit(param)
+      // }
 
-      this.getListData()
-      this.close()
-      this.loading = false
+      // this.getListData()
+      // this.close()
+      // this.loading = false
     },
     comfirmClose () {
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
@@ -180,7 +181,7 @@ export default {
         .catch(() => {})
     },
     changeFile (file, fileList) {
-      this.fileList = fileList
+      this.form.fileList = fileList
     },
     beforeAvatarUpload (file) {
       console.log(file)
@@ -193,7 +194,9 @@ export default {
     },
     successFn (response) {
       console.log(response)
-      this.form.id = response.id
+      this.getListData()
+      this.close()
+      // this.form.id = response.id
       // this.$refs.upload.clearFiles()
     },
     errorFn (err) {

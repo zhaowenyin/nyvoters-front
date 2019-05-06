@@ -46,16 +46,19 @@ export default {
   },
   watch: {
     belongAreaId () {
-      this.searchInfo({belongAreaId: this.belongAreaId,statusList: [status]})
+      const {type} = this.$route.query
+      let statusList = this.handerstatus(+type)
+      this.searchInfo({belongAreaId: this.belongAreaId,statusList})
     }
   },
   created(){
-    const {status} = this.$route.query
+    const {type} = this.$route.query
     this.type = this.$route.query.type
     if (this.belongAreaId === '') {
       return
     }
-    this.searchInfo({belongAreaId: this.belongAreaId,statusList: [status]})
+    let statusList = this.handerstatus(+type)
+    this.searchInfo({belongAreaId: this.belongAreaId,statusList})
   },
   methods: {
     async searchInfo (val) {
@@ -63,7 +66,27 @@ export default {
       const{data} = await getInfo(val)
       this.data = data.content
       this.loading = false
-    }
+    },
+    handerstatus(fileName) {
+      let text = []
+      switch(fileName) {
+      case 1 || 2:
+        text = ['PRELIMINARY_CANDIDATE','FORMAL_CANDIDATE','FORMAL_REPRESENTATIVE']
+        break
+      case 3 || 4:
+        text = ['FORMAL_REPRESENTATIVE']
+        break
+      case 5:
+        text = ['FORMAL_REPRESENTATIVE']
+        break
+      case 6:
+        text = ['FORMAL_REPRESENTATIVE']
+        break
+      default:
+        text = []
+      }
+      return text
+    },
   }
 }
 </script>

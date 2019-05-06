@@ -46,13 +46,13 @@ export default {
 
   },
   methods: {
-    async download (item) {
+    async download () {
       try {
-        output({url: '/doc/download', param: {id: item, module: 2}})
+        output({url: '/doc/download', param: {id: this.$route.query.id}})
       } catch (err) {
         console.log(err)
       }
-    },
+    }
   }
 }
 </script>
