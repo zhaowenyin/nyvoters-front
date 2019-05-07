@@ -98,7 +98,6 @@ export default {
       default:
         text = null
       }
-      console.log(text)
       return text
     },
     create (item) {

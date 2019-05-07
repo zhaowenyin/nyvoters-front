@@ -18,8 +18,8 @@ const warn = (message) => {
   }
 }
 
-export const CancelToken = axios.CancelToken // 取消请求
-
+export const CancelToken = axios.CancelToken // 取(请求
+export const baseURL = getBaseURL()
 const api = axios.create({
   timeout: 0
 })

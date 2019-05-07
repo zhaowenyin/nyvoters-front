@@ -36,7 +36,7 @@
               style="100%"
               :class="['commom',{'uploadcomplait':fileList.length>0}]"
               :headers="headers"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              :action="allUrl"
               ref="upload"
               :on-change="changeFile"
               :on-success="successFn"
@@ -150,7 +150,8 @@ export default {
   computed: {
     allUrl () {
       let param = {
-        module: 4
+        module: 4,
+        fileName: '公民申诉书'
       }
       let paramStr = ''
       for (const k in param) {

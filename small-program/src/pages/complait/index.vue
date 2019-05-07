@@ -44,9 +44,8 @@
               style="width: 100%; text-align: left;"
               ref="upload"
               v-model="files"
-              post-action="https://jsonplaceholder.typicode.com/posts/"
+              :post-action="allUrl"
               @input-file="inputFile"
-              @input="updatetValue"
             >
             <span v-if="files.length===0" >请上传申请书</span>
             </VueUploadComponent>
@@ -96,6 +95,7 @@ import { Toast,Indicator } from 'mint-ui'
 import output from '../../utils/output.js'
 import {complaitSubmit,getCode} from './service.js'
 import VueUploadComponent from 'vue-upload-component'
+import { baseURL } from '../../utils/api.js'
 export default {
   data () {
     return {
@@ -112,7 +112,8 @@ export default {
       captchaImg: '',
       files: [],
       progress: '0',
-      file: {}
+      file: {},
+      baseURL
     }
   },
   components: {
@@ -120,6 +121,24 @@ export default {
   },
   created () {
     this.searchCode()
+  },
+  computed: {
+    allUrl () {
+      let param = {
+        module: 4,
+        fileName: '公民申诉书'
+      }
+      let paramStr = ''
+      for (const k in param) {
+        if (param[k] !== undefined &&
+            param[k] !== null &&
+            param[k] !== '') {
+          paramStr += `&${k}=${param[k]}`
+        }
+      }
+      paramStr = paramStr.substr(1)
+      return `${baseURL}/doc/upload/?${paramStr}`
+    }
   },
   watch: {
     loading (val) {
@@ -190,15 +209,35 @@ export default {
       if(!newFile) {
         return
       }
-      this.progress=newFile.progress
+      // 自动上传
+      this.$refs.upload.active = true
       this.file = newFile
-      if (this.file.response&&this.file.response.id) {
-        this.form.id = this.file.response.id
+      if (newFile.progress) {
+        console.log('progress', newFile.progress, newFile)
+        this.progress=newFile.progress
+      }
+      if (newFile.error) {
+        Toast({
+          message: newFile.error,
+          position: 'top',
+          duration: 3000
+        })
+        return
       }
 
-    },
-    updatetValue () {
-      this.$refs.upload.active = true
+      if (newFile.success) {
+        console.log('success', newFile.success, newFile)
+        this.form.id = this.file.response.id
+      }
+      if (newFile.response.message) {
+        Toast({
+          message: newFile.response.message,
+          position: 'top',
+          duration: 3000
+        })
+        return
+      }
+
     },
     remove(file) {
       this.form.id = ''
