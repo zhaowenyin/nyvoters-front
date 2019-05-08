@@ -198,9 +198,9 @@ export default {
 
       return true
     },
-    async download (item) {
+    async download () {
       try {
-        output({url: '/doc/download', param: {id: item, module: 4}})
+        output({url: '/doc/download', param: {fileName: '公民申诉书', module: 4}})
       } catch (err) {
         console.log(err)
       }

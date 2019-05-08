@@ -150,8 +150,7 @@ export default {
   computed: {
     allUrl () {
       let param = {
-        module: 4,
-        fileName: '公民申诉书'
+        module: 4
       }
       let paramStr = ''
       for (const k in param) {
@@ -213,7 +212,7 @@ export default {
     },
     async download () {
       try {
-        output({url: '/doc/download', param: {module: 4}})
+        output({url: '/doc/download', param: {module: 4,fileName: '公民申诉书'}})
       } catch (err) {
         console.log(err)
       }

@@ -27,7 +27,7 @@
             style="100%"
             :class="['commom1',{'uploadcomplait':fileList.length>0}]"
             :headers="headers"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="allUrl"
             ref="upload"
             :on-change="changeFile"
             :on-success="successFn"
@@ -116,7 +116,7 @@ export default {
   computed: {
     allUrl () {
       let param = {
-        type: 0
+        type: 0,
       }
       let paramStr = ''
       for (const k in param) {
@@ -127,7 +127,7 @@ export default {
         }
       }
       paramStr = paramStr.substr(1)
-      return `${baseURL}/doc/upload/?${paramStr}`
+      return `${baseURL}/import/upload?${paramStr}`
     }
   },
   created () {
