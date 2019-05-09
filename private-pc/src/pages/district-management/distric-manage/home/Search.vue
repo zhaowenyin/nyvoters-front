@@ -102,6 +102,15 @@ export default {
         }
       })
     },
+    watch: {
+      type () {
+        let value={
+          name: '',
+          code: '',
+        }
+        this.searchForm = {...value}
+      }
+    },
     create (val) {
       this.val = +val
       this.item = {}

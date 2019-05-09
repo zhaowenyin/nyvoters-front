@@ -80,8 +80,7 @@ export default {
       searchForm: {
         recommendedPerson: '',
         recommendType: '',
-        type: '',
-        item: {}
+        type: ''
       },
       methodList: [
         {
@@ -113,6 +112,16 @@ export default {
   },
   components: {
     CreateDialog
+  },
+  watch: {
+    type () {
+      let value={
+        recommendedPerson: '',
+        recommendType: '',
+        type: ''
+      }
+      this.searchForm = {...value}
+    }
   },
   created () {
   },

@@ -114,6 +114,17 @@ export default {
   components: {
     CreateDialog
   },
+  watch: {
+    type () {
+      let value={
+        recommendedPerson: '',
+        recommendType: '',
+        type: '',
+        item: {}
+      }
+      this.searchForm = {...value}
+    }
+  },
   created () {
   },
   methods: {

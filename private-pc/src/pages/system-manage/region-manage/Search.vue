@@ -95,6 +95,16 @@ export default {
   components: {
     CreateDialog
   },
+  watch: {
+    type () {
+      let value={
+        name: '',
+        code: '',
+        level: ''
+      }
+      this.searchForm = {...value}
+    }
+  },
   created () {
   },
   methods: {

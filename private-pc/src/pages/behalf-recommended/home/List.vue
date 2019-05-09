@@ -95,7 +95,7 @@ export default {
   },
   watch: {
     belongAreaId () {
-      this.getListData({belongAreaId: this.belongAreaId })
+      this.getListData({ belongAreaId: this.belongAreaId })
     }
   },
   methods: {

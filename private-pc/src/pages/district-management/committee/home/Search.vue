@@ -67,7 +67,8 @@ export default {
         name: '',
         code: ''
       },
-      createDialogVisible: false
+      createDialogVisible: false,
+      item: {}
     }
   },
   computed: {
@@ -80,6 +81,15 @@ export default {
   },
   components: {
     CreateDialog
+  },
+  watch: {
+    type () {
+      let value={
+        name: '',
+        code: ''
+      }
+      this.searchForm = {...value}
+    }
   },
   created () {
   },

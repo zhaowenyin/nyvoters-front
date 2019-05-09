@@ -95,6 +95,17 @@ export default {
   components: {
 
   },
+  watch: {
+    type () {
+      let value={
+        name: '',
+        auditer: '',
+        applyTime: [],
+        auditTime: []
+      }
+      this.searchForm = {...value}
+    }
+  },
   created () {
   },
   methods: {

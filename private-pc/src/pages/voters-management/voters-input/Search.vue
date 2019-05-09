@@ -120,6 +120,18 @@ export default {
   components: {
     CreateDialog
   },
+  watch: {
+    type () {
+      let value={
+        name: '',
+        idNum: '',
+        phoneNum: '',
+        candidateType: '',
+        status: ''
+      }
+      this.searchForm = {...value}
+    }
+  },
   created () {
   },
   methods: {

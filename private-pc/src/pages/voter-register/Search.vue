@@ -101,6 +101,17 @@ export default {
   components: {
     CreateDialog
   },
+  watch: {
+    type () {
+      let value={
+        name: '',
+        idNum: '',
+        phoneNum: '',
+        date: []
+      }
+      this.searchForm = {...value}
+    }
+  },
   created () {
   },
   methods: {

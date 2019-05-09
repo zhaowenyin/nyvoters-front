@@ -74,8 +74,7 @@ export default {
       searchForm: {
         recommendedPerson: '',
         recommendType: '',
-        type: '',
-        item: {}
+        type: ''
       },
       methodList: [
         {
@@ -97,7 +96,8 @@ export default {
           label: '乡镇代表'
         }
       ],
-      createDialogVisible: false
+      createDialogVisible: false,
+      item: {}
     }
   },
   computed: {
@@ -107,6 +107,16 @@ export default {
   },
   components: {
 
+  },
+  watch: {
+    type () {
+      let value={
+        recommendedPerson: '',
+        recommendType: '',
+        type: ''
+      }
+      this.searchForm = {...value}
+    }
   },
   created () {
   },

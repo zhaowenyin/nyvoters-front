@@ -59,7 +59,7 @@ export default {
       type: 1,
       searchForm: {
         userName: '',
-        date: [],
+        date: []
 
       },
     }
@@ -69,6 +69,15 @@ export default {
   },
   components: {
 
+  },
+  watch: {
+    type () {
+      let value={
+        userName: '',
+        date: []
+      }
+      this.searchForm = {...value}
+    }
   },
   created () {
   },

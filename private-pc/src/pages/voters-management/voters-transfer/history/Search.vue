@@ -95,8 +95,7 @@ export default {
         idNum: '',
         phoneNum: '',
         candidateType: '',
-        status: '',
-        type: 0
+        status: ''
       },
       typeList,
       candidateTypeList,
@@ -113,6 +112,18 @@ export default {
   },
   components: {
 
+  },
+  watch: {
+    type () {
+      let value={
+        name: '',
+        idNum: '',
+        phoneNum: '',
+        candidateType: '',
+        status: ''
+      }
+      this.searchForm = {...value}
+    }
   },
   created () {
   },

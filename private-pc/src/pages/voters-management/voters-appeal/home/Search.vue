@@ -102,6 +102,17 @@ export default {
   components: {
     CreateDialog
   },
+  watch: {
+    type () {
+      let value={
+        name: '',
+        auditer: '',
+        applyTime: [],
+        auditTime: []
+      }
+      this.searchForm = {...value}
+    }
+  },
   created () {
   },
   methods: {

@@ -114,6 +114,18 @@ export default {
   components: {
 
   },
+  watch: {
+    type () {
+      let value={
+        name: '',
+        idNum: '',
+        phoneNum: '',
+        candidateType: '',
+        status: ''
+      }
+      this.searchForm = {...value}
+    }
+  },
   created () {
   },
   methods: {

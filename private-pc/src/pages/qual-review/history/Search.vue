@@ -105,6 +105,16 @@ export default {
   components: {
 
   },
+  watch: {
+    type () {
+      let value={
+        recommendedPerson: '',
+        recommendType: '',
+        type: '',
+      }
+      this.searchForm = {...value}
+    }
+  },
   created () {
   },
   methods: {
