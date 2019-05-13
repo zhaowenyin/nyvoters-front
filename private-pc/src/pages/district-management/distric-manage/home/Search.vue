@@ -86,6 +86,15 @@ export default {
   components: {
     CreateDialog
   },
+  watch: {
+    type () {
+      let value={
+        name: '',
+        code: '',
+      }
+      this.searchForm = {...value}
+    }
+  },
   created () {
   },
   methods: {
@@ -101,15 +110,6 @@ export default {
           this.getListData(params)
         }
       })
-    },
-    watch: {
-      type () {
-        let value={
-          name: '',
-          code: '',
-        }
-        this.searchForm = {...value}
-      }
     },
     create (val) {
       this.val = +val

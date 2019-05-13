@@ -34,22 +34,20 @@ export async function getList (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post('/group/list', payload )
+  return api.post('/in/list', payload )
 }
 
 export async function drawIn (payload) {
-  console.log(1,payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/in/cut', payload)
-  // .then(data => data)
-  //   .catch(() => Promise.resolve({data: null}))
+  // console.log(1,payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.post('/in/cut', payload)
 }
 
 export async function deletetTabel (payload) {
@@ -62,36 +60,36 @@ export async function deletetTabel (payload) {
       })
     }, 500)
   })
-  // return api.post('/group/delete', payload)
+  // return api.post('/in/cut', payload)
 }
 export async function getTree (payload) {
-  console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: [{
-          id: '1',
-          name: '一级 1',
-          access: false,
-          children: [{
-            id: '1_1',
-            name: '二级 1-1',
-            access: true,
-            children: [{
-              id: '1_1_1',
-              name: '三级 1-1-1',
-              access: true,
-            }]
-          }]
-        }, {
-          id: '2',
-          name: '一级 2',
-          children: []
-        }]
-      })
-    }, 500)
-  })
-  // return api.post('/committee/delete', payload)
+  // console.log(payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: [{
+  //         id: '1',
+  //         name: '一级 1',
+  //         access: false,
+  //         children: [{
+  //           id: '1_1',
+  //           name: '二级 1-1',
+  //           access: true,
+  //           children: [{
+  //             id: '1_1_1',
+  //             name: '三级 1-1-1',
+  //             access: true,
+  //           }]
+  //         }]
+  //       }, {
+  //         id: '2',
+  //         name: '一级 2',
+  //         children: []
+  //       }]
+  //     })
+  //   }, 500)
+  // })
+  return api.post('/committee/delete', payload)
 }
 
 

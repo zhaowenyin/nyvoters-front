@@ -85,6 +85,7 @@
     <CreateDialog
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
+      :precinctId="precinctId"
       :id="id"
       />
   </div>
@@ -165,6 +166,7 @@ export default {
         })
         return
       }
+      this.precinctId = this.multipleSelection[0].precinctId
       this.id = this.multipleSelection[0].id
       this.createDialogVisible = true
     },

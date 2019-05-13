@@ -69,6 +69,7 @@
       </el-form-item>
     </el-form>
     <CreateDialog
+      :belongAreaId="belongAreaId"
       :item="item"
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
@@ -96,6 +97,9 @@ export default {
   computed: {
     ...mapState('voterRegister', {
       multipleSelection: state=>state.multipleSelection
+    }),
+    ...mapState('commonData', {
+      belongAreaId: state => state.belongAreaId
     })
   },
   components: {

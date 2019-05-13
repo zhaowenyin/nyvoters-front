@@ -1,6 +1,5 @@
 <template>
   <div class="view">
-
     <div class="view-content">
       <Search />
       <List />

@@ -47,7 +47,6 @@ export default {
       data: [],
       filterText: '',
       selectItem: {}
-
     }
 
   },
@@ -60,6 +59,10 @@ export default {
       default: '',
       type: String
     },
+    precinctId: {
+      default: '',
+      type: String
+    }
   },
   watch: {
     filterText(val) {

@@ -58,7 +58,7 @@
                 v-for="(item, key) in nationList"
                 :key="key"
                 :label="item.desc"
-                :value="item.intCode">
+                :value="item.stringCode">
               </el-option>
             </el-select>
           </el-form-item>
@@ -289,6 +289,10 @@ export default {
     item: {
       default: () => {},
       type: Object
+    },
+    belongAreaId: {
+      default: '',
+      type: String,
     }
   },
   computed: {
@@ -332,7 +336,8 @@ export default {
         .catch(() => {})
     },
     handerParams () {
-      let params = {...this.form}
+      let params = {...this.form,precinctId: this.belongAreaId}
+      params.registrationTime = params.registrationTime.getTime()
       return params
     }
   }
