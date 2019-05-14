@@ -138,7 +138,7 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
-          params.page = 1
+          params.pageNum = 1
           this.getListData(params)
         }
       })

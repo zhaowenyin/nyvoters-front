@@ -125,7 +125,7 @@
                   v-for="(item, key) in nationList"
                   :key="key"
                   :label="item.desc"
-                  :value="item.intCode">
+                  :value="item.stringCode">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -450,6 +450,7 @@ export default {
   created () {
     this.form = {...this.form, ...this.item }
     this.searchnation()
+    this.searchTree({type: 0, id: ''})
   },
   methods: {
     ...mapActions('commonData', [
