@@ -1,52 +1,45 @@
 <template>
   <div class="view">
     <div class="view-left">
-      <CommonTree
+       <CommonTree
         :data="data"
         @node-click="handleNodeClick" />
     </div>
     <div class="view-content">
-      <Echart/>
+      <File
+      :saveDistrictId="saveDistrictId"
+      />
     </div>
   </div>
 </template>
 <script>
-import { mapMutations,mapActions,mapState } from 'vuex'
-import Echart from './Echart'
+import File from './File'
 import CommonTree from '../../../components/common-tree'
+import {getTree} from './service.js'
 
 export default {
   data () {
     return {
-
+      saveDistrictId: '',
+      data: []
     }
   },
-  computed: {
-    ...mapState('commonData', {
-      data: state => state.treeList
-    })
-  },
   components: {
-    Echart,
+    File,
     CommonTree
   },
   created () {
     // 初始化清除数据
-    this.clearState()
-    this.searchTree({type: 0, id: ''})
+    this.searchDistrictTree({type: 0, id: ''})
   },
   methods: {
-    ...mapMutations('initialCandidate', [
-      'clearState'
-    ]),
-    ...mapMutations('commonData', [
-      'saveDistrictId',
-    ]),
-    ...mapActions('commonData', [
-      'searchTree',
-    ]),
+    async searchDistrictTree (payload) {
+      const { data } = await getTree(payload)
+      console.log(data)
+      this.data=[data.content]
+    },
     handleNodeClick(data) {
-      this.saveDistrictId(data.id)
+      this.saveDistrictId = data.id
     }
   }
 }
@@ -64,8 +57,8 @@ export default {
     padding-top: 6px;
   }
   .view-content {
+    flex:1;
     background: #f8f8f8;
-    flex: 1;
     padding: 16px 20px;
   }
 </style>

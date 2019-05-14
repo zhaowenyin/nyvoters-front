@@ -39,6 +39,17 @@ export default {
       loading: false
     }
   },
+  props:{
+    saveDistrictId:{
+      default: '',
+      type: null
+    }
+  },
+  watch: {
+    saveDistrictId () {
+      this.searchList()
+    }
+  },
   created () {
     this.searchList()
   },
