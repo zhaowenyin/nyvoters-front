@@ -67,5 +67,6 @@ export default {
     background: #f8f8f8;
     flex: 1;
     padding: 16px 20px;
+    overflow: auto;
   }
 </style>
