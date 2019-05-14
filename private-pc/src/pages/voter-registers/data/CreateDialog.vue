@@ -58,7 +58,7 @@
                 v-for="(item, key) in nationList"
                 :key="key"
                 :label="item"
-                :value="+key">
+                :value="key">
               </el-option>
             </el-select>
           </el-form-item>
@@ -146,7 +146,7 @@
                 v-for="(item, key) in candidateTypeList"
                 :key="key"
                 :label="item"
-                :value="+key">
+                :value="key">
               </el-option>
             </el-select>
           </el-form-item>
@@ -165,7 +165,7 @@
                 v-for="(item,key) in registrationTypeList"
                  :key="key"
                 :label="item"
-                :value="+key">
+                :value="key">
               </el-option>
             </el-select>
           </el-form-item>

@@ -17,8 +17,8 @@
               label="推荐方式"
               prop="recommendType">
               <el-radio-group @change="change" size="medium" v-model="form.recommendType">
-                <el-radio :label="1">团体推荐</el-radio>
-                <el-radio :label="2">选民联名推荐</el-radio>
+                <el-radio :label="'1'">团体推荐</el-radio>
+                <el-radio :label="'2'">选民联名推荐</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -27,8 +27,8 @@
               label="类型"
               prop="type">
               <el-radio-group size="medium" v-model="form.type">
-                <el-radio :label="1" :disabled="form.recommendType===2">区县代表</el-radio>
-                <el-radio :label="2" :disabled="form.recommendType===2">乡镇代表</el-radio>
+                <el-radio :label="'1'" :disabled="form.recommendType==='2'">区县代表</el-radio>
+                <el-radio :label="'2'" :disabled="form.recommendType==='2'">乡镇代表</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -144,7 +144,7 @@
                   v-for="(item, key) in educationList"
                   :key="key"
                   :label="item"
-                  :value="+key">
+                  :value="key">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -163,7 +163,7 @@
                   v-for="(item, key) in partyList"
                   :key="key"
                   :label="item"
-                  :value="+key">
+                  :value="key">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -182,7 +182,7 @@
                   v-for="(item, key) in postList"
                   :key="key"
                   :label="item"
-                  :value="+key">
+                  :value="key">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -220,7 +220,7 @@
             v-model="form.recommendReason" />
         </el-form-item>
         <el-form-item
-          v-if="form.recommendType===1"
+          v-if="form.recommendType==='1'"
           label="推荐单位"
           prop="recommendUnit">
           <el-input
@@ -230,7 +230,7 @@
         </el-form-item>
       </el-form>
       <el-form
-        v-if="form.recommendType===2"
+        v-if="form.recommendType==='2'"
         label-width="0"
         :model="tableObj"
         :rules="tableRules"
@@ -330,7 +330,7 @@ export default {
     return {
       loading: false,
       form: {
-        recommendType: 1,
+        recommendType: '1',
         type: '',
         belongAreaId: '',
         idNum: '',

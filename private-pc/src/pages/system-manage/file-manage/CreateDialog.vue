@@ -54,7 +54,7 @@
         label="所属模块"
         prop="module">
           <el-radio-group  size="medium" v-model="form.module">
-            <el-radio v-for="(i,key) in moudel" :key="key" :label="+key">{{i}}</el-radio>
+            <el-radio v-for="(i,key) in moudel" :key="key" :label="key">{{i}}</el-radio>
           </el-radio-group>
       </el-form-item>
     </el-form>

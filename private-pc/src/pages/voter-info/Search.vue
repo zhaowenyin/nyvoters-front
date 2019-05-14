@@ -35,7 +35,7 @@
             v-for="(item, key) in registrationTypeList"
             :key="key"
             :label="item"
-            :value="+key">
+            :value="key">
           </el-option>
         </el-select>
       </el-form-item>
@@ -51,7 +51,7 @@
             v-for="(item, key) in typeList"
             :key="key"
             :label="item"
-            :value="+key">
+            :value="key">
           </el-option>
         </el-select>
       </el-form-item>

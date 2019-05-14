@@ -146,7 +146,7 @@
                 v-for="(item, key) in candidateTypeList"
                 :key="key"
                 :label="item"
-                :value="+key">
+                :value="key">
               </el-option>
             </el-select>
           </el-form-item>
@@ -156,8 +156,8 @@
             label="持资格转移证明"
             prop="prove_doc_id">
             <el-radio-group size="medium" v-model="form.prove_doc_id">
-              <el-radio :label="0">是</el-radio>
-              <el-radio :label="1">否</el-radio>
+              <el-radio :label="1">是</el-radio>
+              <el-radio :label="0">否</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
@@ -175,7 +175,7 @@
                 v-for="(item,key) in registrationTypeList"
                  :key="key"
                 :label="item"
-                :value="+key">
+                :value="key">
               </el-option>
             </el-select>
           </el-form-item>

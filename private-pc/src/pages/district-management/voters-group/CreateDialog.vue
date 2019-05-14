@@ -41,7 +41,7 @@
                   v-for="(item, key) in typeList"
                   :key="key"
                   :label="item"
-                  :value="+key">
+                  :value="key">
                 </el-option>
             </el-select>
             </el-form-item>

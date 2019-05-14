@@ -17,8 +17,8 @@
             <el-radio-group size="medium" v-model="form.registrationType">
               <el-radio
                 v-for="(i, key) in registrationTypeList"
-                :key="+key"
-                :label="+key">{{i}}</el-radio>
+                :key="key"
+                :label="key">{{i}}</el-radio>
             </el-radio-group>
           </el-form-item>
          <el-form-item

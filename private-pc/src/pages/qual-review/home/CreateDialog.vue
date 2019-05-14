@@ -102,7 +102,7 @@
                   v-for="(item, key) in partyList"
                   :key="key"
                   :label="item"
-                  :value="+key">
+                  :value="key">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -225,7 +225,7 @@
                   v-for="(item, key) in postList"
                   :key="key"
                   :label="item"
-                  :value="+key">
+                  :value="key">
                 </el-option>
               </el-select>
             </el-form-item>
