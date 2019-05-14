@@ -26,7 +26,7 @@ export default {
     },
     updateTreeList(state, payload) {
       state.treeList = [payload.data.content]
-      state.belongAreaId = payload.data.content.id
+      state.belongAreaId = 1003
       state.belongArea = payload.data.content.name
     },
     updateNews(state, payload) {

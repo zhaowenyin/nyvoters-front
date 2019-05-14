@@ -18,7 +18,7 @@
           <li
             :key="index"
             v-for="(i,index) in data.list">
-              {{`${i.name || '暂无名字'}，${handlegender(i.gender)}，${i.age}，${i.nation}，${i.workUnit+i.post}`}}
+              {{`${i.name || '暂无名字'}，${handlegender(i.gender)}，${i.age}，${i.nation}，${i.workUnitAndPost}`}}
           </li>
         </ul>
       </div>
@@ -101,7 +101,7 @@ export default {
     }
   }
   .content {
-    width: 800px;
+    width: 1000px;
     overflow: auto;
     height: 100%;
     margin: 0 auto;

@@ -9,17 +9,17 @@
     :type="type"
     :data="data"/>
     <OfficialBehalf
-    v-if="+type===5"
+    v-if="+type===6"
     :type="type"
     :data="data"/>
     <Announcement
     :type="type"
     :data="data"
-    v-if="+type===6"/>
+    v-if="+type===5"/>
   </div>
 </template>
 <script>
-import {getInfo} from '../service'
+import {getInfo,getAnnouncement} from '../service'
 import InitialCandidate from './InitialCandidate'
 import OfficialCandidate from './OfficialCandidate'
 import OfficialBehalf from './OfficialBehalf'
@@ -47,18 +47,28 @@ export default {
   watch: {
     belongAreaId () {
       const {type} = this.$route.query
-      let statusList = this.handerstatus(+type)
-      this.searchInfo({belongAreaId: this.belongAreaId,statusList})
+      if(+type===5) {
+        this.searchAnnouncement({belongAreaId: this.belongAreaId,})
+      } else {
+        let statusList = this.handerstatus(+type)
+        this.searchInfo({belongAreaId: this.belongAreaId,statusList})
+      }
     }
   },
   created(){
     const {type} = this.$route.query
+    let statusList = this.handerstatus(+type)
     this.type = this.$route.query.type
     if (this.belongAreaId === '') {
       return
     }
-    let statusList = this.handerstatus(+type)
-    this.searchInfo({belongAreaId: this.belongAreaId,statusList})
+    if(+type===5) {
+      this.searchAnnouncement({belongAreaId: this.belongAreaId,statusList})
+    } else {
+
+      this.searchInfo({belongAreaId: this.belongAreaId,statusList})
+    }
+
   },
   methods: {
     async searchInfo (val) {
@@ -67,20 +77,33 @@ export default {
       this.data = data.content
       this.loading = false
     },
+    async searchAnnouncement (val) {
+      this.loading = true
+      const{data} = await getAnnouncement(val)
+      this.data = data.content
+      this.loading = false
+    },
+
     handerstatus(fileName) {
       let text = []
       switch(fileName) {
-      case 1 || 2:
+      case 1:
         text = ['PRELIMINARY_CANDIDATE','FORMAL_CANDIDATE','FORMAL_REPRESENTATIVE']
         break
-      case 3 || 4:
+      case 2:
+        text = ['PRELIMINARY_CANDIDATE','FORMAL_CANDIDATE','FORMAL_REPRESENTATIVE']
+        break
+      case 3:
         text = ['FORMAL_REPRESENTATIVE']
         break
-      case 5:
+      case 4:
         text = ['FORMAL_REPRESENTATIVE']
         break
       case 6:
         text = ['FORMAL_REPRESENTATIVE']
+        break
+      case 5:
+        text = ['WAIT_SUBMIT']
         break
       default:
         text = []

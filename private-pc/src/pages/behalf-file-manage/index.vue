@@ -66,6 +66,7 @@ export default {
     async searchList (val) {
       this.loading = true
       const{data} = await getList({...this.params,...val})
+      data.content.data.push({"id":"99999","fileName":"选区选举大会公告","type":1,"module":3,"uploadTime":1555580228000,"isFillData":1,"fileSuffix":"docx"},{"id":"101010","fileName":"选举委员会关于代表当选公告","type":1,"module":3,"uploadTime":1555580228000,"isFillData":1,"fileSuffix":"docx"})
       this.list = data.content.data.map(i=> {
         i.doctype=this.handlegender(i.fileName)
         return i
@@ -80,7 +81,6 @@ export default {
         text = 1
         break
       case '选举委员会关于初步代表候选人名单公告（2）':
-        console.log(99)
         text = 2
         break
       case '选举委员会关于正式代表候选人名单公告（1）':
@@ -89,11 +89,11 @@ export default {
       case '选举委员会关于正式代表候选人名单公告（2）':
         text = 4
         break
-      case '选区选举大会公告':
-        text = 5
-        break
       case '选举委员会关于代表当选公告':
         text = 6
+        break
+      case '选区选举大会公告':
+        text = 5
         break
       default:
         text = null
@@ -101,7 +101,6 @@ export default {
       return text
     },
     create (item) {
-      console.log(22,item)
       this.$router.push({
         path:'/create-file',
         query: {type: item.doctype,fileSuffix: item.fileSuffix,title: item.fileName,id: item.id}

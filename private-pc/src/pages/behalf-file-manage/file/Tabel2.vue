@@ -10,38 +10,30 @@
         label="姓名"
         prop="name">
           <template slot-scope="scope">
-          {{scope.row.a || '画画'}}
+          {{scope.row.a || ''}}
         </template>
       </el-table-column>
 
       <el-table-column
         align="center"
         label="赞成票">
-        <template slot-scope="scope">
-          {{scope.row.a || 23}}
-        </template>
+
       </el-table-column>
        <el-table-column
         align="center"
         label="反对票">
-        <template slot-scope="scope">
-          {{scope.row.a || 23}}
-        </template>
+
       </el-table-column>
        <el-table-column
         align="center"
         label="弃权票">
-        <template slot-scope="scope">
-          {{scope.row.a || 23}}
-        </template>
+
       </el-table-column>
        <el-table-column
         width="230"
         align="center"
         label="赞成票占投票选民的%">
-        <template slot-scope="scope">
-          {{scope.row.a || 23}}%
-        </template>
+
       </el-table-column>
     </el-table>
   </div>
@@ -52,16 +44,13 @@ import { formatDate } from '../../../utils/format.js'
 export default {
   data () {
     return {
-
+      list: [1,2,3,4,5,6,7]
     }
   },
   computed: {
   },
   props: {
-    list: {
-      defaut: () => [],
-      type: Array
-    }
+
   },
   components: {
 
@@ -102,5 +91,8 @@ export default {
 }
 .tabel1.el-table th {
   padding: 0px 0;
+}
+.tabel1.el-table td{
+  padding: 24px 0;
 }
 </style>

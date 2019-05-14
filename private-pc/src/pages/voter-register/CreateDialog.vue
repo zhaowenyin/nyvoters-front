@@ -5,7 +5,7 @@
     width="820px"
     :before-close="comfirmClose">
     <el-form
-      label-width="110px"
+      label-width="130px"
       :model="form"
       :rules="rules"
       ref="form"
@@ -151,6 +151,16 @@
             </el-select>
           </el-form-item>
         </el-col>
+         <el-col :span="12">
+          <el-form-item
+            label="持资格转移证明"
+            prop="prove_doc_id">
+            <el-radio-group size="medium" v-model="form.prove_doc_id">
+              <el-radio :label="0">是</el-radio>
+              <el-radio :label="1">否</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
         <el-col :span="12">
            <el-form-item
             class="padding"
@@ -232,7 +242,8 @@ export default {
         candidateType: '',
         registrationType: '',
         registrationTime: '',
-        registrar: ''
+        registrar: '',
+        prove_doc_id: ''
       },
       multipleSelection: [],
       rules: {
@@ -273,8 +284,11 @@ export default {
           { required: true, message: '请选择登记日期！', trigger: 'blur' }
         ],
         registrar:[
-          { required: true, message: '请输入登记人1', trigger: 'blur' }
-        ]
+          { required: true, message: '请输入登记人!', trigger: 'blur' }
+        ],
+        prove_doc_id: [
+          { required: true, message: '请选择持资格转移证明!', trigger: 'blur' }
+        ],
       },
       registrationTypeList,
       candidateTypeList,

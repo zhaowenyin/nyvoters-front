@@ -103,4 +103,12 @@ export async function getInfo (payload) {
   // })
   return api.post('/repre-affairs/word/list', payload)
 }
+export async function getAnnouncement (payload) {
+  return api.post('/repre-affairs/word1/list', payload)
+}
+export async function getOther (payload) {
+  console.log(payload)
+  return api.get('/doc/preview', {params:payload})
+}
+
 

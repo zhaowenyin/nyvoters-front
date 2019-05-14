@@ -9,7 +9,10 @@
       <Item
       v-if="$route.query.fileSuffix==='docx'"
       :belongAreaId="belongAreaId"/>
-      <div v-else>888</div>
+      <OtherFile
+      :belongAreaId="belongAreaId"
+      :id="$route.query.id"
+      v-else/>
     </div>
   </div>
 </template>
@@ -18,6 +21,7 @@
 import CommonTree from '../../../components/common-tree'
 import { mapMutations, mapActions, mapState } from 'vuex'
 import Item from './Item'
+import OtherFile from './OtherFile'
 export default {
   data () {
     return {
@@ -35,7 +39,8 @@ export default {
   },
   components: {
     CommonTree,
-    Item
+    Item,
+    OtherFile
   },
   created () {
     this.searchTree({type: 0, id: ''})
