@@ -95,7 +95,7 @@ export default {
     if (this.belongAreaId === '') {
       return
     }
-    this.getListData({belongAreaId: this.belongAreaId,statusList:['PRELIMINARY_CANDIDATE'] })
+    this.getListData({belongAreaId: this.belongAreaId,statusList:['PRELIMINARY_CANDIDATE','FORMAL_CANDIDATE','FORMAL_REPRESENTATIVE']})
   },
   methods: {
     ...mapActions('initialCandidate', [
