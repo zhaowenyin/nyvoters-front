@@ -130,11 +130,9 @@ export default {
     },
 
     async searchCandidate () {
-      this.loading = true
       const {data} = await getList({belongAreaId: this.belongAreaId,statusList:['REVIEW_SUCCESS']})
       this.list = data.content.data
       this.filterList = JSON.parse(JSON.stringify(this.list))
-      this.loading = false
     },
     submit () {
       this.$confirm('确认将已选人员作为初步候选人？', '提示')

@@ -88,14 +88,14 @@ export default {
   },
   watch: {
     belongAreaId () {
-      this.getListData({ belongAreaId: this.belongAreaId })
+      this.getListData({ belongAreaId: this.belongAreaId, statusList: ['FORMAL_REPRESENTATIVE']})
     }
   },
   created () {
     if (this.belongAreaId === '') {
       return
     }
-    this.getListData({belongAreaId: this.belongAreaId,statusList: ['FORMAL_REPRESENTATIVE','FORMAL_REPRESENTATIVE'] })
+    this.getListData({belongAreaId: this.belongAreaId,statusList: ['FORMAL_REPRESENTATIVE']})
   },
   methods: {
     ...mapActions('officialBehalf', [

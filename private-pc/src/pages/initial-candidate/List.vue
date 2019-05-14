@@ -88,7 +88,7 @@ export default {
   },
   watch: {
     belongAreaId () {
-      this.getListData({ belongAreaId: this.belongAreaId })
+      this.getListData({ belongAreaId: this.belongAreaId,statusList:['PRELIMINARY_CANDIDATE','FORMAL_CANDIDATE','FORMAL_REPRESENTATIVE']})
     }
   },
   created () {
