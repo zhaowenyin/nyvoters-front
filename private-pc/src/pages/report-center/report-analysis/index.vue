@@ -6,7 +6,9 @@
         @node-click="handleNodeClick" />
     </div>
     <div class="view-content">
-      <Echart/>
+      <Echart
+        :belongAreaId="belongAreaId"
+      />
     </div>
   </div>
 </template>
@@ -23,7 +25,8 @@ export default {
   },
   computed: {
     ...mapState('commonData', {
-      data: state => state.treeList
+      data: state => state.treeList,
+      belongAreaId: state => state.belongAreaId
     })
   },
   components: {
@@ -31,14 +34,10 @@ export default {
     CommonTree
   },
   created () {
-    // 初始化清除数据
-    this.clearState()
     this.searchTree({type: 0, id: ''})
   },
   methods: {
-    ...mapMutations('initialCandidate', [
-      'clearState'
-    ]),
+
     ...mapMutations('commonData', [
       'saveDistrictId',
     ]),

@@ -4,58 +4,75 @@
     <ul class="pieall">
       <li class="pie">
         <div class="text">总人口数</div>
-        <Pie :data="[]"/>
+        <Pie :data="data.echart1"/>
       </li>
       <li class="pie">
         <div class="text">18岁以上人口数</div>
-        <Pie :data="[]"/>
+        <Pie :data="data.echart2"/>
       </li>
       <li class="pie">
         <div class="text">未登记人数</div>
-        <Pie :data="[]"/>
+        <Pie :type="1" :data="data.unregisteredNumbers"/>
       </li>
     </ul>
     <ul class="pieall">
       <li class="pie people">
         <div class="text">实际登记选民人数</div>
-        <div class="text-people">3611人</div>
+        <div class="text-people">{{data.actualRegisteredVoters}}人</div>
       </li>
       <li class="pie">
         <div class="text">登记选民性别分布</div>
-        <Pie :data="[]"/>
+        <Pie
+        :type="1"
+        :data="data.echart3"/>
       </li>
         <li class="pie">
         <div class="text">本地转入登记选民分布</div>
-        <Pie :data="[]"/>
+        <Pie :type="1" :data="data.echart4"/>
       </li>
     </ul>
   </div>
 </template>
 <script>
-import { mapMutations } from 'vuex'
 import Pie from './Pie'
+import {getList} from './service.js'
 
 export default {
   data () {
     return {
-      list: [],
-      data: {data1:[],data2:[],data3:[],data4:[]}
+      data: {}
     }
   },
-  computed: {
-
+  props: {
+    belongAreaId: {
+      default: '',
+      type: null
+    }
+  },
+  watch: {
+    belongAreaId() {
+      this.searchList()
+    }
   },
   components: {
     Pie
   },
   created () {
     // 初始化清除数据
-    this.clearState()
+    // this.searchList()
   },
   methods: {
-    ...mapMutations('home', [
-      'clearState'
-    ])
+    async searchList () {
+      this.loading = true
+      const{data} = await getList(this.belongAreaId)
+      this.data = data.content
+      this.data.echart1 = [{label:'男',value: this.data.malePopulation},{label:'女',value: this.data.femalePopulation}]
+      this.data.echart2 = [{label:'男',value: this.data.adultMalePopulation},{label:'女',value: this.data.adultFemalePopulation}]
+      this.data.echart3 = [{label:'男',value: this.data.registeredMaleVoters},{label:'女',value: this.data.registeredFemaleVoters}]
+      this.data.echart4 = [{label:'本地选民',value: this.data.localVoters},{label:'从外地转入选民',value: this.data.foreignVoters}]
+      this.loading = false
+    },
+
   }
 }
 </script>
