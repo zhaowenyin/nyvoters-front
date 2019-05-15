@@ -146,7 +146,7 @@
                 v-for="(item, key) in candidateTypeList"
                 :key="key"
                 :label="item"
-                :value="key">
+                :value="+key">
               </el-option>
             </el-select>
           </el-form-item>
@@ -154,10 +154,10 @@
          <el-col :span="12">
           <el-form-item
             label="持资格转移证明"
-            prop="prove_doc_id">
-            <el-radio-group size="medium" v-model="form.prove_doc_id">
-              <el-radio :label="1">是</el-radio>
-              <el-radio :label="0">否</el-radio>
+            prop="proveDocId">
+            <el-radio-group size="medium" v-model="form.proveDocId">
+              <el-radio :label="'1'">是</el-radio>
+              <el-radio :label="'0'">否</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
@@ -173,9 +173,9 @@
               clearable placeholder="请选择登记方式">
               <el-option
                 v-for="(item,key) in registrationTypeList"
-                 :key="key"
+                :key="key"
                 :label="item"
-                :value="key">
+                :value="+key">
               </el-option>
             </el-select>
           </el-form-item>
@@ -221,7 +221,7 @@
   </el-dialog>
 </template>
 <script>
-import {setSubmit} from './service.js'
+import {setSubmit,modifySubmit} from './service.js'
 import {registrationTypeList, candidateTypeList} from '../../common-data/config.js'
 import { mapActions,mapState } from 'vuex'
 export default {
@@ -243,7 +243,7 @@ export default {
         registrationType: '',
         registrationTime: '',
         registrar: '',
-        prove_doc_id: ''
+        proveDocId: ''
       },
       multipleSelection: [],
       rules: {
@@ -286,7 +286,7 @@ export default {
         registrar:[
           { required: true, message: '请输入登记人!', trigger: 'blur' }
         ],
-        prove_doc_id: [
+        proveDocId: [
           { required: true, message: '请选择持资格转移证明!', trigger: 'blur' }
         ],
       },
@@ -315,7 +315,7 @@ export default {
     })
   },
   created () {
-    this.form = {...this.form, ...this.item }
+    this.form = {...this.form, ...this.item,registrationTime: new Date(this.item.registrationTime)}
     this.searchnation()
   },
   methods: {
@@ -337,7 +337,12 @@ export default {
     },
     async sumitData () {
       this.loading = true
-      await setSubmit(this.handerParams())
+      if(this.item.id) {
+        await modifySubmit(this.handerParams())
+      } else {
+        await setSubmit(this.handerParams())
+      }
+
       this.close()
       this.getListData()
       this.loading = false

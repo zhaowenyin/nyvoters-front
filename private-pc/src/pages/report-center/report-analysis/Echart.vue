@@ -1,5 +1,5 @@
 <template>
-  <div class="view1">
+  <div v-loading="loading" class="view1">
     <div class="content-title">南阳市第一选区情况统计表</div>
     <ul class="pieall">
       <li class="pie">
@@ -40,7 +40,8 @@ import {getList} from './service.js'
 export default {
   data () {
     return {
-      data: {}
+      data: {},
+      loading: false
     }
   },
   props: {
@@ -59,7 +60,7 @@ export default {
   },
   created () {
     // 初始化清除数据
-    // this.searchList()
+    this.searchList()
   },
   methods: {
     async searchList () {

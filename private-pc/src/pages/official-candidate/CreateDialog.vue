@@ -122,7 +122,7 @@ export default {
         })
         return
       }
-      this.$confirm('确认将已选人员作为初步候选人？')
+      this.$confirm('确认将已选人员作为正式候选人？')
         .then(() => {
           this.sumitData()
         })

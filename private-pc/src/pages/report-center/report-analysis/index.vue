@@ -7,6 +7,7 @@
     </div>
     <div class="view-content">
       <Echart
+        v-if="belongAreaId"
         :belongAreaId="belongAreaId"
       />
     </div>
