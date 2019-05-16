@@ -4,7 +4,7 @@
     v-model="checkedItem"
     @change="handleCheckedCitiesChange"
     class="left">
-    <el-checkbox v-for="(item, key) in list" :label="key" :key="key">{{item}}</el-checkbox>
+    <el-checkbox v-for="(item, key) in list" :label="+key" :key="+key">{{item}}</el-checkbox>
   </el-checkbox-group>
     <el-form
       ref="form"
