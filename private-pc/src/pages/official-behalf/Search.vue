@@ -164,6 +164,14 @@ export default {
         });
         return
       }
+      if(this.multipleSelection.length > 1) {
+        this.$notify({
+          title: '',
+          message: '请勾一条进行操作！',
+          type: 'warning'
+        });
+        return
+      }
       for (let i of this.multipleSelection) {
         if(i.status !== 'PRELIMINARY_CANDIDATE') {
           this.$notify({
