@@ -155,7 +155,7 @@ export default {
         if(i.status !== 'PRELIMINARY_CANDIDATE') {
           this.$notify({
             title: '',
-            message: '该人员已作为正式候选人/正式代表，不允许撤销！',
+            message: '该人员已作为正式代表，不允许撤销！',
             type: 'warning'
           });
           return

@@ -130,7 +130,7 @@ export default {
     },
 
     async searchCandidate () {
-      const {data} = await getList({belongAreaId: this.belongAreaId,statusList:['REVIEW_SUCCESS']})
+      const {data} = await getList({belongAreaId: this.belongAreaId,statusList:['REVIEW_SUCCESS'],pageSize: 500,pageNum: 1})
       this.list = data.content.data
       this.filterList = JSON.parse(JSON.stringify(this.list))
     },

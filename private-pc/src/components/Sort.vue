@@ -8,11 +8,6 @@
       <div class="view-left">
         <div class="text">待选</div>
         <ul class="content">
-        <el-input
-           style="padding: 10px;"
-          placeholder="输入关键字进行过滤"
-          v-model="filterText">
-          </el-input>
           <li
             @click="select(i)"
             :key="key"
@@ -22,22 +17,8 @@
             <div>{{i.belongAreaName}}</div>
           </li>
         </ul>
-
       </div>
       <div class="row-ccontent"><div class="row"/></div>
-      <div class="view-content">
-        <div class="text">已选</div>
-        <ul class="content">
-          <li
-            :key="key"
-            class="item"
-            v-for="(i,key) in selectedList">
-            <div>{{i.recommendedPerson}}</div>
-            <div>{{i.belongAreaName}}</div>
-            <i @click="deleteI(i)" class="el-icon-circle-close"></i>
-          </li>
-        </ul>
-      </div>
     </div>
     <div
       slot="footer"
@@ -79,22 +60,6 @@ export default {
       type: Object
     },
   },
-  watch: {
-    filterText(val) {
-      let value = val.replace(/(^\s*)|(\s*$)/g, '')
-      let list = JSON.parse(JSON.stringify(this.list))
-      clearTimeout(this.timer)
-      this.timer = setTimeout(() => {
-        if (value) {
-          this.filterList = list.filter(i => {
-            return i.recommendedPerson.indexOf(value) >= 0
-          })
-        } else {
-          this.filterList = list
-        }
-      }, 100)
-    }
-  },
   computed: {
     ...mapState('commonData', {
       belongAreaId: state => state.belongAreaId
@@ -114,24 +79,12 @@ export default {
       this.$emit('update:visible', false)
     },
     submitForm () {
-      if(this.selectedList.length === 0) {
-        this.$notify({
-          title: '',
-          message: '请选择候选人！',
-          type: 'warning'
-        })
-        return
-      }
-      this.$confirm('确认将已选人员作为正式候选人？')
-        .then(() => {
-          this.sumitData()
-        })
-        .catch(() => {})
+
 
     },
 
     async searchCandidate () {
-      const {data} = await getList({belongAreaId: this.belongAreaId,statusList:['PRELIMINARY_CANDIDATE'],pageSize: 500,pageNum: 1})
+      const {data} = await getList({belongAreaId: this.belongAreaId,statusList:['PRELIMINARY_CANDIDATE']})
       this.list = data.content.data
       this.filterList = JSON.parse(JSON.stringify(this.list))
     },
