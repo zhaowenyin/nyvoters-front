@@ -2,29 +2,32 @@
   <el-dialog
     title=""
     :visible="visible"
-    width="700px"
+    width="500px"
     :before-close="comfirmClose">
     <div class="view">
       <div class="view-left">
-        <div class="text">待选</div>
+        <div class="text">排序调整</div>
         <ul class="content">
           <li
             @click="select(i)"
             :key="key"
             class="item"
-            v-for="(i,key) in filterList">
+            v-for="(i,key) in list">
             <div>{{i.recommendedPerson}}</div>
             <div>{{i.belongAreaName}}</div>
           </li>
         </ul>
       </div>
-      <div class="row-ccontent"><div class="row"/></div>
+      <div class="row">
+        <div @click="up" class="up"/>
+        <div @click="down" class="down"/>
+      </div>
     </div>
     <div
       slot="footer"
       class="footer">
       <el-button
-      @click="submitForm()"
+      @click="sumitData()"
       size="medium"
       :loading="loading"
       type="primary">确定</el-button>
@@ -35,18 +38,11 @@
   </el-dialog>
 </template>
 <script>
-import {getList,setSubmit} from './service.js'
-import { mapActions,mapState } from 'vuex'
+import {setSubmit} from '../common-data/service.js'
 export default {
   data () {
     return {
-      loading: false,
-      list: [],
-      filterList: [],
-      filterText: '',
-      selectItem: {},
-      selectedList: []
-
+      loading: false
     }
 
   },
@@ -55,56 +51,36 @@ export default {
       default: false,
       type: Boolean
     },
-    item: {
-      default: () => {},
-      type: Object
+    list: {
+      default: null,
+      type: null
     },
-  },
-  computed: {
-    ...mapState('commonData', {
-      belongAreaId: state => state.belongAreaId
-    })
+    status: {
+      default: null,
+      type: null
+    }
   },
   created () {
-    this.searchCandidate()
+
   },
   components: {
 
   },
   methods: {
-    ...mapActions('officialCandidate', [
-      'getListData',
-    ]),
     close () {
       this.$emit('update:visible', false)
     },
-    submitForm () {
-
-
-    },
-
-    async searchCandidate () {
-      const {data} = await getList({belongAreaId: this.belongAreaId,statusList:['PRELIMINARY_CANDIDATE']})
-      this.list = data.content.data
-      this.filterList = JSON.parse(JSON.stringify(this.list))
-    },
-    submit () {
-      this.$confirm('确认将已选人员作为正式候选人？', '提示')
-        .then(() => {
-          this.close()
-          this.sumitData()
-        })
-        .catch(() => {})
-    },
     async sumitData () {
-      this.loading = true
-      let idList = []
-      for (let i of this.selectedList) {
-        idList.push(i.id)
+      let id = []
+      for(let i of this.list) {
+        id.push(i.id)
       }
-      let params = {idList}
+      let params={
+        status: this.status,
+        id
+      }
+      this.loading = true
       await setSubmit(params)
-      this.getListData()
       this.close()
       this.loading = false
     },
@@ -115,14 +91,11 @@ export default {
         })
         .catch(() => {})
     },
-    select(data) {
-      this.selectedList.push(data)
+    up () {
+      this.sumitData()
     },
-    deleteI(val) {
-      this.selectedList = this.selectedList.filter(i => {
-        return i.id!==val.id
-      })
-
+    down () {
+      this.sumitData()
     }
   }
 
@@ -136,9 +109,6 @@ export default {
   .view-left {
     flex: 1;
     background-color: #ffffff;
-  }
-  .view-content {
-    flex: 1;
   }
   .content {
     height: 350px;
@@ -159,28 +129,75 @@ export default {
     justify-content: center;
     width: 50px;
   }
-  .row {
-      width:0;
-      height:0;
-      border-left:25px solid #fff;
-      border-top:15px solid transparent;
-      border-bottom:15px solid transparent;
-      position: relative;
-      &:after{
-        content: '';
-        display: block;
-        position: absolute;
-        top: -12px;
-        left: -25px;
-        border-left:25px solid #444;
-        border-top:15px solid transparent;
-        border-bottom:15px solid transparent;
-      }
-    }
-    .text {
-      font-weight: bold;
-      font-size: 16px;
-    }
+.down {
+  width:0;
+  height:0;
+  border-top:25px solid #fff;
+  border-left:15px solid transparent;
+  border-right:15px solid transparent;
+  position: relative;
+  &:after{
+    content: '';
+    display: block;
+    position: absolute;
+    top: -12px;
+    left: -25px;
+    border-top:25px solid #444;
+    border-left:15px solid transparent;
+    border-right:15px solid transparent;
+  }
+}
+.down {
+  cursor: pointer;
+  width:0;
+  height:0;
+  border-top:25px solid #fff;
+  border-left:15px solid transparent;
+  border-right:15px solid transparent;
+  position: relative;
+  &:after{
+    content: '';
+    display: block;
+    position: absolute;
+    top: -12px;
+    left: -25px;
+    border-top:25px solid #444;
+    border-left:15px solid transparent;
+    border-right:15px solid transparent;
+  }
+}
+.up {
+  margin-bottom: 20px;
+  cursor: pointer;
+  width:0;
+  height:0;
+  border-bottom:25px solid #fff;
+  border-left:15px solid transparent;
+  border-right:15px solid transparent;
+  position: relative;
+  &:after{
+    content: '';
+    display: block;
+    position: absolute;
+    top: -12px;
+    left: -25px;
+    border-bottom:25px solid #444;
+    border-left:15px solid transparent;
+    border-right:15px solid transparent;
+  }
+}
+.text {
+  font-weight: bold;
+  font-size: 16px;
+}
+.row {
+  width: 50px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 </style>
 <style>
   .table-obj .el-form-item {

@@ -3,7 +3,7 @@
     <div class="left">
       <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">增加初步候选人</el-button>
       <el-button @click="repealI" size="medium" type="primary" icon="el-icon-delete">撤销资格</el-button>
-      <el-button @click="repealI" size="medium" type="primary" icon="el-icon-delete">撤销资格</el-button>
+      <el-button @click="sort" size="medium" type="primary" icon="el-icon-delete">排序调整</el-button>
     </div>
     <el-form
       ref="form"
@@ -67,12 +67,19 @@
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
       />
+    <Sort
+       v-if="visible"
+      :list="list"
+      :status="status"
+      :visible.sync='visible'
+    />
   </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
 import {repeal} from './service.js'
+import Sort from '../../components/Sort'
 
 export default {
   data () {
@@ -104,16 +111,20 @@ export default {
           label: '乡镇代表'
         }
       ],
-      createDialogVisible: false
+      createDialogVisible: false,
+      visible: false,
+      status:['PRELIMINARY_CANDIDATE','FORMAL_CANDIDATE','FORMAL_REPRESENTATIVE']
     }
   },
   computed: {
     ...mapState('initialCandidate', {
-      multipleSelection: state=>state.multipleSelection
-    })
+      multipleSelection: state=>state.multipleSelection,
+      list: state => state.list
+    }),
   },
   components: {
-    CreateDialog
+    CreateDialog,
+    Sort
   },
   watch: {
     type () {
@@ -127,6 +138,7 @@ export default {
     }
   },
   created () {
+
   },
   methods: {
     ...mapActions('initialCandidate', [
@@ -154,6 +166,14 @@ export default {
         });
         return
       }
+      if(this.multipleSelection.length > 1) {
+        this.$notify({
+          title: '',
+          message: '请勾一条进行操作！',
+          type: 'warning'
+        });
+        return
+      }
       for (let i of this.multipleSelection) {
         if(i.status !== 'PRELIMINARY_CANDIDATE') {
           this.$notify({
@@ -170,6 +190,9 @@ export default {
         })
         .catch(() => {})
 
+    },
+    sort () {
+      this.visible = true
     },
     async repealItem() {
       let idList = []

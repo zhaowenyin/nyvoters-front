@@ -155,4 +155,8 @@ export async function getNews (payload) {
 export async function setRead (payload) {
   return api.post('/message/read', payload)
 }
+export async function setSubmit (payload) {
+  return api.post('/set/order', payload)
+}
+
 

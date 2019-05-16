@@ -3,6 +3,7 @@
     <div class="left">
       <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">增加正式候选人</el-button>
       <el-button @click="repealI" size="medium" type="primary" icon="el-icon-delete">撤销资格</el-button>
+      <el-button @click="sort" size="medium" type="primary" icon="el-icon-delete">排序调整</el-button>
     </div>
     <el-form
       ref="form"
@@ -66,12 +67,19 @@
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
       />
+     <Sort
+       v-if="visible"
+      :list="list"
+      :status="status"
+      :visible.sync='visible'
+    />
   </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
 import {repeal} from './service.js'
+import Sort from '../../components/Sort'
 
 export default {
   data () {
@@ -102,16 +110,20 @@ export default {
           label: '乡镇代表'
         }
       ],
-      createDialogVisible: false
+      createDialogVisible: false,
+      visible: false,
+      status:['FORMAL_CANDIDATE','FORMAL_REPRESENTATIVE']
     }
   },
   computed: {
     ...mapState('officialCandidate', {
-      multipleSelection: state=>state.multipleSelection
+      multipleSelection: state=>state.multipleSelection,
+      list: state => state.list
     })
   },
   components: {
-    CreateDialog
+    CreateDialog,
+    Sort
   },
   watch: {
     type () {
@@ -178,7 +190,10 @@ export default {
       const param = JSON.parse(JSON.stringify(this.searchForm))
       param.pageNum = 1
       this.getListData(param)
-    }
+    },
+    sort () {
+      this.visible = true
+    },
   }
 }
 </script>
