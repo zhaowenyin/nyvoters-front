@@ -69,12 +69,12 @@ export default {
   },
   created () {
     if(this.belongAreaId!=='') {
-      this.getListData({precinctId: this.belongAreaId })
+      this.getListData1({precinctId: this.belongAreaId })
     }
   },
   watch: {
     belongAreaId () {
-      this.getListData({precinctId: this.belongAreaId })
+      this.getListData1({precinctId: this.belongAreaId })
     }
   },
   methods: {

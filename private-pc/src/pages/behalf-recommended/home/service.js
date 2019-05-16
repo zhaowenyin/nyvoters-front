@@ -87,16 +87,16 @@ export async function modifySubmit (payload) {
 }
 
 export async function submitTabel (payload) {
-  console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/repre-recommend/submit', payload)
+  // console.log(payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.post('/repre-recommend/submit', payload)
 }
 export async function deletetTabel (payload) {
   // console.log(payload)
