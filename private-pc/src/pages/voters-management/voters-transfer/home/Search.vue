@@ -197,7 +197,8 @@ export default {
       let params = {
         id: this.multipleSelection[0].id,
         pass: false,
-        reason: ''
+        reason: '',
+
       }
       await throughTabel(params)
       this.$notify({

@@ -36,7 +36,7 @@ export async function getList (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post('/transfer/list',  payload )
+  return api.post('/appeal/history',  payload )
 }
 
 export async function getDetail (payload) {

@@ -35,7 +35,7 @@ export async function getList (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post('/transfer/list',payload)
+  return api.post('/appeal/list',payload)
 }
 
 export async function throughTabel (payload) {
@@ -48,7 +48,7 @@ export async function throughTabel (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post('/transfer/audit', payload)
+  return api.post('/appeal/audit', payload)
 }
 
 

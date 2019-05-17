@@ -171,7 +171,7 @@ export default {
     successFn (response) {
       // this.$notify.success({title: '上传成功'})
       this.active = 1
-      this.form.id = response.id
+      this.form.id = response.content.id
       this.loading = true
       let sel = this
       clearInterval(this.timer)

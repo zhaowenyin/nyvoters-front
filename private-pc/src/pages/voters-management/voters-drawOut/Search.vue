@@ -159,11 +159,11 @@ export default {
 
     },
     async drawOutItem() {
-      let idList = []
+      let id = []
       for (let i of this.multipleSelection) {
-        idList.push(i.id)
+        id.push(i.id)
       }
-      let params = {idList}
+      let params = {id}
       await drawOut(params)
       const param = JSON.parse(JSON.stringify(this.searchForm))
       param.pageNum = 1
