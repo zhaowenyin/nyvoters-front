@@ -9,7 +9,7 @@
         width="80"
         align="center"
         label="姓名"
-        prop="recommendedPerson" />
+        prop="recommendPersonList" />
       <el-table-column
         align="center"
         label="性别"
@@ -50,7 +50,7 @@
         align="center"
         label="单位及职务">
           <template slot-scope="scope">
-          {{scope.row.workUnit+scope.row.post}}
+          {{scope.row.workUnitAndPost}}
         </template>
       </el-table-column>
       <el-table-column

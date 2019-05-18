@@ -4,7 +4,8 @@
       :show-header="true"
       :data="list"
       class="add_table expand-tabel"
-      border
+      :row-key="getRowKeys"
+      :expand-row-keys="[this.list[0]&&this.list[0].id]"
       v-loading="loading"
     >
       <el-table-column type="expand">
@@ -12,7 +13,8 @@
           <el-table
             :show-header="false"
             :data="props.row.details"
-            class="add_table"
+            class="add_table inner-tabel"
+            border
             >
             <el-table-column
               label="分类"
@@ -36,9 +38,9 @@
             </el-table-column>
             <el-table-column
               label="操作人"
-              prop="operater">
+              prop="updateUserName">
               <template slot-scope="scope">
-                {{handergender(scope.row.operater)}}
+                {{scope.row.updateUserName}}
               </template>
             </el-table-column>
             <el-table-column
@@ -62,7 +64,7 @@
               label="进度"
               prop="processSate" >
               <template slot-scope="scope">
-                {{handerProcessSate(scope.row.processSate)}}
+                {{handerProcessSate(scope.row.processState)}}
               </template>
             </el-table-column>
               <el-table-column
@@ -148,7 +150,10 @@ export default {
     return {
       downLoading: false,
       createDialogVisible: false,
-      lastId: null
+      lastId: null,
+      getRowKeys(row) {
+        return row.id
+      },
     }
   },
   computed: {
@@ -167,6 +172,8 @@ export default {
   created () {
     this.getListData()
   },
+  mounted() {
+  },
   methods: {
     ...mapActions('voterRegisters', [
       'getListData'
@@ -184,26 +191,6 @@ export default {
     formatDate,
     handleSelectionChange(val) {
       this.saveSelection(val)
-    },
-    handergender(val) {
-      let text = ""
-      switch(val) {
-      case 0:
-        text = '未设置'
-        break
-      case 1:
-        text = '男'
-        break
-      case 2:
-        text = '女'
-        break
-      case 3:
-        text = '其他'
-        break
-      default:
-        text = ''
-      }
-      return text
     },
     handerRegistrationType (val) {
       let text = ""
@@ -285,4 +272,7 @@ export default {
  .expand-tabel .el-table__expanded-cell[class*=cell] {
     padding: 0px 0px;
 }
+/* .inner-tabel td {
+  border-right: none !important;
+} */
 </style>

@@ -8,9 +8,9 @@
       <el-table-column
         align="center"
         label="姓名"
-        prop="name">
+        prop="recommendPersonList">
           <template slot-scope="scope">
-          {{scope.row.a || ''}}
+          {{scope.row.recommendPersonList || ''}}
         </template>
       </el-table-column>
 

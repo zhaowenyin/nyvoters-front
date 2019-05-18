@@ -76,7 +76,6 @@
             class="but">
             <span style="color: #606266" v-if="data&&data[4]&&data[4].name">{{data&&data[4].name}}</span>
             <span v-else>请上传登录背景地址</span>
-
             </div>
           </el-upload>
       </el-form-item>
@@ -134,6 +133,7 @@ export default {
       headers: {
         Authorization: authToken.token,
       },
+      fileName: ''
     }
 
   },
@@ -162,7 +162,13 @@ export default {
         }
       }
       paramStr = paramStr.substr(1)
-      return `${baseURL}/doc/upload/?${paramStr}`
+      let url = ''
+      if(this.data&&this.data[4]&&this.data[4].value) {
+        url=`${baseURL}/doc/modify/?${paramStr}`
+      } else {
+        url =`${baseURL}/doc/upload/?${paramStr}`
+      }
+      return url
     }
   },
   created () {
@@ -215,6 +221,7 @@ export default {
     },
     beforeAvatarUpload (file) {
       console.log(file)
+      this.fileName=file.name
       // const isXlsx = file.type ===
       //   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       // if (!isXlsx) {

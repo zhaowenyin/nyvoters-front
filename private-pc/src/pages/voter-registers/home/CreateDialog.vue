@@ -191,19 +191,19 @@ export default {
       const {data} = await getProcessSate(val)
       try {
         this.data = data.content
-        if (data.content.processSate === 2) {
-          this.active = data.content.processSate + 2
+        console.log(data.content.processState)
+        if (data.content.processState === 2) {
+          this.active = data.content.processState + 2
         } else {
-          this.active = data.content.processSate + 1
+          this.active = data.content.processState + 1
         }
-
+        console.log(1,this.active)
         if(this.active === 4) {
           clearInterval(this.timer)
           this.loading = false
         }
       } catch (e) {
         console.log(e)
-      }finally {
         clearInterval(this.timer)
         this.loading = false
       }
