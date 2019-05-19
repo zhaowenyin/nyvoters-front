@@ -145,8 +145,11 @@ export default {
       case 6:
         text = '其他'
         break
-      default:
+      case 7:
         text = '登记成功'
+        break
+      default:
+        text = ''
       }
       return text
     },

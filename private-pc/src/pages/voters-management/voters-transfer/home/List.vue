@@ -142,8 +142,37 @@ export default {
       case 6:
         text = '其他'
         break
-      default:
+      case 7:
         text = '登记成功'
+        break
+      default:
+        text = ''
+      }
+      return text
+    },
+    handercompareResult	(val) {
+      let text = ""
+      switch(val) {
+      case 0:
+        text = '待对比'
+        break
+      case 1:
+        text = '正常'
+        break
+      case 2:
+        text = '被剥夺政治权利 '
+        break
+      case 3:
+        text = '被剥夺政治权利'
+        break
+      case 4:
+        text = '迁出'
+        break
+      case 5:
+        text = '死亡'
+        break
+      default:
+        text = '其他'
       }
       return text
     },
