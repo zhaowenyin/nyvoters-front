@@ -2,6 +2,7 @@
   <div class="view">
     <div v-if="activeIndex === '/qual-review'" class="view-left">
       <CommonTree
+        :expand-on-click-node="false"
         :data="data"
         @node-click="handleNodeClick" />
     </div>

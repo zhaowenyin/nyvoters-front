@@ -12,6 +12,7 @@
         <div>待选</div>
         <div class="content">
           <CommonTree
+            :expand-on-click-node="false"
             :hasSearch="true"
             :data="data"
             @node-click="handleNodeClick" />

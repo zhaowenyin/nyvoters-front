@@ -14,6 +14,7 @@
           v-model="filterText">
           </el-input>
           <CommonTree
+            :expand-on-click-node="false"
             :data="data"
             @node-click="handleNodeClick" />
         </div>
