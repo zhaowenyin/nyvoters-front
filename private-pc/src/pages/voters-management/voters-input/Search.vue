@@ -85,8 +85,7 @@
     <CreateDialog
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
-      :precinctId="precinctId"
-      :id="id"
+      :ids="ids"
       />
   </div>
 </template>
@@ -158,16 +157,11 @@ export default {
         });
         return
       }
-      if(this.multipleSelection.length > 1) {
-        this.$notify({
-          title: '',
-          message: '只能勾选一条！',
-          type: 'warning'
-        })
-        return
+      const ids = []
+      for (let i of this.multipleSelection) {
+        ids.push(i.id)
       }
-      this.precinctId = this.multipleSelection[0].precinctId
-      this.id = this.multipleSelection[0].id
+      this.ids = ids
       this.createDialogVisible = true
     },
     deleteI () {

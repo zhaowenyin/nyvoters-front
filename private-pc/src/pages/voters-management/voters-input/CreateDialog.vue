@@ -37,15 +37,14 @@
   </el-dialog>
 </template>
 <script>
-import {getTree,drawIn} from './service.js'
+import {drawIn} from './service.js'
 import CommonTree from '../../../components/common-tree'
-import { mapActions } from 'vuex'
+import { mapActions,mapState } from 'vuex'
 
 export default {
   data () {
     return {
       loading: false,
-      data: [],
       filterText: '',
       selectItem: {}
     }
@@ -56,13 +55,9 @@ export default {
       default: false,
       type: Boolean
     },
-    id: {
-      default: '',
-      type: String
-    },
-    precinctId: {
-      default: '',
-      type: String
+    ids: {
+      default: null,
+      type: null
     }
   },
   watch: {
@@ -70,8 +65,14 @@ export default {
       this.$refs.tree2.filter(val)
     }
   },
+  computed: {
+    ...mapState('commonData', {
+      data: state => state.treeList
+    })
+
+  },
   created () {
-    this.searchTree({type: 2,id: this.id})
+    this.searchTree({type: 0,id: ''})
   },
   components: {
     CommonTree
@@ -79,6 +80,9 @@ export default {
   methods: {
     ...mapActions('votersQualification', [
       'getListData'
+    ]),
+    ...mapActions('commonData', [
+      'searchTree',
     ]),
     close () {
       this.$emit('update:visible', false)
@@ -95,9 +99,8 @@ export default {
       }
       this.loading = true
       let params = {
-        id: this.id,
-        pass: '不通过',
-        reason: this.selectItem.value
+        ids: this.ids,
+        precinctId: this.selectItem.id
       }
       await drawIn(params)
       this.$notify({
@@ -108,11 +111,6 @@ export default {
       this.close()
       this.getListData()
       this.loading = false
-    },
-
-    async searchTree (val) {
-      const {data} = await getTree(val)
-      this.data = data
     },
     comfirmClose () {
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
@@ -144,6 +142,7 @@ export default {
     height: 350px;
     border: 1px solid #ccc;
     padding: 10px;
+    overflow: auto;
   }
   .row-ccontent {
     display: flex;

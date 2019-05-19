@@ -1,6 +1,6 @@
 <template>
 
-  <div :class="['multiple',{'isfocus': valueStr},{'diabled': disabled}]">
+  <div :class="['multiple',{'isfocus': valueStr}]">
     <ul
       ref="select"
       @click="showselect"
@@ -11,7 +11,6 @@
         class="selectContent" disabled/>
     </ul>
      <div
-        v-if="!disabled"
         @click="close"
         class="show-icon">
         <i/>
@@ -159,11 +158,7 @@ export default {
     &.iserror {
       border:1px solid #FB2B4E;
     }
-    &.diabled {
-      border: none;
-      min-height: 16px;
 
-    }
   & .select-input {
     display: flex;
     flex: 1;

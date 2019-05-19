@@ -5,6 +5,7 @@
       :visible="visible"
       width="60%"
       :before-close="comfirmClose">
+      {{form.precinctId}}
       <el-form
         label-width="110px"
         :model="form"
@@ -27,6 +28,7 @@
               prop="precinctId">
                 <DistrictSelect
                 :multiple="false"
+                :disabled="true"
                 v-model="form.precinctId"
                 :item='item'
                 :data="data"
@@ -137,13 +139,16 @@ export default {
         precinctId: '',
         type: '',
         name: '',
-        distinct: ''
       },
       multipleSelection: [],
       rules: {
-        // name: [
-        //   { required: true, message: '请输入选委会！', trigger: 'blur' }
-        // ],
+        name: [
+          { required: true, message: '请输入选委会！', trigger: 'blur' }
+        ],
+
+        precinctId: [
+          { required: true, message: '请输入选委会！', trigger: 'change' }
+        ],
 
       },
       typeList: {
@@ -173,16 +178,17 @@ export default {
   },
   computed: {
     ...mapState('commonData', {
-      data: state => state.treeList
+      data: state => state.treeList,
+      belongAreaId: state => state.belongAreaId
     })
   },
   created () {
-    this.form = {...this.form, ...this.item }
-    let id = ''
+    this.form.precinctId = `${this.belongAreaId}`
+    console.log()
     if(this.item.id || this.item.id===0) {
-      id = this.item.id
+      this.form = {...this.form, ...this.item }
     }
-    this.searchTree({type: 0, id})
+    this.searchTree({type: 0, id: ''})
   },
   methods: {
     ...mapActions('commonData', [
@@ -221,8 +227,6 @@ export default {
     },
     handerParams () {
       let params = {...this.form}
-      delete params.distinct
-      delete params.typeName
       return params
     },
     select () {
