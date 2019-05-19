@@ -235,6 +235,7 @@
         :model="tableObj"
         :rules="tableRules"
         ref="tableObj"
+        class="innerobj"
         >
           <div class="left">
             <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">添加</el-button>
@@ -399,7 +400,7 @@ export default {
       educationList,
       recommendedPersonList: [{
         value: '1',
-        label: '居住地',
+        label: '测试1',
         phoneNum: '1',
         birthDay: 652806000000,
         gender: 2,
@@ -485,8 +486,8 @@ export default {
         .catch(() => {})
     },
     change (val) {
-      if(val===2) {
-        this.form.type = 2
+      if(val==='2') {
+        this.form.type = '2'
       }
 
     },
@@ -584,7 +585,8 @@ export default {
 }
 </style>
 <style>
-  .table-obj .el-form-item {
-    margin: 15px 0;
+  .innerobj .el-form-item {
+    margin-bottom: 15px;
+    margin-top: 15px;
   }
 </style>

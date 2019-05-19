@@ -36,6 +36,8 @@
           prop="password">
           <el-input
             size="medium"
+            type='password'
+            :disabled="item.id"
             placeholder="请输入登录密码"
             class="item"
             :maxlength="20"
@@ -89,6 +91,7 @@
 <script>
 import {setSubmit} from './service.js'
 import { mapActions,mapState } from 'vuex'
+import md5 from 'blueimp-md5'
 export default {
   data () {
     let validate = (rule, value, callback) => {
@@ -156,7 +159,7 @@ export default {
       params = {
         account: this.item.account,
         name: this.item.name,
-        password: this.item.password,
+        password: '......',
         phoneNum: this.item.phoneNum,
         sort: this.item.sort,
         contactInformation: this.item.contactInformation
@@ -195,6 +198,7 @@ export default {
     },
     handerParams () {
       let params = {...this.form}
+      params.password=md5(params.password)
       return params
     }
   }

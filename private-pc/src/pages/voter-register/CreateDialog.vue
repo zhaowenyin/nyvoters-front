@@ -315,7 +315,9 @@ export default {
     })
   },
   created () {
-    this.form = {...this.form, ...this.item,registrationTime: new Date(this.item.registrationTime)}
+    if(this.item.id) {
+      this.form = {...this.form, ...this.item,registrationTime: this.item.registrationTime ? new Date(this.item.registrationTime) : ''}
+    }
     this.searchnation()
   },
   methods: {

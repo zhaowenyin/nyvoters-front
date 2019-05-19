@@ -46,6 +46,8 @@
           prop="password">
           <el-input
             size="medium"
+            type='password'
+            :disabled="item.id"
             placeholder="请输入登录密码"
             class="item"
             :maxlength="20"
@@ -92,6 +94,7 @@ import {setSubmit} from './service.js'
 import { mapActions,mapState } from 'vuex'
 import {registrationTypeList} from '../../../../common-data/config.js'
 import DistrictSelect from '../../../../components/DistrictSelect'
+import md5 from 'blueimp-md5'
 export default {
   data () {
     let validate = (rule, value, callback) => {
@@ -109,7 +112,7 @@ export default {
       form: {
         account: '',
         name: '',
-        password: '',
+        password: '......',
         sort: '',
         registrationType: '',
         precinctId: '',
@@ -166,7 +169,7 @@ export default {
         account: this.item.account,
         committeeId: this.item.committeeId,
         name: this.item.name,
-        password: this.item.password,
+        password: '',
         sort: this.item.sort,
         registrationType: this.item.registrationType
       }
@@ -212,6 +215,7 @@ export default {
     handerParams () {
       let params = {...this.form}
       delete params.managePrecinct
+      params.password=md5(this.item.password)
       params.precinctId = this.belongAreaId
       return params
     }

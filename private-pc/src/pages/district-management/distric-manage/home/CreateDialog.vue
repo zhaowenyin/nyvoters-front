@@ -153,6 +153,7 @@ export default {
   },
   created () {
     let params = {}
+    this.form.parentId = this.belongAreaId
     if(this.item&&this.item.name) {
       params = {
         pnum: this.item.pnum,
@@ -161,6 +162,7 @@ export default {
         districtId: this.item.districtId,
         sort: this.item.sort,
         type: this.item.type,
+        parentId: this.item.parentId,
         typeName:(+this.item.type)=== 0 ? '区县选区' : '乡镇选区'
       }
     }
@@ -194,7 +196,7 @@ export default {
     async sumitData () {
       this.loading = true
       if(this.item.name) {
-        await modifySubmit(this.handerParams())
+        await modifySubmit({...this.handerParams(),id: this})
       }else {
         await setSubmit(this.handerParams())
       }
@@ -214,6 +216,7 @@ export default {
       params.pnum = +params.pnum
       params.parentType = 0
       delete params.typeName
+
       return params
     },
     async searchTree (val) {

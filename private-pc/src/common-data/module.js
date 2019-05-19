@@ -9,7 +9,8 @@ export default {
     belongAreaId: '',
     belongArea: '',
     treeList: [],
-    news: []
+    news: [],
+    saveId: 1003
   },
   mutations: {
     updateUserInfo (state, payload) {
@@ -27,6 +28,7 @@ export default {
     updateTreeList(state, payload) {
       state.treeList = [payload.data.content]
       state.belongAreaId = 1003
+      state.saveId = state.belongAreaId
       state.belongArea = payload.data.content.name
     },
     updateNews(state, payload) {
@@ -52,6 +54,7 @@ export default {
       })
     },
     async searchTree ({ commit, state }, payload) {
+      state.belongAreaId = state.saveId
       if (!isEmptyObj(state.treeList)&&payload.type===0) return
       state.belongAreaId = ''
       state.belongArea = ''

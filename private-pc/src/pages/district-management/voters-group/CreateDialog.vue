@@ -24,10 +24,10 @@
            <el-col :span="12">
             <el-form-item
               label="所属选区"
-              prop="distinctId">
+              prop="precinctId">
                 <DistrictSelect
                 :multiple="false"
-                v-model="form.distinctId"
+                v-model="form.precinctId"
                 :item='item'
                 :data="data"
                 />
@@ -134,7 +134,7 @@ export default {
         manager: '',
         managerPhone: '',
         sort: '',
-        distinctId: '',
+        precinctId: '',
         type: '',
         name: '',
         distinct: ''
