@@ -172,7 +172,7 @@ export default {
         return
       }
       for (let i of this.multipleSelection) {
-        if(i.status !== 'PRELIMINARY_CANDIDATE') {
+        if(i.status !== 'FORMAL_CANDIDATE') {
           this.$notify({
             title: '',
             message: '该人员已作为正式代表，不允许撤销！',
@@ -181,14 +181,14 @@ export default {
           return
         }
       }
-      this.$confirm('确认撤销初步候选人资格 。撤销后，人员不显示在初步候选人列表中')
+      this.$confirm('确认撤销初步候选人资格 。撤销后，人员不显示在正式候选人列表中')
         .then(() => {
-          this.qrepealtem()
+          this.repealtem()
         })
         .catch(() => {})
 
     },
-    async repealItem() {
+    async repealtem() {
       let idList = []
       for (let i of this.multipleSelection) {
         idList.push(i.id)

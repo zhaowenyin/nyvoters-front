@@ -65,6 +65,7 @@
     <CreateDialog
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
+      :item="item"
       />
   </div>
 </template>
@@ -102,7 +103,8 @@ export default {
           label: '乡镇代表'
         }
       ],
-      createDialogVisible: false
+      createDialogVisible: false,
+      item: {}
     }
   },
   computed: {
@@ -140,6 +142,24 @@ export default {
       })
     },
     create () {
+      this.createDialogVisible = true
+      if(this.multipleSelection.length === 0) {
+        this.$notify({
+          title: '',
+          message: '请勾选数据后再操作！',
+          type: 'warning'
+        });
+        return
+      }
+      if(this.multipleSelection.length > 1) {
+        this.$notify({
+          title: '',
+          message: '请勾一条进行操作！',
+          type: 'warning'
+        });
+        return
+      }
+      this.item = this.multipleSelection[0]
       this.createDialogVisible = true
     },
     qualReviewI () {

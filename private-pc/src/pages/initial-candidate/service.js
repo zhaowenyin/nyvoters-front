@@ -66,7 +66,7 @@ export async function repeal (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post('/formal-representative/cancel', payload)
+  return api.post('/preliminary-candidate/cancel', payload)
 }
 export async function setSubmit (payload) {
   // console.log(payload)

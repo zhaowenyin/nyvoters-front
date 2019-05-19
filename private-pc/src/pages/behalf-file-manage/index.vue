@@ -110,7 +110,7 @@ export default {
     },
     async download (item) {
       try {
-        output({url: '/doc/download', param: {id: item.id}})
+        output({url: '/doc/download', param: {id: item.id,module: 3}})
       } catch (err) {
         console.log(err)
       }

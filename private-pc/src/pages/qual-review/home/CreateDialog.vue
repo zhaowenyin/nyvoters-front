@@ -488,6 +488,7 @@ export default {
     })
   },
   created () {
+    this.form={...this.form,...this.item}
     this.searchnation()
 
   },
