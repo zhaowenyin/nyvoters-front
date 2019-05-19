@@ -142,7 +142,6 @@ export default {
       })
     },
     create () {
-      this.createDialogVisible = true
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',
