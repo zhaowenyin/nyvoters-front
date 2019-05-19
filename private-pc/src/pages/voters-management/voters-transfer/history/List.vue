@@ -27,14 +27,14 @@
         label="原选区"
         prop="candidateType">
          <template slot-scope="scope">
-          {{ scope.row.householdRegistration }}
+          {{ scope.row.fromPrecinctName }}
         </template>
       </el-table-column>
       <el-table-column
         label="转移选区"
         prop="type">
          <template slot-scope="scope">
-          {{scope.row.living}}
+          {{scope.row.toPrecinctName}}
         </template>
       </el-table-column>
        <el-table-column

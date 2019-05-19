@@ -195,8 +195,8 @@ export default {
     },
     async sumitData () {
       this.loading = true
-      if(this.item.name) {
-        await modifySubmit({...this.handerParams(),id: this})
+      if(this.item.id) {
+        await modifySubmit({...this.handerParams(),id: this.item.id})
       }else {
         await setSubmit(this.handerParams())
       }

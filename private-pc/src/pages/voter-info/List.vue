@@ -39,7 +39,7 @@
       <el-table-column
         label="选区">
         <template slot-scope="scope">
-          {{ scope.row.aa }}
+          {{ scope.row.precinctName }}
         </template>
       </el-table-column>
        <el-table-column
