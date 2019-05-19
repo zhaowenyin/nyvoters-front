@@ -140,18 +140,33 @@ export default {
     },
     handerstatus (val) {
       let text = ""
-      switch(val) {
+      switch(+val) {
       case 0:
         text = '待对比'
         break
       case 1:
-        text = '对比中'
-        break
-      case 2:
         text = '待资格审查'
         break
-      default:
+      case 2:
+        text = '不能行使选举权'
+        break
+      case 3:
+        text = '被剥夺政治权利'
+        break
+      case 4:
+        text = '迁出'
+        break
+      case 5:
+        text = '死亡'
+        break
+      case 6:
+        text = '其他'
+        break
+      case 7:
         text = '登记成功'
+        break
+      default:
+        text = ''
       }
       return text
     },
