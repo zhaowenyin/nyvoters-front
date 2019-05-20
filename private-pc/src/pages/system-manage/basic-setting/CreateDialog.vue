@@ -195,7 +195,7 @@ export default {
         voteDate: new Date(+content[1].value),
         registerStartDate: new Date(+content[2].value),
         registerEndDate: new Date(+content[3].value),
-        id: content[4].value,
+        loginBackgroudId: content[4].value,
       }
       this.loading = false
     },

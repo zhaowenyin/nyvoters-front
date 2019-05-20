@@ -31,7 +31,7 @@
          <el-form-item
           class="padding "
           label="申诉书："
-          prop="id">
+          prop="appealDocumentId">
             <el-upload
               style="100%"
               :class="['commom',{'uploadcomplait':fileList.length>0}]"
@@ -114,7 +114,7 @@ export default {
         userName: '',
         idNum: '',
         phoneNum: '',
-        id: '',
+        appealDocumentId: '',
         captcha: '',
         captchaId: '',
         type: 1
@@ -132,7 +132,7 @@ export default {
         captcha: [
           { required: true, message: '请输入验证码', trigger: 'blur' }
         ],
-        id:[{ required: true, message: '请上传申诉书', trigger: '' }]
+        appealDocumentId:[{ required: true, message: '请上传申诉书', trigger: 'change' }]
       },
       headers: {
         // Authorization: authToken.token,
@@ -140,7 +140,8 @@ export default {
       },
       loading: false,
       captchaImg: '',
-      fileList: []
+      fileList: [],
+      name: ''
     }
 
   },
@@ -150,7 +151,8 @@ export default {
   computed: {
     allUrl () {
       let param = {
-        module: 4
+        module: 6,
+        fileName:'公民申诉书'
       }
       let paramStr = ''
       for (const k in param) {
@@ -171,6 +173,7 @@ export default {
 
   methods: {
     submitForm () {
+      console.log(this.userLogin)
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.loading = true
@@ -194,6 +197,8 @@ export default {
     },
     beforeAvatarUpload (file) {
       console.log(file)
+      this.name = file.name
+      console.log(file.name)
 
       // const isXlsx = file.type ===
       //   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -204,7 +209,7 @@ export default {
     },
     successFn (response) {
       console.log(response)
-      this.userLogin.id = 1
+      this.userLogin.appealDocumentId = response.content
     },
     errorFn (err) {
       const { message = `{}` } = err

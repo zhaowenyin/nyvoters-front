@@ -30,5 +30,5 @@ export async function getCode () {
   return api.get('/getcode')
 }
 export async function getId () {
-  return api.get('/getcode',{fileName: '公诉书'})
+  // return api.get('/doc/get',{params:{fileName: '公民申诉书'}})
 }
