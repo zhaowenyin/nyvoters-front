@@ -3,7 +3,7 @@
     <div class="left">
       <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">增加正式候选人</el-button>
       <el-button @click="repealI" size="medium" type="primary" icon="el-icon-delete">撤销资格</el-button>
-      <el-button @click="sort" size="medium" type="primary" icon="el-icon-delete">排序调整</el-button>
+      <el-button @click="sort" size="medium" type="primary" icon="el-icon-sort">排序调整</el-button>
     </div>
     <el-form
       ref="form"
