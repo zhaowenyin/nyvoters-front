@@ -132,7 +132,13 @@ export default {
         }
       }
       paramStr = paramStr.substr(1)
-      return `${baseURL}/doc/upload/?${paramStr}`
+      let url = ''
+      if(this.item&&this.item.id) {
+        url=`${baseURL}/doc/modify/?${paramStr}`
+      } else {
+        url =`${baseURL}/doc/upload/?${paramStr}`
+      }
+      return url
     }
   },
   created () {
