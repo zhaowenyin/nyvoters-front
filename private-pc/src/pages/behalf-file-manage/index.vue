@@ -73,7 +73,6 @@ export default {
           datalist.push(i)
         }
       }
-      datalist.push({"id":"99999","fileName":"选区选举大会公告","type":1,"module":3,"uploadTime":1555580228000,"isFillData":1,"fileSuffix":"docx"},{"id":"101010","fileName":"选举委员会关于代表当选公告","type":1,"module":3,"uploadTime":1555580228000,"isFillData":1,"fileSuffix":"docx"})
       this.list = datalist.map(i=> {
         i.doctype=this.handlegender(i.fileName)
         return i
