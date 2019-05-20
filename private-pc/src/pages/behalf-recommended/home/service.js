@@ -110,3 +110,7 @@ export async function deletetTabel (payload) {
   // })
   return api.post('/repre-recommend/delete', payload)
 }
+export async function getTree (payload) {
+
+  return api.post('/precinct/tree', payload)
+}

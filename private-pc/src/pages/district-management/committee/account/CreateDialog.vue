@@ -89,7 +89,7 @@
   </div>
 </template>
 <script>
-import {setSubmit} from './service.js'
+import {setSubmit,modifySubmit} from './service.js'
 import { mapActions,mapState } from 'vuex'
 import md5 from 'blueimp-md5'
 export default {
@@ -184,7 +184,11 @@ export default {
     },
     async sumitData () {
       this.loading = true
-      await setSubmit(this.handerParams())
+      if(this.item.id || this.item.id===0) {
+        await modifySubmit(this.handerParams())
+      } else {
+        await setSubmit(this.handerParams())
+      }
       this.close()
       this.getListData1()
       this.loading = false
@@ -198,7 +202,11 @@ export default {
     },
     handerParams () {
       let params = {...this.form}
-      params.password=md5(params.password)
+      if(this.item.id || this.item.id===0) {
+        params.password = this.item.password
+      } else {
+        params.password=md5(this.item.password)
+      }
       return params
     }
   }

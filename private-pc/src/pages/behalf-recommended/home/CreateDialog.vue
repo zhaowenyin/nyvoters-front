@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog
-      :title="item.belongAreaId? '修改' : '登记'"
+      :title="item.id? '修改' : '登记'"
       :visible="visible"
       width="820px"
       :before-close="comfirmClose">
@@ -48,7 +48,7 @@
               <el-form-item
               label="被推选人"
               prop="recommendedPersonId">
-              <el-select
+               <el-select
                 size="medium"
                 style="width: 100%;"
                 class="item"
@@ -296,23 +296,23 @@
           </el-table-column>
         </el-table>
       </el-form>
-      <div
-        slot="footer"
-        class="footer">
+    <div
+      slot="footer"
+      class="footer">
+      <el-button
+        @click="submitForm()"
+        size="medium"
+        :loading="loading"
+        type="primary">确定</el-button>
         <el-button
-          @click="submitForm()"
-          size="medium"
-          :loading="loading"
-          type="primary">确定</el-button>
-          <el-button
-          @click="comfirmClose()"
-          size="medium">取消</el-button>
-      </div>
-    </el-dialog>
+        @click="comfirmClose()"
+        size="medium">取消</el-button>
+    </div>
+  </el-dialog>
 </div>
 </template>
 <script>
-import {setSubmit} from './service.js'
+import {setSubmit,getTree} from './service.js'
 import { mapActions,mapState } from 'vuex'
 import DistrictSelect from '../../../components/DistrictSelect'
 import {educationList, postList,partyList} from '../../../common-data/config.js'
@@ -349,7 +349,6 @@ export default {
         recommendReason: '',
         recommendUnit: '',
         recommendPersonList: [],
-        belongArea: ''
       },
       tableObj: {
         "recommendPersonName": "",
@@ -405,7 +404,7 @@ export default {
         birthDay: 652806000000,
         gender: 2,
         nation: 2,
-        belongAreaId: 1,
+        belongAreaId: '1003',
         belongArea: '1',
         idNum: '1111',
         workUnit: '8888',
@@ -425,14 +424,14 @@ export default {
       partyList,
       postList,
       list: [{}],
-      createDialogVisible: false
+      createDialogVisible: false,
+      data: []
     }
 
   },
   computed: {
     ...mapState('commonData', {
       nationList: state => state.nationList,
-      data: state => state.treeList
     })
   },
   components: {
@@ -456,7 +455,6 @@ export default {
   methods: {
     ...mapActions('commonData', [
       'searchnation',
-      'searchTree'
     ]),
     ...mapActions('behalfCommended', [
       'getListData'
@@ -573,6 +571,10 @@ export default {
     },
     select () {
       this.createDialogVisible = true
+    },
+    async searchTree (val) {
+      const{data} = await getTree(val)
+      this.data = [data.content]
     }
   }
 

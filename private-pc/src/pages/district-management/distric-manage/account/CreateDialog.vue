@@ -12,9 +12,10 @@
         ref="form"
         class="login-form">
          <el-form-item
+            v-if="val === 2"
             label="帐号类型"
-            prop="gender">
-            <el-radio-group size="medium" v-model="form.registrationType">
+            prop="accountType">
+            <el-radio-group size="medium" v-model="form.accountType">
               <el-radio
                 v-for="(i, key) in registrationTypeList"
                 :key="key"
@@ -47,7 +48,7 @@
           <el-input
             size="medium"
             type='password'
-            :disabled="item.id"
+            :disabled='(item.id || item.id===0)'
             placeholder="请输入登录密码"
             class="item"
             :maxlength="20"
@@ -55,7 +56,7 @@
         </el-form-item>
         <el-form-item
           label="管理选区"
-          prop="precinctId">
+          prop="managePrecinctIds">
           <DistrictSelect
           :multiple="true"
           v-model="form.managePrecinctIds"
@@ -65,7 +66,7 @@
         </el-form-item>
         <el-form-item
           label="排序码"
-          prop="sort	">
+          prop="sort">
           <el-input
             size="medium"
             placeholder="请输入排序码"
@@ -90,7 +91,7 @@
   </div>
 </template>
 <script>
-import {setSubmit} from './service.js'
+import {setSubmit,modifySubmit,getTree} from './service.js'
 import { mapActions,mapState } from 'vuex'
 import {registrationTypeList} from '../../../../common-data/config.js'
 import DistrictSelect from '../../../../components/DistrictSelect'
@@ -112,15 +113,14 @@ export default {
       form: {
         account: '',
         name: '',
-        password: '......',
+        password: '',
         sort: '',
-        registrationType: '',
+        accountType: '',
         precinctId: '',
         managePrecinctIds: [],
-        managePrecinct: []
       },
       multipleSelection: [],
-
+      data: [],
       rules: {
         name: [
           { required: true, message: '请输入姓名！', trigger: 'blur' }
@@ -134,20 +134,21 @@ export default {
         phoneNum: [
           { validator: validate,required: true, trigger: 'blur' }
         ],
-        registrationType: [
-          { required: true, message: '请选择帐号类型！' ,trigger: 'change' }
-        ]
+        accountType: [
+          { required: this.val===2 , message: '请选择帐号类型！' ,trigger: 'change' }
+        ],
+        managePrecinctIds: [
+          { required: true, message: '请选择管理选区！', trigger: 'change' }
+        ],
       },
       registrationTypeList
     }
   },
   computed: {
     ...mapState('commonData', {
-      data: state => state.treeList,
       belongAreaId: state => state.belongAreaId,
-      belongArea: state => state.belongArea
-
-    })
+      belongAreaItem: state => state.belongAreaItem,
+    }),
   },
   props:{
     visible: {
@@ -157,6 +158,10 @@ export default {
     item: {
       default: () => {},
       type: Object
+    },
+    val: {
+      default: null,
+      type: Number
     }
   },
   components: {
@@ -164,21 +169,21 @@ export default {
   },
   created () {
     let params = {}
-    if(this.item.id || this.item.id===0) {
+    if(this.item.id) {
       params = {
         account: this.item.account,
         committeeId: this.item.committeeId,
         name: this.item.name,
-        password: '',
+        password: '......',
         sort: this.item.sort,
-        registrationType: this.item.registrationType
+        accountType: this.item.accountType
       }
     }
-    let id = ''
-    if(this.item.id || this.item.id===0) {
-      id = this.item.id
+    if(this.belongAreaItem.children) {
+      this.searchTree({type: 2, id: this.belongAreaId})
+    } else {
+      this.data=[this.belongAreaItem]
     }
-    this.searchTree({type: 0, id})
     this.form = {...this.form, ...params}
   },
   methods: {
@@ -200,7 +205,11 @@ export default {
     },
     async sumitData () {
       this.loading = true
-      await setSubmit(this.handerParams())
+      if(this.item.id || this.item.id===0) {
+        await modifySubmit(this.handerParams())
+      } else {
+        await setSubmit(this.handerParams())
+      }
       this.close()
       this.getListData1()
       this.loading = false
@@ -214,10 +223,17 @@ export default {
     },
     handerParams () {
       let params = {...this.form}
-      delete params.managePrecinct
-      params.password=md5(this.item.password)
+      if(this.item.id || this.item.id===0) {
+        params.password = this.item.password
+      } else {
+        params.password=md5(this.item.password)
+      }
       params.precinctId = this.belongAreaId
       return params
+    },
+    async searchTree (val) {
+      const{data} = await getTree(val)
+      this.data = [data.content]
     }
   }
 

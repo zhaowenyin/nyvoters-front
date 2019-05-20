@@ -1,7 +1,13 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
+    <el-dropdown style="margin-right: 10px;" @command="create">
+        <el-button size="medium" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
+      <el-dropdown-menu slot="dropdown">
+        <el-dropdown-item command="1">选区管理员</el-dropdown-item>
+        <el-dropdown-item command="2">工作人员</el-dropdown-item>
+      </el-dropdown-menu>
+    </el-dropdown>
       <el-button size="medium"  @click="modify" type="primary" icon="el-icon-edit">修改</el-button>
       <el-button size="medium"  @click="reset" type="primary" icon="el-icon-setting">重置密码</el-button>
       <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
@@ -41,6 +47,7 @@
     <CreateDialog
       v-if="createDialogVisible"
       :item='item'
+      :val="val"
       :visible.sync='createDialogVisible'
       />
       <Reset
@@ -64,7 +71,8 @@ export default {
         name: ''
       },
       createDialogVisible: false,
-      resetDialogVisible: false
+      resetDialogVisible: false,
+      item: {}
     }
   },
   computed: {
@@ -92,11 +100,14 @@ export default {
         }
       })
     },
-    create () {
+    create (val) {
+      this.val = +val
       this.item = {}
       this.createDialogVisible = true
     },
     modify () {
+      this.createDialogVisible = true
+      this.item = {id: 1}
       if(this.multipleSelection.length !== 1) {
         this.$notify({
           title: '',

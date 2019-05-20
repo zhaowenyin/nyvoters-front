@@ -10,6 +10,7 @@
          <draggable
           class="content"
           v-model="list1"
+          @end="change"
           :options="{draggable:'.list-group-item'}">
           <div
             @click="select(i,key)"
@@ -136,6 +137,11 @@ export default {
         fieldData[index] = fieldData.splice(index+1, 1, fieldData[index])[0]
         this.index =  this.index + 1
       }
+    },
+    change () {
+      console.log(8989)
+      this.index = -1
+      this.currentItem = {}
     }
 
   }

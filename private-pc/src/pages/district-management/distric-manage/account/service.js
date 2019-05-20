@@ -103,3 +103,7 @@ export async function resetPassword (payload) {
   return api.post('/resetPassword', payload)
 }
 
+export async function getTree (payload) {
+
+  return api.post('/precinct/tree', payload)
+}
