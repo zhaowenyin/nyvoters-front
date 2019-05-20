@@ -53,7 +53,7 @@ export default {
       loading: false,
       params: {
         pageNum: 1,
-        pageSize: 20
+        pageSize: 40
       },
       total: 0
 

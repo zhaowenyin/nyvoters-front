@@ -7,7 +7,9 @@
       @click="download"
       size="small">下载</el-button>
     </div>
-    <div class="content">{{data&&data.name || '暂无数据'}}</div>
+    <div class="content">
+      <div v-html="data"/>
+    </div>
   </div>
 </template>
 <script>
@@ -20,7 +22,10 @@ export default {
     }
   },
   created() {
-    this.searchOther()
+    if(this.belongAreaId) {
+      this.searchOther()
+    }
+
   },
   props: {
     belongAreaId: {
@@ -30,7 +35,7 @@ export default {
     id: {
       default: '',
       type: String
-    }
+    },
   },
   watch: {
     belongAreaId () {
@@ -40,13 +45,13 @@ export default {
   methods: {
     async searchOther () {
       this.loading = true
-      const{data} = await getOther({belongAreaId: this.belongAreaId,id: this.id})
-      this.data = data.content
+      const{data} = await getOther({belongAreaId: this.belongAreaId,id: this.id,fileName: this.$route.query.title})
+      this.data = data
       this.loading = false
     },
     async download () {
       try {
-        output({url: '/doc/download', param: {id: this.$route.query.id}})
+        output({url: '/doc/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title}})
       } catch (err) {
         console.log(err)
       }

@@ -3,6 +3,7 @@
     <div class="top-title">
       <div>>> {{$route.query.title}}</div>
       <el-button
+       @click="download"
       type="primary"
       size="small">下载</el-button>
     </div>
@@ -37,7 +38,11 @@ export default {
     type: {
       default: null,
       type: null
-    }
+    },
+    belongAreaId: {
+      default: null,
+      type: null
+    },
   },
   components: {
     Tabel2
@@ -48,11 +53,11 @@ export default {
   methods: {
     async download () {
       try {
-        output({url: '/doc/download', param: {id: this.$route.query.id}})
+        output({url: '/doc/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title}})
       } catch (err) {
         console.log(err)
       }
-    }
+    },
   }
 }
 </script>
