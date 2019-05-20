@@ -49,6 +49,8 @@
               label="被推选人"
               prop="recommendedPersonId">
                <el-select
+                filterable
+                allow-create
                 size="medium"
                 style="width: 100%;"
                 class="item"
@@ -57,9 +59,9 @@
                 clearable placeholder="请选择">
                 <el-option
                   v-for="item in recommendedPersonList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value">
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -312,7 +314,7 @@
 </div>
 </template>
 <script>
-import {setSubmit,getTree} from './service.js'
+import {setSubmit,getTree,getPeople} from './service.js'
 import { mapActions,mapState } from 'vuex'
 import DistrictSelect from '../../../components/DistrictSelect'
 import {educationList, postList,partyList} from '../../../common-data/config.js'
@@ -397,30 +399,7 @@ export default {
         ]
       },
       educationList,
-      recommendedPersonList: [{
-        value: '1',
-        label: '测试1',
-        phoneNum: '1',
-        birthDay: 652806000000,
-        gender: 2,
-        nation: 2,
-        belongAreaId: '1003',
-        belongArea: '1',
-        idNum: '1111',
-        workUnit: '8888',
-
-      }, {
-        value: '2',
-        label: '外地',
-        phoneNum: '2',
-        birthDay: 652806000000,
-        gender: 1,
-        nation: 1,
-        belongAreaId: 1,
-        belongArea: '2',
-        idNum: '2222',
-        workUnit: '666'
-      }],
+      recommendedPersonList: [],
       partyList,
       postList,
       list: [{}],
@@ -451,6 +430,7 @@ export default {
     this.form = {...this.form, ...this.item }
     this.searchnation()
     this.searchTree({type: 0, id: ''})
+    this.searchPeople({status: 7})
   },
   methods: {
     ...mapActions('commonData', [
@@ -463,6 +443,7 @@ export default {
       this.$emit('update:visible', false)
     },
     submitForm () {
+      console.log(this.handerparam())
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.sumitData()
@@ -471,10 +452,21 @@ export default {
     },
     async sumitData () {
       this.loading = true
-      await setSubmit(this.form)
+      await setSubmit(this.handerparam())
       this.getListData()
       this.close()
       this.loading = false
+    },
+    handerparam() {
+      let params = {...this.form}
+      if  (params.birthDay !== null && params.birthDay!==0){
+        params.birthDay = new Date(params.birthDay).getTime()
+      }
+      return params
+    },
+    async searchPeople (val) {
+      const {data} = await getPeople(val)
+      this.recommendedPersonList = data.content.data
     },
     comfirmClose () {
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
@@ -491,14 +483,14 @@ export default {
     },
     personChange (val) {
       for(let i of this.recommendedPersonList) {
-        if(val === i.value) {
+        if(val === i.id) {
           this.form.phoneNum = i.phoneNum
-          this.form.birthDay = i.birthDay
+          this.form.birthDay = i.birthDay || null
           this.form.nation = i.nation
-          this.form.belongAreaId = i.belongAreaId
+          this.form.belongAreaId = i.precinctId
           this.form.gender = i.gender
           this.form.idNum = i.idNum
-          this.form.recommendedPerson = i.label
+          this.form.recommendedPerson = i.name
           break
         }
       }

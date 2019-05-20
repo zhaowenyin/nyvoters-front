@@ -114,3 +114,8 @@ export async function getTree (payload) {
 
   return api.post('/precinct/tree', payload)
 }
+export async function getPeople (payload) {
+  return api.post('/register/list', payload )
+}
+
+

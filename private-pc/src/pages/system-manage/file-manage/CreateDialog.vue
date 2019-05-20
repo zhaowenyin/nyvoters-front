@@ -54,7 +54,7 @@
         label="所属模块"
         prop="module">
           <el-radio-group  size="medium" v-model="form.module">
-            <el-radio v-for="(i,key) in moudel" :key="key" :label="key">{{i}}</el-radio>
+            <el-radio v-for="(i,key) in moudel" :key="key" :label="+key">{{i}}</el-radio>
           </el-radio-group>
       </el-form-item>
     </el-form>
@@ -97,7 +97,7 @@ export default {
           { required: true,message: '请选择所属模块！', trigger: 'change' }
         ],
         fileList: [
-          { required: this.item.id,message: '请选择文件！', trigger: 'change' }
+          { required: !this.item.id,message: '请选择文件！', trigger: 'change' }
         ]
       },
       headers: {
