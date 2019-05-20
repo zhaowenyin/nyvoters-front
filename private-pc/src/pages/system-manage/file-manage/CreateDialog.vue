@@ -96,12 +96,12 @@ export default {
         module: [
           { required: true,message: '请选择所属模块！', trigger: 'change' }
         ],
-        id: [
-          { required: true,message: '请选择文件！', trigger: 'change' }
+        fileList: [
+          { required: this.item.id,message: '请选择文件！', trigger: 'change' }
         ]
       },
       headers: {
-        Authorization: authToken.token,
+        token: authToken.token,
       },
       moudel
     }
@@ -151,27 +151,9 @@ export default {
     submitForm () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          // this.sumitData()
           this.$refs.upload.submit();
         }
       })
-    },
-    async sumitData () {
-      // this.loading = true
-      // let param = {
-      //   fileName: this.form.fileName,
-      //   module: this.form.module,
-      //   id: this.form.id
-      // }
-      // if(this.item.id) {
-      //   await modifySubmit(param)
-      // } else {
-      //   await setSubmit(param)
-      // }
-
-      // this.getListData()
-      // this.close()
-      // this.loading = false
     },
     comfirmClose () {
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')

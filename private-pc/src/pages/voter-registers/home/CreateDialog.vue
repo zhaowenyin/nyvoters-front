@@ -90,7 +90,7 @@ export default {
       },
       fileList: [],
       headers: {
-        Authorization: authToken.token,
+        token: authToken.token,
       },
       active: 0,
       timer: null,

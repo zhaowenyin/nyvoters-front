@@ -135,8 +135,7 @@ export default {
         appealDocumentId:[{ required: true, message: '请上传申诉书', trigger: 'change' }]
       },
       headers: {
-        // Authorization: authToken.token,
-        // AuthID: authToken.id
+
       },
       loading: false,
       captchaImg: '',

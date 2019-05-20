@@ -31,7 +31,7 @@ api.interceptors.request.use((config) => {
   // 带上用户token
   const authToken = getSession()
   if (authToken) {
-    config.headers['Authorization'] = authToken.token
+    config.headers['token'] = authToken.token
   }
 
   // 清除不需要的参数

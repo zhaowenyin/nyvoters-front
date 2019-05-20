@@ -131,7 +131,7 @@ export default {
         ]
       },
       headers: {
-        Authorization: authToken.token,
+        token: authToken.token,
       },
       fileName: ''
     }

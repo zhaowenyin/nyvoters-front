@@ -46,8 +46,7 @@ export default {
     return {
       fileList: [],
       headers: {
-        Authorization: authToken.token,
-        AuthID: authToken.id
+        token: authToken.token
       }
     }
   },
