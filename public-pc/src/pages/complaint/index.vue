@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import {complaitSubmit,getCode} from './service.js'
+import {complaitSubmit,getCode,getId} from './service.js'
 import output from '../../utils/output.js'
 import { baseURL } from '../../utils/api.js'
 
@@ -166,6 +166,7 @@ export default {
   },
   created () {
     this.searchCode()
+    this.getId()
   },
 
   methods: {
@@ -221,6 +222,11 @@ export default {
       const {data} = await getCode()
       this.captchaImg = 'data:imagepng;base64,'+data.content.captcha
       this.userLogin.captchaId = data.content.captchaId
+    },
+    async getId() {
+      const {data} = await getId()
+      console.log(data)
+
     }
   }
 }

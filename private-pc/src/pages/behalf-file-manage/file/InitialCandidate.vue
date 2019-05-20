@@ -17,7 +17,7 @@
           <li
             :key="index"
             v-for="(i,index) in data.list">
-              {{`${i.name || '暂无名字'}，${handlegender(i.gender)}，${i.age}，${i.nation}，${i.workUnitAndPost}，${i.recommendedPerson}`}}
+              {{`${i.recommendedPerson || '暂无名字'}，${handlegender(i.gender)}，${i.age}，${i.nation}，${i.workUnitAndPost}，${i.recommendPersonList}`}}
           </li>
         </ul>
       </div>
@@ -51,7 +51,11 @@ export default {
     type: {
       default: null,
       type: null
-    }
+    },
+    belongAreaId: {
+      default: null,
+      type: null
+    },
   },
   components: {
     Tabel
@@ -62,7 +66,7 @@ export default {
   methods: {
     async download () {
       try {
-        output({url: '/doc/download', param: {id: this.$route.query.id}})
+        output({url: '/doc/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title}})
       } catch (err) {
         console.log(err)
       }

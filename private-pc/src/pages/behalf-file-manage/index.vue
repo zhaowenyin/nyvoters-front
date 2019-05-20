@@ -66,11 +66,19 @@ export default {
     async searchList (val) {
       this.loading = true
       const{data} = await getList({...this.params,...val})
-      data.content.data.push({"id":"99999","fileName":"选区选举大会公告","type":1,"module":3,"uploadTime":1555580228000,"isFillData":1,"fileSuffix":"docx"},{"id":"101010","fileName":"选举委员会关于代表当选公告","type":1,"module":3,"uploadTime":1555580228000,"isFillData":1,"fileSuffix":"docx"})
-      this.list = data.content.data.map(i=> {
+      let datalist = []
+      for (let i of data.content.data) {
+
+        if(+i.module === 3) {
+          datalist.push(i)
+        }
+      }
+      datalist.push({"id":"99999","fileName":"选区选举大会公告","type":1,"module":3,"uploadTime":1555580228000,"isFillData":1,"fileSuffix":"docx"},{"id":"101010","fileName":"选举委员会关于代表当选公告","type":1,"module":3,"uploadTime":1555580228000,"isFillData":1,"fileSuffix":"docx"})
+      this.list = datalist.map(i=> {
         i.doctype=this.handlegender(i.fileName)
         return i
       })
+
       this.total=+data.content.total
       this.loading = false
     },
@@ -110,7 +118,7 @@ export default {
     },
     async download (item) {
       try {
-        output({url: '/doc/download', param: {id: item.id,module: 3}})
+        output({url: '/doc/download', param: {id: item.id,fileName: item.fileName}})
       } catch (err) {
         console.log(err)
       }

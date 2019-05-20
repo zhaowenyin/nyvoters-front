@@ -1,18 +1,22 @@
 <template>
   <div class="out" v-loading="loading">
     <InitialCandidate
+    :belongAreaId="belongAreaId"
     v-if="+type===1 || +type===2"
     :type="type"
     :data="data"/>
     <OfficialCandidate
+    :belongAreaId="belongAreaId"
     v-if="+type===3 || +type===4"
     :type="type"
     :data="data"/>
     <OfficialBehalf
+    :belongAreaId="belongAreaId"
     v-if="+type===6"
     :type="type"
     :data="data"/>
     <Announcement
+    :belongAreaId="belongAreaId"
     :type="type"
     :data="data"
     v-if="+type===5"/>
@@ -88,16 +92,16 @@ export default {
       let text = []
       switch(fileName) {
       case 1:
-        text = ['PRELIMINARY_CANDIDATE','FORMAL_CANDIDATE','FORMAL_REPRESENTATIVE']
+        text = ['PRELIMINARY_CANDIDATE']
         break
       case 2:
-        text = ['PRELIMINARY_CANDIDATE','FORMAL_CANDIDATE','FORMAL_REPRESENTATIVE']
+        text = ['PRELIMINARY_CANDIDATE','FORMAL_CANDIDATE']
         break
       case 3:
-        text = ['FORMAL_REPRESENTATIVE']
+        text = ['FORMAL_CANDIDATE']
         break
       case 4:
-        text = ['FORMAL_REPRESENTATIVE']
+        text = ['FORMAL_CANDIDATE']
         break
       case 6:
         text = ['FORMAL_REPRESENTATIVE']

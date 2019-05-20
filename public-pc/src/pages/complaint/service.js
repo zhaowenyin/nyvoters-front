@@ -29,3 +29,6 @@ export async function getCode () {
   // })
   return api.get('/getcode')
 }
+export async function getId () {
+  return api.get('/getcode',{fileName: '公诉书'})
+}

@@ -9,7 +9,7 @@
         width="80"
         align="center"
         label="姓名"
-        prop="recommendPersonList" />
+        prop="recommendedPersonre" />
       <el-table-column
         align="center"
         label="性别"
@@ -58,7 +58,7 @@
         align="center"
         label="推荐者">
         <template slot-scope="scope">
-          {{scope.row.recommendedPerson}}
+          {{scope.row.commendPersonList}}
         </template>
       </el-table-column>
     </el-table>

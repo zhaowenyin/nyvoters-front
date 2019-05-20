@@ -7,16 +7,19 @@
     <div class="view">
       <div class="view-left">
         <div class="text">排序调整</div>
-        <ul class="content">
-          <li
-            @click="select(i)"
+         <draggable
+          class="content"
+          v-model="list1"
+          :options="{draggable:'.list-group-item'}">
+          <div
+            @click="select(i,key)"
             :key="key"
-            class="item"
-            v-for="(i,key) in list">
+            :class="['item',{'isclick':currentItem.id === i.id},'list-group-item']"
+            v-for="(i,key) in list1">
             <div>{{i.recommendedPerson}}</div>
             <div>{{i.belongAreaName}}</div>
-          </li>
-        </ul>
+          </div>
+        </draggable>
       </div>
       <div class="row">
         <div @click="up" class="up"/>
@@ -39,10 +42,14 @@
 </template>
 <script>
 import {setSubmit} from '../common-data/service.js'
+import draggable from 'vuedraggable'
 export default {
   data () {
     return {
-      loading: false
+      loading: false,
+      currentItem: {},
+      list1: [],
+      index: -1
     }
 
   },
@@ -61,10 +68,11 @@ export default {
     }
   },
   created () {
+    this.list1 = JSON.parse(JSON.stringify(this.list))
 
   },
   components: {
-
+    draggable
   },
   methods: {
     close () {
@@ -72,7 +80,7 @@ export default {
     },
     async sumitData () {
       let id = []
-      for(let i of this.list) {
+      for(let i of this.list1) {
         id.push(i.id)
       }
       let params={
@@ -92,11 +100,46 @@ export default {
         .catch(() => {})
     },
     up () {
-      this.sumitData()
+      if(this.index<0 ) {
+        this.$notify({
+          title: '',
+          message: '请先点击选择！',
+          type: 'warning'
+        })
+        return
+      }
+      this.upGo(this.list1,this.index)
     },
     down () {
-      this.sumitData()
+      if(this.index<0 ) {
+        this.$notify({
+          title: '',
+          message: '请先点击选择！',
+          type: 'warning'
+        })
+        return
+      }
+      this.downGo(this.list1,this.index)
+    },
+    select (i,index) {
+      this.currentItem = i
+      this.index = index
+    },
+    upGo(fieldData=[],index) {
+      if (index!==0) {
+        fieldData[index] = fieldData.splice(index-1, 1, fieldData[index])[0]
+      } else {
+        fieldData.push(fieldData.shift())
+      }
+    },
+    downGo(fieldData=[],index) {
+      if(index!==fieldData.length-1){
+        fieldData[index] = fieldData.splice(index+1, 1, fieldData[index])[0]
+      }else{
+        fieldData.unshift(fieldData.splice(index,1)[0])
+      }
     }
+
   }
 
 }
@@ -197,6 +240,12 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+.list-group-item {
+  cursor: move;
+}
+.isclick {
+  background-color: #ccc;
 }
 </style>
 <style>
