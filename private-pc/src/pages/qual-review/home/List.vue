@@ -21,7 +21,7 @@
         label="性别"
         prop="gender">
         <template slot-scope="scope">
-          {{handlegender(scope.row.gender)}}
+          {{handlegender(+scope.row.gender)}}
         </template>
       </el-table-column>
       <el-table-column
@@ -115,7 +115,7 @@ export default {
     handleSelectionChange(val) {
       this.saveSelection(val)
     },
-    handlegender() {
+    handlegender(module) {
       let text = ""
       switch(module) {
       case 0:

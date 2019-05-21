@@ -113,7 +113,7 @@ export default {
       ],
       createDialogVisible: false,
       visible: false,
-      status:['PRELIMINARY_CANDIDATE','FORMAL_CANDIDATE','FORMAL_REPRESENTATIVE']
+      status:['PRELIMINARY_CANDIDATE']
     }
   },
   computed: {

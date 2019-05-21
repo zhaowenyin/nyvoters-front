@@ -131,7 +131,7 @@ export default {
     },
 
     async searchCandidate () {
-      const {data} = await getList({belongAreaId: this.belongAreaId, statusList:['FORMAL_CANDIDATE',],pageSize: 500,pageNum: 1})
+      const {data} = await getList({belongAreaId: this.belongAreaId, statusList:['FORMAL_CANDIDATE',],pageSize: 100,pageNum: 1})
       this.list = data.content.data
       this.filterList = JSON.parse(JSON.stringify(this.list))
     },

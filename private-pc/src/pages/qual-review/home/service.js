@@ -55,7 +55,8 @@ export async function qualReview (payload) {
   // })
   return api.post('/qualification-review/review', payload)
 }
-export async function setSubmit (payload) {
+export async function setSubmit(payload) {
+  console.log(666)
   // console.log(payload)
   // return new Promise((resolve) => {
   //   setTimeout(() => {
@@ -67,4 +68,6 @@ export async function setSubmit (payload) {
   // })
   return api.post('/qualification-review/supplement', payload)
 }
-
+export async function getDetail (payload) {
+  return api.post('/qualification-review/supplement/get', payload )
+}

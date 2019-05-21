@@ -117,5 +117,9 @@ export async function getTree (payload) {
 export async function getPeople (payload) {
   return api.post('/register/list', payload )
 }
+export async function getDetail (payload) {
+  return api.post('/repre-recommend/get', payload )
+}
+
 
 

@@ -61,7 +61,7 @@
                   v-for="(item, key) in nationList"
                   :key="key"
                   :label="item.desc"
-                  :value="item.intCode">
+                  :value="item.stringCode">
                 </el-option>
               </el-select>
             </el-form-item>
@@ -123,7 +123,7 @@
             <el-form-item
               label="担任党派职务"
               prop="partyPost">
-              <el-select
+              <!-- <el-select
                 size="medium"
                 style="width: 100%;"
                 class="item"
@@ -135,7 +135,12 @@
                   :label="item"
                   :value="item">
                 </el-option>
-              </el-select>
+              </el-select> -->
+                <el-input
+                size="medium"
+                placeholder="请输入担任党派职务"
+                class="item"
+                v-model="form.partyPost" />
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -277,23 +282,22 @@
           <el-input
             type="textarea"
             :rows="2"
-            size="medium"
             placeholder="请输入"
             class="item"
             v-model="form.resume" />
         </el-form-item>
         <el-form-item
           label="主要表现"
-          prop="living">
+          prop="mainPerformance">
           <el-input
             type="textarea"
             :rows="2"
             placeholder="请输入"
             class="item"
-            v-model="form.living" />
+            v-model="form.mainPerformance" />
         </el-form-item>
         <el-form-item
-          label="主要表现"
+          label="获奖励及荣誉称号情况"
           prop="awardsHonors">
           <el-input
             type="textarea"
@@ -301,16 +305,6 @@
             placeholder="请输入"
             class="item"
             v-model="form.awardsHonors" />
-        </el-form-item>
-        <el-form-item
-          label="获奖励及荣誉称号情况"
-          prop="living">
-          <el-input
-            type="textarea"
-            :rows="2"
-            placeholder="请输入"
-            class="item"
-            v-model="form.living" />
         </el-form-item>
         <el-form-item
           label="历任代表情况"
@@ -407,7 +401,7 @@
  </div>
 </template>
 <script>
-import {setSubmit} from './service.js'
+import {setSubmit,getDetail} from './service.js'
 import Sign from './sign'
 import { mapActions,mapState } from 'vuex'
 import {partyList,postList} from '../../../common-data/config.js'
@@ -488,7 +482,7 @@ export default {
     })
   },
   created () {
-    this.form={...this.form,...this.item}
+    this.getDetail()
     this.searchnation()
 
   },
@@ -526,13 +520,13 @@ export default {
     handerParams () {
       let params = {...this.form}
       if(params.birthDay&&params.birthDay !==null) {
-        params.birthDay = params.birthDay.getTime()
+        params.birthDay = new Date(params.birthDay).getTime()
       }
       if(params.workTime&&params.workTime !==null) {
-        params.workTime = params.workTime.getTime()
+        params.workTime = new Date(params.workTime).getTime()
       }
       if(params.joinPartyTime&&params.joinPartyTime !==null) {
-        params.joinPartyTime = params.joinPartyTime.getTime()
+        params.joinPartyTime = new Date(params.joinPartyTime).getTime()
       }
       return params
     },
@@ -541,8 +535,11 @@ export default {
       this.toast = false
     },
     select () {
-      console.log(999)
       this.toast = true
+    },
+    async getDetail () {
+      const {data} = await getDetail({id: this.item.id})
+      this.form = {...this.form, ...data.content}
     }
   },
 

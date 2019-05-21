@@ -314,7 +314,7 @@
 </div>
 </template>
 <script>
-import {setSubmit,getTree,getPeople} from './service.js'
+import {setSubmit,getTree,getPeople,getDetail,modifySubmit} from './service.js'
 import { mapActions,mapState } from 'vuex'
 import DistrictSelect from '../../../components/DistrictSelect'
 import {educationList, postList,partyList} from '../../../common-data/config.js'
@@ -427,7 +427,11 @@ export default {
     }
   },
   created () {
-    this.form = {...this.form, ...this.item }
+    // this.form = {...this.form, ...this.item }
+    if(this.item.id){
+      this.getDetail()
+    }
+
     this.searchnation()
     this.searchTree({type: 0, id: ''})
     this.searchPeople({status: 7})
@@ -452,7 +456,12 @@ export default {
     },
     async sumitData () {
       this.loading = true
-      await setSubmit(this.handerparam())
+      if(this.item.id) {
+        await modifySubmit(this.handerparam())
+      } else {
+        await setSubmit(this.handerparam())
+      }
+
       this.getListData()
       this.close()
       this.loading = false
@@ -567,6 +576,10 @@ export default {
     async searchTree (val) {
       const{data} = await getTree(val)
       this.data = [data.content]
+    },
+    async getDetail () {
+      const {data} = await getDetail({id: this.item.id})
+      this.form = {...this.form, ...data.content}
     }
   }
 
