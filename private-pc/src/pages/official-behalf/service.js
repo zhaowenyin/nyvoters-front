@@ -66,6 +66,17 @@ export async function setSubmit (payload) {
   // })
   return api.post('/formal-representative/add', payload)
 }
-
+export async function getSortList (payload) {
+  // console.log(payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.post('/get/orderList', payload)
+}
 
 

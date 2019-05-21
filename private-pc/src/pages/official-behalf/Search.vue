@@ -69,7 +69,7 @@
       />
      <Sort
        v-if="visible"
-      :list="list"
+      :list="list1"
       :status="status"
       :visible.sync='visible'
     />
@@ -78,7 +78,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
-import {repeal} from './service.js'
+import {repeal,getSortList} from './service.js'
 import Sort from '../../components/Sort'
 
 export default {
@@ -112,8 +112,9 @@ export default {
         }
       ],
       createDialogVisible: false,
-      status:['FORMAL_REPRESENTATIVE'],
+      status:'FORMAL_REPRESENTATIVE',
       visible: false,
+      list1: []
     }
   },
   computed: {
@@ -137,6 +138,7 @@ export default {
     }
   },
   created () {
+    this.getSortList({statusList:['FORMAL_REPRESENTATIVE']})
   },
   methods: {
     ...mapActions('officialBehalf', [
@@ -203,6 +205,10 @@ export default {
     sort () {
       this.visible = true
     },
+    async getSortList (val) {
+      const {data} = await getSortList(val)
+      this.list1 = data.content
+    }
   }
 }
 </script>
