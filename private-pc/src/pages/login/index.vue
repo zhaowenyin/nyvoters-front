@@ -13,7 +13,6 @@
           prop="username">
           <el-input
             placeholder="请输入用户名"
-            :maxlength="11"
             class="item"
             v-model="userLogin.userName" />
         </el-form-item>

@@ -14,7 +14,7 @@
           选区
         </td>
         <td  :key="key" v-for="(i, key) in list">
-          <div> {{i.districtName}}</div>
+          <div> {{i.precinctName}}</div>
         </td>
       </tr>
       <tr :key="key" v-for="(i, key) in list1">

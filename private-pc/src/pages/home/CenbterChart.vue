@@ -29,7 +29,7 @@ export default {
     return {
       chartData: {
         columns: [
-          "districtName",
+          "precinctName",
           "peopleNum",
           "regVotersNum",
           "votersNum",

@@ -5,7 +5,6 @@
       :visible="visible"
       width="60%"
       :before-close="comfirmClose">
-      {{form.precinctId}}
       <el-form
         label-width="110px"
         :model="form"
@@ -30,7 +29,6 @@
                 :multiple="false"
                 :disabled="true"
                 v-model="form.precinctId"
-                :item='item'
                 :data="data"
                 />
             </el-form-item>
@@ -136,7 +134,7 @@ export default {
         manager: '',
         managerPhone: '',
         sort: '',
-        precinctId: '',
+        precinctId: '1003',
         type: '',
         name: '',
       },
@@ -154,8 +152,7 @@ export default {
       typeList: {
         0: '区县小组',
         1: '乡镇小组'
-      },
-      createDialogVisible: false,
+      }
     }
 
   },
@@ -167,10 +164,6 @@ export default {
     item: {
       default: () => {},
       type: Object
-    },
-    val: {
-      default: null,
-      type: Number
     }
   },
   components: {
@@ -183,10 +176,10 @@ export default {
     })
   },
   created () {
-    this.form.precinctId = `${this.belongAreaId}`
-    console.log()
     if(this.item.id || this.item.id===0) {
       this.form = {...this.form, ...this.item }
+    } else {
+      this.form.precinctId = this.belongAreaId
     }
     this.searchTree({type: 0, id: ''})
   },
@@ -228,9 +221,6 @@ export default {
     handerParams () {
       let params = {...this.form}
       return params
-    },
-    select () {
-      this.createDialogVisible = true
     }
   }
 

@@ -64,7 +64,6 @@
       v-if="createDialogVisible"
       :item='item'
       :visible.sync='createDialogVisible'
-      :val="val"
       />
   </div>
 </template>
@@ -123,8 +122,7 @@ export default {
         }
       })
     },
-    create (val) {
-      this.val = +val
+    create () {
       this.item = {}
       this.createDialogVisible = true
     },
@@ -137,7 +135,6 @@ export default {
         });
         return
       }
-      this.val = -1
       this.item = this.multipleSelection[0]
       this.createDialogVisible = true
     },
