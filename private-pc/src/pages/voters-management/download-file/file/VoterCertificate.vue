@@ -8,6 +8,7 @@
       size="small">下载</el-button>
     </div>
     <div v-if="+type === 7" class="content">
+
       <div
         class="item"
         v-for="(i, index) in data.list"

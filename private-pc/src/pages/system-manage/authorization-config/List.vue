@@ -16,7 +16,6 @@
       <el-table-column
         width="180"
         label="身份证号码"
-        :maxlength="18"
         prop="idNum" />
        <el-table-column
         width="100"
@@ -28,7 +27,6 @@
       </el-table-column>
       <el-table-column
         label="手机号"
-        :maxlength="11"
         prop="phoneNum" />
       <el-table-column
         label="参选地类型"
@@ -76,35 +74,24 @@ export default {
     }
   },
   computed: {
-    ...mapState('votersOut', {
+    ...mapState('votersInput', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
       pageSize: state => state.searchParam.pageSize,
       pageNum: state => state.searchParam.pageNum
-    }),
-    ...mapState('commonData', {
-      belongAreaId: state => state.belongAreaId
     })
   },
   components: {
   },
-  watch: {
-    belongAreaId () {
-      this.getListData({ precinctId: this.belongAreaId })
-    }
-  },
   created () {
-    if (this.belongAreaId === '') {
-      return
-    }
-    this.getListData({precinctId: this.belongAreaId })
+    this.getListData()
   },
   methods: {
-    ...mapActions('votersOut', [
+    ...mapActions('votersInput', [
       'getListData'
     ]),
-    ...mapMutations('votersOut', [
+    ...mapMutations('votersInput', [
       'saveSelection'
     ]),
     // 分页

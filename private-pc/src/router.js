@@ -28,7 +28,7 @@ const BasicManage = () => import('@/pages/system-manage/basic-setting')
 const FileManage = () => import('@/pages/system-manage/file-manage')
 const OperateLog = () => import('@/pages/system-manage/operate-log')
 const AddressBook = () => import('@/pages/system-manage/address-book')
-const AuthorizationConfig = () => ('@/pages/system-manage/authorization-config')
+const AuthorizationConfig = () => import('@/pages/system-manage/authorization-config')
 
 // 选区管理
 const DistricLayout = () => import('@/pages/district-management/distric-manage')

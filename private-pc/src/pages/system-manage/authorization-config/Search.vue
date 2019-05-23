@@ -1,7 +1,8 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button size="medium" @click="drawOutI" type="primary" icon="el-icon-delete">划出</el-button>
+      <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">划入</el-button>
+      <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
     </div>
     <el-form
       ref="form"
@@ -81,11 +82,17 @@
           type="primary"></el-button>
       </el-form-item>
     </el-form>
+    <CreateDialog
+      v-if="createDialogVisible"
+      :visible.sync='createDialogVisible'
+      :ids="ids"
+      />
   </div>
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import { drawOut} from './service.js'
+import CreateDialog from './CreateDialog'
+import { deletetTabel} from './service.js'
 import {typeList, candidateTypeList} from '../../../common-data/config.js'
 
 export default {
@@ -99,20 +106,19 @@ export default {
         candidateType: '',
         status: ''
       },
+      createDialogVisible: false,
       typeList,
       candidateTypeList,
-      createDialogVisible: false,
-
       id: ''
     }
   },
   computed: {
-    ...mapState('votersOut', {
+    ...mapState('votersInput', {
       multipleSelection: state=>state.multipleSelection
     })
   },
   components: {
-
+    CreateDialog
   },
   watch: {
     type () {
@@ -129,7 +135,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('votersOut', [
+    ...mapActions('votersInput', [
       'getListData',
     ]),
     // 搜索
@@ -142,7 +148,7 @@ export default {
         }
       })
     },
-    drawOutI () {
+    create () {
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',
@@ -151,20 +157,36 @@ export default {
         });
         return
       }
-      this.$confirm('确认将勾选的选民划出当前所在选区么？')
+      const ids = []
+      for (let i of this.multipleSelection) {
+        ids.push(i.id)
+      }
+      this.ids = ids
+      this.createDialogVisible = true
+    },
+    deleteI () {
+      if(this.multipleSelection.length === 0) {
+        this.$notify({
+          title: '',
+          message: '请勾选数据进删除！',
+          type: 'warning'
+        });
+        return
+      }
+      this.$confirm('删除后将不可恢复，请确认是否删除？')
         .then(() => {
-          this.drawOutItem()
+          this.delectItem()
         })
         .catch(() => {})
 
     },
-    async drawOutItem() {
-      let id = []
+    async delectItem() {
+      let idList = []
       for (let i of this.multipleSelection) {
-        id.push(i.id)
+        idList.push(i.id)
       }
-      let params = {id}
-      await drawOut(params)
+      let params = {idList}
+      await deletetTabel(params)
       const param = JSON.parse(JSON.stringify(this.searchForm))
       param.pageNum = 1
       this.getListData(param)
