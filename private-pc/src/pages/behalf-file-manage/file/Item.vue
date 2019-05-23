@@ -107,7 +107,7 @@ export default {
         text = ['FORMAL_REPRESENTATIVE']
         break
       case 5:
-        text = ['WAIT_SUBMIT']
+        text = []
         break
       default:
         text = []

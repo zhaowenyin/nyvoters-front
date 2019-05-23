@@ -11,43 +11,27 @@
       </el-table-column>
       <el-table-column
         label="姓名"
-        width="120"
+         width="120"
         prop="name" />
       <el-table-column
         width="180"
-        label="身份证号码"
-        prop="idNum" />
-       <el-table-column
-        width="100"
-        label="性别"
-        prop="gender">
+        label="登录账号"
+        prop="account" />
+      <el-table-column
+        label="角色"
+        prop="accountRole">
         <template slot-scope="scope">
-          {{handlegender(scope.row.gender)}}
+          {{handerRole(scope.row.accountRole)}}
         </template>
       </el-table-column>
       <el-table-column
-        label="手机号"
-        prop="phoneNum" />
-      <el-table-column
-        label="参选地类型"
-        width="100"
-        prop="candidateType">
-         <template slot-scope="scope">
-          {{ scope.row.candidateType === 0 ? '户籍地' : '现居地'}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="选民状态"
-        prop="type">
-         <template slot-scope="scope">
-          {{handerstatus(scope.row.status)}}
-        </template>
-      </el-table-column>
-       <el-table-column
-        width="180"
-        label="自动对比结果">
+        label="菜单权限"
+        prop="">
         <template slot-scope="scope">
-          {{handercompareResult(scope.row.compareResult)}}
+          <el-button
+          @click="modyfyForm(scope.row)"
+          size="medium"
+          type="text">修改</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -62,120 +46,94 @@
         layout="prev, pager, next"
         :total="total" />
     </div>
+    <CreateDialog
+      v-if="createDialogVisible"
+      :item='item'
+      :visible.sync='createDialogVisible'
+      />
   </div>
 </template>
 <script>
 import { mapState, mapActions,mapMutations } from 'vuex'
+import { formatDate } from '../../../utils/format.js'
+import CreateDialog from './CreateDialog'
 
 export default {
   data () {
     return {
       downLoading: false,
+      createDialogVisible: true,
+      item: {}
     }
   },
   computed: {
-    ...mapState('votersInput', {
+    ...mapState('districtAccount', {
       loading: state => state.loading,
       list: state => state.list,
-      total: state => state.total,
+      total: state => +state.total,
       pageSize: state => state.searchParam.pageSize,
-      pageNum: state => state.searchParam.pageNum
-    })
+      pageNum: state => state.searchParam.pageNum,
+
+    }),
+    ...mapState('commonData', {
+      belongAreaId: state => state.belongAreaId
+    }),
   },
   components: {
+    CreateDialog
   },
   created () {
-    this.getListData()
+    if(this.belongAreaId!=='') {
+      this.getListData1({precinctId: this.belongAreaId })
+    }
+  },
+  watch: {
+    belongAreaId () {
+      this.getListData1({precinctId: this.belongAreaId })
+    }
   },
   methods: {
-    ...mapActions('votersInput', [
-      'getListData'
+    ...mapActions('districtAccount', [
+      'getListData1'
     ]),
-    ...mapMutations('votersInput', [
+    ...mapMutations('districtAccount', [
       'saveSelection'
     ]),
     // 分页
     handleCurrentChange (val) {
-      this.getListData({ pageNum: val })
+      this.getListData1({ pageNum: val })
     },
-    look (id) {
-      console.log(id)
+    modyfyForm(row){
+      this.createDialogVisible=true
+      this.item = row
     },
+    formatDate,
     handleSelectionChange(val) {
       this.saveSelection(val)
     },
-    handlegender() {
-      let text = ""
-      switch(module) {
-      case 0:
-        text = '未设置'
-        break
-      case 1:
-        text = '男'
-        break
-      case 2:
-        text = '女'
-        break
-      default:
-        text = '其他'
-      }
-      return text
-    },
-    handerstatus (val) {
-      let text = ""
-      switch(+val) {
-      case 0:
-        text = '待对比'
-        break
-      case 1:
-        text = '待资格审查'
-        break
-      case 2:
-        text = '不能行使选举权'
-        break
-      case 3:
-        text = '被剥夺政治权利'
-        break
-      case 4:
-        text = '迁出'
-        break
-      case 5:
-        text = '死亡'
-        break
-      case 6:
-        text = '其他'
-        break
-      case 7:
-        text = '登记成功'
-        break
-      default:
-        text = ''
-      }
-      return text
-    },
-    handercompareResult	(val) {
+    handerRole(val){
       let text = ""
       switch(val) {
       case 0:
-        text = '待对比'
+        text = '其他'
         break
       case 1:
-        text = '正常'
+        text = ' 超级管理员'
         break
       case 2:
-        text = '被剥夺政治权利 '
+        text = '市级选委会'
         break
       case 3:
-        text = '被剥夺政治权利'
+        text = '一般选委会'
         break
       case 4:
-        text = '迁出'
+        text = '选区管理员'
         break
       case 5:
-        text = '死亡'
+        text = '工作人员'
         break
       default:
-        text = '其他'
+        text = ''
       }
       return text
     }

@@ -7,7 +7,7 @@ export default {
     list: [],
     total: 0,
     searchParam: {
-      pageSize: 10,
+      pageSize: 20,
       pageNum: 1
     },
     multipleSelection: []
@@ -42,7 +42,7 @@ export default {
     },
   },
   actions: {
-    async getListData ({ commit, state }, payload) {
+    async getListData1 ({ commit, state }, payload) {
       commit({
         type: 'showLoading'
       })

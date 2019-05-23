@@ -68,13 +68,13 @@ export default {
   components: {
   },
   watch: {
-    committeeId () {
-      this.getListData1({ committeeId: this.committeeId })
+    belongAreaId () {
+      this.getListData1({ precinctId: this.belongAreaId })
     }
   },
   created () {
-    if(this.committeeId !== '') {
-      this.getListData1({committeeId: this.committeeId })
+    if(this.belongAreaId !== '') {
+      this.getListData1({precinctId: this.belongAreaId })
     }
   },
   methods: {

@@ -107,7 +107,7 @@ export default {
     return {
       loading: false,
       form: {
-        committeeId: '',
+        districtId: '',
         account: '',
         name: '',
         password: '',
@@ -185,7 +185,7 @@ export default {
     async sumitData () {
       this.loading = true
       if(this.item.id || this.item.id===0) {
-        await modifySubmit(this.handerParams())
+        await modifySubmit({...this.handerParams(),id: this.item.id})
       } else {
         await setSubmit(this.handerParams())
       }

@@ -12,7 +12,7 @@
         ref="form"
         class="login-form">
          <el-form-item
-            v-if="val === 2"
+            v-if="val === 5"
             label="帐号类型"
             prop="accountType">
             <el-radio-group size="medium" v-model="form.accountType">
@@ -176,8 +176,11 @@ export default {
         name: this.item.name,
         password: '......',
         sort: this.item.sort,
-        accountType: this.item.accountType
+        accountType: this.item.accountType,
+        accountRole: this.item.accountRole
       }
+    } else {
+      this.form.accountRole=this.val
     }
     if(this.belongAreaItem.children) {
       this.searchTree({type: 2, id: this.belongAreaId})

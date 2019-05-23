@@ -1,5 +1,6 @@
 import { getUserInfo,getNation,getTree,getNews } from './service'
 import { isEmptyObj } from '../utils/validate'
+import func from '../utils/func'
 
 export default {
   namespaced: true,
@@ -35,6 +36,7 @@ export default {
       state.belongAreaId = '1003'
       state.saveItem = payload.payload.data.content
       state.belongArea = payload.payload.data.content.name
+      state.belongAreaItem = func([payload.payload.data.content], '1003')
 
     },
     updateNews(state, payload) {

@@ -197,5 +197,5 @@ export async function getTree (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post('/committee/tree', payload)
+  return api.post('/precinct/tree', payload)
 }
