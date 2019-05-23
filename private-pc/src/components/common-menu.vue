@@ -79,7 +79,7 @@ export default {
 
   data () {
     const authToken = getSession()
-    let power = authToken.powers || ['1','2','3','4','5','6','7']
+    let power = authToken.powers
     return {
       power: power
     }

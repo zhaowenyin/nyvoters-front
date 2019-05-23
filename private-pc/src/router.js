@@ -27,6 +27,8 @@ const RegionManage = () => import('@/pages/system-manage/region-manage')
 const BasicManage = () => import('@/pages/system-manage/basic-setting')
 const FileManage = () => import('@/pages/system-manage/file-manage')
 const OperateLog = () => import('@/pages/system-manage/operate-log')
+const AddressBook = () => import('@/pages/system-manage/address-book')
+const AuthorizationConfig = () => ('@/pages/system-manage/authorization-config')
 
 // 选区管理
 const DistricLayout = () => import('@/pages/district-management/distric-manage')
@@ -323,7 +325,18 @@ const router = new Router({
           path: 'create-votersfile',
           name: '生成文件选民管理',
           component: FileVoters
+        },
+        {
+          path: 'address-book',
+          name: '通讯录',
+          component: AddressBook
+        },
+        {
+          path: 'authorization-config',
+          name: '人员配置',
+          component: AuthorizationConfig
         }
+
 
       ]
     },
