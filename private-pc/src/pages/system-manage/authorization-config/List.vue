@@ -62,7 +62,7 @@ export default {
   data () {
     return {
       downLoading: false,
-      createDialogVisible: true,
+      createDialogVisible: false,
       item: {}
     }
   },
