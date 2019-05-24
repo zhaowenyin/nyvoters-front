@@ -102,4 +102,17 @@ export async function resetPassword (payload) {
   // })
   return api.post('/resetPassword', payload)
 }
+export async function searchUser (payload) {
+  // console.log(payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.get(`/user/${payload.id}`)
+}
+
 

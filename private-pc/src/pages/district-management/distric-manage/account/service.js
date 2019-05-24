@@ -107,3 +107,15 @@ export async function getTree (payload) {
 
   return api.post('/precinct/tree', payload)
 }
+export async function searchUser (payload) {
+  // console.log(payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.get(`/user/${payload.id}`)
+}

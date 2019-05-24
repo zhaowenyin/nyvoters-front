@@ -91,7 +91,7 @@
   </div>
 </template>
 <script>
-import {setSubmit,modifySubmit,getTree} from './service.js'
+import {setSubmit,modifySubmit,getTree,searchUser} from './service.js'
 import { mapActions,mapState } from 'vuex'
 import {registrationTypeList} from '../../../../common-data/config.js'
 import DistrictSelect from '../../../../components/DistrictSelect'
@@ -141,7 +141,8 @@ export default {
           { required: true, message: '请选择管理选区！', trigger: 'change' }
         ],
       },
-      registrationTypeList
+      registrationTypeList,
+      itemL: {}
     }
   },
   computed: {
@@ -170,17 +171,10 @@ export default {
   created () {
     let params = {}
     if(this.item.id) {
-      params = {
-        account: this.item.account,
-        committeeId: this.item.committeeId,
-        name: this.item.name,
-        password: '......',
-        sort: this.item.sort,
-        accountType: this.item.accountType,
-        accountRole: this.item.accountRole
-      }
+      this.searchUser({id: this.item.id})
     } else {
       this.form.accountRole=this.val
+      this.from.precinctId = this.belongAreaId
     }
     if(this.belongAreaItem.children) {
       this.searchTree({type: 2, id: this.belongAreaId})
@@ -216,6 +210,21 @@ export default {
       this.close()
       this.getListData1()
       this.loading = false
+    },
+    async searchUser (val) {
+      const {data} = await searchUser(val)
+      this.itemL = data.content
+      let params = {
+        account: this.itemL.account,
+        precinctId: this.itemL.precinctId,
+        name: this.itemL.name,
+        password: '......',
+        sort: this.itemL.sort,
+        accountType: this.itemL.accountType,
+        accountRole: this.itemL.accountRole,
+        managePrecinctIds: this.itemL.managePrecinctIds
+      }
+      this.form = {...this.form,...params}
     },
     comfirmClose () {
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')

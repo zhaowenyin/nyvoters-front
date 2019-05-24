@@ -89,7 +89,7 @@
   </div>
 </template>
 <script>
-import {setSubmit,modifySubmit} from './service.js'
+import {setSubmit,modifySubmit,searchUser} from './service.js'
 import { mapActions,mapState } from 'vuex'
 import md5 from 'blueimp-md5'
 export default {
@@ -131,7 +131,8 @@ export default {
           { validator: validate,required: true, trigger: 'blur' }
         ],
 
-      }
+      },
+      itemL: {}
     }
 
   },
@@ -154,19 +155,12 @@ export default {
     })
   },
   created () {
-    let params = {}
     if(this.item.id || this.item.id===0) {
-      params = {
-        account: this.item.account,
-        name: this.item.name,
-        password: '......',
-        phoneNum: this.item.phoneNum,
-        sort: this.item.sort,
-        contactInformation: this.item.contactInformation
-      }
+      this.searchUser({id: this.item.id})
+    } else {
+      this.form.committeeId = this.belongAreaId
     }
-    this.form.committeeId = this.belongAreaId
-    this.form = {...this.form, ...params }
+
   },
   methods: {
     ...mapActions('committeeAcccount', [
@@ -192,6 +186,20 @@ export default {
       this.close()
       this.getListData1()
       this.loading = false
+    },
+    async searchUser (val) {
+      const {data} = await searchUser(val)
+      this.itemL = data.content
+      let params = {
+        account: this.itemL.account,
+        name: this.itemL.name,
+        password: '......',
+        phoneNum: this.itemL.phoneNum,
+        sort: this.itemL.sort,
+        contactInformation: this.itemL.contactInformation,
+        committeeId: this.itemL.committeeId
+      }
+      this.form = {...this.form,...params}
     },
     comfirmClose () {
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
