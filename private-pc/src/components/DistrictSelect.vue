@@ -33,8 +33,7 @@ export default {
   data () {
     return  {
       createDialogVisible: false,
-      list: [],
-      data1: []
+      list: []
     }
   },
   computed: {
@@ -44,13 +43,13 @@ export default {
           return ''
         }
         for(let i of this.value) {
-          this.func(this.data1,i)
+          this.func(this.data,i)
         }
       } else {
         if(this.value==='') {
           return ''
         }
-        this.func(this.data1,this.value)
+        this.func(this.data,this.value)
       }
       let str = []
       for(let i of this.list) {
@@ -68,9 +67,6 @@ export default {
       if(!val) {
         this.list = []
       }
-    },
-    data (val) {
-      this.data1 = val
     }
 
   },
@@ -97,8 +93,7 @@ export default {
     }
   },
   created() {
-    this.data1 = this.data
-    console.log(this.data)
+
   },
   methods: {
     func (list,i) {
