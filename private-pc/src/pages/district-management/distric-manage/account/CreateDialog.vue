@@ -5,6 +5,7 @@
       :visible="visible"
       width="60%"
       :before-close="comfirmClose">
+      {{belongAreaId}}
       <el-form
         label-width="110px"
         :model="form"
@@ -48,7 +49,7 @@
           <el-input
             size="medium"
             type='password'
-            :disabled='(item.id || item.id===0)'
+            :disabled='!!(item.id || item.id===0)'
             placeholder="请输入登录密码"
             class="item"
             :maxlength="20"
@@ -176,6 +177,7 @@ export default {
       this.form.accountRole=this.val
       this.from.precinctId = this.belongAreaId
     }
+    console.log(11,this.belongAreaItem)
     if(this.belongAreaItem.children) {
       this.searchTree({type: 2, id: this.belongAreaId})
     } else {

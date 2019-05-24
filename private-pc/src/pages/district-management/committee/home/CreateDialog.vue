@@ -5,6 +5,7 @@
       :visible="visible"
       width="600px"
       :before-close="comfirmClose">
+      {{form.districtId}}
       <el-form
         label-width="110px"
         :model="form"

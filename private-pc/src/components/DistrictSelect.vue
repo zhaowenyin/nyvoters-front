@@ -68,6 +68,9 @@ export default {
       if(!val) {
         this.list = []
       }
+    },
+    data (val) {
+      this.data1 = val
     }
 
   },
@@ -95,6 +98,7 @@ export default {
   },
   created() {
     this.data1 = this.data
+    console.log(this.data)
   },
   methods: {
     func (list,i) {
