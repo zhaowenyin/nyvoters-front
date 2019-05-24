@@ -47,8 +47,7 @@ export async function getList (payload) {
   // })
   return api.post('/user/list', payload)
 }
-
-export async function setSubmit (payload) {
+export async function setPower (payload) {
   // console.log(payload)
   // return new Promise((resolve) => {
   //   setTimeout(() => {
@@ -58,49 +57,7 @@ export async function setSubmit (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post('/user/precinct/add', payload)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
-}
-
-export async function modifySubmit (payload) {
-  // console.log(payload)
-  // return new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve({
-  //       data: {
-  //       }
-  //     })
-  //   }, 500)
-  // })
-  return api.post('/user/precinct/edit', payload)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
-}
-
-export async function deletetTabel (payload) {
-  // console.log(payload)
-  // return new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve({
-  //       data: {
-  //       }
-  //     })
-  //   }, 500)
-  // })
-  return api.get(`/user/delete/${payload}`, payload)
-}
-export async function resetPassword (payload) {
-  // console.log(payload)
-  // return new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve({
-  //       data: {
-  //       }
-  //     })
-  //   }, 500)
-  // })
-  return api.post('/resetPassword', payload)
+  return api.post('/power/set', payload)
 }
 
 export async function getTree (payload) {

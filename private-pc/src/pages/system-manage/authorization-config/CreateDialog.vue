@@ -6,12 +6,14 @@
     :before-close="comfirmClose">
     <div v-loading="loading" class="view">
       <div class="view-left">
-          <CommonTree
+          <el-tree
             show-checkbox
+            node-key="id"
+            default-expand-all
+            :default-checked-keys="[]"
             :expand-on-click-node="false"
-            :hasSearch="false"
-            :data="data"
-            @check="handleClick" />
+            ref="tree"
+            :data="data" />
         </div>
       </div>
     <div
@@ -29,17 +31,16 @@
   </el-dialog>
 </template>
 <script>
-// import {drawIn} from './service.js'
+import {setPower} from './service.js'
 import { mapActions } from 'vuex'
-import CommonTree from '../../../components/common-tree'
-// import func from '../../../utils/func'
+import {dataList} from './config'
 export default {
   data () {
     return {
       loading: false,
       filterText: '',
       selectItem: {},
-      data: [],
+      data: dataList,
     }
 
   },
@@ -48,7 +49,7 @@ export default {
       default: false,
       type: Boolean
     },
-    ids: {
+    item: {
       default: null,
       type: null
     }
@@ -62,72 +63,9 @@ export default {
 
   },
   created () {
-    this.data=[
-      {
-        name: ' 选民登记',
-        type: 1,
-        id: '1-1',
-        isckeck: false,
-        children:[
-          {
-            name: '选民在线登记',
-            id: '1',
-            isckeck: false,
-          },
-          {
-            name: '选民批量导入',
-            id: '2',
-            isckeck: false,
-          },
-          {
-            name: '选民信息查询',
-            id: '3',
-            isckeck: false,
-          }
-        ]
-      },
-      {
-        name: ' 选民管理',
-        type: 1,
-        id: '1-2',
-        isckeck: false,
-        children:[
-          {
-            name: '选民资格审查',
-            id: '4',
-            isckeck: false,
-          },
-          {
-            name: '选民转移管理',
-            id: '5',
-            isckeck: false,
-          },
-          {
-            name: '选民划入管理',
-            id: '6',
-            isckeck: false,
-          },
-          {
-            name: '选民划出管理',
-            id:'7',
-            isckeck: false,
-          },
-          {
-            name: '选民申诉管理',
-            id:'8',
-            isckeck: false,
-          },
-          {
-            name: '文件资料',
-            id: '9',
-            isckeck: false,
-          }
-        ]
-      }
-    ]
   },
   components: {
-    CommonTree
+
   },
   methods: {
     ...mapActions('votersQualification', [
@@ -138,7 +76,12 @@ export default {
     },
 
     async submitForm () {
+      let list = this.$refs.tree.getCheckedKeys()
+      let params = list.filter(i=>{
+        return i
+      })
       this.loading = true
+      await setPower({powers: params,userId: this.item.id})
       this.close()
       this.getListData()
       this.loading = false
@@ -149,42 +92,10 @@ export default {
           this.close()
         })
         .catch(() => {})
-    },
-    handleClick(data) {
-      console.log(data)
-      if(data.type) {
-        this.data.map(i => {
-          if(data.id === i.id) {
-            i.isckeck = !i.isckeck
-            i.children = i.children.map(item=> {
-              item.isckeck = i.isckeck
-              return item
-            })
-          }
-          return i
-        })
-      } else {
-        this.data.map(i => {
-          let count = 0
-          i.children = i.children.map(item=> {
-            if(data.id===item.id) {
-              item.isckeck = !item.isckeck
-            }
-            if(item.isckeck) {
-              count ++
-            }
-            return item
-          })
-          if(count === i.children.length) {
-            i.isckeck = true
-          } else {
-            i.isckeck = false
-          }
-          return i
-        })
-      }
-      console.log(this.data)
     }
+  },
+  handleClick () {
+
   }
 
 }
