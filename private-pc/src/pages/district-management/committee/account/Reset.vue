@@ -57,6 +57,7 @@
 <script>
 import {resetPassword} from './service.js'
 import { mapActions } from 'vuex'
+import md5 from 'blueimp-md5'
 export default {
   data () {
     let validatePass = (rule, value, callback) => {
@@ -132,7 +133,7 @@ export default {
     },
     async sumitData () {
       this.loading = true
-      await resetPassword({password: this.form.password, id: this.item.id})
+      await resetPassword({password: md5(this.form.password), id: this.item.id})
       this.close()
       this.getListData1()
       this.loading = false
