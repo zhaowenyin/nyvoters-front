@@ -176,7 +176,6 @@ export default {
       this.form.accountRole=this.val
       this.from.precinctId = this.belongAreaId
     }
-    console.log(11,this.belongAreaItem)
     if(this.belongAreaItem.children) {
       this.searchTree({type: 2, id: this.belongAreaId})
     } else {

@@ -55,7 +55,7 @@
   </div>
 </template>
 <script>
-import {resetPassword} from './service.js'
+import {modifySubmit,searchUser} from './service.js'
 import { mapActions } from 'vuex'
 import md5 from 'blueimp-md5'
 export default {
@@ -98,6 +98,7 @@ export default {
         ],
 
       },
+      params: {}
     }
 
   },
@@ -115,7 +116,7 @@ export default {
 
   },
   created () {
-
+    this.searchUser({id: this.item.id})
   },
   methods: {
     ...mapActions('committeeAcccount', [
@@ -133,7 +134,7 @@ export default {
     },
     async sumitData () {
       this.loading = true
-      await resetPassword({password: md5(this.form.password), id: this.item.id})
+      await modifySubmit({password: md5(this.form.password), id: this.item.id,...this.params})
       this.close()
       this.getListData1()
       this.loading = false
@@ -148,7 +149,20 @@ export default {
     saveData (val) {
       this.form.precinct = val.name
       this.form.precinctId = val.id
-    }
+    },
+    async searchUser (val) {
+      const {data} = await searchUser(val)
+      this.itemL = data.content
+      let params = {
+        account: this.itemL.account,
+        name: this.itemL.name,
+        phoneNum: this.itemL.phoneNum,
+        sort: this.itemL.sort,
+        contactInformation: this.itemL.contactInformation,
+        committeeId: this.itemL.committeeId
+      }
+      this.params = params
+    },
   }
 
 }
