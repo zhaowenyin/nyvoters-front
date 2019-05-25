@@ -10,14 +10,13 @@
     <div class="content">
       <div v-if="+type === 1" class="announcement-title">公告</div>
       <div v-if="+type === 1">
-        &nbsp;&nbsp;根据《选举法》的规定，现将{{data.countyName}} 第{{data.belongAreaName}}政党、
-        人民团体推荐和选民10人以上联名推荐的{{data.countyName}}第{{data.sessionNum}}届人民代表大会初步代表候选人名单
+        &nbsp;&nbsp;根据《选举法》的规定，现将{{data.countyName}} 第{{data.belongAreaName}}政党、人民团体推荐和选民10人以上联名推荐的{{data.countyName}}第{{data.sessionNum}}届人民代表大会初步代表候选人名单
         以姓名笔画排序公告如下。请选民依法进行酝酿讨论，以便协商确定本选区正式代表候选人。
         <ul class="message">
           <li
             :key="index"
             v-for="(i,index) in data.list">
-              {{`${i.recommendedPerson || '暂无名字'}，${handlegender(i.gender)}，${i.age}，${i.nation}，${i.workUnitAndPost}，${i.recommendPersonList}`}}
+              {{`${i.recommendedPerson || '暂无名字'}，${handlegender(i.gender)}，${i.age}，${i.nation}，${i.workUnitAndPost}，${i.recommendPersonList || '无'}`}}
           </li>
         </ul>
       </div>
