@@ -59,8 +59,6 @@ export async function setSubmit (payload) {
   //   }, 500)
   // })
   return api.post('/user/precinct/add', payload)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
 }
 
 export async function modifySubmit (payload) {
@@ -74,8 +72,6 @@ export async function modifySubmit (payload) {
   //   }, 500)
   // })
   return api.post('/user/precinct/edit', payload)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
 }
 
 export async function deletetTabel (payload) {

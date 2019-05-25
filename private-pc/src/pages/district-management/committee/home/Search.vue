@@ -132,6 +132,14 @@ export default {
         });
         return
       }
+      if(this.multipleSelection.length !== 1) {
+        this.$notify({
+          title: '',
+          message: '请勾选一条数据进行修改！',
+          type: 'warning'
+        });
+        return
+      }
       this.$confirm('删除选举机构后，将影响该机构下的所有选民、账号信息不可用，且不可恢复，请确认？')
         .then(() => {
           this.delectItem()
@@ -140,15 +148,8 @@ export default {
 
     },
     async delectItem() {
-      let idList = []
-      for (let i of this.multipleSelection) {
-        idList.push(i.id)
-      }
-      let params = {idList}
-      await deletetTabel(params)
-      const param = JSON.parse(JSON.stringify(this.searchForm))
-      param.pageNum = 1
-      this.getListData(param)
+      await deletetTabel({id: this.multipleSelection[0].id})
+      this.getListData()
     }
   }
 }

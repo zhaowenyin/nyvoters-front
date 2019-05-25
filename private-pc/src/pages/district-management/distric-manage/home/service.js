@@ -48,8 +48,6 @@ export async function setSubmit (payload) {
   //   }, 500)
   // })
   return api.post('/precinct/add', payload)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
 }
 
 export async function modifySubmit (payload) {
@@ -63,8 +61,6 @@ export async function modifySubmit (payload) {
   //   }, 500)
   // })
   return api.post('/precinct/edit', payload)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
 }
 
 export async function deletetTabel (payload) {
@@ -77,7 +73,7 @@ export async function deletetTabel (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post('/precinct/delete', payload)
+  return api.get(`/precinct/delete/${payload.id}`)
 }
 export async function getTree (payload) {
   return api.post('/district/tree', payload)

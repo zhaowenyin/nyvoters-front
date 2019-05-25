@@ -130,10 +130,19 @@ export default {
       this.createDialogVisible = true
     },
     deleteI () {
+      console.log(2,this.multipleSelection[0])
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',
           message: '请勾选数据进删除！',
+          type: 'warning'
+        });
+        return
+      }
+      if(this.multipleSelection.length > 1) {
+        this.$notify({
+          title: '',
+          message: '请勾选一条数据进删除！',
           type: 'warning'
         });
         return
@@ -146,15 +155,8 @@ export default {
 
     },
     async delectItem() {
-      let idList = []
-      for (let i of this.multipleSelection) {
-        idList.push(i.id)
-      }
-      let params = {idList}
-      await deletetTabel(params)
-      const param = JSON.parse(JSON.stringify(this.searchForm))
-      param.pageNum = 1
-      this.getListData(param)
+      await deletetTabel({id:this.multipleSelection[0].id})
+      this.getListData()
     }
   }
 }
