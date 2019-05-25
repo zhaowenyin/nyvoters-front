@@ -104,7 +104,7 @@ export async function getInfo (payload) {
   return api.post('/repre-affairs/word/list', payload)
 }
 export async function getAnnouncement (payload) {
-  return api.post('/repre-affairs/word1/list', payload)
+  return api.post('/repre-affairs/word1/get', payload)
 }
 export async function getOther (payload) {
   console.log(payload)

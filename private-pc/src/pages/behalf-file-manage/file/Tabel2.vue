@@ -8,9 +8,9 @@
       <el-table-column
         align="center"
         label="姓名"
-        prop="recommendPersonList">
+        prop="recommendedPerson">
           <template slot-scope="scope">
-          {{scope.row.recommendPersonList || ''}}
+          {{scope.row.recommendedPerson || ''}}
         </template>
       </el-table-column>
 
@@ -44,13 +44,16 @@ import { formatDate } from '../../../utils/format.js'
 export default {
   data () {
     return {
-      list: [1,2,3,4,5,6,7]
+      // list: [1,2,3,4,5,6,7]
     }
   },
   computed: {
   },
   props: {
-
+    list: {
+      default: null,
+      type: null
+    }
   },
   components: {
 
