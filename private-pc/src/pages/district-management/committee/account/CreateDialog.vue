@@ -107,7 +107,7 @@ export default {
     return {
       loading: false,
       form: {
-        districtId: '',
+        committeeId: '',
         account: '',
         name: '',
         password: '',
