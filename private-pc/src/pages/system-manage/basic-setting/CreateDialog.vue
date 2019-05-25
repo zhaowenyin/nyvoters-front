@@ -151,7 +151,8 @@ export default {
     allUrl () {
       let param = {
         module: 5,
-        isFillData: 1
+        isFillData: 1,
+        fileName: '登录背景地址ID'
       }
       let paramStr = ''
       for (const k in param) {
