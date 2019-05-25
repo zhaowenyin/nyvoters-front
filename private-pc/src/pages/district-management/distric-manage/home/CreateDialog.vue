@@ -118,10 +118,10 @@ export default {
       multipleSelection: [],
       rules: {
         name: [
-          { required: true, message: '请输入选委会！', trigger: 'blur' }
+          { required: true, message: '选区编码', trigger: 'blur' }
         ],
         code: [
-          { required: true, message: '请选择对应行政区！', trigger: 'change' }
+          { required: true, message: '选区名称', trigger: 'change' }
         ],
 
       },
