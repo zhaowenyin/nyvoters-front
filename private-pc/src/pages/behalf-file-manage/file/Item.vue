@@ -52,10 +52,10 @@ export default {
     belongAreaId () {
       const {type} = this.$route.query
       if(+type===5) {
-        this.searchAnnouncement({belongAreaId: this.belongAreaId,})
+        this.searchAnnouncement({belongAreaId: this.belongAreaId,fileName: this.$route.query.title})
       } else {
         let statusList = this.handerstatus(+type)
-        this.searchInfo({belongAreaId: this.belongAreaId,statusList})
+        this.searchInfo({belongAreaId: this.belongAreaId,statusList,fileName: this.$route.query.title})
       }
     }
   },
@@ -67,10 +67,10 @@ export default {
       return
     }
     if(+type===5) {
-      this.searchAnnouncement({belongAreaId: this.belongAreaId,statusList})
+      this.searchAnnouncement({belongAreaId: this.belongAreaId,statusList,fileName: this.$route.query.title})
     } else {
 
-      this.searchInfo({belongAreaId: this.belongAreaId,statusList})
+      this.searchInfo({belongAreaId: this.belongAreaId,statusList,fileName: this.$route.query.title})
     }
 
   },

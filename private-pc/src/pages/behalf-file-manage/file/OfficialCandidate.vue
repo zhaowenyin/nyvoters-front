@@ -19,7 +19,7 @@
           <li
             :key="index"
             v-for="(i,index) in data.list">
-              {{`${i.name || '暂无名字'}，${handlegender(i.gender)}，${i.age}，${i.nation}，${i.workUnitAndPost}`}}
+              {{`${i.recommendedPerson}，${handlegender(i.gender)}，${i.age}，${i.nation}，${i.workUnitAndPost}`}}
           </li>
         </ul>
       </div>
