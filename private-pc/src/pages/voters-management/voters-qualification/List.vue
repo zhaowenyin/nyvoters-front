@@ -37,7 +37,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        width="180"
+        width="120"
         label="自动对比结果">
         <template slot-scope="scope">
           {{handerResultStatus(scope.row.compareResult)}}
