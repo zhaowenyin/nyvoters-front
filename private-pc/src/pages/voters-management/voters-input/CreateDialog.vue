@@ -78,7 +78,7 @@ export default {
     CommonTree
   },
   methods: {
-    ...mapActions('votersQualification', [
+    ...mapActions('votersInput', [
       'getListData'
     ]),
     ...mapActions('commonData', [

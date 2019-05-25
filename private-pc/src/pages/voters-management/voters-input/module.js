@@ -7,7 +7,7 @@ export default {
     list: [],
     total: 0,
     searchParam: {
-      pageSize: 10,
+      pageSize: 20,
       pageNum: 1
     },
     multipleSelection: []
