@@ -9,8 +9,8 @@
         class="list"
         v-for="(i,key) in list"
         :key="key"
-        :span="key>1 ? 8 : 12">
-        <div @click="clickItem(i)" :class="['item',{'key':key>1},{'active': i===selectItem}]">{{i}}</div>
+        :span="+key>3 ? 8 : 12">
+        <div @click="clickItem(key)" :class="['item',{'key':key>3},{'active': key===selectItem}]">{{i}}</div>
       </el-col>
     </el-row>
     <div
@@ -34,7 +34,7 @@ export default {
   data () {
     return {
       loading: false,
-      list: ['不能行使选举权','被剥夺政治权利', '死亡','迁出','其他'],
+      list: {2:'不能行使选举权',3:'被剥夺政治权利', 4:'死亡',5: '迁出',6:'其他'},
       selectItem: ''
     }
 
