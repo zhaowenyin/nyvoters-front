@@ -5,7 +5,6 @@
       :visible="visible"
       width="60%"
       :before-close="comfirmClose">
-      {{belongAreaId}}
       <el-form
         label-width="110px"
         :model="form"

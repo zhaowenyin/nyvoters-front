@@ -107,9 +107,7 @@ export default {
       }
       let params = {id}
       await deletetTabel(params)
-      const param = JSON.parse(JSON.stringify(this.searchForm))
-      param.page = 1
-      this.getListData(param)
+      this.getListData()
     }
   }
 }
