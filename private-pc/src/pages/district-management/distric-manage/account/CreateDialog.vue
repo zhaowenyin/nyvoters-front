@@ -174,7 +174,7 @@ export default {
       this.searchUser({id: this.item.id})
     } else {
       this.form.accountRole=this.val
-      this.from.precinctId = this.belongAreaId
+      this.form.precinctId = this.belongAreaId
     }
     if(this.belongAreaItem.children) {
       this.searchTree({type: 2, id: this.belongAreaId})

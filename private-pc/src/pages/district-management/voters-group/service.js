@@ -78,7 +78,7 @@ export async function deletetTabel (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post('/group/delete', payload)
+  return api.post(`/group/delete/${payload.id}`)
 }
 
 
