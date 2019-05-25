@@ -137,7 +137,8 @@ export default {
   computed: {
     ...mapState('commonCommittee', {
       committeeId: state => state.belongAreaId,
-      belongArea: state => state.belongArea
+      belongArea: state => state.belongArea,
+      belongItem: state => state.belongItem
     })
   },
   props:{
@@ -168,8 +169,7 @@ export default {
     if (this.item.id) {
       this.form = {...this.form, ...params }
     }
-
-    this.searchTree({id: '',type: 0})
+    this.searchTree({id: this.committeeId})
     this.parentList.push({name:this.item.name || this.belongArea,id:this.item.parentId || this.committeeId})
 
 
@@ -215,10 +215,10 @@ export default {
     select () {
       this.createDialogVisible = true
     },
-    async searchTree () {
-      const {data} = await getTree({type: 0, id: ''})
-      this.data = [data.content]
-    },
+    async searchTree (val) {
+      const {data} = await getTree(val)
+      this.data = data.content
+    }
   }
 
 }

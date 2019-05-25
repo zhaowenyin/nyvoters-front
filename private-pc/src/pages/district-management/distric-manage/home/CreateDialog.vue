@@ -154,7 +154,7 @@ export default {
   created () {
     let params = {}
     this.form.parentId = this.belongAreaId
-    if(this.item&&this.item.name) {
+    if(this.item&&this.item.id) {
       params = {
         pnum: this.item.pnum,
         name: this.item.name,
@@ -171,12 +171,8 @@ export default {
       params.type = this.val
       this.form.parentId = this.belongAreaId
     }
-    let id = ''
-    if(this.item.id || this.item.id===0) {
-      id = this.item.id
-    }
     this.form = {...this.form, ...params }
-    this.searchTree({type: 0, id})
+    this.searchTree({id: this.belongAreaId})
 
   },
   methods: {
@@ -221,7 +217,7 @@ export default {
     },
     async searchTree (val) {
       const {data} = await getTree(val)
-      this.data = [data.content]
+      this.data = data.content
     },
   }
 

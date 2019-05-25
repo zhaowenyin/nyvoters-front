@@ -55,7 +55,8 @@ export default {
   methods: {
     ...mapMutations('commonCommittee', [
       'saveDistrictId',
-      'saveDistrictName'
+      'saveDistrictName',
+      'saveDistrictItem'
     ]),
     ...mapActions('commonCommittee', [
       'searchTree',
@@ -66,6 +67,7 @@ export default {
     handleNodeClick(data) {
       this.saveDistrictId(data.id)
       this.saveDistrictName(data.name)
+      this.saveDistrictItem(data)
     }
   }
 }

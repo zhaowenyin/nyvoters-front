@@ -76,7 +76,7 @@ export async function deletetTabel (payload) {
   return api.get(`/precinct/delete/${payload.id}`)
 }
 export async function getTree (payload) {
-  return api.post('/district/tree', payload)
+  return api.get(`/district/select/${payload.id}`)
 }
 
 
