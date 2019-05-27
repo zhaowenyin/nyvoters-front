@@ -12,10 +12,10 @@
       <el-table-column
         width="180"
         label="选委会/选区"
-        prop="account" />
+        prop="precinctName" />
       <el-table-column
         label="手机号"
-        prop="accountRole">
+        prop="phoneNum">
         <template slot-scope="scope">
          {{scope.row.phoneNum}}
         </template>
