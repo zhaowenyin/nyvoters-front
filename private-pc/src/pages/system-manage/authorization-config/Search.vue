@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     ...mapActions('districtAccount', [
-      'getListData1',
+      'getListData',
     ]),
     // 搜索
     submitForm () {
@@ -66,7 +66,7 @@ export default {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           params.pageNum = 1
-          this.getListData1(params)
+          this.getListData(params)
         }
       })
     }

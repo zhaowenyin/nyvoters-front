@@ -67,7 +67,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('districtAccount', {
+    ...mapState('authority', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => +state.total,
@@ -84,24 +84,24 @@ export default {
   },
   created () {
     if(this.belongAreaId!=='') {
-      this.getListData1({precinctId: this.belongAreaId })
+      this.getListData({precinctId: this.belongAreaId })
     }
   },
   watch: {
     belongAreaId () {
-      this.getListData1({precinctId: this.belongAreaId })
+      this.getListData({precinctId: this.belongAreaId })
     }
   },
   methods: {
-    ...mapActions('districtAccount', [
-      'getListData1'
+    ...mapActions('authority', [
+      'getListData'
     ]),
-    ...mapMutations('districtAccount', [
+    ...mapMutations('authority', [
       'saveSelection'
     ]),
     // 分页
     handleCurrentChange (val) {
-      this.getListData1({ pageNum: val })
+      this.getListData({ pageNum: val })
     },
     modyfyForm(row){
       this.createDialogVisible=true

@@ -7,9 +7,10 @@ export default {
     list: [],
     total: 0,
     searchParam: {
-      pageSize: 10,
+      pageSize: 20,
       pageNum: 1
-    }
+    },
+    multipleSelection: []
   },
   mutations: {
     clearState (state) {
@@ -20,6 +21,7 @@ export default {
         pageSize: 20,
         pageNum: 1
       }
+      state.multipleSelection = []
     },
     showLoading (state) {
       state.loading = true
@@ -34,6 +36,9 @@ export default {
     },
     updataSearchParam (state, payload) {
       state.searchParam = { ...state.searchParam, ...payload.payload }
+    },
+    saveSelection(state, payload) {
+      state.multipleSelection = payload
     },
   },
   actions: {

@@ -7,15 +7,28 @@ export async function getList (payload) {
   //   setTimeout(() => {
   //     resolve({
   //       data: {
-  //         "code": "string",
   //         "content": {
   //           "data": [
   //             {
-  //               "details": "string",
-  //               "module": "string",
-  //               "opTime": 1549382400000,
-  //               "operate": "string",
-  //               "userName": "string"
+  //               "account": "string",
+  //               "accountRole": 0,
+  //               "accountType": 0,
+  //               "committeeId": 0,
+  //               "contactInformation": "string",
+  //               "createTime": "2019-04-10T13:56:12.776Z",
+  //               "createUserId": 0,
+  //               "createUserName": "string",
+  //               "id": 0,
+  //               "name": "string",
+  //               "password": "string",
+  //               "phoneNum": '18788888888',
+  //               "precinctId": 0,
+  //               "sort": 0,
+  //               "status": 0,
+  //               "telephone": "string",
+  //               "updateTime": "2019-04-10T13:56:12.776Z",
+  //               "updateUserId": 0,
+  //               "updateUserName": "string"
   //             }
   //           ],
   //           "endRow": 0,
@@ -25,13 +38,29 @@ export async function getList (payload) {
   //           "startRow": 0,
   //           "total": 20
   //         },
-  //         "message": "string",
+  //         "errorCode": "string",
+  //         "errorMsg": "string",
   //         "status": "string"
   //       }
   //     })
   //   }, 500)
   // })
-  return api.post('/log/list',payload)
+  return api.post('/user/list', payload)
+}
+export async function setPower (payload) {
+  // console.log(payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.post('/power/set', payload)
 }
 
+export async function getTree (payload) {
 
+  return api.post('/precinct/tree', payload)
+}

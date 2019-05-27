@@ -41,7 +41,7 @@ export default {
     this.searchTree({type: 0, id: ''})
   },
   methods: {
-    ...mapMutations('votersOut', [
+    ...mapMutations('authority', [
       'clearState'
     ]),
     ...mapMutations('commonData', [

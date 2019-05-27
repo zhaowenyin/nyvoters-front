@@ -42,7 +42,7 @@ export default {
     },
   },
   actions: {
-    async getListData1 ({ commit, state }, payload) {
+    async getListData ({ commit, state }, payload) {
       commit({
         type: 'showLoading'
       })

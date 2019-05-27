@@ -35,6 +35,9 @@ import voterRegistersData from './pages/voter-registers/data/module'
 import log from './pages/system-manage/operate-log/module'
 //选委会公共
 import commonCommittee from './pages/district-management/committee/module'
+// 通讯录和人员权限配置
+import  authority from './pages/system-manage/authorization-config/module'
+import addressBook from './pages/system-manage/address-book/module'
 
 
 Vue.use(Vuex)
@@ -70,6 +73,8 @@ export default new Vuex.Store({
     voterInfo,
     voterRegisters,
     voterRegistersData,
-    log
+    log,
+    authority,
+    addressBook
   }
 })

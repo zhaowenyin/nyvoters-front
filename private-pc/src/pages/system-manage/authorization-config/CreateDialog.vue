@@ -68,7 +68,7 @@ export default {
 
   },
   methods: {
-    ...mapActions('votersQualification', [
+    ...mapActions('authority', [
       'getListData'
     ]),
     close () {
