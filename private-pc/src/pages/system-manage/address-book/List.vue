@@ -6,32 +6,18 @@
       @selection-change="handleSelectionChange"
       v-loading="loading">
       <el-table-column
-        type="selection"
-        width="55">
-      </el-table-column>
-      <el-table-column
         label="姓名"
          width="120"
         prop="name" />
       <el-table-column
         width="180"
-        label="登录账号"
+        label="选委会/选区"
         prop="account" />
       <el-table-column
-        label="角色"
+        label="手机号"
         prop="accountRole">
         <template slot-scope="scope">
-          {{handerRole(scope.row.accountRole)}}
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="菜单权限"
-        prop="">
-        <template slot-scope="scope">
-          <el-button
-          @click="modyfyForm(scope.row)"
-          size="medium"
-          type="text">修改</el-button>
+         {{scope.row.phoneNum}}
         </template>
       </el-table-column>
     </el-table>
@@ -100,32 +86,6 @@ export default {
     formatDate,
     handleSelectionChange(val) {
       this.saveSelection(val)
-    },
-    handerRole(val){
-      let text = ""
-      switch(val) {
-      case 0:
-        text = '其他'
-        break
-      case 1:
-        text = ' 超级管理员'
-        break
-      case 2:
-        text = '市级选委会'
-        break
-      case 3:
-        text = '一般选委会'
-        break
-      case 4:
-        text = '选区管理员'
-        break
-      case 5:
-        text = '工作人员'
-        break
-      default:
-        text = ''
-      }
-      return text
     }
   }
 }

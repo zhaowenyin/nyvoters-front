@@ -10,7 +10,7 @@
             show-checkbox
             node-key="id"
             default-expand-all
-            :default-checked-keys="[]"
+            :default-checked-keys="item.powers"
             :expand-on-click-node="false"
             ref="tree"
             :data="data" />
