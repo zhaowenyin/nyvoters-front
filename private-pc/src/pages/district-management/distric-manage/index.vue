@@ -96,5 +96,6 @@ export default {
     flex-direction: column;
     position: relative;
     padding: 0px 20px;
+    overflow: auto;
   }
 </style>
