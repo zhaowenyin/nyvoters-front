@@ -35,8 +35,8 @@ export default {
       state.treeList = [payload.payload.data.content]
       state.belongAreaId = '1003'
       state.saveItem = payload.payload.data.content
-      state.belongArea = payload.payload.data.content.name
       state.belongAreaItem = func([payload.payload.data.content], '1003')
+      state.belongArea = state.belongAreaItem.name
 
     },
     updateNews(state, payload) {

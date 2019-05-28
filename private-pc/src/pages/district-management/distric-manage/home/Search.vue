@@ -81,6 +81,9 @@ export default {
   computed: {
     ...mapState('distictHome', {
       multipleSelection: state=>state.multipleSelection
+    }),
+    ...mapState('commonData', {
+      belongAreaItem: state => state.belongAreaItem
     })
   },
   components: {
@@ -112,6 +115,17 @@ export default {
       })
     },
     create (val) {
+      console.log(12,this.belongAreaItem)
+      const ref1 = this.belongAreaItem.level === 3 && this.belongAreaItem.committee
+      const ref2 = this.belongAreaItem.level === 1 && !this.belongAreaItem.committee
+      if(!(ref1 || ref2)){
+        this.$notify({
+          title: '',
+          message: '此选区不能创建！',
+          type: 'warning'
+        })
+        return
+      }
       this.val = +val
       this.item = {}
       this.createDialogVisible = true
@@ -130,7 +144,6 @@ export default {
       this.createDialogVisible = true
     },
     deleteI () {
-      console.log(2,this.multipleSelection[0])
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',

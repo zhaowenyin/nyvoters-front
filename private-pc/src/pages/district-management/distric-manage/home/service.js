@@ -78,6 +78,10 @@ export async function deletetTabel (payload) {
 export async function getTree (payload) {
   return api.get(`/district/select/${payload.id}`)
 }
+export async function getTreeList (payload) {
+  return api.get(`/district/selectPrecinct/${payload.id}`)
+}
+
 
 
 

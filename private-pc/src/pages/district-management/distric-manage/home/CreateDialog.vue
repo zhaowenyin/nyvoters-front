@@ -98,7 +98,7 @@
   </div>
 </template>
 <script>
-import {setSubmit, modifySubmit,getTree} from './service.js'
+import {setSubmit, modifySubmit,getTree,getTreeList} from './service.js'
 import { mapActions, mapState } from 'vuex'
 import DistrictSelect from '../../../../components/DistrictSelect'
 export default {
@@ -148,7 +148,8 @@ export default {
   },
   computed: {
     ...mapState('commonData', {
-      belongAreaId: state => state.belongAreaId
+      belongAreaId: state => state.belongAreaId,
+      belongAreaItem: state => state.belongAreaItem
     })
   },
   created () {
@@ -172,7 +173,13 @@ export default {
       this.form.parentId = this.belongAreaId
     }
     this.form = {...this.form, ...params }
-    this.searchTree({id: this.belongAreaId})
+    if (this.val=== 0) {
+      this.searchList({id: this.belongAreaId})
+    } else {
+      this.searchTree({id: this.belongAreaId})
+
+    }
+
 
   },
   methods: {
@@ -219,6 +226,10 @@ export default {
       const {data} = await getTree(val)
       this.data = data.content
     },
+    async searchList (val) {
+      const {data} = await getTreeList(val)
+      this.data = data.content
+    }
   }
 
 }
