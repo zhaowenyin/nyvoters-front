@@ -11,10 +11,8 @@
       </el-table-column>
       <el-table-column
         label="选区名称"
-         width="120"
         prop="name" />
       <el-table-column
-        width="180"
         label="选区编码"
         prop="code" />
       <el-table-column

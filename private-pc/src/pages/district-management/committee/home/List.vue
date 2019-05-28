@@ -11,10 +11,8 @@
       </el-table-column>
       <el-table-column
         label="选委会"
-         width="120"
         prop="name" />
       <el-table-column
-        width="180"
         label="选委会编码"
         prop="code" />
       <el-table-column

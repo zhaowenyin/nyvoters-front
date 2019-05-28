@@ -11,10 +11,8 @@
       </el-table-column>
       <el-table-column
         label="姓名"
-         width="120"
         prop="name" />
       <el-table-column
-        width="180"
         label="登录账号"
         prop="account" />
       <el-table-column
@@ -25,7 +23,6 @@
         </template>
       </el-table-column>
       <el-table-column
-        width="180"
         label="排序码"
         prop="sort" />
     </el-table>
