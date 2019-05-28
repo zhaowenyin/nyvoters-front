@@ -183,7 +183,7 @@ export default {
 
   },
   methods: {
-    ...mapActions('committeeHome', [
+    ...mapActions('distictHome', [
       'getListData'
     ]),
     close () {
@@ -217,7 +217,7 @@ export default {
     handerParams () {
       let params = {...this.form}
       params.pnum = +params.pnum
-      params.parentType = 0
+      params.parentType = 1
       delete params.typeName
 
       return params

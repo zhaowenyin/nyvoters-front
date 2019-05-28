@@ -66,6 +66,7 @@
       v-if="active===4"
       class="footer">
       <el-button
+        v-if="+data.failNum>0"
         @click="submitForm()"
         size="medium"
         type="primary">导出失败数据</el-button>

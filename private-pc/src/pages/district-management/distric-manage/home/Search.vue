@@ -115,10 +115,10 @@ export default {
       })
     },
     create (val) {
-      console.log(12,this.belongAreaItem)
+      this.val = +val
       const ref1 = this.belongAreaItem.level === 3 && this.belongAreaItem.committee
       const ref2 = this.belongAreaItem.level === 1 && !this.belongAreaItem.committee
-      if(!(ref1 || ref2)){
+      if(!(ref1)&&(+this.val===0)){
         this.$notify({
           title: '',
           message: '此选区不能创建！',
@@ -126,7 +126,15 @@ export default {
         })
         return
       }
-      this.val = +val
+      if(!(ref2)&&(+this.val===1)){
+        this.$notify({
+          title: '',
+          message: '此选区不能创建！',
+          type: 'warning'
+        })
+        return
+      }
+
       this.item = {}
       this.createDialogVisible = true
     },
