@@ -2,6 +2,8 @@
   <div class="view">
     <div v-if="activeIndex === '/qual-review'" class="view-left">
       <CommonTree
+        :current-node-key="this.belongAreaId"
+        node-key="id"
         :expand-on-click-node="false"
         :data="data"
         @node-click="handleNodeClick" />
@@ -43,7 +45,8 @@ export default {
       return this.$route.path
     },
     ...mapState('commonData', {
-      data: state => state.treeList
+      data: state => state.treeList,
+      belongAreaId:state => state.belongAreaId
     })
   },
   components: {

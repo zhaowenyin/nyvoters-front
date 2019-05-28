@@ -3,9 +3,11 @@
     <div class="view-left">
       <!-- :hasSearch="true" 可搜索 -->
          <CommonTree
-        :expand-on-click-node="false"
-        :data="data"
-        @node-click="handleNodeClick" />
+         :current-node-key="this.belongAreaId"
+          node-key="id"
+          :expand-on-click-node="false"
+          :data="data"
+          @node-click="handleNodeClick" />
     </div>
     <div class="view-content">
       <Search />
@@ -27,7 +29,8 @@ export default {
   },
   computed: {
     ...mapState('commonData', {
-      data: state => state.treeList
+      data: state => state.treeList,
+      belongAreaId: state => state.belongAreaId
     })
 
   },
