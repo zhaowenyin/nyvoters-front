@@ -7,10 +7,8 @@
       v-loading="loading">
       <el-table-column
         label="姓名"
-         width="120"
         prop="name" />
       <el-table-column
-        width="180"
         label="选委会/选区"
         prop="precinctName" />
       <el-table-column
