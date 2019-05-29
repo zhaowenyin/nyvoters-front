@@ -3,7 +3,6 @@
     <el-table
       :data="list"
       class="add_table"
-      @selection-change="handleSelectionChange"
       v-loading="loading">
       <el-table-column
         label="申述人"
