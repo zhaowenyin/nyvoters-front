@@ -98,8 +98,9 @@ export default {
       this.loading = true
       const {data} = await searchSubmit(this.form)
       let content = data.content
-      this.$router.push({path:'/success',query: {type: 2, id: content.id,info: content.info}})
       this.loading = false
+      this.$router.push({path:'/success',query: {type: 2, id: content.id,info: content.info}})
+
     },
     verify() {
       if(!this.form.userName) {

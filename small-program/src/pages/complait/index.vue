@@ -51,7 +51,7 @@
             </VueUploadComponent>
             <span class="load-file" v-if="files.length > 0">
                 {{file.name}}<img @click.prevent="remove(files[0])" style="width: 20px;height: 20px; margin-left: 8px;" src="../../assets/img/icon-close.png"/>
-              <mt-progress style="width: 100%;" v-if="!(file.response&&file.response.id)" :value="+progress">
+              <mt-progress style="width: 100%;" v-if="!(file.response&&file.response.content)" :value="+progress">
               </mt-progress>
             </span>
           <!-- 请上传申请书 -->
@@ -105,7 +105,7 @@ export default {
         captcha: '',
         captchaId: '',
         phoneNum: '',
-        id: '',
+        appealDocumentId: '',
         type: 2
       },
       error: '',
@@ -183,7 +183,7 @@ export default {
         this.error = '请填写身份证号'
         return false
       }
-      if(!this.form.id) {
+      if(!this.form.appealDocumentId) {
         this.error = '请上传申述书'
         return false
       }
@@ -213,7 +213,6 @@ export default {
       this.$refs.upload.active = true
       this.file = newFile
       if (newFile.progress) {
-        console.log('progress', newFile.progress, newFile)
         this.progress=newFile.progress
       }
       if (newFile.error) {
@@ -227,7 +226,7 @@ export default {
 
       if (newFile.success) {
         console.log('success', newFile.success, newFile)
-        this.form.id = this.file.response.id
+        this.form.appealDocumentId = this.file.response.content
       }
       if (newFile.response.message) {
         Toast({
@@ -240,7 +239,7 @@ export default {
 
     },
     remove(file) {
-      this.form.id = ''
+      this.form.appealDocumentId = ''
       this.$refs.upload.remove(file)
       this.progress = '0'
     }

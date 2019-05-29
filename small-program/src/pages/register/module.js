@@ -30,17 +30,24 @@ export default {
       commit({
         type: 'showLoading'
       })
-      const { data } = await registerSubmit(payload)
-      commit({
-        type: 'updateData',
-        data
-      })
-      commit({
-        type: 'hideLoading'
-      })
-      setTimeout(() => {
-        router.push({path:'/success',query: {type: 1,info: data.content.info}})
-      }, 500)
+      try {
+        const { data } = await registerSubmit(payload)
+        commit({
+          type: 'updateData',
+          data
+        })
+
+        setTimeout(() => {
+          router.push({path:'/success',query: {type: 1,info: data.content.info}})
+        }, 500)
+      } catch (err) {
+        console.log(err)
+      } finally {
+        commit({
+          type: 'hideLoading'
+        })
+      }
+
     }
   }
 }

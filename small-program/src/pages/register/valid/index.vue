@@ -76,7 +76,7 @@ export default {
         })
         return
       }
-      this.submitForm({...this.formData, captcha: this.form.captcha})
+      this.submitForm({...this.formData, ...this.form})
 
     },
     change(){

@@ -130,7 +130,7 @@ export default {
         gender: '',
         phoneNum: '',
         contactInformation: '',
-        type: 1
+        type: 2
       },
       error: '',
       candidateTypeList
