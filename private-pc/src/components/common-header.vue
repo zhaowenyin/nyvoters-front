@@ -13,7 +13,7 @@
       width="350"
       trigger="click">
         <ul class="news">
-          <CommonNew :news="news"/>
+          <CommonNew :news="list"/>
           <li class="news-center" @click="jupNews">通知中心</li>
         </ul>
       <el-badge :value="news.length" slot="reference" class="item">
@@ -46,7 +46,15 @@ export default {
     ...mapState('commonData', {
       userInfo: state => state.userInfo,
       news:state => state.news
-    })
+    }),
+    list () {
+      let arr = this.news.filter((i,index)=>{
+        console.log(([0,1,3].indexOf(index)>-1))
+        return !([0,1,3].indexOf(index)>-1)
+      })
+      console.log(arr)
+      return arr
+    }
   },
   components: {
     CommonNew
