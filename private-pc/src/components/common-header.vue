@@ -55,9 +55,9 @@ export default {
     clearInterval(this.timeout)
     this.getUserInfo()
     this.currentTime = this.formatDateTimeZn(Date.now())
-    // this.timeout = setInterval(() => {
-    //   this.getNews({isRead: null})
-    // }, 10000)
+    this.timeout = setInterval(() => {
+      this.getNews({isRead: null})
+    }, 10000)
     this.timer = setInterval(() => {
       this.currentTime = this.formatDateTimeZn(Date.now())
     }, 1000)
