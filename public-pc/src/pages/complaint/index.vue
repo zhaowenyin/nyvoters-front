@@ -150,7 +150,7 @@ export default {
   computed: {
     allUrl () {
       let param = {
-        module: 6,
+        module: 4,
         fileName:'公民申诉书'
       }
       let paramStr = ''
