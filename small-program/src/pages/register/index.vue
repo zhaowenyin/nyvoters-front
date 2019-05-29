@@ -206,7 +206,7 @@ export default {
         this.error = '请填写现居住地'
         return false
       }
-      if(!this.form.candidateType || +this.form.candidateType===0) {
+      if(!this.form.candidateType === '') {
         this.error = '请选择参选地类型'
         return false
       }
