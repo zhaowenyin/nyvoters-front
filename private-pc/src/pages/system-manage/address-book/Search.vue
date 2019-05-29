@@ -15,6 +15,7 @@
           style="width: 100px;"
           placeholder="请输入">
           <el-option label="姓名" :value="1"></el-option>
+          <el-option label="姓名" :value="2"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -25,6 +26,15 @@
           size="medium"
           placeholder="请输入关键字"
           v-model.trim="searchForm.name" />
+      </el-form-item>
+      <el-form-item
+        v-if="type === 2"
+        prop="name">
+        <el-input
+          class="item"
+          size="medium"
+          placeholder="请输入关键字"
+          v-model.trim="searchForm.phoneNum" />
       </el-form-item>
        <el-form-item>
         <el-button
@@ -44,8 +54,14 @@ export default {
     return {
       type: 1,
       searchForm: {
-        name: ''
+        name: '',
+        phoneNum: ''
       },
+      typeList: {
+        1: '选委会管理员',
+        2: '选区管理员',
+        3: '工作人员'
+      }
     }
   },
   computed: {
@@ -53,6 +69,15 @@ export default {
   },
   components: {
 
+  },
+  watch: {
+    type () {
+      let value={
+        name: '',
+        phoneNum: ''
+      }
+      this.searchForm = {...value}
+    }
   },
   created () {
   },
