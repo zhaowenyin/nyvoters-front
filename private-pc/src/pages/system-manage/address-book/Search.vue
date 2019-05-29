@@ -15,7 +15,7 @@
           style="width: 100px;"
           placeholder="请输入">
           <el-option label="姓名" :value="1"></el-option>
-          <el-option label="姓名" :value="2"></el-option>
+          <el-option label="电话号" :value="2"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
