@@ -49,10 +49,8 @@ export default {
     }),
     list () {
       let arr = this.news.filter((i,index)=>{
-        console.log(([0,1,3].indexOf(index)>-1))
         return !([0,1,3].indexOf(index)>-1)
       })
-      console.log(arr)
       return arr
     }
   },
