@@ -81,6 +81,7 @@ export default {
   .view-content {
     background: #f8f8f8;
     height: 100%;
+    overflow: auto;
     flex: 1;
     display: flex;
     flex-direction: column;
