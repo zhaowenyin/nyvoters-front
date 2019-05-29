@@ -167,7 +167,6 @@ export default {
   },
   created () {
     this.searchCode()
-    this.getId()
   },
 
   methods: {
