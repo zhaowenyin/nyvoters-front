@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import {complaitSubmit,getCode,getId} from './service.js'
+import {complaitSubmit,getCode} from './service.js'
 import output from '../../utils/output.js'
 import { baseURL } from '../../utils/api.js'
 
@@ -172,18 +172,17 @@ export default {
 
   methods: {
     submitForm () {
-      console.log(this.userLogin)
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
-          this.loading = true
-          complaitSubmit(this.userLogin)
-            .then((data) => {
-              let content = data.content
-              this.$router.push({path:'/complaint-success',query: {type: 3,info: content.info}})
-            })
-          this.loading = false
+          this.submitSearch()
         }
       })
+    },
+    async submitSearch() {
+      this.loading = true
+      const {data} = await complaitSubmit(this.userLogin)
+      this.$router.push({path:'/register-success',query: {type: 3,info: data.content.info}})
+      this.loading = false
     },
     change () {
       this.searchCode()
@@ -196,8 +195,6 @@ export default {
     },
     beforeAvatarUpload (file) {
       console.log(file)
-      this.name = file.name
-      console.log(file.name)
 
       // const isXlsx = file.type ===
       //   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
@@ -207,7 +204,6 @@ export default {
       // return isXlsx
     },
     successFn (response) {
-      console.log(response)
       this.userLogin.appealDocumentId = response.content
     },
     errorFn (err) {
@@ -226,11 +222,6 @@ export default {
       const {data} = await getCode()
       this.captchaImg = 'data:imagepng;base64,'+data.content.captcha
       this.userLogin.captchaId = data.content.captchaId
-    },
-    async getId() {
-      const {data} = await getId()
-      console.log(data)
-
     }
   }
 }
