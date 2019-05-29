@@ -67,7 +67,7 @@
         <el-menu-item v-if="power.indexOf('24')>-1" class="item" index="/basic">基础设置</el-menu-item>
         <el-menu-item v-if="power.indexOf('25')>-1" class="item" index="/file">文件资料管理</el-menu-item>
         <el-menu-item v-if="power.indexOf('26')>-1" class="item" index="/operate">操作日志</el-menu-item>
-        <el-menu-item v-if="power.indexOf('27')>-1" class="item" index="/authorization-config">人员配置</el-menu-item>
+        <el-menu-item v-if="power.indexOf('27')>-1" class="item" index="/authorization-config">人员权限配置</el-menu-item>
         <el-menu-item v-if="power.indexOf('28')>-1" class="item" index="/address-book">通讯录</el-menu-item>
       </el-submenu>
       <el-menu-item v-if="power.indexOf('29')>-1" class="item" index="/news"> <i class="el-icon-bell icon"/>消息中心</el-menu-item>
