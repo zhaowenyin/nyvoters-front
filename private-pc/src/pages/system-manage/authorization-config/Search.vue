@@ -86,7 +86,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('districtAccount', [
+    ...mapActions('authority', [
       'getListData',
     ]),
     // 搜索

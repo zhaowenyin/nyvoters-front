@@ -77,7 +77,7 @@ export default {
   created () {
   },
   methods: {
-    ...mapActions('districtAccount', [
+    ...mapActions('addressBook', [
       'getListData',
     ]),
     // 搜索
