@@ -56,11 +56,6 @@ export default {
       searchForm: {
         name: '',
         phoneNum: ''
-      },
-      typeList: {
-        1: '选委会管理员',
-        2: '选区管理员',
-        3: '工作人员'
       }
     }
   },
