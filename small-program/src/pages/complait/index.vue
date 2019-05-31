@@ -7,6 +7,7 @@
       <span>申诉人</span>
     </div>
     <input
+      @blur="blur"
       v-model="form.userName"
       placeholder="请填写申诉人"
       class="input"/>
@@ -17,6 +18,7 @@
         <span>身份证号码</span>
       </div>
       <input
+        @blur="blur"
         :maxlength="18"
         v-model="form.idNum"
         placeholder="请填写身份证号码"
@@ -28,6 +30,7 @@
         <span>联系电话</span>
       </div>
       <input
+        @blur="blur"
         v-model="form.phoneNum"
         :maxlength="11"
         placeholder="请填写联系电话"
@@ -78,6 +81,7 @@
         <span>验证码</span>
       </div>
       <input
+        @blur="blur"
         v-model="form.captcha"
         placeholder="请输入验证码"
         class="input"/>
@@ -96,6 +100,7 @@ import output from '../../utils/output.js'
 import {complaitSubmit,getCode} from './service.js'
 import VueUploadComponent from 'vue-upload-component'
 import { baseURL } from '../../utils/api.js'
+import {resolveBug} from '../../utils/format'
 export default {
   data () {
     return {
@@ -113,7 +118,8 @@ export default {
       files: [],
       progress: '0',
       file: {},
-      baseURL
+      baseURL,
+      timer: null
     }
   },
   components: {
@@ -144,6 +150,9 @@ export default {
     loading (val) {
       val ? Indicator.open() : Indicator.close()
     }
+  },
+  destroyed() {
+    clearTimeout(this.timer)
   },
   methods: {
     cancel () {
@@ -242,7 +251,13 @@ export default {
       this.form.appealDocumentId = ''
       this.$refs.upload.remove(file)
       this.progress = '0'
-    }
+    },
+    blur () {
+      clearTimeout(this.timer)
+      this.timer=setTimeout(function(){
+        resolveBug()
+      },10)
+    },
   }
 }
 </script>

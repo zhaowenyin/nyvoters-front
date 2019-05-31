@@ -7,6 +7,7 @@
         <span>姓名</span>
       </div>
       <input
+        @blur="blur"
         v-model="form.userName"
         placeholder="请填写姓名"
         class="input"/>
@@ -17,6 +18,7 @@
         <span>身份证号码</span>
       </div>
       <input
+        @blur="blur"
         v-model="form.idNum"
         placeholder="请填写身份证号码"
         class="input"/>
@@ -50,6 +52,7 @@
 import { getCode } from './service.js'
 import { Toast,Indicator } from 'mint-ui'
 import {searchSubmit} from './service.js'
+import {resolveBug} from '../../utils/format'
 export default {
   data () {
     return {
@@ -61,7 +64,8 @@ export default {
       },
       error: '',
       loading: false,
-      captchaImg: ''
+      captchaImg: '',
+      timer: null
     }
   },
   components: {
@@ -74,6 +78,9 @@ export default {
   },
   created () {
     this.searchCode()
+  },
+  destroyed() {
+    clearTimeout(this.timer)
   },
   methods: {
     cancel () {
@@ -121,7 +128,13 @@ export default {
       const {data} = await getCode()
       this.captchaImg = 'data:imagepng;base64,' + data.content.captcha
       this.form.captchaId = data.content.captchaId
-    }
+    },
+    blur () {
+      clearTimeout(this.timer)
+      this.timer=setTimeout(function(){
+        resolveBug()
+      },10)
+    },
 
   }
 }

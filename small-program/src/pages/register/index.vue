@@ -7,6 +7,7 @@
         <span>姓名</span>
       </div>
       <input
+        @blur="blur"
         v-model="form.userName"
         placeholder="请填写姓名"
         class="input"/>
@@ -17,6 +18,7 @@
         <span>身份证号码</span>
       </div>
       <input
+        @blur="blur"
         :maxlength="18"
         v-model="form.idNum"
         placeholder="请填写身份证号码"
@@ -77,6 +79,7 @@
         <span>户籍地</span>
       </div>
       <input
+        @blur="blur"
         v-model="form.householdRegistration"
         placeholder="请填写户籍地"
         class="input"/>
@@ -117,6 +120,7 @@ import { Toast } from 'mint-ui'
 import Select from '../../components/Select'
 import { mapState, mapMutations, mapActions } from 'vuex'
 import {candidateTypeList} from '../../common-data/confiig.js'
+import {resolveBug} from '../../utils/format'
 export default {
   data () {
     return {
@@ -133,7 +137,8 @@ export default {
         type: 2
       },
       error: '',
-      candidateTypeList
+      candidateTypeList,
+      timer: null
     }
   },
   components: {
@@ -149,6 +154,9 @@ export default {
   },
   created () {
     this.searchnation()
+  },
+  destroyed() {
+    clearTimeout(this.timer)
   },
   methods: {
     ...mapMutations('register', [
@@ -211,7 +219,13 @@ export default {
         return false
       }
       return true
-    }
+    },
+    blur () {
+      clearTimeout(this.timer)
+      this.timer=setTimeout(function(){
+        resolveBug()
+      },10)
+    },
   }
 }
 </script>
