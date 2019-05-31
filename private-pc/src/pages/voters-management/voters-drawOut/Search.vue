@@ -13,13 +13,13 @@
         <el-select
           v-model="type"
           size="medium"
-          style="width: 108px;"
+          style="width: 120px;"
           placeholder="请选择">
           <el-option label="姓名" :value="1"></el-option>
           <el-option label="身份证号码" :value="2"></el-option>
           <el-option label="手机号" :value="3"></el-option>
           <el-option label="参选地类型" :value="4"></el-option>
-           <el-option label="类型" :value="5"></el-option>
+           <el-option label="选民状态" :value="5"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -54,7 +54,7 @@
         prop="date">
         <el-select  size="medium" v-model.trim="searchForm.candidateType">
           <el-option
-            v-for="(item, key) in typeList"
+            v-for="(item, key) in candidateTypeList"
             :key="key"
             :label="item"
             :value="key">
@@ -64,9 +64,9 @@
         <el-form-item
         v-if="type === 5"
         prop="date">
-        <el-select  size="medium" v-model.trim="searchForm.type">
+        <el-select  size="medium" v-model.trim="searchForm.status">
           <el-option
-            v-for="(item, key) in candidateTypeList"
+            v-for="(item, key) in statusList"
             :key="key"
             :label="item"
             :value="key">
@@ -86,7 +86,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { drawOut} from './service.js'
-import {typeList, candidateTypeList} from '../../../common-data/config.js'
+import {typeList, candidateTypeList,statusList} from '../../../common-data/config.js'
 
 export default {
   data () {
@@ -103,7 +103,8 @@ export default {
       candidateTypeList,
       createDialogVisible: false,
 
-      id: ''
+      id: '',
+      statusList
     }
   },
   computed: {

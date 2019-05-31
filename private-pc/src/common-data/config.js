@@ -78,7 +78,7 @@ export const educationList = {
   '3': '中专及高中',
   '4': '中专及以下',
 }
-export const status = {
+export const statusList = {
   0: '待对比',
   1: '待资格审查',
   2: '不能行使选举权',

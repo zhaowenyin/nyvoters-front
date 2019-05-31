@@ -14,7 +14,7 @@
         <el-select
           v-model="type"
           size="medium"
-          style="width: 108px;"
+          style="width: 120px;"
           placeholder="请选择">
           <el-option label="姓名" :value="1"></el-option>
           <el-option label="身份证号码" :value="2"></el-option>
@@ -55,7 +55,8 @@
         <el-date-picker
           v-model="searchForm.date"
           size="medium"
-          type="datetimerange"
+          type="daterange"
+          :default-time="['00:00:00', '23:59:59']"
           range-separator="至"
           start-placeholder="开始日期"
           end-placeholder="结束日期" />
@@ -126,11 +127,11 @@ export default {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           params.pageNum = 1
           if (params.date && params.date.length > 0) {
-            params.startTime = new Date(params.date[0]).getTime()
-            params.endTime = new Date(params.date[1]).getTime()
+            params.registrationTimeStart = new Date(params.date[0]).getTime()
+            params.registrationTimeEnd = new Date(params.date[1]).getTime()
           } else {
-            params.startTime = ''
-            params.endTime = ''
+            params.registrationTimeStart = ''
+            params.registrationTimeEnd = ''
           }
           delete params.date
           this.getListData(params)

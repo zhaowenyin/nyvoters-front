@@ -36,10 +36,11 @@
          <el-date-picker
           v-model="searchForm.applyTime"
           size="medium"
-          type="datetimerange"
+          type="daterange"
+          :default-time="['00:00:00', '23:59:59']"
           range-separator="至"
           start-placeholder="开始日期"
-          end-placeholder="结束日期" />
+          end-placeholder="结束日期"  />
       </el-form-item>
         <el-form-item
         v-if="type === 3"
@@ -56,10 +57,11 @@
         <el-date-picker
           v-model="searchForm.auditTime"
           size="medium"
-          type="datetimerange"
+          type="daterange"
+          :default-time="['00:00:00', '23:59:59']"
           range-separator="至"
           start-placeholder="开始日期"
-          end-placeholder="结束日期" />
+          end-placeholder="结束日期"  />
       </el-form-item>
       <el-form-item>
         <el-button
@@ -125,7 +127,7 @@ export default {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           params.pageNum = 1
-          if (params.applyTime && params.daapplyTimete.length > 0) {
+          if (params.applyTime && params.applyTime.length > 0) {
             params.applyTimeStart = new Date(params.applyTime[0]).getTime()
             params.applyTimeEnd = new Date(params.applyTime[1]).getTime()
           } else {

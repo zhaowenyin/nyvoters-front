@@ -118,7 +118,7 @@ export default {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           params.pageNum = 1
-          this.getListData(params)
+          this.getListData({...params,type: +params.type})
         }
       })
     },

@@ -70,7 +70,7 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import {registrationTypeList, typeList,status} from '../../common-data/config.js'
+import {registrationTypeList, typeList,statusList} from '../../common-data/config.js'
 
 export default {
   data () {
@@ -86,7 +86,7 @@ export default {
       item: {},
       registrationTypeList,
       typeList,
-      status
+      statusList
     }
   },
   computed: {

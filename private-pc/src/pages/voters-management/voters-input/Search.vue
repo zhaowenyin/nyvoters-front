@@ -14,7 +14,7 @@
         <el-select
           v-model="type"
           size="medium"
-          style="width: 108px;"
+          style="width: 120px;"
           placeholder="请选择">
           <el-option label="姓名" :value="1"></el-option>
           <el-option label="身份证号码" :value="2"></el-option>
@@ -55,7 +55,7 @@
         prop="date">
         <el-select  size="medium" v-model.trim="searchForm.candidateType">
           <el-option
-            v-for="(item, key) in typeList"
+            v-for="(item, key) in candidateTypeList"
             :key="key"
             :label="item"
             :value="key">
@@ -67,7 +67,7 @@
         prop="date">
         <el-select  size="medium" v-model.trim="searchForm.type">
           <el-option
-            v-for="(item, key) in candidateTypeList"
+            v-for="(item, key) in typeList"
             :key="key"
             :label="item"
             :value="key">
@@ -104,7 +104,7 @@ export default {
         idNum: '',
         phoneNum: '',
         candidateType: '',
-        status: ''
+        type: ''
       },
       createDialogVisible: false,
       typeList,
@@ -127,7 +127,7 @@ export default {
         idNum: '',
         phoneNum: '',
         candidateType: '',
-        status: ''
+        type: ''
       }
       this.searchForm = {...value}
     }
@@ -144,7 +144,7 @@ export default {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           params.pageNum = 1
-          this.getListData(params)
+          this.getListData({...params,type: +params.type})
         }
       })
     },
