@@ -40,15 +40,15 @@
         </el-select>
       </el-form-item>
        <el-form-item
-       label="类型"
+       label="状态"
         prop="type">
         <el-select
         size="medium"
-        placeholder="请选择类型"
+        placeholder="请选择状态"
         style="width: 200px;"
-        v-model.trim="searchForm.type">
+        v-model.trim="searchForm.status">
           <el-option
-            v-for="(item, key) in typeList"
+            v-for="(item, key) in status"
             :key="key"
             :label="item"
             :value="key">
@@ -70,7 +70,7 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import {registrationTypeList, typeList} from '../../common-data/config.js'
+import {registrationTypeList, typeList,status} from '../../common-data/config.js'
 
 export default {
   data () {
@@ -80,12 +80,13 @@ export default {
         name: '',
         idNum: '',
         registrationType: '',
-        type: ''
+        status: null
       },
       createDialogVisible: false,
       item: {},
       registrationTypeList,
-      typeList
+      typeList,
+      status
     }
   },
   computed: {
