@@ -225,7 +225,7 @@ export default {
       this.timer=setTimeout(function(){
         resolveBug()
       },10)
-    },
+    }
   }
 }
 </script>

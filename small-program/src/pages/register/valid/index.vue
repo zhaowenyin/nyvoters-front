@@ -13,6 +13,7 @@
       <span>验证码</span>
     </div>
     <input
+      @blur="blur"
       v-model="form.captcha"
       placeholder="请输入验证码"
       class="input"/>
@@ -28,6 +29,7 @@
 import { getCode } from '../service.js'
 import { Toast,Indicator } from 'mint-ui'
 import { mapState, mapMutations, mapActions } from 'vuex'
+import {resolveBug} from '../../../utils/format'
 export default {
   data () {
     return {
@@ -37,7 +39,8 @@ export default {
         type: 2
       },
       error: '',
-      captchaImg: ''
+      captchaImg: '',
+      timer: null
     }
   },
   components: {
@@ -50,6 +53,9 @@ export default {
   },
   created () {
     this.searchCode()
+  },
+  destroyed() {
+    clearTimeout(this.timer)
   },
   computed: {
     ...mapState('register', {
@@ -89,7 +95,13 @@ export default {
       const {data} = await getCode()
       this.captchaImg = 'data:imagepng;base64,'+ data.content.captcha
       this.form.captchaId = data.content.captchaId
-    }
+    },
+    blur () {
+      clearTimeout(this.timer)
+      this.timer=setTimeout(function(){
+        resolveBug()
+      },10)
+    },
   }
 }
 </script>
