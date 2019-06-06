@@ -173,7 +173,16 @@ export default {
       try {
         this.loading = true
         const {data} = await complaitSubmit(this.form)
-        this.$router.push({path:'/success',query: {type: 3,info: data.content.info}})
+        if(data.content) {
+          this.$router.push({path:'/success',query: {type: 3,info: data.content.info}})
+        } else {
+          Toast({
+            message: data.message,
+            position: 'top',
+            duration: 3000
+          })
+          this.searchCode()
+        }
       } catch (e) {
         console.log(e)
         this.searchCode()

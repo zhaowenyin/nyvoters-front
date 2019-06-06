@@ -9,8 +9,6 @@ export async function searchSubmit (payload) {
   //   }, 500)
   // })
   return api.post(`/online/query`, payload)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
 }
 export async function getCode () {
   // return new Promise((resolve) => {

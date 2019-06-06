@@ -108,8 +108,18 @@ export default {
         const {data} = await searchSubmit(this.form)
         let content = data.content
         this.loading = false
-        this.$router.push({path:'/success',query: {type: 2, id: content.fileId,info: content.info}})
+        if(data.content) {
+          this.$router.push({path:'/success',query: {type: 2, id: content.fileId,info: content.info}})
+        } else {
+          Toast({
+            message: data.message,
+            position: 'top',
+            duration: 3000
+          })
+          this.searchCode()
+        }
       } catch (error) {
+        console.log(error)
         this.searchCode()
       }finally{
         this.loading = false

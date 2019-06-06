@@ -95,14 +95,20 @@ export default {
           this.loading =  true
           searchSubmit(this.userLogin)
             .then(({data}) => {
-              if(data) {
+              if(data.content) {
                 this.$router.push({path:'/search-success',query: {type: 2,info: data.content.info,id:data.content.fileId}})
+              } else {
+                this.$notify({
+                  title: '',
+                  message: data.message,
+                  type: 'error'
+                })
+                this.searchCode()
               }
               this.loading =  false
-
-            }).catch(()=>{
+            }).catch(()=> {
+              console.log(888)
               this.searchCode()
-              this.loading =  false
             })
         }
       })

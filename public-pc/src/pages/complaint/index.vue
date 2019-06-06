@@ -181,17 +181,22 @@ export default {
       try {
         this.loading = true
         const {data} = await complaitSubmit(this.userLogin)
-        this.$router.push({path:'/register-success',query: {type: 3,info: data.content.info}})
+        if(data.content) {
+          this.$router.push({path:'/register-success',query: {type: 3,info: data.content.info}})
+        } else {
+          this.searchCode()
+          this.$notify({
+            title: '',
+            message: data.message,
+            type: 'error'
+          })
+        }
       } catch (e) {
         console.log(e)
         this.searchCode()
       }finally{
         this.loading = false
       }
-      this.loading = true
-      const {data} = await complaitSubmit(this.userLogin)
-      this.$router.push({path:'/register-success',query: {type: 3,info: data.content.info}})
-      this.loading = false
     },
     change () {
       this.searchCode()

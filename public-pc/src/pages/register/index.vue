@@ -236,12 +236,19 @@ export default {
           registerSubmit(this.form)
             .then(({data}) => {
               const content = data
-              if(data) {
+              if(data.content) {
                 this.$router.push({path:'/register-success',query: {type: 1, info: content.info}})
+              }else {
+                this.$notify({
+                  title: '',
+                  message: data.message,
+                  type: 'error'
+                })
+                this.searchCode()
               }
-              this.loading = false
-
-            }).catch(()=>{
+              this.loading =  false
+            }).catch(()=> {
+              console.log(888)
               this.searchCode()
               this.loading =  false
             })

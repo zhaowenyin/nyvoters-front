@@ -1,5 +1,6 @@
 import { registerSubmit,getCode } from './service'
 import router from '../../router'
+import { Toast } from 'mint-ui'
 
 export default {
   namespaced: true,
@@ -45,9 +46,19 @@ export default {
           type: 'updateData',
           data
         })
-        setTimeout(() => {
-          router.push({path:'/success',query: {type: 1,info: data.content.info}})
-        }, 500)
+        if(data.content) {
+          setTimeout(() => {
+            router.push({path:'/success',query: {type: 1,info: data.content.info}})
+          }, 500)
+        } else {
+          Toast({
+            message: data.message,
+            position: 'top',
+            duration: 3000
+          })
+          dispatch('searchCode')
+        }
+
       } catch (err) {
         console.log(err)
         dispatch('searchCode')
