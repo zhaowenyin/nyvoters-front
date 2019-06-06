@@ -241,6 +241,9 @@ export default {
               }
               this.loading = false
 
+            }).catch(()=>{
+              this.searchCode()
+              this.loading =  false
             })
         }
       })

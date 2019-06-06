@@ -170,10 +170,16 @@ export default {
       this.submitSearch()
     },
     async submitSearch() {
-      this.loading = true
-      const {data} = await complaitSubmit(this.form)
-      this.$router.push({path:'/success',query: {type: 3,info: data.content.info}})
-      this.loading = false
+      try {
+        this.loading = true
+        const {data} = await complaitSubmit(this.form)
+        this.$router.push({path:'/success',query: {type: 3,info: data.content.info}})
+      } catch (e) {
+        console.log(e)
+        this.searchCode()
+      }finally{
+        this.loading = false
+      }
     },
     change () {
       this.searchCode()

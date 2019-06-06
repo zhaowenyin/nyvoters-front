@@ -178,6 +178,16 @@ export default {
       })
     },
     async submitSearch() {
+      try {
+        this.loading = true
+        const {data} = await complaitSubmit(this.userLogin)
+        this.$router.push({path:'/register-success',query: {type: 3,info: data.content.info}})
+      } catch (e) {
+        console.log(e)
+        this.searchCode()
+      }finally{
+        this.loading = false
+      }
       this.loading = true
       const {data} = await complaitSubmit(this.userLogin)
       this.$router.push({path:'/register-success',query: {type: 3,info: data.content.info}})

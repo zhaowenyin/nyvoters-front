@@ -97,6 +97,8 @@ export default {
               param = {...param,...data.content}
               setSession(param)
               this.$router.push({ path: '/' })
+            }).catch(()=>{
+              this.getCode()
             })
         }
       })

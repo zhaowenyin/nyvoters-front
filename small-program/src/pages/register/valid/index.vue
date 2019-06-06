@@ -26,7 +26,6 @@
 
 </template>
 <script>
-import { getCode } from '../service.js'
 import { Toast,Indicator } from 'mint-ui'
 import { mapState, mapMutations, mapActions } from 'vuex'
 import {resolveBug} from '../../../utils/format'
@@ -39,7 +38,6 @@ export default {
         type: 2
       },
       error: '',
-      captchaImg: '',
       timer: null
     }
   },
@@ -49,6 +47,9 @@ export default {
   watch: {
     loading (val) {
       val ? Indicator.open() : Indicator.close()
+    },
+    captchaId (val) {
+      this.form.captchaId = val
     }
   },
   created () {
@@ -60,7 +61,9 @@ export default {
   computed: {
     ...mapState('register', {
       formData: state => state.formData,
-      loading: state => state.loading
+      loading: state => state.loading,
+      captchaImg: state => state.captchaImg,
+      captchaId: state => state.captchaId
     })
   },
   methods: {
@@ -90,11 +93,6 @@ export default {
     },
     verify() {
       return true
-    },
-    async searchCode () {
-      const {data} = await getCode()
-      this.captchaImg = 'data:imagepng;base64,'+ data.content.captcha
-      this.form.captchaId = data.content.captchaId
     },
     blur () {
       clearTimeout(this.timer)

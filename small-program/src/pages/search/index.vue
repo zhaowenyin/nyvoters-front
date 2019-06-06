@@ -103,12 +103,17 @@ export default {
       this.searchCode()
     },
     async submitSearch() {
-      this.loading = true
-      const {data} = await searchSubmit(this.form)
-      let content = data.content
-      this.loading = false
-      this.$router.push({path:'/success',query: {type: 2, id: content.id,info: content.info}})
-
+      try {
+        this.loading = true
+        const {data} = await searchSubmit(this.form)
+        let content = data.content
+        this.loading = false
+        this.$router.push({path:'/success',query: {type: 2, id: content.fileId,info: content.info}})
+      } catch (error) {
+        this.searchCode()
+      }finally{
+        this.loading = false
+      }
     },
     verify() {
       if(!this.form.userName) {

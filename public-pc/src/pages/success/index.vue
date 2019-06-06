@@ -32,9 +32,9 @@ export default {
     this.type=+this.$route.query.type
   },
   methods:{
-    async download (item) {
+    async download () {
       try {
-        output({url: '/doc/download', param: {id: item, module: 4}})
+        output({url: '/doc/download', param: {id: this.$route.query.id, module: 4,fileName: '选民证'}})
       } catch (err) {
         console.log(err)
       }
