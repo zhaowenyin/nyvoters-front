@@ -33,18 +33,20 @@ import { mapState, mapActions } from 'vuex'
 import { formatDateTimeZn,formatDate } from '../utils/format.js'
 // import{logout} from '../pages/login/service.js'
 import CommonNew from './CommonNew'
+import { getSession } from '../utils/session'
 
 export default {
   data () {
+    const userInfo = getSession()
     return {
       currentTime: null,
       timer: null,
-      timeout: null
+      timeout: null,
+      userInfo
     }
   },
   computed: {
     ...mapState('commonData', {
-      userInfo: state => state.userInfo,
       news:state => state.news
     }),
     list () {

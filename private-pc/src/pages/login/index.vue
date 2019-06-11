@@ -98,6 +98,7 @@ export default {
               setSession(param)
               this.$router.push({ path: '/' })
             }).catch(()=>{
+              console.log(888)
               this.getCode()
             })
         }

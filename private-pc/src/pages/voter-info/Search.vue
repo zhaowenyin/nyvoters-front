@@ -48,7 +48,7 @@
         style="width: 200px;"
         v-model.trim="searchForm.status">
           <el-option
-            v-for="(item, key) in status"
+            v-for="(item, key) in statusList"
             :key="key"
             :label="item"
             :value="key">
