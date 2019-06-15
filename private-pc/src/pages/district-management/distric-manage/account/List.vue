@@ -16,15 +16,30 @@
         label="登录账号"
         prop="account" />
       <el-table-column
-        label="手机号码"
+        label="角色"
         prop="gender">
         <template slot-scope="scope">
-          {{scope.row.phoneNum}}
+          {{handerRole(scope.row.accountRole)}}
         </template>
       </el-table-column>
       <el-table-column
-        label="排序码"
-        prop="sort" />
+        label="账号类型"
+        prop="accountType">
+        <template slot-scope="scope">
+          {{handerType(scope.row.accountType)}}
+        </template>
+      </el-table-column>
+        <el-table-column
+        label="角色"
+        prop="gender">
+        <template slot-scope="scope">
+          {{handerRole(scope.row.accountRole)}}
+        </template>
+      </el-table-column>
+
+      <el-table-column
+        label="选区"
+        prop="precinctName" />
     </el-table>
     <div
       v-show="total"
@@ -91,7 +106,51 @@ export default {
     formatDate,
     handleSelectionChange(val) {
       this.saveSelection(val)
+    },
+    handerRole(val){
+      let text = ""
+      switch(val) {
+      case 0:
+        text = '其他'
+        break
+      case 1:
+        text = ' 超级管理员'
+        break
+      case 2:
+        text = '市级选委会'
+        break
+      case 3:
+        text = '一般选委会'
+        break
+      case 4:
+        text = '选区管理员'
+        break
+      case 5:
+        text = '工作人员'
+        break
+      default:
+        text = ''
+      }
+      return text
+    },
+    handerType (val) {
+      let text = ""
+      switch(val) {
+      case 0:
+        text = '登记站'
+        break
+      case 1:
+        text = '单位'
+        break
+      case 2:
+        text = '学校'
+        break
+      default:
+        text = ''
+      }
+      return text
     }
+
   }
 }
 </script>
