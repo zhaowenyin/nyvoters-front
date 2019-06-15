@@ -169,6 +169,7 @@
             <el-select
               size="medium"
               class="item"
+              :disabled="true"
               v-model="form.registrationType"
               clearable placeholder="请选择登记方式">
               <el-option
@@ -197,6 +198,7 @@
             label="登记人"
             prop="registrar">
               <el-input
+                :disabled="true"
                 size="medium"
                 placeholder="请输入登记人"
                 :maxlength="18"
@@ -224,8 +226,10 @@
 import {setSubmit,modifySubmit} from './service.js'
 import {registrationTypeList, candidateTypeList} from '../../common-data/config.js'
 import { mapActions,mapState } from 'vuex'
+import {getSession} from '../../utils/session'
 export default {
   data () {
+    const session = getSession()
     return {
       loading: false,
       form: {
@@ -292,6 +296,7 @@ export default {
       },
       registrationTypeList,
       candidateTypeList,
+      session
     }
 
   },
@@ -318,6 +323,8 @@ export default {
     if(this.item.id) {
       this.form = {...this.form, ...this.item,registrationTime: this.item.registrationTime ? new Date(this.item.registrationTime) : ''}
     }
+    this.form.registrationType = this.session.accountType
+    this.form.registrar = this.session.name
     this.searchnation()
   },
   methods: {
