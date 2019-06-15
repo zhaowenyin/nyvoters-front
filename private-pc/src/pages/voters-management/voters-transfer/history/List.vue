@@ -117,7 +117,7 @@ export default {
     look (id) {
       console.log(id)
     },
-    handlegender() {
+    handlegender(module) {
       let text = ""
       switch(module) {
       case 0:

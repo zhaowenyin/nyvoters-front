@@ -101,7 +101,7 @@ export default {
     handleSelectionChange(val) {
       this.saveSelection(val)
     },
-    handlegender() {
+    handlegender(module) {
       let text = ""
       switch(module) {
       case 0:

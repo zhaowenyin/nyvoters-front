@@ -115,9 +115,9 @@ export default {
     handleSelectionChange(val) {
       this.saveSelection(val)
     },
-    handlegender() {
+    handlegender(val) {
       let text = ""
-      switch(module) {
+      switch(val) {
       case 0:
         text = '未设置'
         break
