@@ -4,7 +4,7 @@
     <el-dropdown style="margin-right: 10px;" @command="create">
         <el-button size="medium" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item command="3">选委会</el-dropdown-item>
+        <!-- <el-dropdown-item command="3">选委会</el-dropdown-item> -->
         <el-dropdown-item command="4">选区管理员</el-dropdown-item>
         <el-dropdown-item command="5">工作人员</el-dropdown-item>
       </el-dropdown-menu>
