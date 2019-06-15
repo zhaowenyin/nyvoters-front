@@ -78,7 +78,7 @@ export default {
       let params = {
         id: this.id,
         pass: false,
-        reason: this.selectItem
+        reason: +this.selectItem
       }
       await throughTabel(params)
       this.close()
