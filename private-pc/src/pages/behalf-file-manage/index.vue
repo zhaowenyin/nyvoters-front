@@ -112,7 +112,6 @@ export default {
         path:'/create-file',
         query: {type: item.doctype,fileSuffix: item.fileSuffix,title: item.fileName,id: item.id}
       })
-      console.log(item)
 
     },
     async download (item) {

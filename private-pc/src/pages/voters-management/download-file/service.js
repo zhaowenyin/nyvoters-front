@@ -1,70 +1,70 @@
 import api from '../../../utils/api'
 export async function getList (payload) {
-  console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-          "content": {
-            "data": [
-              {
-                id: 1,
-                type: 1,
-                status:'PRELIMINARY_CANDIDATE',
-                name: '选举委员会关于选民名单公告（1）'
-              },
-              {
-                id: 2,
-                type: 2,
-                status:'PRELIMINARY_CANDIDATE',
-                name: '选举委员会关于选民名单公告（2)'
-              },
-              {
-                id: 3,
-                type: 3,
-                status:'FORMAL_CANDIDATE',
-                name: '选举委员会关于选民名单补正公告（1）'
-              },
-              {
-                id: 4,
-                type: 4,
-                status:"FORMAL_CANDIDATE",
-                name: '选举委员会关于选民名单补正公告（2）'
-              },
-              {
-                id: 5,
-                type: 5,
-                status:"FORMAL_REPRESENTATIVE",
-                name: '选举委员会关于选举日及选举登记时间的公告'
-              },
-              {
-                id: 6,
-                type: 6,
-                status:"FORMAL_REPRESENTATIVE",
-                name: '选民证（1)'
-              },
-              {
-                id: 7,
-                type: 7,
-                status:"FORMAL_REPRESENTATIVE",
-                name: '选民证（2）'
-              },
-            ],
-            "endRow": 0,
-            "pageNum": 0,
-            "pageSize": 0,
-            "pages": 0,
-            "startRow": 0,
-            "total": 20
-          },
-          "errorCode": "string",
-          "errorMsg": "string",
-          "status": "string"
-        }
-      })
-    }, 500)
-  })
-  // return api.get('/disempower/list', { params: payload })
+  // console.log(payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //         "content": {
+  //           "data": [
+  //             {
+  //               id: 1,
+  //               type: 1,
+  //               status:'PRELIMINARY_CANDIDATE',
+  //               name: '选举委员会关于选民名单公告（1）'
+  //             },
+  //             {
+  //               id: 2,
+  //               type: 2,
+  //               status:'PRELIMINARY_CANDIDATE',
+  //               name: '选举委员会关于选民名单公告（2)'
+  //             },
+  //             {
+  //               id: 3,
+  //               type: 3,
+  //               status:'FORMAL_CANDIDATE',
+  //               name: '选举委员会关于选民名单补正公告（1）'
+  //             },
+  //             {
+  //               id: 4,
+  //               type: 4,
+  //               status:"FORMAL_CANDIDATE",
+  //               name: '选举委员会关于选民名单补正公告（2）'
+  //             },
+  //             {
+  //               id: 5,
+  //               type: 5,
+  //               status:"FORMAL_REPRESENTATIVE",
+  //               name: '选举委员会关于选举日及选举登记时间的公告'
+  //             },
+  //             {
+  //               id: 6,
+  //               type: 6,
+  //               status:"FORMAL_REPRESENTATIVE",
+  //               name: '选民证（1)'
+  //             },
+  //             {
+  //               id: 7,
+  //               type: 7,
+  //               status:"FORMAL_REPRESENTATIVE",
+  //               name: '选民证（2）'
+  //             },
+  //           ],
+  //           "endRow": 0,
+  //           "pageNum": 0,
+  //           "pageSize": 0,
+  //           "pages": 0,
+  //           "startRow": 0,
+  //           "total": 20
+  //         },
+  //         "errorCode": "string",
+  //         "errorMsg": "string",
+  //         "status": "string"
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.post('/doc/list', payload )
 }
 export async function getInfo (payload) {
   console.log(payload)

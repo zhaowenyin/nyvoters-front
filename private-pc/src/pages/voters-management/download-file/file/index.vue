@@ -2,13 +2,20 @@
   <div class="view">
     <div class="view-left">
       <CommonTree
+        :current-node-key="this.belongAreaId"
+        node-key="id"
         :expand-on-click-node="false"
         :data="data"
         @node-click="handleNodeClick" />
     </div>
     <div class="view-content">
       <Item
+      v-if="$route.query.fileSuffix==='docx'"
       :belongAreaId="belongAreaId"/>
+      <OtherFile
+      :belongAreaId="belongAreaId"
+      :id="$route.query.id"
+      v-else/>
     </div>
   </div>
 </template>
@@ -18,6 +25,7 @@ import CommonTree from '../../../../components/common-tree'
 import {getTree} from '../service'
 // import { mapMutations, mapActions, mapState } from 'vuex'
 import Item from './Item'
+import OtherFile from './OtherFile'
 export default {
   data () {
     return {
@@ -36,7 +44,8 @@ export default {
   },
   components: {
     CommonTree,
-    Item
+    Item,
+    OtherFile
   },
   created () {
     this.searchTree({type: 0, id: ''})

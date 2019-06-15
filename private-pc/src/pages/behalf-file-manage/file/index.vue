@@ -32,9 +32,6 @@ export default {
     }
   },
   computed: {
-    activeIndex () {
-      return this.$route.path
-    },
     ...mapState('commonData', {
       data: state => state.treeList,
       belongAreaId: state => state.belongAreaId
@@ -49,9 +46,6 @@ export default {
     this.searchTree({type: 0, id: ''})
   },
   methods: {
-    change (index) {
-      this.$router.push({ path: index })
-    },
     ...mapMutations('commonData', [
       'saveDistrictId',
     ]),
