@@ -13,6 +13,7 @@
       icon-class="tree-icon"
       :filter-node-method="filterNode"
       v-bind="[$attrs, $props]"
+      :render-content="renderContent"
       v-on="$listeners"
       ></el-tree>
   </div>
@@ -29,7 +30,8 @@ export default {
       default: () => {
         return {
           children: 'children',
-          label: 'name'
+          label: 'name',
+          disabled: 'leaf'
         }
       },
       type: Object,
@@ -77,10 +79,23 @@ export default {
     filterNode(value, data) {
       if (!value) return true;
       return data.name.indexOf(value) !== -1;
+    },
+    renderContent (h, { node }){
+      return (
+        <span>
+          {node.disabled&&<span class="disabel">{node.label}</span>}
+          {!node.disabled&&<span>{node.label}</span>}
+        </span>)
     }
   }
 }
 </script>
 <style scoped>
 
+</style>
+<style>
+  .disabel {
+    color: #d8d8d8;
+    cursor: not-allowed;
+  }
 </style>
