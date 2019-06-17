@@ -17,6 +17,7 @@
               label="选区编码"
               prop="code">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入选区编码"
                 class="item"
@@ -28,6 +29,7 @@
               label="选区名称"
               prop="name">
               <el-input
+               :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入选区名称"
                 class="item"
@@ -39,7 +41,7 @@
               label="选区类型"
               prop="">
               <el-input
-                :disabled="true"
+               :disabled="true"
                 size="medium"
                 class="item"
                 v-model="form.typeName" />
@@ -50,6 +52,7 @@
               label="对应行政区"
               prop="precinctId">
               <DistrictSelect
+                :disabled="isDisabled"
                 :multiple="false"
                 v-model="form.districtId"
                 :item='item'
@@ -62,6 +65,7 @@
               label="代表名额"
               prop="pnum">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入代表名额"
                 class="item"
@@ -73,6 +77,7 @@
               label="排序码"
               prop="sort	">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入排序码"
                 class="item"
@@ -141,6 +146,10 @@ export default {
     val: {
       default: null,
       type: Number
+    },
+    isDisabled: {
+      default: false,
+      type: Boolean
     }
   },
   components: {

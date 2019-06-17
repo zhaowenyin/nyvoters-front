@@ -3,6 +3,7 @@
     <el-table
       :data="list"
       class="add_table"
+      @row-dblclick="dblclick"
       @selection-change="handleSelectionChange"
       v-loading="loading">
       <el-table-column
@@ -109,8 +110,8 @@ export default {
     handleCurrentChange (val) {
       this.getListData({ pageNum: val })
     },
-    look (id) {
-      console.log(id)
+    dblclick(val){
+      this.$emit('lookDetail',{val,isDisabled: true})
     },
     formatDate,
     handleSelectionChange(val) {

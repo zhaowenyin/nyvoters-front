@@ -107,7 +107,6 @@ export default {
       this.createDialogVisible = true
     },
     modify () {
-      this.item = {id: 1}
       if(this.multipleSelection.length !== 1) {
         this.$notify({
           title: '',
@@ -117,7 +116,7 @@ export default {
         return
       }
       this.item = this.multipleSelection[0]
-      this.createDialogVisible = true
+      this.$emit('lookDetail',{val: this.item, isDisabled: false})
     },
     deleteI () {
       if(this.multipleSelection.length === 0) {

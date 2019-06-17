@@ -16,7 +16,11 @@
             <el-form-item
               label="推荐方式"
               prop="recommendType">
-              <el-radio-group @change="change" size="medium" v-model="form.recommendType">
+              <el-radio-group
+                @change="change"
+                :disabled="isDisabled"
+                size="medium"
+                v-model="form.recommendType">
                 <el-radio :label="'1'">团体推荐</el-radio>
                 <el-radio :label="'2'">选民联名推荐</el-radio>
               </el-radio-group>
@@ -27,8 +31,8 @@
               label="类型"
               prop="type">
               <el-radio-group size="medium" v-model="form.type">
-                <el-radio :label="'1'" :disabled="form.recommendType==='2'">区县代表</el-radio>
-                <el-radio :label="'2'" :disabled="form.recommendType==='2'">乡镇代表</el-radio>
+                <el-radio :label="'1'" :disabled="form.recommendType==='2'&&isDisabled">区县代表</el-radio>
+                <el-radio :label="'2'" :disabled="form.recommendType==='2'&&isDisabled">乡镇代表</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -38,6 +42,7 @@
               prop="belongAreaId">
               <DistrictSelect
                 :multiple="false"
+                :disabled="isDisabled"
                 v-model="form.belongAreaId"
                 :item='item'
                 :data="data"
@@ -49,6 +54,7 @@
               label="被推选人"
               prop="recommendedPersonId">
                <el-select
+               :disabled="isDisabled"
                 filterable
                 allow-create
                 size="medium"
@@ -69,6 +75,7 @@
           <el-col :span="12">
             <el-form-item
               label="身份证号码"
+              :disabled="isDisabled"
               prop="idNum">
               <el-input
                 size="medium"
@@ -83,6 +90,7 @@
               label="手机号码"
               prop="phoneNum">
               <el-input
+               :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入"
                 :maxlength="11"
@@ -95,6 +103,7 @@
                 label="出生日期"
                 prop="birthDay">
                 <el-date-picker
+                  :disabled="isDisabled"
                   style="width: 100%;"
                   v-model="form.birthDay"
                   type="date"
@@ -107,7 +116,7 @@
             <el-form-item
               label="性别："
               prop="gender">
-              <el-radio-group size="medium" v-model="form.gender">
+              <el-radio-group :disabled="isDisabled" size="medium" v-model="form.gender">
                 <el-radio :label="1">男</el-radio>
                 <el-radio :label="2">女</el-radio>
               </el-radio-group>
@@ -118,6 +127,7 @@
               label=" 民族："
               prop="nation">
               <el-select
+                :disabled="isDisabled"
                 size="medium"
                 style="width: 100%;"
                 class="item"
@@ -137,6 +147,7 @@
               label="学历"
               prop="education">
               <el-select
+                :disabled="isDisabled"
                 size="medium"
                 style="width: 100%;"
                 class="item"
@@ -156,6 +167,7 @@
               label="党派"
               prop="party">
               <el-select
+                :disabled="isDisabled"
                 size="medium"
                 style="width: 100%;"
                 class="item"
@@ -175,6 +187,7 @@
               label="职务"
               prop="education">
               <el-select
+                :disabled="isDisabled"
                 size="medium"
                 style="width: 100%;"
                 class="item"
@@ -194,6 +207,7 @@
               label="工作单位"
               prop="workUnit">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入"
                 class="item"
@@ -205,6 +219,7 @@
               label="职称"
               prop="jobTitle">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入"
                 class="item"
@@ -216,6 +231,7 @@
           label="推荐理由"
           prop="recommendReason">
           <el-input
+            :disabled="isDisabled"
             size="medium"
             placeholder="请输入"
             class="item"
@@ -226,6 +242,7 @@
           label="推荐单位"
           prop="recommendUnit">
           <el-input
+            :disabled="isDisabled"
             placeholder="请输入"
             class="item"
             v-model="form.recommendUnit" />
@@ -257,6 +274,7 @@
                 <el-form-item
                   prop="recommendPersonName">
                     <el-input
+                    :disabled="isDisabled"
                     v-if="!scope.row.recommendPersonName"
                     size="medium"
                     placeholder="请输入"
@@ -272,6 +290,7 @@
                 <el-form-item
                 prop="recommendPersonPhone">
                   <el-input
+                    :disabled="isDisabled"
                     v-if="!scope.row.recommendPersonPhone"
                     size="medium"
                     placeholder="请输入"
@@ -287,6 +306,7 @@
               <el-form-item
                 prop="recommendPersonWorkUnit">
                 <el-input
+                  :disabled="isDisabled"
                   v-if="!scope.row.recommendPersonWorkUnit"
                   size="medium"
                   placeholder="请输入"
@@ -302,13 +322,20 @@
       slot="footer"
       class="footer">
       <el-button
+        v-if="!isDisabled"
         @click="submitForm()"
         size="medium"
         :loading="loading"
         type="primary">确定</el-button>
         <el-button
-        @click="comfirmClose()"
-        size="medium">取消</el-button>
+          v-if="!isDisabled"
+          @click="comfirmClose()"
+          size="medium">取消</el-button>
+         <el-button
+          type="primary"
+          v-if="isDisabled"
+          @click="comfirmClose()"
+          size="medium">确定</el-button>
     </div>
   </el-dialog>
 </div>
@@ -424,6 +451,10 @@ export default {
     item: {
       default: () => {},
       type: Object
+    },
+    isDisabled: {
+      default: false,
+      type: Boolean
     }
   },
   created () {

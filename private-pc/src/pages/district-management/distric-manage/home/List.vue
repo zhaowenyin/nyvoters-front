@@ -4,6 +4,7 @@
       :data="list"
       class="add_table"
       @selection-change="handleSelectionChange"
+      @row-dblclick="dblclick"
       v-loading="loading">
       <el-table-column
         type="selection"
@@ -89,12 +90,12 @@ export default {
     handleCurrentChange (val) {
       this.getListData({ pageNum: val })
     },
-    look (id) {
-      console.log(id)
-    },
     formatDate,
     handleSelectionChange(val) {
       this.saveSelection(val)
+    },
+    dblclick(val){
+      this.$emit('lookDetail',{val,isDisabled: true})
     },
     handlegender() {
       let text = ""

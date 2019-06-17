@@ -105,8 +105,7 @@ export default {
         });
         return
       }
-      this.item = this.multipleSelection[0]
-      this.createDialogVisible = true
+      this.$emit('lookDetail',{val:this.multipleSelection[0],isDisabled: false})
     },
     deleteI () {
       if(this.multipleSelection.length === 0) {

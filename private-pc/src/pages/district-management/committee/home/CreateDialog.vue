@@ -15,6 +15,7 @@
           label="上级选委会"
           prop="parentId">
           <el-select
+            :disabled="isDisabled"
             size="medium"
             style="width: 100%;"
             class="item"
@@ -32,6 +33,7 @@
           label="选委会"
           prop="name">
           <el-input
+            :disabled="isDisabled"
             size="medium"
             placeholder="请输入选委会"
             class="item"
@@ -41,6 +43,7 @@
           label="选委会代码"
           prop="code">
           <el-input
+            :disabled="isDisabled"
             size="medium"
             placeholder="请输入选委会代码"
             class="item"
@@ -50,6 +53,7 @@
           label="对应行政区"
           prop="districtId">
           <DistrictSelect
+            :disabled="isDisabled"
             :multiple="false"
             v-model="form.districtId"
             :item='item'
@@ -60,6 +64,7 @@
           label="联系人"
           prop="manager">
           <el-input
+            :disabled="isDisabled"
             size="medium"
             placeholder="请输入联系人"
             class="item"
@@ -69,6 +74,7 @@
           label="手机号码"
           prop="phoneName">
           <el-input
+            :disabled="isDisabled"
             size="medium"
             placeholder="请输入手机号码"
             class="item"
@@ -78,6 +84,7 @@
           label="排序码"
           prop="sort	">
           <el-input
+            :disabled="isDisabled"
             size="medium"
             placeholder="请输入排序码"
             class="item"
@@ -88,14 +95,21 @@
       <div
         slot="footer"
         class="footer">
-        <el-button
+         <el-button
+         v-if="!isDisabled"
           @click="submitForm()"
           size="medium"
           :loading="loading"
           type="primary">确定</el-button>
           <el-button
+           v-if="!isDisabled"
           @click="comfirmClose()"
           size="medium">取消</el-button>
+          <el-button
+           v-if="isDisabled"
+           type="primary"
+            @click="comfirmClose()"
+          size="medium">确定</el-button>
       </div>
     </el-dialog>
   </div>

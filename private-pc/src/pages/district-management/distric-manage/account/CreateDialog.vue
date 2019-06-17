@@ -15,7 +15,7 @@
             v-if="val === 5"
             label="帐号类型"
             prop="accountType">
-            <el-radio-group size="medium" v-model="form.accountType">
+            <el-radio-group :disabled="isDisabled" size="medium" v-model="form.accountType">
               <el-radio
                 v-for="(i, key) in registrationTypeList"
                 :key="key"
@@ -26,6 +26,7 @@
           label="姓名"
           prop="name">
           <el-input
+           :disabled="isDisabled"
            :maxlength="20"
             size="medium"
             placeholder="请输入姓名"
@@ -37,6 +38,7 @@
           prop="account">
           <el-input
             size="medium"
+            :disabled="isDisabled"
             placeholder="请输入登录账号"
             class="item"
             :maxlength="20"
@@ -48,7 +50,7 @@
           <el-input
             size="medium"
             type='password'
-            :disabled='!!(item.id || item.id===0)'
+            :disabled='!!(item.id || item.id===0)&&isDisabled'
             placeholder="请输入登录密码"
             class="item"
             :maxlength="20"
@@ -58,6 +60,7 @@
           label="管理选区"
           prop="managePrecinctIds">
           <DistrictSelect
+          :disabled="isDisabled"
           :multiple="true"
           v-model="form.managePrecinctIds"
           :item='item'
@@ -68,6 +71,7 @@
           label="排序码"
           prop="sort">
           <el-input
+            :disabled="isDisabled"
             size="medium"
             placeholder="请输入排序码"
             class="item"
@@ -79,13 +83,20 @@
         slot="footer"
         class="footer">
         <el-button
+         v-if="!isDisabled"
           @click="submitForm()"
           size="medium"
           :loading="loading"
           type="primary">确定</el-button>
           <el-button
+           v-if="!isDisabled"
           @click="comfirmClose()"
           size="medium">取消</el-button>
+          <el-button
+           v-if="isDisabled"
+           type="primary"
+            @click="comfirmClose()"
+          size="medium">确定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -163,6 +174,10 @@ export default {
     val: {
       default: null,
       type: Number
+    },
+    isDisabled: {
+      default: false,
+      type: Boolean
     }
   },
   components: {

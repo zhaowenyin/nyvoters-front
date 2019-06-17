@@ -1,17 +1,27 @@
 <template>
   <div class="behalf">
-      <Search />
-      <List />
+    <Search @lookDetail="lookDetail"/>
+    <List @lookDetail="lookDetail"/>
+    <CreateDialog
+      v-if="createDialogVisible"
+      :item='item'
+      :isDisabled="isDisabled"
+      :visible.sync='createDialogVisible'
+    />
   </div>
 </template>
 <script>
 import { mapMutations } from 'vuex'
 import Search from './Search'
 import List from './List'
+import CreateDialog from './CreateDialog'
 
 export default {
   data () {
     return {
+      item: {},
+      createDialogVisible: false,
+      isDisabled: false
     }
   },
   computed: {
@@ -19,7 +29,8 @@ export default {
   },
   components: {
     Search,
-    List
+    List,
+    CreateDialog
   },
   created () {
     // 初始化清除数据
@@ -28,7 +39,12 @@ export default {
   methods: {
     ...mapMutations('committeeAcccount', [
       'clearState'
-    ])
+    ]),
+    lookDetail (val) {
+      this.item = val.val
+      this.createDialogVisible = true
+      this.isDisabled = val.isDisabled
+    }
   }
 }
 </script>

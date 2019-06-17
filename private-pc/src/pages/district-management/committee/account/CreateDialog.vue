@@ -15,7 +15,8 @@
           label="姓名"
           prop="name">
           <el-input
-           :maxlength="20"
+            :disabled="isDisabled"
+            :maxlength="20"
             size="medium"
             placeholder="请输入姓名"
             class="item"
@@ -26,6 +27,7 @@
           prop="account">
           <el-input
             size="medium"
+            :disabled="isDisabled"
             placeholder="请输入登录账号"
             class="item"
             :maxlength="20"
@@ -37,7 +39,7 @@
           <el-input
             size="medium"
             type='password'
-            :disabled="item.id"
+            :disabled="item.id&&isDisabled"
             placeholder="请输入登录密码"
             class="item"
             :maxlength="20"
@@ -48,6 +50,7 @@
           prop="phoneNum">
           <el-input
             size="medium"
+            :disabled="isDisabled"
             :maxlength="11"
             placeholder="请输入手机号码"
             class="item"
@@ -57,6 +60,7 @@
           :maxlength="20"
           prop="contactInformation">
           <el-input
+            :disabled="isDisabled"
             size="medium"
             placeholder="请输入联系电话"
             class="item"
@@ -66,24 +70,31 @@
           label="排序码"
           prop="sort	">
           <el-input
+            :disabled="isDisabled"
             size="medium"
             placeholder="请输入排序码"
             class="item"
             v-model="form.sort" />
         </el-form-item>
       </el-form>
-
       <div
         slot="footer"
         class="footer">
         <el-button
+         v-if="!isDisabled"
           @click="submitForm()"
           size="medium"
           :loading="loading"
           type="primary">确定</el-button>
           <el-button
+           v-if="!isDisabled"
           @click="comfirmClose()"
           size="medium">取消</el-button>
+          <el-button
+           v-if="isDisabled"
+           type="primary"
+            @click="comfirmClose()"
+          size="medium">确定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -144,7 +155,11 @@ export default {
     item: {
       default: () => {},
       type: Object
-    }
+    },
+    isDisabled: {
+      default: false,
+      type: Boolean
+    },
   },
   components: {
 
