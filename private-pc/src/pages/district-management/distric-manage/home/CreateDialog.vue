@@ -90,14 +90,21 @@
       <div
         slot="footer"
         class="footer">
-        <el-button
+         <el-button
+         v-if="!isDisabled"
           @click="submitForm()"
           size="medium"
           :loading="loading"
           type="primary">确定</el-button>
-          <el-button
+        <el-button
+          v-if="!isDisabled"
+        @click="comfirmClose()"
+        size="medium">取消</el-button>
+        <el-button
+          v-if="isDisabled"
+          type="primary"
           @click="comfirmClose()"
-          size="medium">取消</el-button>
+          size="medium">确定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -217,6 +224,10 @@ export default {
       this.loading = false
     },
     comfirmClose () {
+      if(this.isDisabled){
+        this.close()
+        return
+      }
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
         .then(() => {
           this.close()
@@ -238,7 +249,7 @@ export default {
     async searchList (val) {
       const {data} = await getTreeList(val)
       this.data = data.content
-    }
+    },
   }
 
 }

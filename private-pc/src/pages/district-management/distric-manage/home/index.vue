@@ -20,6 +20,9 @@ import CreateDialog from './CreateDialog'
 export default {
   data () {
     return {
+      item: {},
+      createDialogVisible: false,
+      isDisabled: false
     }
   },
   computed: {

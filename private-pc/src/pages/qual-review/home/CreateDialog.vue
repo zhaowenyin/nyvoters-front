@@ -19,6 +19,7 @@
               label="姓名"
               prop="userName">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入姓名"
                 class="item"
@@ -29,7 +30,7 @@
             <el-form-item
               label="性别"
               prop="gender">
-              <el-radio-group size="medium" v-model="form.gender">
+              <el-radio-group :disabled="isDisabled" size="medium" v-model="form.gender">
                 <el-radio :label="1">男</el-radio>
                 <el-radio :label="2">女</el-radio>
               </el-radio-group>
@@ -40,6 +41,7 @@
               label="出生日期"
               prop="birthDay">
               <el-date-picker
+                 :disabled="isDisabled"
                 class="item"
                 v-model="form.birthDay"
                 type="date"
@@ -52,6 +54,7 @@
               label=" 民族"
               prop="nation">
               <el-select
+                :disabled="isDisabled"
                 size="medium"
                 style="width: 100%;"
                 class="item"
@@ -71,6 +74,7 @@
               label="籍贯"
               prop="nativePlace">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入籍贯"
                 class="item"
@@ -82,6 +86,7 @@
               label="出生地"
               prop="birthPlace">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入出生地"
                 class="item"
@@ -93,6 +98,7 @@
               label="党派"
               prop="party">
               <el-select
+                :disabled="isDisabled"
                 size="medium"
                 style="width: 100%;"
                 class="item"
@@ -112,7 +118,8 @@
               label="入党时间"
               prop="joinPartyTime">
               <el-date-picker
-              class="item"
+                :disabled="isDisabled"
+                class="item"
                 v-model="form.joinPartyTime"
                 type="date"
                 placeholder="请选择">
@@ -137,6 +144,7 @@
                 </el-option>
               </el-select> -->
                 <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入担任党派职务"
                 class="item"
@@ -148,6 +156,7 @@
               label="参加工作日期"
               prop="workTime">
               <el-date-picker
+                :disabled="isDisabled"
                 class="item"
                 v-model="form.workTime"
                 type="date"
@@ -161,6 +170,7 @@
               prop="idNum">
               <el-input
                 size="medium"
+                :disabled="isDisabled"
                 placeholder="请输入"
                 :maxlength="18"
                 v-model="form.idNum" />
@@ -172,6 +182,7 @@
               prop="fullTimeEducation">
               <el-input
                 size="medium"
+                :disabled="isDisabled"
                 placeholder="请输入"
                 v-model="form.fullTimeEducation" />
             </el-form-item>
@@ -183,6 +194,7 @@
               <el-input
                 size="medium"
                 placeholder="请输入"
+                :disabled="isDisabled"
                 v-model="form.fteGraduatedInstitution" />
             </el-form-item>
           </el-col>
@@ -191,6 +203,7 @@
               label="在职教育"
               prop="inServiceEducation">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入"
                 v-model="form.inServiceEducation" />
@@ -211,6 +224,7 @@
               label="工作单位"
               prop="workUnit">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入"
                 v-model="form.workUnit" />
@@ -221,6 +235,7 @@
               label="职务"
               prop="post">
               <el-select
+                :disabled="isDisabled"
                 size="medium"
                 style="width: 100%;"
                 class="item"
@@ -240,6 +255,7 @@
               label="职称"
               prop="jobTitle">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入"
                 v-model="form.jobTitle" />
@@ -250,6 +266,7 @@
               label="代表阶层"
               prop="repreClass">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入"
                 v-model="form.repreClass" />
@@ -260,6 +277,7 @@
               label="同任何级人大代表"
               prop="withRepreAnyLevel">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入"
                 v-model="form.withRepreAnyLevel" />
@@ -270,6 +288,7 @@
               label="同任何级政协委员"
               prop="withAnyMemberCppcc">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入"
                 v-model="form.withAnyMemberCppcc" />
@@ -280,6 +299,7 @@
           label="工作简历"
           prop="resume">
           <el-input
+            :disabled="isDisabled"
             type="textarea"
             :rows="2"
             placeholder="请输入"
@@ -290,6 +310,7 @@
           label="主要表现"
           prop="mainPerformance">
           <el-input
+            :disabled="isDisabled"
             type="textarea"
             :rows="2"
             placeholder="请输入"
@@ -300,6 +321,7 @@
           label="获奖励及荣誉称号情况"
           prop="awardsHonors">
           <el-input
+            :disabled="isDisabled"
             type="textarea"
             :rows="2"
             placeholder="请输入"
@@ -310,6 +332,7 @@
           label="历任代表情况"
           prop="succession">
           <el-input
+            :disabled="isDisabled"
             type="textarea"
             :rows="2"
             placeholder="请输入"
@@ -320,6 +343,7 @@
           label="推荐理由"
           prop="recommendReason">
           <el-input
+            :disabled="isDisabled"
             type="textarea"
             :rows="2"
             placeholder="请输入"
@@ -330,6 +354,7 @@
           label="提名推荐人签名"
           prop="nominateRecommenderSignature">
            <el-input
+            :disabled="isDisabled"
             type="textarea"
             :rows="2"
             placeholder="请输入"
@@ -340,6 +365,7 @@
           label="审查意见"
           prop="reviewOpinion">
           <el-input
+            :disabled="isDisabled"
             type="textarea"
             :rows="2"
             placeholder="请输入"
@@ -352,6 +378,7 @@
               label="通信地址"
               prop="contactAddress">
               <el-input
+                :disabled="isDisabled"
                 placeholder="请输入"
                 class="item"
                 v-model="form.contactAddress" />
@@ -362,6 +389,7 @@
               label="联系方式"
               prop="contactInformation">
               <el-input
+                :disabled="isDisabled"
                 placeholder="请输入"
                 class="item"
                 v-model="form.contactInformation" />
@@ -373,6 +401,7 @@
           label="备注"
           prop="remarks">
           <el-input
+          :disabled="isDisabled"
           type="textarea"
           :rows="2"
             placeholder="请输入"
@@ -383,14 +412,21 @@
       <div
         slot="footer"
         class="footer">
-        <el-button
+       <el-button
+         v-if="!isDisabled"
           @click="submitForm()"
           size="medium"
           :loading="loading"
           type="primary">确定</el-button>
           <el-button
+           v-if="!isDisabled"
           @click="comfirmClose()"
           size="medium">取消</el-button>
+          <el-button
+           v-if="isDisabled"
+           type="primary"
+            @click="comfirmClose()"
+          size="medium">确定</el-button>
       </div>
     </el-dialog>
     <Sign
@@ -471,6 +507,10 @@ export default {
     item: {
       default: () => {},
       type: Object
+    },
+    isDisabled: {
+      default: false,
+      type: Boolean
     }
   },
   components: {
@@ -511,6 +551,10 @@ export default {
       this.loading = false
     },
     comfirmClose () {
+      if(this.isDisabled){
+        this.close()
+        return
+      }
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
         .then(() => {
           this.close()

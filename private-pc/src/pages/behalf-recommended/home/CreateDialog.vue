@@ -509,6 +509,10 @@ export default {
       this.recommendedPersonList = data.content.data
     },
     comfirmClose () {
+      if(this.isDisabled){
+        this.close()
+        return
+      }
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
         .then(() => {
           this.close()
@@ -611,7 +615,7 @@ export default {
     async getDetail () {
       const {data} = await getDetail({id: this.item.id})
       this.form = {...this.form, ...data.content}
-    }
+    },
   }
 
 }

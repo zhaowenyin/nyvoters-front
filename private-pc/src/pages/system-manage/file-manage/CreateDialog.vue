@@ -44,6 +44,7 @@
         label="文件名称"
         prop="fileName">
         <el-input
+          :disabled="isDisabled"
           size="medium"
           placeholder="请输入"
           :maxlength="18"
@@ -53,7 +54,7 @@
       <el-form-item
         label="所属模块"
         prop="module">
-          <el-radio-group  size="medium" v-model="form.module">
+          <el-radio-group :disabled="isDisabled" size="medium" v-model="form.module">
             <el-radio v-for="(i,key) in moudel" :key="key" :label="+key">{{i}}</el-radio>
           </el-radio-group>
       </el-form-item>
@@ -62,13 +63,20 @@
       slot="footer"
       class="footer">
       <el-button
+        v-if="!isDisabled"
         @click="submitForm()"
         size="medium"
         :loading="loading"
         type="primary">确定</el-button>
-        <el-button
+      <el-button
+        v-if="!isDisabled"
         @click="comfirmClose()"
         size="medium">取消</el-button>
+      <el-button
+        v-if="isDisabled"
+        type="primary"
+        @click="comfirmClose()"
+        size="medium">确定</el-button>
     </div>
   </el-dialog>
 </template>
@@ -115,6 +123,10 @@ export default {
     item: {
       default: () => {},
       type: Object
+    },
+    isDisabled: {
+      default: false,
+      type: Boolean
     }
   },
   computed: {
@@ -162,6 +174,10 @@ export default {
       })
     },
     comfirmClose () {
+      if(this.isDisabled){
+        this.close()
+        return
+      }
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
         .then(() => {
           this.close()

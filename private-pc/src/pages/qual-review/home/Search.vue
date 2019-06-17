@@ -159,7 +159,7 @@ export default {
         return
       }
       this.item = this.multipleSelection[0]
-      this.createDialogVisible = true
+      this.$emit('lookDetail',{val: this.item, isDisabled: false})
     },
     qualReviewI () {
       if(this.multipleSelection.length === 0) {

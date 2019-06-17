@@ -75,6 +75,7 @@
       :item='item'
       :visible.sync='createDialogVisible'
       :val="val"
+      :isDisabled="isDisabled"
       />
   </div>
 </template>
@@ -97,7 +98,8 @@ export default {
       typeList: {
         0: '区县小组',
         1: '乡镇小组'
-      }
+      },
+      isDisabled: false
     }
   },
   computed: {

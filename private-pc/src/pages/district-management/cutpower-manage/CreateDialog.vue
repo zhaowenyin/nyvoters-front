@@ -17,6 +17,7 @@
             label="姓名"
             prop="name">
             <el-input
+              :disabled="isDisabled"
               size="medium"
               placeholder="请输入姓名"
               class="item"
@@ -28,6 +29,7 @@
             label="身份证号码"
             prop="idNum">
             <el-input
+              :disabled="isDisabled"
               size="medium"
               placeholder="请输入身份证号码"
               :maxlength="18"
@@ -39,7 +41,7 @@
           <el-form-item
             label="性别"
             prop="gender">
-            <el-radio-group size="medium" v-model="form.gender">
+            <el-radio-group :disabled="isDisabled" size="medium" v-model="form.gender">
               <el-radio :label="1">男</el-radio>
               <el-radio :label="2">女</el-radio>
             </el-radio-group>
@@ -50,6 +52,7 @@
             label=" 民族："
             prop="nation">
             <el-select
+              :disabled="isDisabled"
               size="medium"
               style="width: 100%;"
               class="item"
@@ -69,6 +72,7 @@
             label="手机号码"
             prop="phoneNum">
             <el-input
+              :disabled="isDisabled"
               :maxlength="11"
               size="medium"
               placeholder="请输入"
@@ -81,6 +85,7 @@
             label="联系方式"
             prop="contactInformation">
             <el-input
+              :disabled="isDisabled"
               size="medium"
               placeholder="请输入"
               class="item"
@@ -92,6 +97,7 @@
         label="户籍地"
         prop="householdRegistration">
         <el-input
+          :disabled="isDisabled"
           size="medium"
           placeholder="请输入户籍地"
           class="item"
@@ -101,6 +107,7 @@
           label="现居住地"
           prop="living">
           <el-input
+            :disabled="isDisabled"
             placeholder="请输入现居住地"
             class="item"
             v-model="form.living" />
@@ -110,6 +117,7 @@
         prop="startTime">
          <el-date-picker
           class="item"
+          :disabled="isDisabled"
           v-model="form.startTime"
           placeholder="请选择剥权时间"
           type="date"
@@ -122,6 +130,7 @@
        label="剥权恢复时间"
         prop="endTime">
         <el-date-picker
+          :disabled="isDisabled"
           class="item"
           v-model="form.endTime"
           type="date"
@@ -136,13 +145,20 @@
       slot="footer"
       class="footer">
       <el-button
-        @click="submitForm()"
-        size="medium"
-        :loading="loading"
-        type="primary">确定</el-button>
-        <el-button
+      v-if="!isDisabled"
+      @click="submitForm()"
+      size="medium"
+      :loading="loading"
+      type="primary">确定</el-button>
+      <el-button
+        v-if="!isDisabled"
+      @click="comfirmClose()"
+      size="medium">取消</el-button>
+      <el-button
+        v-if="isDisabled"
+        type="primary"
         @click="comfirmClose()"
-        size="medium">取消</el-button>
+      size="medium">确定</el-button>
     </div>
   </el-dialog>
 </template>
@@ -216,7 +232,12 @@ export default {
     item: {
       default: () => {},
       type: Object
+    },
+    isDisabled: {
+      default: false,
+      type: Boolean
     }
+
   },
   computed: {
     ...mapState('commonData', {
@@ -252,6 +273,10 @@ export default {
       this.loading = false
     },
     comfirmClose () {
+      if(this.isDisabled){
+        this.close()
+        return
+      }
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
         .then(() => {
           this.close()

@@ -1,11 +1,11 @@
 <template>
 
-  <div :class="['multiple',{'isfocus': valueStr}]">
+  <div :class="['multiple',{'isfocus': valueStr},{'diabel': disabled}]">
     <ul
       ref="select"
       @click="showselect"
       class="select-input">
-      <div class="value">{{valueStr}}</div>
+      <div :class="['value',{'disab': disabled}]">{{valueStr}}</div>
       <input
         :placeholder="valueStr ? '' : '请选择'"
         class="selectContent" disabled/>
@@ -119,6 +119,9 @@ export default {
       this.createDialogVisible = true
     },
     close () {
+      if (this.disabled) {
+        return
+      }
       let value = []
       if(this.multiple) {
         value = []
@@ -159,6 +162,10 @@ export default {
     }
     &.iserror {
       border:1px solid #FB2B4E;
+    }
+    &.diabel {
+      background-color: #f5f7fa;
+      border-color: #E4E7ED;
     }
 
   & .select-input {
@@ -209,6 +216,8 @@ export default {
   min-height: 30px;
   margin-right:10px;
   color:#333;
-
+  &.disab{
+    color: #C0C4CC;
+  }
 }
 </style>

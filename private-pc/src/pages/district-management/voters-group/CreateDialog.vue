@@ -15,6 +15,7 @@
           label="小组名称"
           prop="name">
           <el-input
+            :disabled="isDisabled"
             size="medium"
             placeholder="请输入小组名称"
             class="item"
@@ -36,7 +37,7 @@
            <el-col :span="12">
             <el-form-item
               label="类型">
-              <el-select class="item" size="medium" v-model.trim="form.type" placeholder="请选择类型">
+              <el-select  :disabled="isDisabled" class="item" size="medium" v-model.trim="form.type" placeholder="请选择类型">
                 <el-option
                   v-for="(item, key) in typeList"
                   :key="key"
@@ -52,6 +53,7 @@
               prop="manager">
               <el-input
                 size="medium"
+                :disabled="isDisabled"
                 class="item"
                 placeholder="请输入组长"
                 v-model="form.manager" />
@@ -63,6 +65,7 @@
               :maxlength="11"
               prop="managerPhone">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入代表名额"
                 class="item"
@@ -74,6 +77,7 @@
               label="召集人"
               prop="convener">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入召集人"
                 class="item"
@@ -85,6 +89,7 @@
               label="召集人联系电话"
               prop="convenerPhone">
               <el-input
+                :disabled="isDisabled"
                 :maxlength="11"
                 size="medium"
                 placeholder="召集人联系电话"
@@ -97,6 +102,7 @@
               label="排序码"
               prop="sort	">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入排序码"
                 class="item"
@@ -109,13 +115,20 @@
         slot="footer"
         class="footer">
         <el-button
+         v-if="!isDisabled"
           @click="submitForm()"
           size="medium"
           :loading="loading"
           type="primary">确定</el-button>
           <el-button
+           v-if="!isDisabled"
           @click="comfirmClose()"
           size="medium">取消</el-button>
+          <el-button
+           v-if="isDisabled"
+           type="primary"
+            @click="comfirmClose()"
+          size="medium">确定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -134,7 +147,7 @@ export default {
         manager: '',
         managerPhone: '',
         sort: '',
-        precinctId: '1003',
+        precinctId: '',
         type: '',
         name: '',
       },
@@ -164,6 +177,10 @@ export default {
     item: {
       default: () => {},
       type: Object
+    },
+    isDisabled: {
+      default: false,
+      type: Boolean
     }
   },
   components: {
@@ -212,6 +229,10 @@ export default {
       this.loading = false
     },
     comfirmClose () {
+      if(this.isDisabled){
+        this.close()
+        return
+      }
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
         .then(() => {
           this.close()

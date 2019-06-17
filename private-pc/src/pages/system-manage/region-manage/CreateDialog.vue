@@ -18,6 +18,7 @@
         v-model="form.parentId"
         /> -->
         <DistrictSelect
+          :disabled="isDisabled"
           :multiple="false"
           v-model="form.parentId"
           :item='item'
@@ -29,6 +30,7 @@
         prop="name">
         <el-input
           size="medium"
+          :disabled="isDisabled"
           placeholder="请输入行政区名"
           class="item"
           v-model="form.name" />
@@ -38,6 +40,7 @@
         prop="code">
         <el-input
           size="medium"
+          :disabled="isDisabled"
           placeholder="请输入行政区代码"
           class="item"
           v-model="form.code" />
@@ -46,6 +49,7 @@
         label="行政区级别"
         prop="level">
         <el-select
+          :disabled="isDisabled"
           size="medium"
           style="width: 100%;"
           class="item"
@@ -63,6 +67,7 @@
         label="人口数"
         prop="pnum">
         <el-input
+         :disabled="isDisabled"
           type="number"
           size="medium"
           placeholder="请输入人口数"
@@ -73,6 +78,7 @@
         label="排序码"
         prop="sort">
         <el-input
+          :disabled="isDisabled"
           type="number"
           size="medium"
           placeholder="请输入排序吗"
@@ -84,13 +90,20 @@
       slot="footer"
       class="footer">
       <el-button
+        v-if="!isDisabled"
         @click="submitForm()"
         size="medium"
         :loading="loading"
         type="primary">确定</el-button>
         <el-button
+          v-if="!isDisabled"
         @click="comfirmClose()"
         size="medium">取消</el-button>
+        <el-button
+          v-if="isDisabled"
+          type="primary"
+          @click="comfirmClose()"
+        size="medium">确定</el-button>
     </div>
   </el-dialog>
 </template>
@@ -153,6 +166,10 @@ export default {
     item: {
       default: () => {},
       type: Object
+    },
+    isDisabled: {
+      default: false,
+      type: Boolean
     }
   },
   components: {
@@ -234,12 +251,16 @@ export default {
       this.loading = false
     },
     comfirmClose () {
+      if(this.isDisabled){
+        this.close()
+        return
+      }
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
         .then(() => {
           this.close()
         })
         .catch(() => {})
-    }
+    },
   }
 
 }
