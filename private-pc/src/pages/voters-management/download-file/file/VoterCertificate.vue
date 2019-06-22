@@ -7,6 +7,10 @@
       @click="download"
       size="small">下载</el-button>
     </div>
+    <el-radio-group @change="change" v-model="radio">
+      <el-radio :label="1">正式选民</el-radio>
+      <el-radio :label="2">补正选民</el-radio>
+    </el-radio-group>
     <div v-if="+type === 7" class="content">
 
       <div
@@ -17,12 +21,12 @@
         <div  class="inner-item">
           <div class="announcement1">选民证</div>
           <span>姓名:</span>
-          <span class="line">{{i.name || '花花'}}</span>
+          <span class="line">{{i.name}}</span>
           <br/>
           <span>性别:</span>
-          <span class="line">{{i.name || '男'}}</span>
+          <span class="line">{{handlegender(i.gender)}}</span>
           <span>年龄:</span>
-          <span class="line">{{i.name ||  24}}</span>岁
+          <span class="line">{{i.age}}</span>岁
           <div class="warning">
             <span>注意：</span>
             <div>
@@ -31,8 +35,8 @@
               <div>3.妥善保管，遗失不补。</div>
             </div>
           </div>
-          <div class="mark mark1">{{data.countyName}}选举委员会</div>
-          <div class="mark mark2">{{`${data.year}年${data.month}月${data.day}日`}}</div>
+          <div class="mark mark1">{{i.districtName}}选举委员会</div>
+          <div class="mark mark2"><span class="date">{{formatDate(i.date).year}}</span>年<span class="date">{{formatDate(i.date).month}}</span>月<span class="date">{{formatDate(i.date).day}}</span>日</div>
         </div>
       </div>
      </div>
@@ -46,15 +50,15 @@
           <div class="announcement2">选民证</div>
           <div style="display: flex;">
             <span>姓名:</span>
-            <span class="line2">{{i.name || '花花'}}</span>
+            <span class="line2">{{i.name}}</span>
           </div>
           <div style="display: flex;">
             <span>性别:</span>
-            <span class="line2">{{i.name || '男'}}</span>
+            <span class="line2">{{handlegender(i.gender)}}</span>
           </div>
           <div style="display: flex;">
             <span>年龄:</span>
-            <span class="line2">{{i.name ||  24}}</span>岁
+            <span class="line2">{{i.age}}</span>岁
           </div>
           <div class="warning">
             <span>注意事项：</span>
@@ -63,8 +67,8 @@
               <div>二、只限本人使用。</div>
             </div>
           </div>
-          <div class="mark6 mark1">{{data.countyName}}选举委员会</div>
-          <div class="mark6">{{`${data.year}年${data.month}月${data.day}日`}}</div>
+          <div class="mark6 mark1">{{i.districtName}}选举委员会</div>
+          <div class="mark6"><span class="date">{{formatDate(i.date).year}}</span>年<span class="date">{{formatDate(i.date).month}}</span>月<span class="date">{{formatDate(i.date).day}}</span>日</div>
         </div>
       </div>
      </div>
@@ -72,10 +76,12 @@
 </template>
 <script>
 import output from '../../../../utils/output.js'
+import format from 'date-fns/format'
 export default {
   data(){
     return {
       loading: false,
+      radio: 1
     }
   },
   props: {
@@ -86,13 +92,22 @@ export default {
     type: {
       default: null,
       type: null
-    }
+    },
+    belongAreaId: {
+      default: null,
+      type: null
+    },
   },
   components: {
 
   },
   created(){
 
+  },
+  watch: {
+    belongAreaId () {
+      this.radio = 1
+    }
   },
   methods: {
     async download (item) {
@@ -119,6 +134,12 @@ export default {
       }
       return text
     },
+    formatDate (timestamp) {
+      return this.data&&timestamp && {year:format(+timestamp, 'YYYY'),month: format(+timestamp, 'MM'),day: format(+timestamp, 'DD')}
+    },
+    change (type) {
+      this.$emit('getlist',type)
+    }
   }
 }
 </script>

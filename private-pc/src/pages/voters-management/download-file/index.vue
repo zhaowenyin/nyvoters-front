@@ -68,7 +68,7 @@ export default {
       let datalist = []
       for (let i of data.content.data) {
 
-        if(+i.module === 3) {
+        if(+i.module === 1) {
           datalist.push(i)
         }
       }
@@ -98,9 +98,6 @@ export default {
       switch(fileName) {
       case '选举委员会关于选民名单公告（1）':
         text = 1
-        break
-      case '选举委员会关于选民名单公告（2)':
-        text = 2
         break
       case '选举委员会关于选民名单补正公告（1）':
         text = 3

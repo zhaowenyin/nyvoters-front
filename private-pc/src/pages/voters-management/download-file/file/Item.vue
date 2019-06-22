@@ -13,8 +13,10 @@
     :data="data"
     v-if="+type===5"/>
     <VoterCertificate
+    @getlist="getlist"
     :type="type"
     :data="data"
+    :belongAreaId="belongAreaId"
      v-if="+type===6 || +type===7"
     />
   </div>
@@ -47,23 +49,25 @@ export default {
   },
   watch: {
     belongAreaId () {
-      this.searchInfo({belongAreaId: this.belongAreaId,statusList: [status]})
+      this.searchInfo({belongAreaId: this.belongAreaId})
     }
   },
   created(){
-    const {status} = this.$route.query
     this.type = this.$route.query.type
     if (this.belongAreaId === '') {
       return
     }
-    this.searchInfo({belongAreaId: this.belongAreaId,statusList: [status]})
+    this.searchInfo({belongAreaId: this.belongAreaId})
   },
   methods: {
     async searchInfo (val) {
       this.loading = true
-      const{data} = await getInfo(val)
-      this.data = data.content
+      const{data} = await getInfo({type:this.$route.query.type,...val})
+      this.data = data
       this.loading = false
+    },
+    getlist (val) {
+      this.searchInfo({belongAreaId: this.belongAreaId,type:this.$route.query.type,radio: val})
     }
   }
 }

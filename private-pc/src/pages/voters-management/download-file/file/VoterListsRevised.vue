@@ -8,32 +8,33 @@
     </div>
     <div class="content">
       <div v-if="+type===3" class="announcement-title">公告</div>
-      <div v-if="+type===4" class="announcement1">{{data.countyName}}选举委员会公告</div>
+      <div v-if="+type===4" class="announcement1">{{data.districtName}}选举委员会公告</div>
       <div v-if="+type===4" class="announcement2">(第xx号)</div>
       <div>
-        &nbsp;&nbsp;根据《选举法》和《xxx省县、乡两级人民代表大会代表选举工作实施细则》的规定，现将xxx选区选民名单公告后的选民增减情况做如下补正：
+        &nbsp;&nbsp;根据《选举法》和《{{data.districtName}}省县、乡两级人民代表大会代表选举工作实施细则》的规定，现将<span style="text-decoration:underline;">{{data.precinctName}}</span>选区选民名单公告后的选民增减情况做如下补正：
       </div>
       <div class="message">
         <div>一、增加的选民：</div>
-        <div>XXXXXX</div>
+        <div>{{data.addVoters.join('、')}}</div>
         <div>二、迁出出名的选民：</div>
-        <div>XXXXXX</div>
+        <div>{{data.cutOutVoters.join('、')}}</div>
         <div>三、死亡除名的选民：</div>
-        <div>XXXXXX</div>
+         <div>{{data.dieVoters.join('、')}}</div>
         <div>四、停止行使选举权利除名的选民：</div>
-        <div>XXXXXX</div>
-        <div>五、本选区原登记选民 xxx人，现实有选民xxx人。</div>
+         <div>{{data.disempowerVoters.join('、')}}</div>
+        <div>五、本选区原登记选民 {{data.regNum}}人，现实有选民{{data.voterNum}}人。</div>
         <div>特此公告</div>
       </div>
 
-      <div class="mark mark1">{{data.countyName}}选举委员会</div>
-      <div class="mark">{{`${data.year}年${data.month}月${data.day}日`}}</div>
+      <div class="mark mark1">{{data.precinctName}}选举委员会</div>
+      <div class="mark"><span class="date">{{formatDate(data.date).year}}</span>年<span class="date">{{formatDate(data.date).month}}</span>月<span class="date">{{formatDate(data.date).day}}</span>日</div>
 
     </div>
   </div>
 </template>
 <script>
 import output from '../../../../utils/output.js'
+import format from 'date-fns/format'
 export default {
   data(){
     return {
@@ -64,6 +65,9 @@ export default {
         console.log(err)
       }
     },
+    formatDate (timestamp) {
+      return this.data&&timestamp && {year:format(+timestamp, 'YYYY'),month: format(+timestamp, 'MM'),day: format(+timestamp, 'DD')}
+    }
   }
 }
 </script>
@@ -121,6 +125,9 @@ export default {
   }
   .mark1 {
     padding-top: 50px;
+  }
+  .date {
+    text-decoration:underline;
   }
 </style>
 

@@ -30,7 +30,7 @@ export default {
   data () {
     return {
       data: [],
-      belongAreaId: ''
+      belongAreaId: '1003'
     }
   },
   computed: {
@@ -64,7 +64,7 @@ export default {
       this.belongAreaId = data.id
     },
     async searchTree (val) {
-      const {data} = await getTree(val)
+      const {data} = await getTree({val,type:this.$route.query.type})
       this.data = [data.content]
     }
   }

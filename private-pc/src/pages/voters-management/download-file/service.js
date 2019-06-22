@@ -1,70 +1,91 @@
 import api from '../../../utils/api'
 export async function getList (payload) {
-  // console.log(payload)
-  // return new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve({
-  //       data: {
-  //         "content": {
-  //           "data": [
-  //             {
-  //               id: 1,
-  //               type: 1,
-  //               status:'PRELIMINARY_CANDIDATE',
-  //               name: '选举委员会关于选民名单公告（1）'
-  //             },
-  //             {
-  //               id: 2,
-  //               type: 2,
-  //               status:'PRELIMINARY_CANDIDATE',
-  //               name: '选举委员会关于选民名单公告（2)'
-  //             },
-  //             {
-  //               id: 3,
-  //               type: 3,
-  //               status:'FORMAL_CANDIDATE',
-  //               name: '选举委员会关于选民名单补正公告（1）'
-  //             },
-  //             {
-  //               id: 4,
-  //               type: 4,
-  //               status:"FORMAL_CANDIDATE",
-  //               name: '选举委员会关于选民名单补正公告（2）'
-  //             },
-  //             {
-  //               id: 5,
-  //               type: 5,
-  //               status:"FORMAL_REPRESENTATIVE",
-  //               name: '选举委员会关于选举日及选举登记时间的公告'
-  //             },
-  //             {
-  //               id: 6,
-  //               type: 6,
-  //               status:"FORMAL_REPRESENTATIVE",
-  //               name: '选民证（1)'
-  //             },
-  //             {
-  //               id: 7,
-  //               type: 7,
-  //               status:"FORMAL_REPRESENTATIVE",
-  //               name: '选民证（2）'
-  //             },
-  //           ],
-  //           "endRow": 0,
-  //           "pageNum": 0,
-  //           "pageSize": 0,
-  //           "pages": 0,
-  //           "startRow": 0,
-  //           "total": 20
-  //         },
-  //         "errorCode": "string",
-  //         "errorMsg": "string",
-  //         "status": "string"
-  //       }
-  //     })
-  //   }, 500)
-  // })
-  return api.post('/doc/list', payload )
+  console.log(payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+          "content": {
+            "data": [
+              {
+                id: 1,
+                module: 1,
+                fileSuffix: "docx",
+                type: 1,
+                status:'PRELIMINARY_CANDIDATE',
+                fileName: '选举委员会关于选民名单公告（1）',
+                isFillData: 1,
+              },
+              {
+                id: 2,
+                module: 1,
+                fileSuffix: "docx",
+                type: 2,
+                status:'PRELIMINARY_CANDIDATE',
+                fileName: '选举委员会关于选民名单公告（2)',
+                isFillData: 1,
+              },
+              {
+                id: 3,
+                module: 1,
+                fileSuffix: "docx",
+                type: 3,
+                status:'FORMAL_CANDIDATE',
+                fileName: '选举委员会关于选民名单补正公告（1）',
+                isFillData: 1,
+              },
+              {
+                id: 4,
+                module: 1,
+                fileSuffix: "docx",
+                type: 4,
+                status:"FORMAL_CANDIDATE",
+                fileName: '选举委员会关于选民名单补正公告（2）',
+                isFillData: 1,
+              },
+              {
+                id: 5,
+                module: 1,
+                fileSuffix: "docx",
+                type: 5,
+                status:"FORMAL_REPRESENTATIVE",
+                fileName: '选举委员会关于选举日及选举登记时间的公告',
+                isFillData: 1,
+              },
+              {
+                id: 6,
+                module: 1,
+                fileSuffix: "docx",
+                type: 6,
+                status:"FORMAL_REPRESENTATIVE",
+                fileName: '选民证（1)',
+                isFillData: 1,
+              },
+              {
+                id: 7,
+                module: 1,
+                fileSuffix: "docx",
+                type: 7,
+                status:"FORMAL_REPRESENTATIVE",
+                fileName: '选民证（2)',
+                isFillData: 1,
+              },
+            ],
+            "endRow": 0,
+            "pageNum": 0,
+            "pageSize": 0,
+            "pages": 0,
+            "startRow": 0,
+            "total": 20
+          },
+          "errorCode": "string",
+          "errorMsg": "string",
+          "status": "string"
+        }
+      })
+    }, 500)
+  })
+  // return api.post('/doc/list', payload )
 }
 export async function getInfo (payload) {
   console.log(payload)
@@ -72,70 +93,51 @@ export async function getInfo (payload) {
     setTimeout(() => {
       resolve({
         data: {
-          "code": "string",
-          "content": {
-            "belongAreaId": 54122356874,
-            "belongAreaName": "云阳镇第1选区",
-            "countyName": "南召县",
-            "day": 15,
-            "list": [
-              {
-                "age": "30",
-                "education": 1,
-                "gender": 1,
-                "idNum": 510810199910251100,
-                "nation": "HAN",
-                "party": 1,
-                "post": "文职",
-                "recommendPersonList": [
-                  "string"
-                ],
-                "recommendedPerson": "张三",
-                "status": "string",
-                "workUnit": "成都市文化旅游局"
-              },
-              {
-                "age": "20",
-                "education": 1,
-                "gender": 1,
-                "idNum": 510810199910251100,
-                "nation": "HAN",
-                "party": 1,
-                "post": "文职",
-                "recommendPersonList": [
-                  "string"
-                ],
-                "recommendedPerson": "张三",
-                "status": "string",
-                "workUnit": "成都市文化旅游局"
-              },
-              {
-                "age": "100",
-                "education": 1,
-                "gender": 1,
-                "idNum": 510810199910251100,
-                "nation": "HAN",
-                "party": 1,
-                "post": "文职",
-                "recommendPersonList": [
-                  "string"
-                ],
-                "recommendedPerson": "张三",
-                "status": "string",
-                "workUnit": "成都市文化旅游局"
-              }
-            ],
-            "month": 4,
-            "sessionNum": "六",
-            "year": 2019
-          },
-          "message": "string",
-          "status": "string"
+          // "addVoters": [
+          //   "string",
+          //   "小明",
+          //   "小黄"
+          // ],
+          // "cutOutVoters": [
+          //   "string",
+          //   "小明",
+          //   "小黄"
+          // ],
+          // "date": 1561132800000,
+          // "dieVoters": [
+          //   "string",
+          //   "小明",
+          //   "小黄"
+          // ],
+          // "disempowerVoters": [
+          //   "string",
+          //   "小明",
+          //   "小黄"
+          // ],
+          // "districtName": "南阳县",
+          // "precinctName": "选区",
+          // "regNum": 0,
+          // "regionDistrictName": "string",
+          // "voterNum": 0
+          //
+          "date": 1561132800000,
+          "districtName": "南阳县",
+          "regEndDate": 1561132800000,
+          "regStartDate": 1561132800000,
+          "voterDate": 1561132800000
+
         }
       })
     }, 500)
   })
-  // return api.post('/repre-affairs/word/list', payload)
+  // if(payload.type === 1 || payload.type === 5) {
+  //   return api.get('/repre-affairs/word/list', {params:{belongAreaId: payload.belongAreaId}})
+  // } else if(payload.type === 3 || payload.type === 4) {
+  //   return api.get('/voter/files/preview/voterCorrectionNotice', {params:{belongAreaId: payload.belongAreaId}})
+  // } else if(payload.type === 6 || payload.type === 7) {
+  //   return api.get('/voter/files/preview/voterCertificate', {params:{belongAreaId: payload.belongAreaId,radio:  payload.radio || 1}})
+  // }
+
 }
 
 export async function getTree (payload) {
@@ -197,5 +199,11 @@ export async function getTree (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post('/precinct/tree', payload)
+  if(payload.type === 1) {
+    return api.post('/committee/tree', {...payload.val})
+  } else {
+    return api.post('/precinct/tree', {...payload.val})
+  }
+
+
 }
