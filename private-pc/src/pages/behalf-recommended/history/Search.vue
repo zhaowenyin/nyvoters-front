@@ -148,13 +148,19 @@ export default {
       }
       let idList = []
       for (let i of this.multipleSelection) {
+        if(i.status !== 'WAIT_REVIEW'){
+          this.$notify({
+            title: '',
+            message: '只允许撤销【待资格审查】状态的数据！',
+            type: 'warning'
+          });
+          return
+        }
         idList.push(i.id)
       }
       let params = {idList,status: "REVIEW_SUCCESS"}
       await repealTabel(params)
-      const param = JSON.parse(JSON.stringify(this.searchForm))
-      param.page = 1
-      this.getListData(param)
+      this.getListData()
     }
   }
 }
