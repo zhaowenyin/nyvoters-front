@@ -80,5 +80,8 @@ export async function deletetTabel (payload) {
   // })
   return api.post(`/group/delete/${payload.id}`)
 }
+export async function getTree (payload) {
+  return api.post('/precinct/tree', payload)
+}
 
 

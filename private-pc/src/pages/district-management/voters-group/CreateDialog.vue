@@ -134,7 +134,7 @@
   </div>
 </template>
 <script>
-import {setSubmit, modifySubmit} from './service.js'
+import {setSubmit, modifySubmit,getTree} from './service.js'
 import DistrictSelect from '../../../components/DistrictSelect'
 import { mapActions,mapState } from 'vuex'
 export default {
@@ -165,7 +165,8 @@ export default {
       typeList: {
         0: '区县小组',
         1: '乡镇小组'
-      }
+      },
+      data: []
     }
 
   },
@@ -188,7 +189,6 @@ export default {
   },
   computed: {
     ...mapState('commonData', {
-      data: state => state.treeList,
       belongAreaId: state => state.belongAreaId
     })
   },
@@ -198,12 +198,10 @@ export default {
     } else {
       this.form.precinctId = this.belongAreaId
     }
+
     this.searchTree({type: 0, id: ''})
   },
   methods: {
-    ...mapActions('commonData', [
-      'searchTree',
-    ]),
     ...mapActions('voterGroup', [
       'getListData'
     ]),
@@ -225,7 +223,7 @@ export default {
         await setSubmit(this.handerParams())
       }
       this.close()
-      this.getListData()
+      this.getListData({ precinctId: this.belongAreaId })
       this.loading = false
     },
     comfirmClose () {
@@ -242,7 +240,11 @@ export default {
     handerParams () {
       let params = {...this.form}
       return params
-    }
+    },
+    async searchTree (val) {
+      const{data} = await getTree(val)
+      this.data = [data.content]
+    },
   }
 
 }
