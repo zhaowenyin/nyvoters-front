@@ -8,11 +8,11 @@
       size="small">下载</el-button>
     </div>
     <div class="content">
-      <div v-if="+type===1" class="announcement1">{{data.countyName}}选举委员会公告</div>
+      <div v-if="+type===1" class="announcement1">{{data.districtName}}选举委员会公告</div>
       <div v-if="+type===1" class="announcement2">(第xx号)</div>
       <div v-if="+type === 1">
         &nbsp;&nbsp;根据《选举法》的规定，现将XX选区选民名单列表公告如下，如有不同意见，可依照选举法第二十八条规定，向县选举委员会提出申诉。
-        <div v-if="+type===1" class="announcement1">{{data.countyName}}选举委员会公告</div>
+        <div v-if="+type===1" class="announcement1">{{data.precinctName}}选举委员会公告</div>
         <ul class="message">
           <li style="font-weight: bold;" class="person">
             <div
@@ -32,13 +32,14 @@
           </li>
         </ul>
       </div>
-      <div class="mark mark1">{{data.countyName}}选举委员会</div>
-      <div class="mark">{{`${data.year}年${data.month}月${data.day}日`}}</div>
+      <div class="mark mark1">{{data.districtName}}选举委员会</div>
+      <div class="mark"><span class="date">{{formatDate(data.date).year}}</span>年<span class="date">{{formatDate(data.date).month}}</span>月<span class="date">{{formatDate(data.date).day}}</span>日</div>
     </div>
   </div>
 </template>
 <script>
 import output from '../../../../utils/output.js'
+import format from 'date-fns/format'
 export default {
   data(){
     return {
@@ -87,6 +88,9 @@ export default {
       }
       return text
     },
+    formatDate (timestamp) {
+      return this.data&&timestamp && {year:format(+timestamp, 'YYYY'),month: format(+timestamp, 'MM'),day: format(+timestamp, 'DD')}
+    }
   }
 }
 </script>

@@ -124,7 +124,9 @@ export async function getInfo (payload) {
           "districtName": "南阳县",
           "regEndDate": 1561132800000,
           "regStartDate": 1561132800000,
-          "voterDate": 1561132800000
+          "voterDate": 1561132800000,
+          precinctName: '选区',
+          list: [1,2,3]
 
         }
       })
