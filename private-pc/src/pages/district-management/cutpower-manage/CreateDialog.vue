@@ -49,7 +49,7 @@
         </el-col>
         <el-col :span="12">
           <el-form-item
-            label=" 民族："
+            label="民族："
             prop="nation">
             <el-select
               :disabled="isDisabled"
@@ -62,7 +62,7 @@
                 v-for="(item, key) in nationList"
                 :key="key"
                 :label="item.desc"
-                :value="item.intCode">
+                :value="item.stringCode">
               </el-option>
             </el-select>
           </el-form-item>
