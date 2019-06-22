@@ -64,9 +64,9 @@ export default {
 
   },
   methods: {
-    async download (item) {
+    async download () {
       try {
-        output({url: '/doc/download', param: {id: item, module: 2}})
+        output({url: '/doc/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title}})
       } catch (err) {
         console.log(err)
       }
