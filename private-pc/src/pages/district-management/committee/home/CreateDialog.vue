@@ -186,7 +186,7 @@ export default {
     if (this.item.id) {
       this.form = {...this.form, ...params }
     }
-    this.searchTree({id: this.committeeId})
+    this.searchTree1({id: this.committeeId})
     this.parentList.push({name:this.item.name || this.belongArea,id:this.item.parentId || this.committeeId})
 
 
@@ -194,6 +194,9 @@ export default {
   methods: {
     ...mapActions('committeeHome', [
       'getListData'
+    ]),
+    ...mapActions('commonCommittee', [
+      'searchTree',
     ]),
     close () {
       this.$emit('update:visible', false)
@@ -213,8 +216,9 @@ export default {
       }else {
         await setSubmit(this.handerParams())
       }
-      this.close()
       this.getListData()
+      this.searchTree({type: 0, id: ''})
+      this.close()
       this.loading = false
     },
     comfirmClose () {
@@ -236,7 +240,7 @@ export default {
     select () {
       this.createDialogVisible = true
     },
-    async searchTree (val) {
+    async searchTree1 (val) {
       const {data} = await getTree(val)
       this.data = data.content
     }

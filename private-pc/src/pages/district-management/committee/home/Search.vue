@@ -97,6 +97,9 @@ export default {
     ...mapActions('committeeHome', [
       'getListData',
     ]),
+    ...mapActions('commonCommittee', [
+      'searchTree',
+    ]),
     // 搜索
     submitForm () {
       this.$refs.form.validate((valid) => {
@@ -148,6 +151,7 @@ export default {
     },
     async delectItem() {
       await deletetTabel({id: this.multipleSelection[0].id})
+      this.searchTree({type: 0, id: ''})
       this.getListData()
     }
   }
