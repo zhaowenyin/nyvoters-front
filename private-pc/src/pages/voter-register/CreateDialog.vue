@@ -297,19 +297,19 @@ export default {
           { required: true, message: '请输入详细地址！', trigger: 'blur' }
         ],
         candidateType:[
-          { required: true, message: '请选择参选地类型！', trigger: 'blur' }
+          { required: true, message: '请选择参选地类型！', trigger: 'change' }
         ],
         registrationType:[
-          { required: true, message: '请选择登记方式！', trigger: 'blur' }
+          { required: true, message: '请选择登记方式！', trigger: 'change' }
         ],
         registrationTime:[
-          { required: true, message: '请选择登记日期！', trigger: 'blur' }
+          { required: true, message: '请选择登记日期！', trigger: 'change' }
         ],
         registrar:[
           { required: true, message: '请输入登记人!', trigger: 'blur' }
         ],
         proveDocId: [
-          { required: true, message: '请选择持资格转移证明!', trigger: 'blur' }
+          { required: true, message: '请选择持资格转移证明!', trigger: 'change' }
         ],
       },
       registrationTypeList,
