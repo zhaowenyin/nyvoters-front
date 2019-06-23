@@ -108,7 +108,7 @@
   </el-dialog>
 </template>
 <script>
-import {setSubmit,modifySubmit} from './service.js'
+import {setSubmit,modifySubmit,getTree} from './service.js'
 import {levelList} from '../../../common-data/config.js'
 import { mapActions,mapState } from 'vuex'
 // import Tree from './common-tree'
@@ -147,14 +147,14 @@ export default {
         ],
       },
       treeList: [],
-      levelList
+      levelList,
+      data: []
 
     }
 
   },
   computed: {
     ...mapState('regionManage', {
-      data: state => state.treeList,
       belongAreaId: state => state.belongAreaId
     })
   },
@@ -182,33 +182,13 @@ export default {
     } else {
       this.form.parentId = this.belongAreaId
     }
-
-    this.searchDistrictTree({type: 0, id: ''})
+    this.searchDistrictTree1({type: 0, id: ''})
   },
   methods: {
     ...mapActions('regionManage', [
       'getListData',
       'searchDistrictTree'
     ]),
-    // func (list) {
-    //   console.log(this.item.parentId)
-    //   let defaultValue = this.item.parentId
-    //   const re = (array, parentArr) => {
-    //     if (!array || array.length === 0) return false
-    //     for (let i = 0; i < array.length; i++) {
-    //       const newArr = JSON.parse(JSON.stringify(parentArr))
-    //       newArr.push(array[i].id)
-    //       if (array[i].id === defaultValue) {
-    //         this.form.parentId = newArr
-    //         return true
-    //       }
-    //       const bol = re(array[i].children, newArr)
-    //       if (bol) return true
-    //     }
-    //     return false
-    //   }
-    //   re(list, [])
-    // },
     close () {
       this.$emit('update:visible', false)
     },
@@ -232,7 +212,7 @@ export default {
       params.pnum = +params.pnum
       await setSubmit(params)
 
-      this.getListData()
+      this.getListData({})
       this.close()
       this.loading = false
     },
@@ -246,7 +226,8 @@ export default {
       params.pnum = +params.pnum
       params.level = +params.level
       await modifySubmit(params)
-      this.getListData()
+      this.getListData({ districtId: this.belongAreaId })
+      this.searchDistrictTree({type: 0, id: ''})
       this.close()
       this.loading = false
     },
@@ -261,6 +242,10 @@ export default {
         })
         .catch(() => {})
     },
+    async searchDistrictTree1(val) {
+      const{data} = await getTree(val)
+      this.data = [data.content]
+    }
   }
 
 }

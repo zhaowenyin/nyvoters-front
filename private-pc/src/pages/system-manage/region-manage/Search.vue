@@ -14,7 +14,6 @@
         prop="state">
         <el-select
           v-model="type"
-          @change="change"
           size="medium"
           style="width: 120px;"
           placeholder="请选择">
@@ -175,13 +174,8 @@ export default {
       }
       let params = {id: idList[0]}
       await deletetTabel(params)
-      const param = JSON.parse(JSON.stringify(this.searchForm))
-      param.page = 1
-      this.getListData(param)
-    },
-    change () {
-
-
+      this.$emit('searchDistrictTree',{type: 0, id: ''})
+      this.getListData()
     }
   }
 }

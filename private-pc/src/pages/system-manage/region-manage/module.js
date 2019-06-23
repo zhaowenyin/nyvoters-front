@@ -1,5 +1,4 @@
 import { getList,getTree } from './service'
-import { isEmptyObj } from '../../../utils/validate'
 
 export default {
   namespaced: true,
@@ -74,8 +73,7 @@ export default {
         type: 'hideLoading'
       })
     },
-    async searchDistrictTree ({state, commit }, payload) {
-      if (!isEmptyObj(state.treeList)&&payload.type===0) return
+    async searchDistrictTree ({commit }, payload) {
       const { data } = await getTree({type: payload.type,id:payload.id})
       commit({
         type: 'updateTreeList',

@@ -8,7 +8,8 @@
     </div>
     <div class="view-content">
        <Search
-      @lookDetail="lookDetail"
+        @searchDistrictTree="searchDistrictTree"
+        @lookDetail="lookDetail"
       />
       <List
       @lookDetail="lookDetail"/>
