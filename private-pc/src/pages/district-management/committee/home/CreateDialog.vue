@@ -84,7 +84,7 @@
         </el-form-item>
         <el-form-item
           label="排序码"
-          prop="sort	">
+          prop="sort">
           <el-input
             :disabled="isDisabled"
             size="medium"
