@@ -35,7 +35,7 @@
           v-model="searchForm.date"
           placeholder="请选择时间"
           type="daterange"
-          range-separator="至"
+          range-separator="-"
           start-placeholder="开始日期"
           end-placeholder="结束日期">
            </el-date-picker>

@@ -121,7 +121,7 @@
           v-model="form.startTime"
           placeholder="请选择剥权时间"
           type="date"
-          range-separator="至"
+          range-separator="-"
           start-placeholder="开始日期"
           end-placeholder="结束日期">
            </el-date-picker>
@@ -135,7 +135,7 @@
           v-model="form.endTime"
           type="date"
            placeholder="请选择剥权恢复时间"
-          range-separator="至"
+          range-separator="-"
           start-placeholder="开始日期"
           end-placeholder="结束日期">
           </el-date-picker>

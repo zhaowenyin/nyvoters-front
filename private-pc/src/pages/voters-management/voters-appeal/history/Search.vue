@@ -38,7 +38,7 @@
           v-model="searchForm.applyTime"
           size="medium"
           type="datetimerange"
-          range-separator="至"
+          range-separator="-"
           start-placeholder="开始日期"
           end-placeholder="结束日期" />
       </el-form-item>
@@ -58,7 +58,7 @@
           v-model="searchForm.auditTime"
           size="medium"
           type="datetimerange"
-          range-separator="至"
+          range-separator="-"
           start-placeholder="开始日期"
           end-placeholder="结束日期" />
       </el-form-item>

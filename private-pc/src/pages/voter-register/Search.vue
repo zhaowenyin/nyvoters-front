@@ -57,7 +57,7 @@
           :default-time="['00:00:00', '23:59:59']"
           size="medium"
           type="daterange"
-          range-separator="至"
+          range-separator="-"
           start-placeholder="开始日期"
           end-placeholder="结束日期"/>
       </el-form-item>
