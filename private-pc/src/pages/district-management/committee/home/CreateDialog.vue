@@ -76,6 +76,7 @@
           <el-input
             :disabled="isDisabled"
             size="medium"
+            :maxlength="11"
             placeholder="请输入手机号码"
             class="item"
             v-model="form.phoneName" />
@@ -209,7 +210,15 @@ export default {
       })
     },
     async sumitData () {
-      this.loading = true
+
+      if(this.form.phoneName && (!/^1[34578]\d{9}$/.test(this.form.phoneName))) {
+        this.$notify({
+          title: '',
+          message: '请输入正确的手机号码！',
+          type: 'warning'
+        });
+        return
+      }
       this.loading = true
       if(this.item.name) {
         await modifySubmit({...this.handerParams(), id: this.item.id})
