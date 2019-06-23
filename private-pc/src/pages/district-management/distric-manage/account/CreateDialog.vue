@@ -12,14 +12,14 @@
         ref="form"
         class="login-form">
          <el-form-item
-            v-if="val === 5"
+            v-if="val === 5 || +itemL.accountRole===5"
             label="帐号类型"
             prop="accountType">
             <el-radio-group :disabled="isDisabled" size="medium" v-model="form.accountType">
               <el-radio
                 v-for="(i, key) in registrationTypeList"
                 :key="key"
-                :label="key">{{i}}</el-radio>
+                :label="+key">{{i}}</el-radio>
             </el-radio-group>
           </el-form-item>
          <el-form-item
@@ -129,6 +129,7 @@ export default {
         accountType: '',
         precinctId: '',
         managePrecinctIds: [],
+        accountRole: ''
       },
       multipleSelection: [],
       data: [],
