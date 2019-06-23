@@ -438,6 +438,7 @@ export default {
   computed: {
     ...mapState('commonData', {
       nationList: state => state.nationList,
+      belongAreaId: state => state.belongAreaId
     })
   },
   components: {
@@ -458,14 +459,13 @@ export default {
     }
   },
   created () {
-    // this.form = {...this.form, ...this.item }
     if(this.item.id){
       this.getDetail()
     }
 
     this.searchnation()
     this.searchTree({type: 0, id: ''})
-    this.searchPeople({status: 7})
+    this.searchPeople({status: 7,precinctId: this.belongAreaId})
   },
   methods: {
     ...mapActions('commonData', [
@@ -478,7 +478,6 @@ export default {
       this.$emit('update:visible', false)
     },
     submitForm () {
-      console.log(this.handerparam())
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.sumitData()
@@ -486,16 +485,34 @@ export default {
       })
     },
     async sumitData () {
-      this.loading = true
-      if(this.item.id) {
-        await modifySubmit(this.handerparam())
-      } else {
-        await setSubmit(this.handerparam())
+      try {
+        this.loading = true
+        let data1 = {}
+        if(this.item.id) {
+          const {data} = await modifySubmit(this.handerparam())
+          data1 = data
+        } else {
+          const {data} = await setSubmit(this.handerparam())
+          data1 = data
+        }
+        if(data1.content) {
+          this.getListData()
+          this.close()
+        } else {
+          this.$notify({
+            title: '',
+            message: data1.message,
+            type: 'error'
+          });
+        }
+
+      } catch (error) {
+        console.log(error)
+      }finally{
+        this.loading = false
       }
 
-      this.getListData()
-      this.close()
-      this.loading = false
+
     },
     handerparam() {
       let params = {...this.form}
