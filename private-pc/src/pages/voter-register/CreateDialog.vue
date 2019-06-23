@@ -367,16 +367,22 @@ export default {
       })
     },
     async sumitData () {
-      this.loading = true
-      if(this.item.id) {
-        await modifySubmit(this.handerParams())
-      } else {
-        await setSubmit(this.handerParams())
+      try {
+        this.loading = true
+        if(this.item.id) {
+          await modifySubmit(this.handerParams())
+        } else {
+          await setSubmit(this.handerParams())
+        }
+        this.close()
+        this.getListData()
+      } catch (error) {
+        console.log(error)
+      }finally{
+        this.loading = false
       }
 
-      this.close()
-      this.getListData()
-      this.loading = false
+
     },
     comfirmClose () {
       if(this.isDisabled){

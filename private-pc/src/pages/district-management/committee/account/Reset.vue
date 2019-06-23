@@ -3,7 +3,7 @@
     <el-dialog
       title="重置密码"
       :visible="visible"
-      width="600px"
+      width="700px"
       :before-close="comfirmClose">
       <el-form
         label-width="110px"
