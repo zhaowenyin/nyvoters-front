@@ -50,9 +50,15 @@ export default {
       news:state => state.news
     }),
     list () {
-      let arr = this.news.filter((i,index)=>{
-        return !([0,1,3].indexOf(index)>-1)
-      })
+      let arr = []
+      if(this.news.length>3){
+        arr = this.news.filter((i,index)=>{
+          return !([0,1,3].indexOf(index)>-1)
+        })
+      } else {
+        arr = this.news
+      }
+
       return arr
     }
   },
@@ -64,7 +70,7 @@ export default {
     this.getUserInfo()
     this.currentTime = this.formatDateTimeZn(Date.now())
     this.timeout = setInterval(() => {
-      this.getNews({isRead: null})
+      this.getNews({isRead: 0})
     }, 10000)
     this.timer = setInterval(() => {
       this.currentTime = this.formatDateTimeZn(Date.now())
