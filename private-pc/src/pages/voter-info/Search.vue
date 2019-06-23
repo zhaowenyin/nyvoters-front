@@ -41,7 +41,7 @@
       </el-form-item>
        <el-form-item
        label="状态"
-        prop="type">
+        prop="status">
         <el-select
         size="medium"
         placeholder="请选择状态"
