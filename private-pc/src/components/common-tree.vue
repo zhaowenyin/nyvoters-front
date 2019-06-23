@@ -31,7 +31,7 @@ export default {
         return {
           children: 'children',
           label: 'name',
-          disabled: 'leaf'
+          disabled: 'access'
         }
       },
       type: Object,
