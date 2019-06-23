@@ -20,7 +20,7 @@
             style="width: 100%;"
             class="item"
             v-model="form.parentId"
-            clearable placeholder="请选择">
+            placeholder="请选择">
             <el-option
               v-for="(item, key) in parentList"
               :key="key"
@@ -210,7 +210,6 @@ export default {
       })
     },
     async sumitData () {
-
       if(this.form.phoneName && (!/^1[34578]\d{9}$/.test(this.form.phoneName))) {
         this.$notify({
           title: '',
@@ -219,16 +218,23 @@ export default {
         });
         return
       }
-      this.loading = true
-      if(this.item.name) {
-        await modifySubmit({...this.handerParams(), id: this.item.id})
-      }else {
-        await setSubmit(this.handerParams())
+      try {
+        this.loading = true
+        if(this.item.name) {
+          await modifySubmit({...this.handerParams(), id: this.item.id})
+        }else {
+          await setSubmit(this.handerParams())
+        }
+        this.getListData()
+        this.searchTree({type: 0, id: ''})
+        this.close()
+      } catch (error) {
+        console.log(error)
+      }finally{
+        this.loading = false
       }
-      this.getListData()
-      this.searchTree({type: 0, id: ''})
-      this.close()
-      this.loading = false
+
+
     },
     comfirmClose () {
       if(this.isDisabled){
