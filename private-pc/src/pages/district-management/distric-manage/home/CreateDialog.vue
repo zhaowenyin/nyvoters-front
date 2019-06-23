@@ -86,7 +86,6 @@
           </el-col>
         </el-row>
       </el-form>
-
       <div
         slot="footer"
         class="footer">
@@ -192,7 +191,7 @@ export default {
     if (this.val=== 0) {
       this.searchList({id: this.belongAreaId})
     } else {
-      this.searchTree({id: this.belongAreaId})
+      this.searchTree1({id: this.belongAreaId})
 
     }
 
@@ -201,6 +200,9 @@ export default {
   methods: {
     ...mapActions('distictHome', [
       'getListData'
+    ]),
+    ...mapActions('commonCommittee', [
+      'searchTree',
     ]),
     close () {
       this.$emit('update:visible', false)
@@ -219,8 +221,9 @@ export default {
       }else {
         await setSubmit(this.handerParams())
       }
-      this.close()
       this.getListData()
+      this.searchTree({type: 0, id: '',modify:true})
+      this.close()
       this.loading = false
     },
     comfirmClose () {
@@ -242,7 +245,7 @@ export default {
 
       return params
     },
-    async searchTree (val) {
+    async searchTree1 (val) {
       const {data} = await getTree(val)
       this.data = data.content
     },
