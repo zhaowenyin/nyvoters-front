@@ -12,7 +12,7 @@
         ref="form"
         class="login-form">
         <el-form-item>
-          您现在要对 用户：张一  登录账号：{{item.name}}  重置登录密码
+          您现在要对 用户：{{item.name}} 登录账号：{{item.account}}  重置登录密码
         </el-form-item>
         <el-form-item
           label="登录密码"

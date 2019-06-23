@@ -223,11 +223,22 @@ export default {
         this.loading = true
         if(this.item.name) {
           await modifySubmit({...this.handerParams(), id: this.item.id})
+          this.$notify({
+            title: '',
+            message: '修改成功',
+            type: 'success'
+          });
         }else {
           await setSubmit(this.handerParams())
+          this.$notify({
+            title: '',
+            message: '新建成功',
+            type: 'success'
+          });
         }
         this.getListData()
         this.searchTree({type: 0, id: ''})
+
         this.close()
       } catch (error) {
         console.log(error)
