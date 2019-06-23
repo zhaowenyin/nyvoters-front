@@ -108,7 +108,7 @@ export default {
     ]),
     // 分页
     handleCurrentChange (val) {
-      this.getListData({ page: val })
+      this.getListData({ pageNum: val })
     },
     dblclick(val){
       this.$emit('lookDetail',{val,isDisabled: true})
