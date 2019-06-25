@@ -5,7 +5,7 @@
     width="820px"
     :before-close="comfirmClose">
     <el-form
-      label-width="110px"
+      label-width="130px"
       :model="form"
       :rules="rules"
       ref="form"
@@ -16,6 +16,7 @@
             label="姓名"
             prop="name">
             <el-input
+             :disabled="isDisabled"
               size="medium"
               placeholder="请输入姓名"
               class="item"
@@ -27,6 +28,7 @@
             label="身份证号码"
             prop="idNum">
             <el-input
+              :disabled="isDisabled"
               size="medium"
               placeholder="请输入身份证号码"
               :maxlength="18"
@@ -38,7 +40,7 @@
           <el-form-item
             label="性别"
             prop="gender">
-            <el-radio-group size="medium" v-model="form.gender">
+            <el-radio-group :disabled="isDisabled" size="medium" v-model="form.gender">
               <el-radio :label="1">男</el-radio>
               <el-radio :label="2">女</el-radio>
             </el-radio-group>
@@ -49,6 +51,7 @@
             label=" 民族："
             prop="nation">
             <el-select
+             :disabled="isDisabled"
               size="medium"
               style="width: 100%;"
               class="item"
@@ -57,8 +60,8 @@
               <el-option
                 v-for="(item, key) in nationList"
                 :key="key"
-                :label="item"
-                :value="key">
+                :label="item.desc"
+                :value="item.stringCode">
               </el-option>
             </el-select>
           </el-form-item>
@@ -68,6 +71,7 @@
             label="手机号码"
             prop="phoneNum">
             <el-input
+              :disabled="isDisabled"
               size="medium"
               placeholder="请输入"
               class="item"
@@ -79,6 +83,7 @@
             label="联系方式"
             prop="contactInformation">
             <el-input
+              :disabled="isDisabled"
               size="medium"
               placeholder="请输入"
               class="item"
@@ -92,6 +97,7 @@
               label="户籍地"
               prop="householdRegistration">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入户籍地"
                 class="item"
@@ -104,6 +110,7 @@
               label=""
               prop="householdRegistrationDetail">
               <el-input
+                :disabled="isDisabled"
                 size="medium"
                 placeholder="详细地址"
                 class="item"
@@ -115,6 +122,7 @@
               label="现居住地"
               prop="living">
             <el-input
+              :disabled="isDisabled"
               placeholder="请输入现居住地"
               class="item"
               v-model="form.living" />
@@ -126,6 +134,7 @@
             label-width="0"
             prop="livingDetail">
             <el-input
+              :disabled="isDisabled"
               size="medium"
               placeholder="详细地址"
               class="item"
@@ -138,6 +147,7 @@
             label="参选地类型"
             prop="candidateType">
             <el-select
+              :disabled="isDisabled"
               class="item"
               size="medium"
               v-model="form.candidateType"
@@ -146,9 +156,19 @@
                 v-for="(item, key) in candidateTypeList"
                 :key="key"
                 :label="item"
-                :value="key">
+                :value="+key">
               </el-option>
             </el-select>
+          </el-form-item>
+        </el-col>
+         <el-col :span="12">
+          <el-form-item
+            label="持资格转移证明"
+            prop="proveDocId">
+            <el-radio-group  :disabled="isDisabled" size="medium" v-model="form.proveDocId">
+              <el-radio :label="'1'">是</el-radio>
+              <el-radio :label="'0'">否</el-radio>
+            </el-radio-group>
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -159,13 +179,14 @@
             <el-select
               size="medium"
               class="item"
+              :disabled="true"
               v-model="form.registrationType"
               clearable placeholder="请选择登记方式">
               <el-option
                 v-for="(item,key) in registrationTypeList"
-                 :key="key"
+                :key="key"
                 :label="item"
-                :value="key">
+                :value="+key">
               </el-option>
             </el-select>
           </el-form-item>
@@ -175,6 +196,7 @@
             label="登记日期"
             prop="registrationTime">
             <el-date-picker
+              :disabled="isDisabled"
               class="item"
               v-model="form.registrationTime"
               type="date"
@@ -187,6 +209,7 @@
             label="登记人"
             prop="registrar">
               <el-input
+                :disabled="true"
                 size="medium"
                 placeholder="请输入登记人"
                 :maxlength="18"
@@ -199,23 +222,32 @@
     <div
       slot="footer"
       class="footer">
-      <el-button
-        @click="submitForm()"
-        size="medium"
-        :loading="loading"
-        type="primary">确定</el-button>
-        <el-button
-        @click="comfirmClose()"
-        size="medium">取消</el-button>
+       <el-button
+         v-if="!isDisabled"
+          @click="submitForm()"
+          size="medium"
+          :loading="loading"
+          type="primary">确定</el-button>
+          <el-button
+           v-if="!isDisabled"
+          @click="comfirmClose()"
+          size="medium">取消</el-button>
+          <el-button
+           v-if="isDisabled"
+           type="primary"
+            @click="comfirmClose()"
+          size="medium">确定</el-button>
     </div>
   </el-dialog>
 </template>
 <script>
-import {setSubmit} from './service.js'
+import {setSubmit,modifySubmit} from './service.js'
 import {registrationTypeList, candidateTypeList} from '../../../common-data/config.js'
-import { mapActions } from 'vuex'
+import { mapActions,mapState } from 'vuex'
+import {getSession} from '../../../utils/session'
 export default {
   data () {
+    const session = getSession()
     return {
       loading: false,
       form: {
@@ -232,7 +264,8 @@ export default {
         candidateType: '',
         registrationType: '',
         registrationTime: '',
-        registrar: ''
+        registrar: '',
+        proveDocId: ''
       },
       multipleSelection: [],
       rules: {
@@ -273,14 +306,15 @@ export default {
           { required: true, message: '请选择登记日期！', trigger: 'change' }
         ],
         registrar:[
-          { required: true, message: '请输入登记人', trigger: 'blur' }
-        ]
+          { required: true, message: '请输入登记人!', trigger: 'blur' }
+        ],
+        proveDocId: [
+          { required: true, message: '请选择持资格转移证明!', trigger: 'change' }
+        ],
       },
       registrationTypeList,
       candidateTypeList,
-      nationList: {
-        1: '汉'
-      }
+      session
     }
 
   },
@@ -292,14 +326,35 @@ export default {
     item: {
       default: () => {},
       type: Object
+    },
+    belongAreaId: {
+      default: '',
+      type: String,
+    },
+    isDisabled: {
+      default: false,
+      type: Boolean
     }
   },
+  computed: {
+    ...mapState('commonData', {
+      nationList: state => state.nationList,
+    })
+  },
   created () {
-    this.form = {...this.form, ...this.item }
+    if(this.item.id) {
+      this.form = {...this.form, ...this.item,registrationTime: this.item.registrationTime ? new Date(this.item.registrationTime) : ''}
+    }
+    this.form.registrationType = this.session.accountType
+    this.form.registrar = this.session.name
+    this.searchnation()
   },
   methods: {
     ...mapActions('voterRegistersData', [
       'getListData'
+    ]),
+    ...mapActions('commonData', [
+      'searchnation'
     ]),
     close () {
       this.$emit('update:visible', false)
@@ -312,13 +367,28 @@ export default {
       })
     },
     async sumitData () {
-      this.loading = true
-      await setSubmit(this.handerParams())
-      this.close()
-      this.getListData()
-      this.loading = false
+      try {
+        this.loading = true
+        if(this.item.id) {
+          await modifySubmit(this.handerParams())
+        } else {
+          await setSubmit(this.handerParams())
+        }
+        this.close()
+        this.getListData()
+      } catch (error) {
+        console.log(error)
+      }finally{
+        this.loading = false
+      }
+
+
     },
     comfirmClose () {
+      if(this.isDisabled){
+        this.close()
+        return
+      }
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
         .then(() => {
           this.close()
@@ -326,9 +396,8 @@ export default {
         .catch(() => {})
     },
     handerParams () {
-      let params = {...this.form}
-      params.householdRegistration = params.householdRegistration + params.householdRegistrationDetail
-      params.living = params.living + params.livingDetail
+      let params = {...this.form,precinctId: this.belongAreaId}
+      params.registrationTime = params.registrationTime.getTime()
       return params
     }
   }

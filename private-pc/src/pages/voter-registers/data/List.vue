@@ -3,6 +3,7 @@
     <el-table
       :data="list"
       @selection-change="handleSelectionChange"
+      @row-dblclick="dblclick"
       class="add_table"
       v-loading="loading">
    <el-table-column
@@ -152,7 +153,10 @@ export default {
         text = '登记成功'
       }
       return text
-    }
+    },
+    dblclick(val){
+      this.$emit('lookDetail',{val,isDisabled: true})
+    },
   }
 }
 </script>
