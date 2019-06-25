@@ -3,7 +3,7 @@
     title="详情"
     :visible="visible"
     width="800px"
-    :before-close="comfirmClose">
+    :before-close="close">
     <el-form
       label-width="110px"
       ref="form"

@@ -64,7 +64,7 @@ export async function getDetail (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post('/transfer/audit', payload)
+  return api.get(`/appeal/${payload.id}`)
 }
 
 

@@ -3,6 +3,7 @@
     <el-table
       :data="list"
       class="add_table"
+      @row-dblclick="dblclick"
       v-loading="loading">
       <el-table-column
         label="申述人"
@@ -37,15 +38,6 @@
         label="处理时间">
         <template slot-scope="scope">
           {{formatDate(scope.row.auditTime)}}
-        </template>
-      </el-table-column>
-       <el-table-column
-        label="操作">
-        <template slot-scope="scope">
-         <el-button
-          @click="lookdetail(scope.row)"
-          size="small"
-          type="text">查看</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -117,7 +109,7 @@ export default {
       return text
     },
     formatDate,
-    lookdetail(row) {
+    dblclick(row) {
       this.createDialogVisible = true
       this.id = row.id
 
