@@ -10,7 +10,14 @@
     </div>
     <div class="view-content">
       <Search />
-      <List />
+       <List
+      @lookDetail="lookDetail"/>
+      <CreateDialog
+      v-if="createDialogVisible"
+      :item='item'
+      :isDisabled="isDisabled"
+      :visible.sync='createDialogVisible'
+      />
     </div>
   </div>
 </template>
@@ -19,11 +26,14 @@ import { mapMutations,mapActions,mapState } from 'vuex'
 import Search from './Search'
 import List from './List'
 import CommonTree from '../../../components/common-tree'
+import CreateDialog from '../../voter-register/CreateDialog'
 
 export default {
   data () {
     return {
-
+      item: {},
+      createDialogVisible: false,
+      isDisabled: false
     }
   },
   computed: {
@@ -35,7 +45,8 @@ export default {
   components: {
     Search,
     List,
-    CommonTree
+    CommonTree,
+    CreateDialog
   },
   created () {
     // 初始化清除数据
@@ -54,6 +65,11 @@ export default {
     ]),
     handleNodeClick(data) {
       this.saveDistrictId(data.id)
+    },
+    lookDetail (val) {
+      this.item = val.val
+      this.createDialogVisible = true
+      this.isDisabled = val.isDisabled
     }
   }
 }

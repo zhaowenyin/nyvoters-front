@@ -4,6 +4,7 @@
       :data="list"
       class="add_table"
       @selection-change="handleSelectionChange"
+      @row-dblclick="dblclick"
       v-loading="loading">
       <el-table-column
         type="selection"
@@ -70,7 +71,7 @@ import { mapState, mapActions,mapMutations } from 'vuex'
 export default {
   data () {
     return {
-      downLoading: false,
+      downLoading: false
     }
   },
   computed: {
@@ -178,6 +179,9 @@ export default {
         text = '其他'
       }
       return text
+    },
+    dblclick(val){
+      this.$emit('lookDetail',{val,isDisabled: true})
     }
   }
 }

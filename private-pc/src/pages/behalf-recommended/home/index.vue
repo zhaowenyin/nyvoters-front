@@ -1,16 +1,16 @@
 <template>
   <div class="behalf">
-      <Search
-      @lookDetail="lookDetail"
-      />
-      <List
-      @lookDetail="lookDetail"/>
-      <CreateDialog
-      v-if="createDialogVisible"
-      :item='item'
-      :isDisabled="isDisabled"
-      :visible.sync='createDialogVisible'
-      />
+    <Search
+    @lookDetail="lookDetail"
+    />
+    <List
+    @lookDetail="lookDetail"/>
+    <CreateDialog
+    v-if="createDialogVisible"
+    :item='item'
+    :isDisabled="isDisabled"
+    :visible.sync='createDialogVisible'
+    />
   </div>
 </template>
 <script>

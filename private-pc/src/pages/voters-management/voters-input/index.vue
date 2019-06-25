@@ -2,7 +2,14 @@
   <div class="view">
     <div class="view-content">
       <Search />
-      <List />
+      <List
+      @lookDetail="lookDetail"/>
+      <CreateDialog
+      v-if="createDialogVisible"
+      :item='item'
+      :isDisabled="isDisabled"
+      :visible.sync='createDialogVisible'
+      />
     </div>
   </div>
 </template>
@@ -10,11 +17,14 @@
 import { mapMutations } from 'vuex'
 import Search from './Search'
 import List from './List'
+import CreateDialog from '../../voter-register/CreateDialog'
 
 export default {
   data () {
     return {
-
+      item: {},
+      createDialogVisible: false,
+      isDisabled: false
     }
   },
   computed: {
@@ -23,6 +33,7 @@ export default {
   components: {
     Search,
     List,
+    CreateDialog
   },
   created () {
     // 初始化清除数据
@@ -32,6 +43,11 @@ export default {
     ...mapMutations('votersInput', [
       'clearState'
     ]),
+    lookDetail (val) {
+      this.item = val.val
+      this.createDialogVisible = true
+      this.isDisabled = val.isDisabled
+    }
   }
 }
 </script>

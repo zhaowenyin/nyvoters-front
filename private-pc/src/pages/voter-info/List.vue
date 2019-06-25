@@ -4,6 +4,7 @@
       :data="list"
       class="add_table"
       @selection-change="handleSelectionChange"
+      @row-dblclick="dblclick"
       v-loading="loading">
       <el-table-column
         type="selection"
@@ -183,6 +184,9 @@ export default {
         text = '学校'
       }
       return text
+    },
+    dblclick(val){
+      this.$emit('lookDetail',{val,isDisabled: true})
     }
   }
 }
