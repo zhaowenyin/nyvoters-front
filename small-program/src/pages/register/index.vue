@@ -120,7 +120,7 @@ import { Toast } from 'mint-ui'
 import Select from '../../components/Select'
 import { mapState, mapMutations, mapActions } from 'vuex'
 import {candidateTypeList} from '../../common-data/confiig.js'
-import {resolveBug} from '../../utils/format'
+import {resolveBug,cardVali} from '../../utils/format'
 export default {
   data () {
     return {
@@ -189,8 +189,8 @@ export default {
         this.error = '请填写用户名'
         return false
       }
-      if(!this.form.idNum) {
-        this.error = '请填写身份证号'
+      if(cardVali(this.form.idNum).status !== 1) {
+        this.error = this.cardVali(this.form.idNum).message
         return false
       }
       if(!this.form.gender) {
@@ -225,7 +225,8 @@ export default {
       this.timer=setTimeout(function(){
         resolveBug()
       },10)
-    }
+    },
+    cardVali
   }
 }
 </script>

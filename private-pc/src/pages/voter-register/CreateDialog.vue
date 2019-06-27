@@ -245,9 +245,28 @@ import {setSubmit,modifySubmit} from './service.js'
 import {registrationTypeList, candidateTypeList} from '../../common-data/config.js'
 import { mapActions,mapState } from 'vuex'
 import {getSession} from '../../utils/session'
+import {cardVali} from '../../utils/format'
 export default {
   data () {
     const session = getSession()
+    let validate = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入手机号'))
+      } else {
+        if (!/^1[34578]\d{9}$/.test(value)) {
+          callback(new Error('请输入正确手机号'))
+        }
+        callback()
+      }
+    }
+    const validate1 = (rule, value, callback) => {
+      let val = this.cardVali(value)
+      if (val.status !== 1) {
+        callback(new Error(val.message))
+      } else {
+        callback()
+      }
+    }
     return {
       loading: false,
       form: {
@@ -273,7 +292,7 @@ export default {
           { required: true, message: '请输入姓名！', trigger: 'blur' }
         ],
         idNum:  [
-          { required: true, message: '请输入身份证！', trigger: 'blur' }
+          { validator: validate1,required: true, trigger: 'blur' }
         ],
         gender: [
           { required: true, message: '请选择性别！', trigger: 'change' }
@@ -282,7 +301,7 @@ export default {
           { required: true, message: '请选择民族！', trigger: 'change' }
         ],
         phoneNum: [
-          { required: true, message: '请输入电话号码！', trigger: 'blur' }
+          { validator: validate,required: true, message: '请输入电话号码！', trigger: 'blur' }
         ],
         householdRegistration: [
           { required: true, message: '请输入户籍地！', trigger: 'blur' }
@@ -399,7 +418,8 @@ export default {
       let params = {...this.form,precinctId: this.belongAreaId}
       params.registrationTime = params.registrationTime.getTime()
       return params
-    }
+    },
+    cardVali
   }
 
 }

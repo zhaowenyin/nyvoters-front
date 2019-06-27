@@ -164,6 +164,7 @@
 </template>
 <script>
 import {setSubmit} from './service.js'
+import {cardVali} from '../../../utils/format'
 import { mapActions, mapState } from 'vuex'
 export default {
   data () {
@@ -174,6 +175,14 @@ export default {
         if (!/^1[34578]\d{9}$/.test(value)) {
           callback(new Error('请输入正确手机号'))
         }
+        callback()
+      }
+    }
+    const validate1 = (rule, value, callback) => {
+      let val = this.cardVali(value)
+      if (val.status !== 1) {
+        callback(new Error(val.message))
+      } else {
         callback()
       }
     }
@@ -197,7 +206,7 @@ export default {
           { required: true, message: '请输入姓名！', trigger: 'blur' }
         ],
         idNum:  [
-          { required: true, message: '请输入身份证！', trigger: 'blur' }
+          {  validator: validate1,required: true, trigger: 'blur' }
         ],
         gender: [
           { required: true, message: '请选择性别！', trigger: 'change' }
@@ -292,9 +301,9 @@ export default {
         params.endTime = params.endTime.getTime()
       }
       return params
-    }
+    },
+    cardVali
   }
-
 }
 </script>
 <style scoped>

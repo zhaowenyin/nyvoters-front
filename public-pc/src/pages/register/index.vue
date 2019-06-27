@@ -152,6 +152,7 @@
 import { registerSubmit, getCode } from './service.js'
 import {candidateTypeList} from '../../common-data/config.js'
 import { mapActions,mapState } from 'vuex'
+import{cardVali} from '../../utils/format'
 
 export default {
   data () {
@@ -162,6 +163,14 @@ export default {
         if (!/^1[34578]\d{9}$/.test(value)) {
           callback(new Error('请输入正确手机号'))
         }
+        callback()
+      }
+    }
+    const validate1 = (rule, value, callback) => {
+      let val = this.cardVali(value)
+      if (val.status !== 1) {
+        callback(new Error(val.message))
+      } else {
         callback()
       }
     }
@@ -185,7 +194,7 @@ export default {
           { required: true, message: '请输入姓名', trigger: 'blur' }
         ],
         idNum: [
-          { required: true, message: '请输入身份证号', trigger: 'blur' }
+          { validator: validate1,required: true, trigger: 'blur' }
         ],
         nation: [
           { required: true, message: '请选择民族', trigger: 'change' }
@@ -269,7 +278,8 @@ export default {
       const {data} = await getCode()
       this.captchaImg = 'data:imagepng;base64,'+ data.content.captcha
       this.form.captchaId = data.content.captchaId
-    }
+    },
+    cardVali
 
   }
 }

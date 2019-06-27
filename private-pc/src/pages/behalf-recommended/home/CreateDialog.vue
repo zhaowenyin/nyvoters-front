@@ -345,6 +345,7 @@ import {setSubmit,getTree,getPeople,getDetail,modifySubmit} from './service.js'
 import { mapActions,mapState } from 'vuex'
 import DistrictSelect from '../../../components/DistrictSelect'
 import {educationList, postList,partyList} from '../../../common-data/config.js'
+import {cardVali} from '../../../utils/format'
 export default {
   data () {
     let validate = (rule, value, callback) => {
@@ -354,6 +355,14 @@ export default {
         if (!/^1[34578]\d{9}$/.test(value)) {
           callback(new Error('请输入正确手机号'))
         }
+        callback()
+      }
+    }
+    const validate1 = (rule, value, callback) => {
+      let val = this.cardVali(value)
+      if (val.status !== 1) {
+        callback(new Error(val.message))
+      } else {
         callback()
       }
     }
@@ -407,7 +416,7 @@ export default {
           { required: true, message: '请选择被推荐人！', trigger: 'blur' }
         ],
         idNum: [
-          { required: true, message: '请输入身份证号码！', trigger: 'blur' }
+          { validator: validate1, required: true, trigger: 'blur' }
         ],
         nation: [
           { required: true, message: '请选择民族', trigger: 'change' }
@@ -633,6 +642,7 @@ export default {
       const {data} = await getDetail({id: this.item.id})
       this.form = {...this.form, ...data.content}
     },
+    cardVali
   }
 
 }

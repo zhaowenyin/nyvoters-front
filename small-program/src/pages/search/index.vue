@@ -20,6 +20,7 @@
       <input
         @blur="blur"
         v-model="form.idNum"
+        :maxlength="18"
         placeholder="请填写身份证号码"
         class="input"/>
     </div>

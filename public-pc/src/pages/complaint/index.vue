@@ -106,9 +106,18 @@
 import {complaitSubmit,getCode} from './service.js'
 import output from '../../utils/output.js'
 import { baseURL } from '../../utils/api.js'
+import{cardVali} from '../../utils/format'
 
 export default {
   data () {
+    const validate1 = (rule, value, callback) => {
+      let val = this.cardVali(value)
+      if (val.status !== 1) {
+        callback(new Error(val.message))
+      } else {
+        callback()
+      }
+    }
     return {
       userLogin: {
         userName: '',
@@ -124,7 +133,7 @@ export default {
           { required: true, message: '请输入申诉人', trigger: 'blur' }
         ],
         idNum: [
-          { required: true, message: '请输入密码', trigger: 'blur' }
+          { validator: validate1, required: true, trigger: 'blur' }
         ],
         phoneNum: [
           { required: true, message: '请输入联系电话', trigger: 'blur' }
@@ -236,7 +245,8 @@ export default {
       const {data} = await getCode()
       this.captchaImg = 'data:imagepng;base64,'+data.content.captcha
       this.userLogin.captchaId = data.content.captchaId
-    }
+    },
+    cardVali
   }
 }
 </script>

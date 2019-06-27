@@ -100,7 +100,7 @@ import output from '../../utils/output.js'
 import {complaitSubmit,getCode} from './service.js'
 import VueUploadComponent from 'vue-upload-component'
 import { baseURL } from '../../utils/api.js'
-import {resolveBug} from '../../utils/format'
+import {resolveBug,cardVali} from '../../utils/format'
 export default {
   data () {
     return {
@@ -203,8 +203,8 @@ export default {
         this.error = '请填写申诉人'
         return false
       }
-      if(!this.form.idNum) {
-        this.error = '请填写身份证号'
+      if(cardVali(this.form.idNum).status !== 1) {
+        this.error = this.cardVali(this.form.idNum).message
         return false
       }
       if(!this.form.appealDocumentId) {
@@ -273,6 +273,7 @@ export default {
         resolveBug()
       },10)
     },
+    cardVali
   }
 }
 </script>
