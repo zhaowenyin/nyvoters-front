@@ -264,6 +264,7 @@ export default {
       let params = {...this.form}
       if(this.item.id || this.item.id===0) {
         params.password = this.item.password
+        params.id = this.item.id
       } else {
         params.password=md5(this.item.password)
       }
