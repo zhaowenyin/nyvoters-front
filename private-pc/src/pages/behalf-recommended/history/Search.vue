@@ -160,6 +160,11 @@ export default {
       }
       let params = {idList,status: "REVIEW_SUCCESS"}
       await repealTabel(params)
+      this.$notify({
+        title: '',
+        message: '撤销成功',
+        type: 'success'
+      })
       this.getListData()
     }
   }
