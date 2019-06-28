@@ -38,7 +38,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="belongAreaId"
+        prop="belongAreaName"
         label="所属选区"/>
     </el-table>
     <div
