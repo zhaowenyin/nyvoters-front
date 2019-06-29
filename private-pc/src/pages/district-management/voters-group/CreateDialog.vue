@@ -6,7 +6,7 @@
       width="60%"
       :before-close="comfirmClose">
       <el-form
-        label-width="110px"
+        label-width="130px"
         :model="form"
         :rules="rules"
         ref="form"
@@ -139,6 +139,16 @@ import DistrictSelect from '../../../components/DistrictSelect'
 import { mapActions,mapState } from 'vuex'
 export default {
   data () {
+    let validate = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入手机号'))
+      } else {
+        if (!/^1[34578]\d{9}$/.test(value)) {
+          callback(new Error('请输入正确手机号'))
+        }
+        callback()
+      }
+    }
     return {
       loading: false,
       form: {
@@ -156,10 +166,11 @@ export default {
         name: [
           { required: true, message: '请输入选委会！', trigger: 'blur' }
         ],
-
         precinctId: [
           { required: true, message: '请输入选委会！', trigger: 'change' }
         ],
+        convenerPhone:[{ required: true,validator: validate, trigger: 'blur' }],
+        managerPhone:[{ required: true, validator: validate,  trigger: 'blur' }]
 
       },
       typeList: {
