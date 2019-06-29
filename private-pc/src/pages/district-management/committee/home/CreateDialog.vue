@@ -122,6 +122,16 @@ import { mapActions,mapState } from 'vuex'
 import DistrictSelect from '../../../../components/DistrictSelect'
 export default {
   data () {
+    let validate = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入手机号'))
+      } else {
+        if (!/^1[34578]\d{9}$/.test(value)) {
+          callback(new Error('请输入正确手机号'))
+        }
+        callback()
+      }
+    }
     return {
       loading: false,
       form: {
@@ -141,6 +151,12 @@ export default {
         districtId: [
           { required: true, message: '请选择对应行政区！', trigger: 'change' }
         ],
+        code: [
+          { required: true, message: '请输入选委会代码！', trigger: 'blur' }
+        ],
+        phoneName: [
+          { required: true,  validator: validate,  trigger: 'blur' }
+        ]
 
       },
       createDialogVisible: false,
@@ -211,14 +227,6 @@ export default {
       })
     },
     async sumitData () {
-      if(this.form.phoneName && (!/^1[34578]\d{9}$/.test(this.form.phoneName))) {
-        this.$notify({
-          title: '',
-          message: '请输入正确的手机号码！',
-          type: 'warning'
-        });
-        return
-      }
       try {
         this.loading = true
         if(this.item.name) {
