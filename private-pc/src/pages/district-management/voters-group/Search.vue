@@ -33,7 +33,7 @@
       </el-form-item>
        <el-form-item
         v-if="type === 2"
-        prop="code">
+        prop="manager">
         <el-input
           class="item"
           size="medium"

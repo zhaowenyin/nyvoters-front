@@ -35,6 +35,7 @@
         prop="code">
         <el-input
           class="item"
+          type="number"
           size="medium"
           placeholder="请输入关键字"
           v-model.trim="searchForm.code" />

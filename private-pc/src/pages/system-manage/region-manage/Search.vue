@@ -36,6 +36,7 @@
         prop="code">
         <el-input
           class="item"
+          type="number"
           size="medium"
           placeholder="请输入行政区代码"
           v-model.trim="searchForm.code" />

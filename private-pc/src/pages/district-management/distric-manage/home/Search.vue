@@ -42,6 +42,7 @@
         <el-input
           class="item"
           size="medium"
+          type="number"
           placeholder="请输入关键字"
           v-model.trim="searchForm.code" />
       </el-form-item>
