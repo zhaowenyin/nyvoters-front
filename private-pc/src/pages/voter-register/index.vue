@@ -3,7 +3,7 @@
     <div class="view-left">
       <!-- :hasSearch="true" 可搜索 -->
       <CommonTree
-        :current-node-key="this.belongAreaId"
+        :current-node-key="belongAreaId"
         node-key="id"
         :expand-on-click-node="false"
         :data="data"

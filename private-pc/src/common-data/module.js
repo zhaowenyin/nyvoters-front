@@ -34,10 +34,10 @@ export default {
     updateTreeList(state, payload) {
       state.treeList = [payload.payload.data.content]
       if(!payload.payload.param.modify) {
-        state.belongAreaId = '1003'
-        state.saveItem = payload.payload.data.content
-        state.belongAreaItem = func([payload.payload.data.content], '1003')
+        state.belongAreaId = payload.payload.data.content.id
+        state.belongAreaItem = func([payload.payload.data.content], state.belongAreaId)
         state.belongArea = state.belongAreaItem.name
+        state.saveItem =  state.belongAreaItem
       }
     },
     updateNews(state, payload) {
@@ -65,7 +65,7 @@ export default {
     async searchTree ({ commit, state }, payload) {
       if(!payload.modify){
         if(!isEmptyObj(state.treeList)&&state.type===payload.type) {
-          state.belongAreaId = '1003'
+          state.belongAreaId = state.saveItem.id
           state.belongArea = state.saveItem.name
           state.belongAreaItem = JSON.parse(JSON.stringify(state.saveItem))
         }
