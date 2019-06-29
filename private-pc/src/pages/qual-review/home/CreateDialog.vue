@@ -487,7 +487,7 @@ export default {
           { required: true, message: '请选择性别！', trigger: 'change' }
         ],
         nation: [
-          { required: true, message: '请选择民族！', trigger: 'blur' }
+          { required: true, message: '请选择民族！', trigger: 'change' }
         ],
         birthDay: [
           { required: true, message: '请选择出生日期！', trigger: 'change' }
