@@ -161,7 +161,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-         <el-col :span="12">
+         <el-col v-if="+form.candidateType === 1" :span="12">
           <el-form-item
             label="持资格转移证明"
             prop="proveDocId">
@@ -379,6 +379,10 @@ export default {
       this.$emit('update:visible', false)
     },
     submitForm () {
+      if(this.form.candidateType === 0) {
+        this.$refs.form.clearValidate('candidateType')
+        this.form.proveDocId=""
+      }
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.sumitData()
