@@ -40,6 +40,7 @@
         prop="code">
         <el-input
           size="medium"
+          type="number"
           :disabled="isDisabled"
           placeholder="请输入行政区代码"
           class="item"

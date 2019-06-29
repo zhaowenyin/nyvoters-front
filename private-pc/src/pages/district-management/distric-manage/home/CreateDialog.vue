@@ -19,6 +19,7 @@
               <el-input
                 :disabled="isDisabled"
                 size="medium"
+                type="number"
                 placeholder="请输入选区编码"
                 class="item"
                 v-model="form.code" />
