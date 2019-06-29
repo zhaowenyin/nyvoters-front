@@ -212,7 +212,7 @@ export default {
           { required: true, message: '请选择性别！', trigger: 'change' }
         ],
         nation: [
-          { required: true, message: '请选择民族！', trigger: 'blur' }
+          { required: true, message: '请选择民族！', trigger: 'change' }
         ],
         phoneNum: [
           { validator: validate,required: true, trigger: 'blur' }
