@@ -59,8 +59,6 @@ export async function modifySubmit (payload) {
   //   }, 500)
   // })
   return api.post('/doc/modify/', payload)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
 }
 // 修改
 export async function setSubmit (payload) {
@@ -74,7 +72,17 @@ export async function setSubmit (payload) {
   //   }, 500)
   // })
   return api.post('/doc/upload/', payload)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
+}
+export async function modifyFile (payload) {
+  // console.log(payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.post(`/doc/modify/?id=${payload.id}&module=${payload.module}&fileName=${payload.fileName}`)
 }
 

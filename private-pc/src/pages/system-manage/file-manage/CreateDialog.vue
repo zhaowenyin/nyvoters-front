@@ -24,7 +24,6 @@
             :on-success="successFn"
             :on-error="errorFn"
             :disabled="!!item.id"
-            :on-remove="changeFile"
             :multiple="false"
             :before-upload="beforeAvatarUpload"
             :limit="1"
@@ -85,7 +84,7 @@ import { baseURL } from '../../../utils/api.js'
 import {moudel} from '../../../common-data/config.js'
 import { getSession } from '../../../utils/session.js'
 import { mapActions } from 'vuex'
-// import {modifySubmit,setSubmit} from './service.js'
+import {modifyFile} from './service.js'
 export default {
   data () {
     const authToken = getSession()
@@ -145,11 +144,7 @@ export default {
       }
       paramStr = paramStr.substr(1)
       let url = ''
-      if(this.item&&this.item.id) {
-        url=`${baseURL}/doc/modify/?${paramStr}`
-      } else {
-        url =`${baseURL}/doc/upload/?${paramStr}`
-      }
+      url =`${baseURL}/doc/upload/?${paramStr}`
       return url
     }
   },
@@ -169,7 +164,11 @@ export default {
     submitForm () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          this.$refs.upload.submit();
+          if(this.form.fileList.length>0) {
+            this.$refs.upload.submit();
+          } else if(this.item.id) {
+            this.modifyFile()
+          }
         }
       })
     },
@@ -188,7 +187,7 @@ export default {
       this.form.fileList = fileList
     },
     beforeAvatarUpload (file) {
-      console.log(file)
+      console.log(55,file)
       // const isXlsx = file.type ===
       //   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       // if (!isXlsx) {
@@ -197,7 +196,7 @@ export default {
       // return isXlsx
     },
     successFn (response) {
-      console.log(response)
+      console.log(123,response)
       this.getListData()
       this.close()
       // this.form.id = response.id
@@ -208,6 +207,14 @@ export default {
       const errorObj = JSON.parse(message)
       this.$notify.error({title: errorObj.message || '上传失败'})
     },
+    async modifyFile () {
+      try {
+        await modifyFile ({id: this.item.id,module: this.form.module,fileName: this.form.fileName})
+      } catch (e) {
+        console.log(e)
+      }
+
+    }
   }
 
 }
