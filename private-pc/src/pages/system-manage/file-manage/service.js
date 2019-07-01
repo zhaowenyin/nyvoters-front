@@ -83,6 +83,6 @@ export async function modifyFile (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post(`/doc/modify/?id=${payload.id}&module=${payload.module}&fileName=${payload.fileName}`)
+  return api.post(`/doc/modify/?id=${payload.id}&module=${payload.module}&fileName=${payload.fileName}&isFillData=${payload.isFillData}`)
 }
 

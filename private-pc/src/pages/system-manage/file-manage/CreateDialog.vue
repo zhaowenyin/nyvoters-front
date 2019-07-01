@@ -209,7 +209,9 @@ export default {
     },
     async modifyFile () {
       try {
-        await modifyFile ({id: this.item.id,module: this.form.module,fileName: this.form.fileName})
+        await modifyFile ({id: this.item.id,module: this.form.module,fileName: this.form.fileName,isFillData: this.item.isFillData})
+        this.getListData()
+        this.close()
       } catch (e) {
         console.log(e)
       }
