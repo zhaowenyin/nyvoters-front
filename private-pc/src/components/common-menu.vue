@@ -50,7 +50,7 @@
         <el-menu-item v-if="power.indexOf('20')>-1" class="item" index="/behalf-file">资料管理</el-menu-item>
 
       </el-submenu>
-       <el-submenu index="4" v-if="/['21'|'22']s/g.test(power.join(','))">
+       <el-submenu index="4" v-if="/['21'|'22']/g.test(power.join(','))">
         <template slot="title">
           <img src="../assets/img/66.png" class="icon"/>
           <span>报表中心</span>
