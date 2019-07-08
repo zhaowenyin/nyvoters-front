@@ -130,6 +130,7 @@ export default {
       }
       this.list = []
       this.$emit('input', value)
+      this.$emit('change')
     },
     saveData (val) {
       let value = []
@@ -145,6 +146,7 @@ export default {
       }
       this.list = []
       this.$emit('input', value)
+      this.$emit('change')
     }
 
   }

@@ -58,6 +58,7 @@
             :multiple="false"
             v-model="form.districtId"
             :item='item'
+            @change="changeId"
             :data="data"
           />
         </el-form-item>
@@ -132,6 +133,13 @@ export default {
         callback()
       }
     }
+    let validate1 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请选择行政区！'))
+      } else {
+        callback()
+      }
+    }
     return {
       loading: false,
       form: {
@@ -149,7 +157,7 @@ export default {
           { required: true, message: '请输入选委会！', trigger: 'blur' }
         ],
         districtId: [
-          { required: true, message: '请选择对应行政区！', trigger: 'change' }
+          { required: true, validator: validate1 }
         ],
         code: [
           { required: true, message: '请输入选委会代码！', trigger: 'blur' }
@@ -184,7 +192,7 @@ export default {
     isDisabled: {
       default: false,
       type: Boolean
-    }
+    },
 
   },
   components: {
@@ -206,9 +214,8 @@ export default {
     }
     this.searchTree1({id: this.committeeId})
     this.parentList.push({name:this.item.name || this.belongArea,id:this.item.parentId || this.committeeId})
-
-
   },
+
   methods: {
     ...mapActions('committeeHome', [
       'getListData'
@@ -278,6 +285,11 @@ export default {
     async searchTree1 (val) {
       const {data} = await getTree(val)
       this.data = data.content
+    },
+    changeId() {
+      if(this.form.districtId) {
+        this.$refs.form.clearValidate('districtId')
+      }
     }
   }
 
