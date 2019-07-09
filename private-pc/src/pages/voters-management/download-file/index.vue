@@ -64,15 +64,8 @@ export default {
   methods: {
     async searchList (val) {
       this.loading = true
-      const{data} = await getList({...this.params,...val})
-      let datalist = []
-      for (let i of data.content.data) {
-
-        if(+i.module === 1) {
-          datalist.push(i)
-        }
-      }
-      this.list = datalist.map(i=> {
+      const{data} = await getList({...this.params,...val,module: 1})
+      this.list = data.content.data.map(i=> {
         i.doctype=this.handlegender(i.fileName)
         return i
       })
