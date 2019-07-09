@@ -68,9 +68,9 @@
       :visible.sync='createDialogVisible'
       />
     <Sort
-       v-if="visible"
+      @updateList="updateList"
+      v-if="visible"
       :status="status"
-      :list="list1"
       :visible.sync='visible'
     />
   </div>
@@ -78,7 +78,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
-import {repeal,getSortList} from './service.js'
+import {repeal} from './service.js'
 import Sort from '../../components/Sort'
 
 export default {
@@ -139,7 +139,7 @@ export default {
     }
   },
   created () {
-    this.getList({statusList:['PRELIMINARY_CANDIDATE']})
+    // this.getList({statusList:['PRELIMINARY_CANDIDATE']})
   },
   methods: {
     ...mapActions('initialCandidate', [
@@ -195,6 +195,9 @@ export default {
     sort () {
       this.visible = true
     },
+    updateList() {
+      this.getListData()
+    },
     async repealItem() {
       let idList = []
       for (let i of this.multipleSelection) {
@@ -205,10 +208,6 @@ export default {
       const param = JSON.parse(JSON.stringify(this.searchForm))
       param.pageNum = 1
       this.getListData(param)
-    },
-    async getList (val) {
-      const {data} = await getSortList(val)
-      this.list1 = data.content
     }
   }
 }

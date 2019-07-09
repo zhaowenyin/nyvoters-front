@@ -158,5 +158,16 @@ export async function setRead (payload) {
 export async function setSubmit (payload) {
   return api.post('/set/order', payload)
 }
-
+export async function getSortList (payload) {
+  // console.log(payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.post('/get/orderList', payload)
+}
 

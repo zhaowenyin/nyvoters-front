@@ -42,7 +42,7 @@
   </el-dialog>
 </template>
 <script>
-import {setSubmit} from '../common-data/service.js'
+import {setSubmit,getSortList} from '../common-data/service.js'
 import draggable from 'vuedraggable'
 export default {
   data () {
@@ -50,7 +50,8 @@ export default {
       loading: false,
       currentItem: {},
       list1: [],
-      index: -1
+      index: -1,
+      list: []
     }
 
   },
@@ -59,18 +60,13 @@ export default {
       default: false,
       type: Boolean
     },
-    list: {
-      default: null,
-      type: null
-    },
     status: {
       default: null,
       type: null
     }
   },
   created () {
-    this.list1 = JSON.parse(JSON.stringify(this.list))
-
+    this.getSortList({statusList:[this.status]})
   },
   components: {
     draggable
@@ -90,6 +86,7 @@ export default {
       }
       this.loading = true
       await setSubmit(params)
+      this.$emit('updateList')
       this.close()
       this.loading = false
     },
@@ -135,11 +132,15 @@ export default {
       }
     },
     change () {
-      console.log(8989)
       this.index = -1
       this.currentItem = {}
+    },
+    async getSortList (val) {
+      this.loading = true
+      const {data} = await getSortList(val)
+      this.list1 = data.content
+      this.loading = false
     }
-
   }
 
 }
