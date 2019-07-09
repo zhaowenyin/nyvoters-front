@@ -408,15 +408,7 @@ export default {
 
     },
     comfirmClose () {
-      if(this.isDisabled){
-        this.close()
-        return
-      }
-      this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
-        .then(() => {
-          this.close()
-        })
-        .catch(() => {})
+      this.close()
     },
     handerParams () {
       let params = {...this.form,precinctId: this.belongAreaId}

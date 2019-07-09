@@ -87,16 +87,9 @@ export default {
       this.loading = false
     },
     comfirmClose () {
-      this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
-        .then(() => {
-          this.close()
-        })
-        .catch(() => {})
+      this.close()
     }
   },
-  handleClick () {
-
-  }
 
 }
 </script>
