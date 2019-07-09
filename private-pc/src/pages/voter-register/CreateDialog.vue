@@ -399,6 +399,11 @@ export default {
         }
         this.close()
         this.getListData()
+        this.$notify({
+          title: '',
+          message: '登记成功不允许勾选修改！',
+          type: '数据保存成功'
+        });
       } catch (error) {
         console.log(error)
       }finally{
