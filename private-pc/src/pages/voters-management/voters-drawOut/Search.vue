@@ -19,7 +19,7 @@
           <el-option label="身份证号码" :value="2"></el-option>
           <el-option label="手机号" :value="3"></el-option>
           <el-option label="参选地类型" :value="4"></el-option>
-           <el-option label="选民状态" :value="5"></el-option>
+          <el-option label="选民状态" :value="5"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -33,7 +33,7 @@
       </el-form-item>
       <el-form-item
         v-if="type === 2"
-        prop="card">
+        prop="idNum">
         <el-input
           class="item"
           size="medium"
@@ -42,16 +42,16 @@
       </el-form-item>
       <el-form-item
         v-if="type === 3"
-        prop="tel">
+        prop="phoneNum">
         <el-input
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.pageNum" />
+          v-model.trim="searchForm.phoneNum" />
       </el-form-item>
       <el-form-item
         v-if="type === 4"
-        prop="date">
+        prop="dacandidateTypete">
         <el-select  size="medium" v-model.trim="searchForm.candidateType">
           <el-option
             v-for="(item, key) in candidateTypeList"
@@ -63,7 +63,7 @@
       </el-form-item>
         <el-form-item
         v-if="type === 5"
-        prop="date">
+        prop="status">
         <el-select  size="medium" v-model.trim="searchForm.status">
           <el-option
             v-for="(item, key) in statusList"
@@ -104,7 +104,7 @@ export default {
       createDialogVisible: false,
 
       id: '',
-      statusList
+      statusList,
     }
   },
   computed: {

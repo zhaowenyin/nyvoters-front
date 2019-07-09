@@ -48,7 +48,7 @@
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.pageNum" />
+          v-model.trim="searchForm.phoneNum" />
       </el-form-item>
       <el-form-item
         v-if="type === 4"

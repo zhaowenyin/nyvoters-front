@@ -174,7 +174,7 @@ export default {
         });
         return
       }
-      this.$confirm('确认撤销初步候选人资格 。撤销后，人员不显示在初步候选人列表中')
+      this.$confirm('确认撤销正式代表资格？ 撤销后，人员不显示在正式代表列表中')
         .then(() => {
           this.repealItem()
         })
