@@ -159,7 +159,7 @@ export default {
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',
-          message: '请勾选数据进删除！',
+          message: '请选择数据后再删除！',
           type: 'warning'
         });
         return
