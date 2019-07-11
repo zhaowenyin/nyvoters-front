@@ -5,7 +5,7 @@
       class="add-menu"
       background-color="#f4f4f4"
       @select="change">
-      <el-submenu index="" v-if="/['1'|'2'|'3']/g.test(power.join(','))">
+      <el-submenu index="" v-if="isSimilar(['1','2','3'])">
         <template slot="title">
           <img src="../assets/img/11.png" class="icon"/>
           <span>选民登记</span>
@@ -14,7 +14,7 @@
         <el-menu-item v-if="power.indexOf('2')>-1" class="item" index="/voter-registers">选民批量导入</el-menu-item>
         <el-menu-item v-if="power.indexOf('3')>-1" class="item" index="/voter-info">选民信息查询</el-menu-item>
       </el-submenu>
-       <el-submenu index="1" v-if="/['4'|'5'|'6'|'7'|'8']/g.test(power.join(','))">
+       <el-submenu index="1" v-if="isSimilar(['4','5','6','7','8'])">
         <template slot="title">
           <img src="../assets/img/22.png" class="icon"/>
           <span>选民管理</span>
@@ -26,7 +26,7 @@
         <el-menu-item v-if="power.indexOf('8')>-1" class="item" index="/voters-apeal">选民申诉管理</el-menu-item>
         <el-menu-item class="item" index="/voters-down">文件资料</el-menu-item>
       </el-submenu>
-       <el-submenu v-if="/['9'|'10'|'11'|'12'|'13']/g.test(power.join(','))" index="2">
+       <el-submenu v-if="isSimilar(['9','10','11','12','13'])" index="2">
         <template slot="title">
           <img src="../assets/img/33.png" class="icon"/>
           <span>选区管理</span>
@@ -37,7 +37,7 @@
           <el-menu-item v-if="power.indexOf('12')>-1"  class="item" index="/cut-power">剥权人管理</el-menu-item>
           <el-menu-item v-if="power.indexOf('13')>-1" class="item" index="/down-file">文件资料</el-menu-item>
       </el-submenu>
-      <el-submenu v-if="/['15'|'16'|'17'|'18'|'19'|'20']/g.test(power.join(','))" index="3">
+      <el-submenu v-if="isSimilar(['15','16','17','18','19','20'])" index="3">
         <template slot="title">
           <img src="../assets/img/44.png" class="icon"/>
           <span>代表事务管理</span>
@@ -50,7 +50,7 @@
         <el-menu-item v-if="power.indexOf('20')>-1" class="item" index="/behalf-file">资料管理</el-menu-item>
 
       </el-submenu>
-       <el-submenu index="4" v-if="/['21'|'22']/g.test(power.join(','))">
+       <el-submenu index="4" v-if="isSimilar(['21','22'])">
         <template slot="title">
           <img src="../assets/img/66.png" class="icon"/>
           <span>报表中心</span>
@@ -58,7 +58,7 @@
         <el-menu-item v-if="power.indexOf('21')>-1" class="item" index="/report-analysis">报表分析</el-menu-item>
         <el-menu-item v-if="power.indexOf('22')>-1" class="item" index="/report-file">报表文件</el-menu-item>
       </el-submenu>
-       <el-submenu index="5" v-if="/['23'|'24'|'25'|'26'|'27'|'28']/g.test(power.join(','))">
+       <el-submenu index="5" v-if="isSimilar(['23','24','25','26','27','28'])">
         <template slot="title">
           <img src="../assets/img/77.png" class="icon"/>
           <span>系统管理</span>
@@ -99,6 +99,16 @@ export default {
   methods: {
     change (index) {
       this.$router.push({ path: index })
+    },
+    isSimilar (val) {
+      let isisSimilar = false
+      for(let i of val) {
+        if(this.power.indexOf(i)>-1){
+          isisSimilar = true
+          break
+        }
+      }
+      return isisSimilar
     }
   }
 }
