@@ -505,6 +505,11 @@ export default {
           data1 = data
         }
         if(data1.content) {
+          this.$notify({
+            title: '',
+            message: '保存成功！',
+            type: 'success'
+          });
           this.getListData()
           this.close()
         } else {
