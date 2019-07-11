@@ -401,8 +401,8 @@ export default {
         this.getListData()
         this.$notify({
           title: '',
-          message: '登记成功不允许勾选修改！',
-          type: '数据保存成功'
+          message: '登记成功！',
+          type: 'warning'
         });
       } catch (error) {
         console.log(error)
