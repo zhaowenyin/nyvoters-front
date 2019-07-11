@@ -159,7 +159,16 @@ export default {
       this.close()
     },
     select(data) {
-      this.selectedList.push(data)
+      let isSimilar = false
+      for(let i of this.selectedList) {
+        if(i.id===data.id) {
+          isSimilar = true
+          break
+        }
+      }
+      if(!isSimilar) {
+        this.selectedList.push(data)
+      }
     },
     deleteI(val) {
       this.selectedList = this.selectedList.filter(i => {
