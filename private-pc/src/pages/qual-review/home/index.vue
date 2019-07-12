@@ -37,7 +37,7 @@ export default {
     this.clearState()
   },
   methods: {
-    ...mapMutations('home', [
+    ...mapMutations('qualReview', [
       'clearState'
     ]),
     lookDetail (val) {
