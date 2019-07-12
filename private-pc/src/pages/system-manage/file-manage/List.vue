@@ -102,8 +102,11 @@ export default {
       case 3:
         text = '代表事务管理'
         break
+      case 4:
+        text = '在线申诉'
+        break
       default:
-        text = '系统预置'
+        text = '其他'
       }
       return text
 
