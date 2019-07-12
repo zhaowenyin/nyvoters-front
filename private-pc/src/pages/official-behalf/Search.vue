@@ -169,7 +169,7 @@ export default {
       if(this.multipleSelection.length > 1) {
         this.$notify({
           title: '',
-          message: '请勾一条进行操作！',
+          message: '请勾选一条数据进行操作！',
           type: 'warning'
         });
         return
