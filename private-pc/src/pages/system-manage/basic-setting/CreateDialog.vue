@@ -31,7 +31,7 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item
-        label="登记开日期"
+        label="登记开始日期"
         prop="registerStartDate">
         <el-date-picker
           style="width: 100%"

@@ -40,13 +40,13 @@
             v-model="form.name" />
         </el-form-item>
         <el-form-item
-          label="选委会代码"
+          label="选委会编码"
           prop="code">
           <el-input
             type="number"
             :disabled="isDisabled"
             size="medium"
-            placeholder="请输入选委会代码"
+            placeholder="请输入选委会编码"
             class="item"
             v-model="form.code" />
         </el-form-item>
