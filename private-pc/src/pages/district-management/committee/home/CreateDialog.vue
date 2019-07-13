@@ -211,8 +211,11 @@ export default {
     }
     if (this.item.id) {
       this.form = {...this.form, ...params }
+      this.searchTree1({id: this.item.parentId})
+    } else {
+      this.searchTree1({id: this.committeeId})
     }
-    this.searchTree1({id: this.committeeId})
+
     this.parentList.push({name:this.item.name || this.belongArea,id:this.item.parentId || this.committeeId})
   },
 
