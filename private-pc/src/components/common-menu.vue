@@ -42,8 +42,8 @@
           <img src="../assets/img/44.png" class="icon"/>
           <span>代表事务管理</span>
         </template>
-        <el-menu-item v-if="power.indexOf('15')>-1" class="item" index="/qual-review">资格审查</el-menu-item>
         <el-menu-item v-if="power.indexOf('16')>-1" class="item" index="/behalf-recommended">代表推荐</el-menu-item>
+        <el-menu-item v-if="power.indexOf('15')>-1" class="item" index="/qual-review">资格审查</el-menu-item>
         <el-menu-item v-if="power.indexOf('17')>-1" class="item" index="/initial-candidate">初步候选人</el-menu-item>
         <el-menu-item v-if="power.indexOf('18')>-1" class="item" index="/official-candidate">正式候选人</el-menu-item>
         <el-menu-item v-if="power.indexOf('19')>-1" class="item" index="/official-behalf">正式代表</el-menu-item>
