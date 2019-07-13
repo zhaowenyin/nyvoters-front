@@ -27,14 +27,14 @@
       <el-table-column
         label="推荐方式">
          <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '团体推荐' : '选民联名推荐'}}
+          {{+scope.row.recommendType === 1 ? '团体推荐' : '选民联名推荐'}}
         </template>
       </el-table-column>
       <el-table-column
         label="类型"
       >
         <template slot-scope="scope">
-          {{scope.row.gender === 1 ? '区县代表' : '乡镇代表'}}
+          {{+scope.row.type === 1 ? '区县代表' : '乡镇代表'}}
         </template>
       </el-table-column>
       <el-table-column
