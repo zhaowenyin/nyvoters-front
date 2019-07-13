@@ -30,7 +30,7 @@
             <el-form-item
               label="类型"
               prop="type">
-              <el-radio-group size="medium" v-model="form.type">
+              <el-radio-group size="medium" v-model="form.type" :disabled="isDisabled">
                 <el-radio :label="'1'" :disabled="form.recommendType==='2'&&isDisabled">区县代表</el-radio>
                 <el-radio :label="'2'" :disabled="form.recommendType==='2'&&isDisabled">乡镇代表</el-radio>
               </el-radio-group>
@@ -75,9 +75,9 @@
           <el-col :span="12">
             <el-form-item
               label="身份证号码"
-              :disabled="isDisabled"
               prop="idNum">
               <el-input
+               :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入"
                 :maxlength="18"
