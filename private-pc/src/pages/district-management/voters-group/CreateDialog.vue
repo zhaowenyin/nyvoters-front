@@ -164,10 +164,10 @@ export default {
       multipleSelection: [],
       rules: {
         name: [
-          { required: true, message: '请输入选委会！', trigger: 'blur' }
+          { required: true, message: '请输入小组名称！', trigger: 'blur' }
         ],
         precinctId: [
-          { required: true, message: '请输入选委会！', trigger: 'change' }
+          { required: true, message: '请选择所属选区', trigger: 'change' }
         ],
         convenerPhone:[{ required: true,validator: validate, trigger: 'blur' }],
         managerPhone:[{ required: true, validator: validate,  trigger: 'blur' }]

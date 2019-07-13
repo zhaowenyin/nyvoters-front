@@ -116,11 +116,19 @@ export default {
     submitForm () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          const params = JSON.parse(JSON.stringify(this.searchForm))
-          params.pageNum = 1
-          this.getListData({...params,type: +params.type})
+          this.getListData(this.handerparams())
         }
       })
+    },
+    handerparams() {
+      let params = {...this.searchForm}
+      params.pageNum = 1
+      for(let i in params) {
+        if (!params[i]){
+          delete params[i]
+        }
+      }
+      return params
     },
     create () {
       this.item = {}
