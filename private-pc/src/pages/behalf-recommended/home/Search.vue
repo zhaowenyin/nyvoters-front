@@ -190,7 +190,7 @@ export default {
         type: 'success'
       })
     },
-    async deleteI () {
+    deleteI () {
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',
@@ -199,6 +199,13 @@ export default {
         });
         return
       }
+      this.$confirm('删除后将不可恢复，请确认是否删除？')
+        .then(() => {
+          this.deleteitem()
+        })
+        .catch(() => {})
+    },
+    async deleteitem () {
       let idList = []
       for (let i of this.multipleSelection) {
         idList.push(i.id)
@@ -208,7 +215,7 @@ export default {
       const param = JSON.parse(JSON.stringify(this.searchForm))
       param.page = 1
       this.getListData(param)
-    }
+    },
   }
 }
 </script>
