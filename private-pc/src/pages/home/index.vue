@@ -50,13 +50,15 @@ import CenbterChart from './CenbterChart'
 import Tabel from './Tabel'
 import Pie from './Pie'
 import {getList, bindPhone} from './service.js'
+import { getSession } from '../../utils/session'
 export default {
   data () {
+    const authToken = getSession()
     return {
       list: [],
       data: {},
-      bindLoading: false
-
+      bindLoading: false,
+      authToken
     }
   },
   computed: {
@@ -69,7 +71,10 @@ export default {
   },
   created () {
     // 初始化清除数据
-    this.isfirstLogin()
+    if(!this.authToken.phoneNum) {
+      this.isfirstLogin()
+    }
+
     this.clearState()
     this.Searchlist()
   },
