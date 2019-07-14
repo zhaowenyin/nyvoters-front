@@ -215,6 +215,7 @@
               prop="iseGraduatedInstitution">
               <el-input
                 size="medium"
+                :disabled="isDisabled"
                 placeholder="请输入"
                 v-model="form.iseGraduatedInstitution" />
             </el-form-item>
