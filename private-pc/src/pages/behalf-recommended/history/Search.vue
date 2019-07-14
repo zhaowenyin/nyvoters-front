@@ -15,7 +15,7 @@
           size="medium"
           style="width: 108px;"
           placeholder="请选择">
-          <el-option label="推荐人" :value="1"></el-option>
+          <el-option label="被推荐人" :value="1"></el-option>
           <el-option label="推荐方式" :value="2"></el-option>
           <el-option label="推荐类型" :value="3"></el-option>
         </el-select>
