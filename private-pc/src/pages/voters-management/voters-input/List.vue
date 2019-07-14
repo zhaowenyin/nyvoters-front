@@ -46,9 +46,9 @@
       </el-table-column>
        <el-table-column
         width="120"
-        label="自动对比结果">
+        label="类型">
         <template slot-scope="scope">
-          {{handercompareResult(scope.row.compareResult)}}
+          {{handertype(scope.row.type)}}
         </template>
       </el-table-column>
     </el-table>
@@ -154,29 +154,17 @@ export default {
       }
       return text
     },
-    handercompareResult	(val) {
+    handertype(val) {
       let text = ""
-      switch(val) {
-      case 0:
-        text = '待对比'
-        break
+      switch(+val) {
       case 1:
-        text = '正常'
+        text = '个人登记'
         break
       case 2:
-        text = '被剥夺政治权利 '
-        break
-      case 3:
-        text = '被剥夺政治权利'
-        break
-      case 4:
         text = '迁出'
         break
-      case 5:
-        text = '死亡'
-        break
       default:
-        text = '其他'
+        text = ''
       }
       return text
     },
