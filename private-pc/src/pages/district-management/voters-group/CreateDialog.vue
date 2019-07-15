@@ -233,6 +233,11 @@ export default {
       }else {
         await setSubmit(this.handerParams())
       }
+      this.$notify({
+        title: '',
+        message: '保存成功！',
+        type: 'success'
+      })
       this.close()
       this.getListData({ precinctId: this.belongAreaId })
       this.loading = false
