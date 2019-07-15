@@ -401,8 +401,8 @@ export default {
         this.getListData()
         this.$notify({
           title: '',
-          message: '登记成功！',
-          type: 'warning'
+          message: '数据保存成功',
+          type: 'success'
         });
       } catch (error) {
         console.log(error)
