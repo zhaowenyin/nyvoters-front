@@ -123,11 +123,6 @@ export default {
     handerparams() {
       let params = {...this.searchForm}
       params.pageNum = 1
-      for(let i in params) {
-        if (!params[i]){
-          delete params[i]
-        }
-      }
       return params
     },
     create () {
