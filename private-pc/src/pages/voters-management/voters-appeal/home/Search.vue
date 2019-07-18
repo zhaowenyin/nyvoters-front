@@ -159,7 +159,7 @@ export default {
       if(this.multipleSelection.length > 1) {
         this.$notify({
           title: '',
-          message: '只能勾选一条！',
+          message: '只能勾选一条数据！',
           type: 'warning'
         })
         return
