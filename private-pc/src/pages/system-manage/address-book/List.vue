@@ -9,8 +9,11 @@
         label="姓名"
         prop="name" />
       <el-table-column
-        label="选委会/选区"
-        prop="precinctName" />
+        label="选委会/选区" >
+        <template slot-scope="scope">
+         {{scope.row.precinctName || scope.row.committeeName}}
+        </template>
+      </el-table-column>
       <el-table-column
         label="手机号"
         prop="phoneNum">

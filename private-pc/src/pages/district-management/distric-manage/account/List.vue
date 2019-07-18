@@ -39,8 +39,11 @@
       </el-table-column>
 
       <el-table-column
-        label="选区"
-        prop="precinctName" />
+        label="选区">
+          <template slot-scope="scope">
+         {{scope.row.precinctName || scope.row.committeeName}}
+        </template>
+      </el-table-column>
     </el-table>
     <div
       v-show="total"
