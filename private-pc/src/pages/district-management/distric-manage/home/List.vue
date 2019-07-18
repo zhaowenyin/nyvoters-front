@@ -20,7 +20,7 @@
         label="类型"
         prop="gender">
         <template slot-scope="scope">
-          {{scope.row.type === 0 ? "区县选区" : '乡镇选区'}}
+          {{+scope.row.type === 0 ? "区县选区" : '乡镇选区'}}
         </template>
       </el-table-column>
       <el-table-column

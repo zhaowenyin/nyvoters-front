@@ -189,12 +189,20 @@ export default {
       this.form.parentId = this.belongAreaId
     }
     this.form = {...this.form, ...params }
-    if (this.val=== 0) {
-      this.searchList({id: this.belongAreaId})
+    if(!this.item.id) {
+      if (+this.val=== 0) {
+        this.searchList({id: this.belongAreaId})
+      } else {
+        this.searchTree1({id: this.belongAreaId})
+      }
     } else {
-      this.searchTree1({id: this.belongAreaId})
-
+      if (+this.item.type === 0) {
+        this.searchList({id: this.item.parentId})
+      } else {
+        this.searchTree1({id: this.item.parentId})
+      }
     }
+
 
 
   },
@@ -233,9 +241,7 @@ export default {
     handerParams () {
       let params = {...this.form}
       params.pnum = +params.pnum
-      params.parentType = 1
       delete params.typeName
-
       return params
     },
     async searchTree1 (val) {
