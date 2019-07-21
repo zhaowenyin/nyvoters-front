@@ -22,7 +22,18 @@ export default {
         left: 'center',
       },
       series: {
-        color: ['#6e9cd3','#eb7b3c','#a5a5a5','#fbdf2c','#4674c1','#72ac4d']
+        color: ['#6e9cd3','#eb7b3c','#a5a5a5','#fbdf2c','#4674c1','#72ac4d'],
+        label: {
+          normal: {
+            textStyle: {
+              color: 'rgba(200,235,255,1)',
+              fontSize: '16'
+            },
+            formatter: function(param) {
+              return param.value
+            }
+          }
+        },
       }
     }
     return {
