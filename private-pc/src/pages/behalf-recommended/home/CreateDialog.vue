@@ -431,7 +431,7 @@ export default {
           { required: true, message: '请选择出生日期', trigger: 'change' }
         ],
         recommendedPersonId:[
-          { required: true, message: '请选择出生日期', trigger: 'change' }
+          { required: true, message: '被推选人', trigger: 'change' }
         ]
       },
       educationList,
