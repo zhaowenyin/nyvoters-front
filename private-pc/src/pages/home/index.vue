@@ -19,18 +19,18 @@
     <Tabel :list="data.votersCounts"/>
     <div class="content-title">XX选区登记情况综合统计</div>
     <el-row :gutter="20">
-      <el-col :span="8" class="pie">
+      <el-col :span="12" class="pie">
         <div class="text">登记类型</div>
         <Pie :data="data.registerTypeGraphs"/>
       </el-col>
-      <el-col :span="8" class="pie">
+      <el-col :span="12" class="pie">
         <div class="text">参选地</div>
         <Pie :data="data.candidateTypeGraphs"/>
       </el-col>
-      <el-col :span="8" class="pie">
+      <!-- <el-col :span="8" class="pie">
         <div class="text">采集方式</div>
         <Pie :data="data.idTypeGraphs"/>
-      </el-col>
+      </el-col> -->
     </el-row>
     <el-row :gutter="20">
         <el-col :span="12" class="pie">
