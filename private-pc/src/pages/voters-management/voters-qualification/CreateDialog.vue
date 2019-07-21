@@ -44,9 +44,9 @@ export default {
       default: false,
       type: Boolean
     },
-    id: {
-      default: null,
-      type: Number
+    ids: {
+      default: ()=>[],
+      type: Array
     }
   },
   components: {
@@ -76,7 +76,7 @@ export default {
     async sumitData () {
       this.loading = true
       let params = {
-        id: this.id,
+        ids: this.ids,
         pass: false,
         reason: +this.selectItem
       }

@@ -59,7 +59,7 @@ export async function throughTabel (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post('/review/audit', payload)
+  return api.post('/review/audit/mulit', payload)
 }
 
 
