@@ -181,12 +181,11 @@ export default {
 
     },
     async delectItem() {
-      let idList = []
+      let ids = []
       for (let i of this.multipleSelection) {
-        idList.push(i.id)
+        ids.push(i.id)
       }
-      let params = {idList}
-      await deletetTabel(params)
+      await deletetTabel({ids})
       const param = JSON.parse(JSON.stringify(this.searchForm))
       param.pageNum = 1
       this.getListData(param)

@@ -51,16 +51,16 @@ export async function drawIn (payload) {
 }
 
 export async function deletetTabel (payload) {
-  console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/in/cut', payload)
+  // console.log(payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.post(`/register/delete/`,payload)
 }
 
 

@@ -150,14 +150,6 @@ export default {
         });
         return
       }
-      if(this.multipleSelection.length > 1) {
-        this.$notify({
-          title: '',
-          message: '请勾选一条数据进删除！',
-          type: 'warning'
-        });
-        return
-      }
       this.$confirm('选区删除后将不可恢复，请确认是否删除？')
         .then(() => {
           this.delectItem()
@@ -166,7 +158,11 @@ export default {
 
     },
     async delectItem() {
-      await deletetTabel({id:this.multipleSelection[0].id})
+      let ids = []
+      for(let i of this.multipleSelection) {
+        ids.push(i.id)
+      }
+      await deletetTabel({ids})
       const param = JSON.parse(JSON.stringify(this.searchForm))
       param.pageNum = 1
       this.getListData(param)

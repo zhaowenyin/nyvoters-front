@@ -83,7 +83,7 @@ export async function deletetTabel (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post(`/group/delete/${payload.id}`)
+  return api.post(`/group/delete/`,payload)
 }
 export async function getTree (payload) {
   return api.post('/precinct/tree', payload)
