@@ -93,3 +93,8 @@ textarea { resize: none; }
 .add_table .el-table__body-wrapper{
   /* overflow: hidden; */
 }
+
+/* 搜索按钮 */
+.search-box .left .el-button{
+  margin-bottom: 10px;
+}
