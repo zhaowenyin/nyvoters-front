@@ -61,6 +61,9 @@ export default {
     //   'searchTree',
     // ]),
     handleNodeClick(data) {
+      if(!data.access) {
+        return
+      }
       this.belongAreaId = data.id
     },
     async searchTree (val) {

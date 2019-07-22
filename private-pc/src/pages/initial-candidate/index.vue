@@ -54,6 +54,9 @@ export default {
       'searchTree',
     ]),
     handleNodeClick(data) {
+      if(!data.access) {
+        return
+      }
       this.saveDistrictId(data.id)
     }
   }

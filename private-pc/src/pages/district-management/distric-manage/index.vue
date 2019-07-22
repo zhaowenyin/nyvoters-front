@@ -67,6 +67,9 @@ export default {
       this.$router.push({ path: index })
     },
     handleNodeClick(data) {
+      if(!data.access) {
+        return
+      }
       this.saveDistrictId(data.id)
       this.saveDistrictName(data.name)
       this.saveDistrictItem(data)

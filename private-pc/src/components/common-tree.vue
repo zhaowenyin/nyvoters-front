@@ -83,8 +83,8 @@ export default {
     renderContent (h, { node }){
       return (
         <span>
-          {node.disabled&&<span class="disabel">{node.label}</span>}
-          {!node.disabled&&<span>{node.label}</span>}
+          {!node.disabled&&<span class="disabel">{node.label}</span>}
+          {node.disabled&&<span>{node.label}</span>}
         </span>)
     }
   }
