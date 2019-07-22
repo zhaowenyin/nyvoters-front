@@ -40,9 +40,9 @@ export default {
     upload () {
       this.createDialogVisible = true
     },
-    async download (item) {
+    async download () {
       try {
-        output({url: '/doc/download', param: {id: item, module: 1}})
+        output({url: '/doc/download', param: {fileName: '选民登记', module: 1}})
       } catch (err) {
         console.log(err)
       }
