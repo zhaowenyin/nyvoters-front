@@ -92,10 +92,10 @@ export default {
       let text = []
       switch(fileName) {
       case 1:
-        text = ['PRELIMINARY_CANDIDATE']
+        text = ['PRELIMINARY_CANDIDATE','FORMAL_CANDIDATE','FORMAL_REPRESENTATIVE']
         break
       case 2:
-        text = ['PRELIMINARY_CANDIDATE','FORMAL_CANDIDATE']
+        text = ['PRELIMINARY_CANDIDATE','FORMAL_CANDIDATE','FORMAL_REPRESENTATIVE']
         break
       case 3:
         text = ['FORMAL_CANDIDATE']

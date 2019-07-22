@@ -71,6 +71,7 @@
       @updateList="updateList"
       v-if="visible"
       :status="status"
+      :statuslist="statuslist"
       :visible.sync='visible'
     />
   </div>
@@ -113,6 +114,7 @@ export default {
       createDialogVisible: false,
       visible: false,
       status:'FORMAL_CANDIDATE',
+      statuslist:['FORMAL_REPRESENTATIVE','FORMAL_CANDIDATE'],
       list1:[]
     }
   },

@@ -51,16 +51,17 @@ export async function getList (payload) {
 
 // post请求
 export async function setSubmit (payload) {
-  // console.log(payload)
-  // return new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve({
-  //       data: {
-  //       }
-  //     })
-  //   }, 500)
-  // })
-  return api.post('/register/add', payload)
+  console.log(payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+          code: 1
+        }
+      })
+    }, 500)
+  })
+  // return api.post('/register/add', payload)
 }
 export async function modifySubmit (payload) {
   // console.log(payload)

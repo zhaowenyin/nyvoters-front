@@ -63,10 +63,14 @@ export default {
     status: {
       default: null,
       type: null
+    },
+    statuslist:{
+      default: null,
+      type: null
     }
   },
   created () {
-    this.getSortList({statusList:[this.status]})
+    this.getSortList({statusList:this.statuslist})
   },
   components: {
     draggable

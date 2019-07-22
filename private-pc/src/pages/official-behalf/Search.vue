@@ -72,6 +72,7 @@
       v-if="visible"
       :status="status"
       :visible.sync='visible'
+      :statuslist="statuslist"
     />
   </div>
 </template>
@@ -113,6 +114,7 @@ export default {
       ],
       createDialogVisible: false,
       status:'FORMAL_REPRESENTATIVE',
+      statuslist:['FORMAL_REPRESENTATIVE'],
       visible: false,
       list1: []
     }
