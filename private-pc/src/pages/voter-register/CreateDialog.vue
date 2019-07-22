@@ -219,6 +219,39 @@
         </el-col>
       </el-row>
     </el-form>
+     <el-dialog
+      width="30%"
+      title="提示"
+      :visible.sync="innerVisible"
+      append-to-body>
+      <div>该选民已经在：{{handerdata.fromPrecinctName}}</div>
+      <div style="padding-bottom:20px;">是否申请转入：{{handerdata.toPrecinctName}}？</div>
+      <el-form
+      label-width="60px"
+      :model="innerForm"
+      :rules="innerRules"
+      ref="form"
+      class="login-form">
+      <el-form-item
+        label="原因"
+        prop="reason">
+        <el-input
+          type="textarea"
+          :rows="4"
+          placeholder="请填写审核不通过原因"
+          v-model="innerForm.reason">
+        </el-input>
+      </el-form-item>
+    </el-form>
+      <div slot="footer" class="dialog-footer">
+      <el-button
+          @click="supplyTransfer"
+          size="medium"
+          :loading="loading"
+          type="primary">申请</el-button>
+      <el-button @click="innerClose">取消</el-button>
+    </div>
+    </el-dialog>
     <div
       slot="footer"
       class="footer">
@@ -241,7 +274,7 @@
   </el-dialog>
 </template>
 <script>
-import {setSubmit,modifySubmit} from './service.js'
+import {setSubmit,modifySubmit,supplyTransfer} from './service.js'
 import {registrationTypeList, candidateTypeList} from '../../common-data/config.js'
 import { mapActions,mapState } from 'vuex'
 import {getSession} from '../../utils/session'
@@ -331,9 +364,19 @@ export default {
           { required: true, message: '请选择持资格转移证明!', trigger: 'change' }
         ],
       },
+      innerForm: {
+        reason: ''
+      },
+      innerRules: {
+        reason:[
+          { required: true, message: '请填写申请转移原因', trigger: 'blur' }
+        ]
+      },
       registrationTypeList,
       candidateTypeList,
-      session
+      session,
+      innerVisible: false,
+      handerdata: {}
     }
 
   },
@@ -392,11 +435,20 @@ export default {
     async sumitData () {
       try {
         this.loading = true
+        let handerdata = null
         if(this.item.id) {
-          await modifySubmit(this.handerParams())
+          const{data} = await modifySubmit(this.handerParams())
+          handerdata = data
         } else {
-          await setSubmit(this.handerParams())
+          const{data} = await setSubmit(this.handerParams())
+          handerdata = data
         }
+        if(handerdata.code === 1) {
+          this.handerdata = handerdata
+          this.innerVisible = true
+          return
+        }
+
         this.close()
         this.getListData()
         this.$notify({
@@ -420,7 +472,19 @@ export default {
       params.registrationTime = params.registrationTime.getTime()
       return params
     },
-    cardVali
+    cardVali,
+    async supplyTransfer() {
+      const params = {
+        idNum: this.form.idNum,
+        transferReason: this.innerForm.reason,
+        fromPrecinctId: this.innerForm.fromPrecinctId,
+        toPrecinctId: this.innerForm.toPrecinctId
+      }
+      await supplyTransfer(params)
+    },
+    innerClose () {
+      this.innerVisible = false
+    }
   }
 
 }

@@ -30,14 +30,14 @@
         prop="phoneNum" />
       <el-table-column
         label="原选区"
-        prop="candidateType">
+        prop="fromPrecinctName">
          <template slot-scope="scope">
           {{ scope.row.fromPrecinctName }}
         </template>
       </el-table-column>
       <el-table-column
         label="转移选区"
-        prop="type">
+        prop="toPrecinctName">
          <template slot-scope="scope">
           {{scope.row.toPrecinctName}}
         </template>

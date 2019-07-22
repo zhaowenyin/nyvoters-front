@@ -51,17 +51,21 @@ export async function getList (payload) {
 
 // post请求
 export async function setSubmit (payload) {
-  console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-          code: 1
-        }
-      })
-    }, 500)
-  })
-  // return api.post('/register/add', payload)
+  // console.log(payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //         code: 1,
+  //         fromPrecinctName: '云阳镇第一选区登记',
+  //         toPrecinctName: '河西镇第1选区',
+  //         fromPrecinctId: '1',
+  //         toPrecinctId: '3'
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.post('/register/add', payload)
 }
 export async function modifySubmit (payload) {
   // console.log(payload)
@@ -74,4 +78,16 @@ export async function modifySubmit (payload) {
   //   }, 500)
   // })
   return api.post('/register/edit', payload)
+}
+export async function supplyTransfer (payload) {
+  // console.log(payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.post('/transfer/send', payload)
 }
