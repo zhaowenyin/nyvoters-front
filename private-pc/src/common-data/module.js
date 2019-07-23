@@ -34,8 +34,8 @@ export default {
     updateTreeList(state, payload) {
       state.treeList = [payload.payload.data.content]
       if(!payload.payload.param.modify) {
-        state.belongAreaId = payload.payload.data.content.id
-        state.belongAreaItem = func([payload.payload.data.content], state.belongAreaId)
+        state.belongAreaItem = func([payload.payload.data.content])
+        state.belongAreaId = state.belongAreaItem.id
         state.belongArea = state.belongAreaItem.name
         state.saveItem =  state.belongAreaItem
       }
