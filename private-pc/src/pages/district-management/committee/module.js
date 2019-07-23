@@ -1,4 +1,5 @@
 import { getTree } from './service'
+import func from '../../../utils/func'
 
 export default {
   namespaced: true,
@@ -20,9 +21,9 @@ export default {
     },
     updateTreeList(state, payload) {
       state.treeList = [payload.data.content]
-      state.belongArea = payload.data.content.name
-      state.belongAreaId = payload.data.content.id
-      state.belongItem = payload.data.content
+      state.belongItem = func([payload.data.content])
+      state.belongArea = state.belongItem.name
+      state.belongAreaId = state.belongItem.id
     }
   },
   actions: {
