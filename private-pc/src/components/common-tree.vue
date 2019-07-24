@@ -45,6 +45,10 @@ export default {
       default: 'id',
       type: String,
     },
+    currentNodeKey: {
+      default: '',
+      type: String
+    },
     defaultExpandAll: {
       default: true,
       type: Boolean
@@ -70,6 +74,11 @@ export default {
   watch: {
     filterText(val) {
       this.$refs.tree.filter(val)
+    },
+    currentNodeKey (val) {
+      this.$nextTick(() => {
+        this.$refs.tree.setCurrentKey(val)
+      })
     }
   },
   components: {
