@@ -69,7 +69,7 @@ export default {
           state.belongArea = state.saveItem.name
           state.belongAreaItem = JSON.parse(JSON.stringify(state.saveItem))
         }
-        if (!isEmptyObj(state.treeList)&&( state.type===payload.type)) return
+        return
       }
       state.type = payload.type
       const { data } = await getTree({type: payload.type,id:payload.id})
