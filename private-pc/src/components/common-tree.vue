@@ -7,7 +7,7 @@
       class="input"
       v-model="filterText">
     </el-input>
-    <el-tree
+    <Tree
       class="add-tree"
       ref="tree"
       icon-class="tree-icon"
@@ -15,10 +15,11 @@
       v-bind="[$attrs, $props]"
       :render-content="renderContent"
       v-on="$listeners"
-      ></el-tree>
+      ></Tree>
   </div>
 </template>
 <script>
+import Tree from './tree'
 
 export default {
   props: {
@@ -31,7 +32,7 @@ export default {
         return {
           children: 'children',
           label: 'name',
-          disabled: 'access'
+          disabled: data => !data.access
         }
       },
       type: Object,
@@ -72,6 +73,7 @@ export default {
     }
   },
   components: {
+    Tree
   },
   created () {
   },
@@ -83,8 +85,8 @@ export default {
     renderContent (h, { node }){
       return (
         <span>
-          {!node.disabled&&<span class="disabel">{node.label}</span>}
-          {node.disabled&&<span>{node.label}</span>}
+          {node.disabled&&<span class="disabel">{node.label}</span>}
+          {!node.disabled&&<span>{node.label}</span>}
         </span>)
     }
   }
