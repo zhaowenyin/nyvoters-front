@@ -97,6 +97,9 @@ export default {
     }
   },
   created () {
+    if (this.belongAreaId === '') {
+      return
+    }
     this.getListData({precinctId: this.belongAreaId })
   },
   methods: {

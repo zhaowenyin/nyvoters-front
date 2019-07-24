@@ -20,10 +20,10 @@ export default {
       state.belongItem = payload
     },
     updateTreeList(state, payload) {
-      state.treeList = [payload.data.content]
       state.belongItem = func([payload.data.content])
       state.belongArea = state.belongItem.name
       state.belongAreaId = state.belongItem.id
+      state.treeList = [payload.data.content]
     }
   },
   actions: {
