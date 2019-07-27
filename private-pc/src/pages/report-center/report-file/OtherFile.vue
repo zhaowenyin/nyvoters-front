@@ -46,7 +46,7 @@ export default {
   methods: {
     async searchOther () {
       this.loading = true
-      const{data} = await getOther({belongAreaId: this.belongAreaId,id: this.id,fileName: this.$route.query.title})
+      const{data} = await getOther({belongAreaId: this.belongAreaId,id: this.id})
       this.data = data
       this.loading = false
     },

@@ -4,5 +4,15 @@ export async function getTree (payload) {
 }
 export async function getOther (payload) {
   console.log(payload)
-  return api.get('/doc/preview', {params:payload})
+  console.log(1,payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data:
+          '前端模拟数据'
+
+      })
+    }, 500)
+  })
+  // return api.get('/doc/preview', {params:payload})
 }
