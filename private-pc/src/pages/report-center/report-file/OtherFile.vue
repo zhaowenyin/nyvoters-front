@@ -13,7 +13,7 @@
   </div>
 </template>
 <script>
-import {getOther} from '../service.js'
+import {getOther} from './service.js'
 import output from '../../../utils/output.js'
 export default {
   data () {

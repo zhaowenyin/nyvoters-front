@@ -38,6 +38,8 @@ import commonCommittee from './pages/district-management/committee/module'
 // 通讯录和人员权限配置
 import  authority from './pages/system-manage/authorization-config/module'
 import addressBook from './pages/system-manage/address-book/module'
+// 报表中心
+import reportCenter from './pages/report-center/report-file/module'
 
 
 Vue.use(Vuex)
@@ -75,6 +77,7 @@ export default new Vuex.Store({
     voterRegistersData,
     log,
     authority,
-    addressBook
+    addressBook,
+    reportCenter
   }
 })

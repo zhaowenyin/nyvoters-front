@@ -1,68 +1,86 @@
- <template>
-    <el-table
-      v-loading="loading"
-      :data="list"
-      style="width: 100%">
-      <el-table-column
-        prop="name"
-        label="文件资料">
-      </el-table-column>
-      <el-table-column
-        prop="action"
-        label="文件下载">
-        <template slot-scope="scope">
-          <el-button
-          @click="download(scope.row.id)"
-          size="medium"
-          type="primary">下载</el-button>
-        </template>
-      </el-table-column>
-       <el-table-column
-        prop="action"
-        label="在线生成">
-        <template slot-scope="scope">
-          <el-button
-          @click="download(scope.row.id)"
-          size="medium"
-          type="primary">下载</el-button>
-        </template>
-      </el-table-column>
-    </el-table>
-  </template>
+<template>
+  <div class="view">
+    <div class="view-left">
+      <CommonTree
+        :current-node-key="this.belongAreaId"
+        node-key="id"
+        :expand-on-click-node="false"
+        :data="data"
+        @node-click="handleNodeClick" />
+    </div>
+    <div class="view-content">
+      <OtherFile
+      :belongAreaId="belongAreaId"
+      :id="$route.query.id"/>
+    </div>
+  </div>
+</template>
+
 <script>
-import {getList} from './service.js'
-import output from '../../../utils/output.js'
+import CommonTree from '../../../components/common-tree'
+import { mapMutations, mapActions, mapState } from 'vuex'
+import OtherFile from './OtherFile'
 export default {
-  data() {
+  data () {
     return {
-      list: [],
-      loading: false
+
     }
   },
+  computed: {
+    ...mapState('reportCenter', {
+      data: state => state.treeList,
+      belongAreaId: state => state.belongAreaId
+    })
+  },
+  components: {
+    CommonTree,
+    OtherFile
+  },
   created () {
-    this.searchList()
+    this.clearState()
+    this.searchDistrictTree({type: 0, id: ''})
   },
   methods: {
-    async searchList () {
-      this.loading = true
-      const{data} = await getList()
-      this.list = data.content.data
-      this.loading = false
-    },
-    async download (item) {
-      try {
-        output({url: '/doc/download', param: {id: item, module: 3}})
-      } catch (err) {
-        console.log(err)
+    ...mapMutations('reportCenter', [
+      'clearState',
+      'saveDistrictId',
+      'saveDistrictName'
+    ]),
+    ...mapActions('reportCenter', [
+      'searchDistrictTree',
+    ]),
+    handleNodeClick(data) {
+      if(!data.access) {
+        return
       }
-    },
+      this.saveDistrictId(data.id)
+      this.saveDistrictName(data.name)
+    }
   }
 }
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .download {
+  .view{
+    display: flex;
+  }
+  .view-left {
+    width: 270px;
+    background-color: #ffffff;
+    border-right: 1px solid #ddd;
+    height: 100%;
+    overflow: auto;
+    padding-top: 6px;
+  }
+  .view-content {
     background: #f8f8f8;
-    padding: 16px 20px;
+    height: 100%;
+    overflow: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0px 20px;
   }
 </style>
-
