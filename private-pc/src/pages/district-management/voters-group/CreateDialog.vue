@@ -142,10 +142,10 @@ export default {
   data () {
     let validate = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入手机号'))
+        callback(new Error('请输入联系电话！'))
       } else {
         if (!/^1[34578]\d{9}$/.test(value)) {
-          callback(new Error('请输入正确手机号'))
+          callback(new Error('请输入正确联系电话！'))
         }
         callback()
       }
