@@ -73,7 +73,7 @@ export async function deletetTabel (payload) {
   //     })
   //   }, 500)
   // })
-  return api.get(`/precinct/delete/${payload.id}`)
+  return api.delete(`/precinct/delete/${payload.id}`)
 }
 export async function getTree (payload) {
   return api.get(`/district/select/${payload.id}`)

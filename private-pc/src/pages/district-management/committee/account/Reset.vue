@@ -92,10 +92,14 @@ export default {
       multipleSelection: [],
       rules: {
         password: [
-          { validator: validatePass, trigger: 'blur',required: true }
+          { validator: validatePass, trigger: 'blur',required: true },
+          { min: 6, max: 20, message: '请输入6位以上的登录密码！', trigger: 'blur' },
+          { max: 20, message: '登录密码最多支持20个字符！', trigger: 'blur' }
         ],
         checkPass: [
-          { validator: validatePass2, trigger: 'blur',required: true }
+          { validator: validatePass2, trigger: 'blur',required: true },
+          { min: 6, max: 20, message: '请输入6位以上的登录密码！', trigger: 'blur' },
+          { max: 20, message: '登录密码最多支持20个字符！', trigger: 'blur' }
         ],
 
       },

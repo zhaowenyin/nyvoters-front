@@ -84,7 +84,7 @@ export async function deletetTabel (payload) {
   //     })
   //   }, 500)
   // })
-  return api.get(`/user/delete/${payload}`, payload)
+  return api.delete(`/user/delete/${payload}`, payload)
 }
 export async function resetPassword (payload) {
   // console.log(payload)

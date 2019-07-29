@@ -91,6 +91,10 @@ export default {
   computed: {
     ...mapState('voterGroup', {
       multipleSelection: state=>state.multipleSelection
+    }),
+
+    ...mapState('commonData', {
+      belongAreaItem:state => state.belongAreaItem
     })
   },
   components: {
@@ -126,6 +130,15 @@ export default {
       return params
     },
     create () {
+      console.log(+this.belongAreaItem.committee)
+      if(this.belongAreaItem&&+this.belongAreaItem.committee===1){
+        this.$notify({
+          title: '',
+          message: '请在选区下创建选民小组',
+          type: 'warning'
+        });
+        return
+      }
       this.item = {}
       this.createDialogVisible = true
     },
