@@ -3,6 +3,7 @@
     title=""
     :visible="visible"
     width="500px"
+    :close-on-click-modal="false"
     :before-close="comfirmClose">
     <div class="view">
       <div class="view-left">
