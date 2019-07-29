@@ -68,7 +68,7 @@
               <el-input
                 :disabled="isDisabled"
                 size="medium"
-                placeholder="请输入代表名额"
+                placeholder="请输入组长联系电话"
                 class="item"
                 v-model="form.managerPhone" />
             </el-form-item>
