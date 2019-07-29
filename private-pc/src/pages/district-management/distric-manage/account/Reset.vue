@@ -4,6 +4,7 @@
       title="重置密码"
       :visible="visible"
       width="700px"
+      :close-on-click-modal="false"
       :before-close="comfirmClose">
       <el-form
         label-width="110px"
@@ -140,7 +141,11 @@ export default {
       this.loading = false
     },
     comfirmClose () {
-      this.close()
+      this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
+        .then(() => {
+          this.close()
+        })
+        .catch(() => {})
     },
     saveData (val) {
       this.form.precinct = val.name

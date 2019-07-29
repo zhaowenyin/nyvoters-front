@@ -2,6 +2,7 @@
   <el-dialog
     title="审核"
     :visible="visible"
+    :close-on-click-modal="false"
     width="500px"
     :before-close="comfirmClose">
     <el-form
@@ -100,8 +101,12 @@ export default {
       this.loading = false
     },
     comfirmClose () {
-      this.close()
-    }
+      this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
+        .then(() => {
+          this.close()
+        })
+        .catch(() => {})
+    },
   }
 }
 </script>

@@ -5,6 +5,7 @@
     class="dia"
     title=""
     :visible="visible"
+    :close-on-click-modal="false"
     width="750px"
     :before-close="comfirmClose">
     <div class="view">
@@ -105,7 +106,11 @@ export default {
     },
 
     comfirmClose () {
-      this.close()
+      this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
+        .then(() => {
+          this.close()
+        })
+        .catch(() => {})
     },
     handleNodeClick(data) {
       if(!this.multiple) {

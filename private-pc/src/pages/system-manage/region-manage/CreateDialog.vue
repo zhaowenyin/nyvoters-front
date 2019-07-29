@@ -3,6 +3,7 @@
     title="行政区"
     :visible="visible"
     width="600"
+    :close-on-click-modal="false"
     :before-close="comfirmClose">
     <el-form
       label-width="110px"
@@ -233,7 +234,15 @@ export default {
       this.loading = false
     },
     comfirmClose () {
-      this.close()
+      if(this.isDisabled){
+        this.close()
+        return
+      }
+      this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
+        .then(() => {
+          this.close()
+        })
+        .catch(() => {})
     },
     async searchDistrictTree1(val) {
       const{data} = await getTree(val)

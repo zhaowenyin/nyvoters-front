@@ -3,6 +3,7 @@
     title=""
     :visible="visible"
     width="700px"
+    :close-on-click-modal="false"
     :before-close="comfirmClose">
     <div class="view">
       <div class="view-left">
@@ -155,7 +156,11 @@ export default {
       this.loading = false
     },
     comfirmClose () {
-      this.close()
+      this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
+        .then(() => {
+          this.close()
+        })
+        .catch(() => {})
     },
     select(data) {
       let isSimilar = false

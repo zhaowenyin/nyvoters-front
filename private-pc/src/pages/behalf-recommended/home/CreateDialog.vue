@@ -540,7 +540,15 @@ export default {
       this.recommendedPersonList = data.content.data
     },
     comfirmClose () {
-      this.close()
+      if(this.isDisabled){
+        this.close()
+        return
+      }
+      this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
+        .then(() => {
+          this.close()
+        })
+        .catch(() => {})
     },
     change (val) {
       if(val==='2') {

@@ -3,6 +3,7 @@
     title=""
     :visible="visible"
     width="700px"
+    :close-on-click-modal="false"
     :before-close="comfirmClose">
     <div v-loading="loading" class="view">
       <div class="view-left">
@@ -113,7 +114,11 @@ export default {
       this.loading = false
     },
     comfirmClose () {
-      this.close()
+      this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
+        .then(() => {
+          this.close()
+        })
+        .catch(() => {})
     },
     handleNodeClick(data) {
       this.selectItem = data

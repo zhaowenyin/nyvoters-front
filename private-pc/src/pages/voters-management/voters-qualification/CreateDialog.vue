@@ -3,6 +3,7 @@
     title="资格不通过原因："
     :visible="visible"
     width="500px"
+    :close-on-click-modal="false"
     :before-close="comfirmClose">
     <el-row :gutter="20">
       <el-col
@@ -89,8 +90,12 @@ export default {
       this.selectItem = val
     },
     comfirmClose () {
-      this.close()
-    }
+      this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
+        .then(() => {
+          this.close()
+        })
+        .catch(() => {})
+    },
   }
 }
 </script>

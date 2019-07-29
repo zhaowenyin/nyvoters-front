@@ -3,7 +3,8 @@
     title="详情"
     :visible="visible"
     width="800px"
-    :before-close="close">
+    :close-on-click-modal="false"
+    :before-close="comfirmClose">
     <el-form
       label-width="110px"
       ref="form"
@@ -124,6 +125,13 @@ export default {
       const {data} = await getDetail(val)
       this.data = data.content
       this.loading = false
+    },
+    comfirmClose () {
+      this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
+        .then(() => {
+          this.close()
+        })
+        .catch(() => {})
     },
     formatDate
   }
