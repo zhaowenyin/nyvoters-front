@@ -46,7 +46,6 @@
           :disabled="isDisabled"
           size="medium"
           placeholder="请输入"
-          :maxlength="18"
           class="item"
           v-model="form.fileName" />
       </el-form-item>
