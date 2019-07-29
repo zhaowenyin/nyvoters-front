@@ -14,7 +14,6 @@
           <CommonTree
             :expand-on-click-node="false"
             :hasSearch="true"
-            :isdistrict="false"
             :data="data"
             @node-click="handleNodeClick" />
         </div>

@@ -61,10 +61,6 @@ export default {
       default: false,
       type: Boolean
     },
-    isdistrict:{
-      default: true,
-      type: Boolean
-    }
 
   },
   data () {
@@ -80,12 +76,9 @@ export default {
       this.$refs.tree.filter(val)
     },
     currentNodeKey (val) {
-      if(this.isdistrict) {
-        this.$nextTick(() => {
-          this.$refs.tree.setCurrentKey(val)
-        })
-      }
-
+      this.$nextTick(() => {
+        this.$refs.tree.setCurrentKey(val)
+      })
     }
   },
   components: {
@@ -101,9 +94,8 @@ export default {
     renderContent (h, { node }){
       return (
         <span>
-          {node.disabled&&this.isdistrict&&<span class="disabel">{node.label}</span>}
-          {!node.disabled&&this.isdistrict&&<span>{node.label}</span>}
-          {!this.isdistrict&&<span>{node.label}</span>}
+          {node.disabled&&<span class="disabel">{node.label}</span>}
+          {!node.disabled&&<span>{node.label}</span>}
         </span>)
     }
   }
