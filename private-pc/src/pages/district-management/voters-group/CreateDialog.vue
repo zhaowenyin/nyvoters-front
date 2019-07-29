@@ -142,10 +142,20 @@ export default {
   data () {
     let validate = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入联系电话！'))
+        callback(new Error('请输入组长联系电话！'))
       } else {
         if (!/^1[34578]\d{9}$/.test(value)) {
-          callback(new Error('请输入正确联系电话！'))
+          callback(new Error('请输入正确组长联系电话！'))
+        }
+        callback()
+      }
+    }
+    let validate1 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入召集人联系电话！'))
+      } else {
+        if (!/^1[34578]\d{9}$/.test(value)) {
+          callback(new Error('请输入正确召集人联系电话！'))
         }
         callback()
       }
@@ -170,7 +180,7 @@ export default {
         precinctId: [
           { required: true, message: '请选择所属选区', trigger: 'change' }
         ],
-        convenerPhone:[{ required: true,validator: validate, trigger: 'blur' }],
+        convenerPhone:[{ required: true,validator: validate1, trigger: 'blur' }],
         managerPhone:[{ required: true, validator: validate,  trigger: 'blur' }]
 
       },
