@@ -4,6 +4,7 @@
        <CommonTree
         :expand-on-click-node="false"
         :data="data"
+        :isdistrict="false"
         @node-click="handleNodeClick" />
     </div>
     <div class="view-content">
@@ -63,9 +64,6 @@ export default {
       'searchDistrictTree',
     ]),
     handleNodeClick(data) {
-      if(!data.access) {
-        return
-      }
       this.saveDistrictId(data.id)
       this.saveDistrictName(data.name)
     },
