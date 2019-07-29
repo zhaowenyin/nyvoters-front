@@ -140,7 +140,6 @@ export default {
     }
   },
   created () {
-    // this.getSortList({statusList:['FORMAL_REPRESENTATIVE']})
   },
   methods: {
     ...mapActions('officialBehalf', [

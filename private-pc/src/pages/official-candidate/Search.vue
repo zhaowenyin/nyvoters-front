@@ -139,7 +139,6 @@ export default {
     }
   },
   created () {
-    // this.getSortList({statusList:['FORMAL_CANDIDATE']})
   },
   methods: {
     ...mapActions('officialCandidate', [
