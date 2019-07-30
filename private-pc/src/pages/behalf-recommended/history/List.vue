@@ -40,6 +40,13 @@
       <el-table-column
         prop="belongAreaName"
         label="所属选区"/>
+        <el-table-column
+        label="状态"
+        prop="status">
+       <template slot-scope="scope">
+          {{handerStatus(scope.row.status)}}
+        </template>
+      </el-table-column>
     </el-table>
     <div
       v-show="total"
@@ -124,6 +131,35 @@ export default {
       }
       return text
     },
+    handerStatus (val) {
+      let text = ""
+      switch(val) {
+      case 'DELETE':
+        text = '删除'
+        break
+      case 'WAIT_SUBMIT':
+        text = '待提交'
+        break
+      case 'WAIT_REVIEW':
+        text = '待资格审查'
+        break
+      case 'REVIEW_FAIL':
+        text = '资格审查不通'
+        break
+      case 'REVIEW_SUCCESS':
+        text = '资格审查通过'
+        break
+      case 'PRELIMINARY_CANDIDATE':
+        text = '初步候选人'
+        break
+      case 'FORMAL_CANDIDATE':
+        text = '正式候选人'
+        break
+      default:
+        text = '正式代表'
+      }
+      return text
+    }
   }
 }
 </script>
