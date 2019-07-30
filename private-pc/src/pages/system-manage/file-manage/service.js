@@ -32,7 +32,7 @@ export async function getList (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post('/doc/list', payload )
+  return api.post('/doc/list', payload)
 }
 
 export async function deletetTabel (payload) {
