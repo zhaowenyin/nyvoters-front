@@ -89,56 +89,56 @@ export async function getList (payload) {
 }
 export async function getInfo (payload) {
   console.log(payload)
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        data: {
-          // "addVoters": [
-          //   "string",
-          //   "小明",
-          //   "小黄"
-          // ],
-          // "cutOutVoters": [
-          //   "string",
-          //   "小明",
-          //   "小黄"
-          // ],
-          // "date": 1561132800000,
-          // "dieVoters": [
-          //   "string",
-          //   "小明",
-          //   "小黄"
-          // ],
-          // "disempowerVoters": [
-          //   "string",
-          //   "小明",
-          //   "小黄"
-          // ],
-          // "districtName": "南阳县",
-          // "precinctName": "选区",
-          // "regNum": 0,
-          // "regionDistrictName": "string",
-          // "voterNum": 0
-          //
-          "date": 1561132800000,
-          "districtName": "南阳县",
-          "regEndDate": 1561132800000,
-          "regStartDate": 1561132800000,
-          "voterDate": 1561132800000,
-          precinctName: '选区',
-          list: [1,2,3]
+  // return new Promise((resolve) => {
+  // setTimeout(() => {
+  //   resolve({
+  //     data: {
+  // "addVoters": [
+  //   "string",
+  //   "小明",
+  //   "小黄"
+  // ],
+  // "cutOutVoters": [
+  //   "string",
+  //   "小明",
+  //   "小黄"
+  // ],
+  // "date": 1561132800000,
+  // "dieVoters": [
+  //   "string",
+  //   "小明",
+  //   "小黄"
+  // ],
+  // "disempowerVoters": [
+  //   "string",
+  //   "小明",
+  //   "小黄"
+  // ],
+  // "districtName": "南阳县",
+  // "precinctName": "选区",
+  // "regNum": 0,
+  // "regionDistrictName": "string",
+  // "voterNum": 0
+  //
+  //         "date": 1561132800000,
+  //         "districtName": "南阳县",
+  //         "regEndDate": 1561132800000,
+  //         "regStartDate": 1561132800000,
+  //         "voterDate": 1561132800000,
+  //         precinctName: '选区',
+  //         list: [1,2,3]
 
-        }
-      })
-    }, 500)
-  })
-  // if(payload.type === 1 || payload.type === 5) {
-  //   return api.get('/repre-affairs/word/list', {params:{belongAreaId: payload.belongAreaId}})
-  // } else if(payload.type === 3 || payload.type === 4) {
-  //   return api.get('/voter/files/preview/voterCorrectionNotice', {params:{belongAreaId: payload.belongAreaId}})
-  // } else if(payload.type === 6 || payload.type === 7) {
-  //   return api.get('/voter/files/preview/voterCertificate', {params:{belongAreaId: payload.belongAreaId,radio:  payload.radio || 1}})
-  // }
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  if(payload.type === 1 || payload.type === 5) {
+    return api.get('/repre-affairs/word/list', {params:{belongAreaId: payload.belongAreaId}})
+  } else if(payload.type === 3 || payload.type === 4) {
+    return api.get('/voter/files/preview/voterCorrectionNotice', {params:{belongAreaId: payload.belongAreaId}})
+  } else if(payload.type === 6 || payload.type === 7) {
+    return api.get('/voter/files/preview/voterCertificate', {params:{belongAreaId: payload.belongAreaId,radio:  payload.radio || 1}})
+  }
 
 }
 
@@ -206,6 +206,8 @@ export async function getTree (payload) {
   } else {
     return api.post('/precinct/tree', {...payload.val})
   }
-
-
+}
+export async function getOther (payload) {
+  console.log(payload)
+  return api.get('/doc/preview', {params:payload})
 }
