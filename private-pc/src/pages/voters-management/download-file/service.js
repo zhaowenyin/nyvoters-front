@@ -201,7 +201,7 @@ export async function getTree (payload) {
   //     })
   //   }, 500)
   // })
-  if(payload.type === 1) {
+  if(+payload.type === 1) {
     return api.post('/committee/tree', {...payload.val})
   } else {
     return api.post('/precinct/tree', {...payload.val})

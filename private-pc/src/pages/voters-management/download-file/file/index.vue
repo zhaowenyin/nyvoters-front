@@ -2,7 +2,7 @@
   <div class="view">
     <div class="view-left">
       <CommonTree
-        :current-node-key="this.belongAreaId"
+        :current-node-key="belongAreaId"
         node-key="id"
         :expand-on-click-node="false"
         :data="data"
@@ -23,24 +23,20 @@
 <script>
 import CommonTree from '../../../../components/common-tree'
 import {getTree} from '../service'
-// import { mapMutations, mapActions, mapState } from 'vuex'
 import Item from './Item'
 import OtherFile from './OtherFile'
+import func  from '../../../../utils/func'
 export default {
   data () {
     return {
       data: [],
-      belongAreaId: '1003'
+      belongAreaId: ''
     }
   },
   computed: {
     activeIndex () {
       return this.$route.path
     },
-    // ...mapState('commonData', {
-    //   data: state => state.treeList,
-    //   belongAreaId: state => state.belongAreaId
-    // })
   },
   components: {
     CommonTree,
@@ -54,12 +50,6 @@ export default {
     change (index) {
       this.$router.push({ path: index })
     },
-    // ...mapMutations('commonData', [
-    //   'saveDistrictId',
-    // ]),
-    // ...mapActions('commonData', [
-    //   'searchTree',
-    // ]),
     handleNodeClick(data) {
       if(!data.access) {
         return
@@ -69,6 +59,7 @@ export default {
     async searchTree (val) {
       const {data} = await getTree({val,type:this.$route.query.type})
       this.data = [data.content]
+      this.belongAreaId =  func([data.content]).id
     }
   }
 }
