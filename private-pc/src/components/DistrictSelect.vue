@@ -97,6 +97,7 @@ export default {
   },
   methods: {
     func (list,i) {
+      this.list = []
       let defaultValue = i
       const re = (array) => {
         if (!array || array.length === 0) return false
