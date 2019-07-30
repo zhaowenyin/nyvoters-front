@@ -132,12 +132,14 @@ export async function getInfo (payload) {
   //     })
   //   }, 500)
   // })
-  if(payload.type === 1 || payload.type === 5) {
-    return api.get('/repre-affairs/word/list', {params:{belongAreaId: payload.belongAreaId}})
-  } else if(payload.type === 3 || payload.type === 4) {
+  if(+payload.type === 5) {
+    return api.get('/voter/files/preview/voterDate', {params:{belongAreaId: payload.belongAreaId}})
+  } else if(+payload.type === 3 || +payload.type === 4) {
     return api.get('/voter/files/preview/voterCorrectionNotice', {params:{belongAreaId: payload.belongAreaId}})
-  } else if(payload.type === 6 || payload.type === 7) {
+  } else if(+payload.type === 6 || +payload.type === 7) {
     return api.get('/voter/files/preview/voterCertificate', {params:{belongAreaId: payload.belongAreaId,radio:  payload.radio || 1}})
+  } else if(+payload.type === 1) {
+    return api.get('/voter/files/preview/voterList', {params:{belongAreaId: payload.belongAreaId}})
   }
 
 }

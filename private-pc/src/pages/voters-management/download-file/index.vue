@@ -101,10 +101,10 @@ export default {
       case '选举委员会关于选举日及选举登记时间的公告':
         text = 5
         break
-      case '选民证（1)':
+      case '选民证（1）':
         text = 6
         break
-      case '选民证（2)':
+      case '选民证2（2）':
         text = 7
         break;
       default:
