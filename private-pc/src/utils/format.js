@@ -65,7 +65,8 @@ export function cardVali(id) {
   var year = ''
   var month = ''
   var date = ''
-  if(length>15){
+
+  if(id.length>15){
     year = id.substr(6,4),//身份证年
     month = id.substr(10,2)//身份证月
     date = id.substr(12,2)//身份证日
