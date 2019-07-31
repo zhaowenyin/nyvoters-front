@@ -38,7 +38,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item
-              label="所选区域"
+              label="所属选区"
               prop="belongAreaId">
               <DistrictSelect
                 :multiple="false"
