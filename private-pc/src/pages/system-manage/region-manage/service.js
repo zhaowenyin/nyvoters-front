@@ -75,7 +75,7 @@ export async function deletetTabel (payload) {
   //     })
   //   }, 500)
   // })
-  return api.get(`/district/delete/${payload.id}`)
+  return api.delete(`/district/delete/${payload.id}`)
 }
 export async function getTree (payload) {
   return api.post('/district/tree', payload)
