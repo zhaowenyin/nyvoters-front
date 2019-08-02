@@ -123,6 +123,7 @@ export default {
         toPrecinctId: ''
       }
       this.searchForm = {...value}
+      console.log(this.searchForm)
     }
   },
   created () {
@@ -145,12 +146,6 @@ export default {
             params.applyTimeEnd = ''
           }
           delete params.date
-          delete params.date
-          for(let i in params) {
-            if(params[i] === '') {
-              delete params[i]
-            }
-          }
           this.getListData(params)
         }
       })
