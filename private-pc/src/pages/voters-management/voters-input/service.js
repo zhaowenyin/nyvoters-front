@@ -34,6 +34,11 @@ export async function getList (payload) {
   //     })
   //   }, 500)
   // })
+  for(let i in payload) {
+    if(payload[i] === '') {
+      delete payload[i]
+    }
+  }
   return api.post('/in/list', payload )
 }
 
