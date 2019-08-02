@@ -16,7 +16,7 @@
         <el-select
           v-model="type"
           size="medium"
-          style="width: 108px;"
+          style="width: 120px;"
           placeholder="请选择">
           <el-option label="姓名" :value="1"></el-option>
           <el-option label="身份证号码" :value="2"></el-option>
@@ -84,7 +84,6 @@
 </template>
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex'
-import {typeList, candidateTypeList} from '../../../../common-data/config.js'
 
 export default {
   data () {
@@ -94,11 +93,9 @@ export default {
         name: '',
         idNum: '',
         phoneNum: '',
-        candidateType: '',
-        status: ''
+        type: 0,
+        date: []
       },
-      typeList,
-      candidateTypeList,
       createDialogVisible: false,
       list: {1: '发起申请记录',2:'处理申请记录'},
       id: '',
@@ -119,8 +116,8 @@ export default {
         name: '',
         idNum: '',
         phoneNum: '',
-        candidateType: '',
-        status: ''
+        type: 0,
+        date: []
       }
       this.searchForm = {...value}
     }
@@ -146,6 +143,12 @@ export default {
           } else {
             params.applyTimeStart = ''
             params.applyTimeEnd = ''
+          }
+          delete params.date
+          for(let i in params) {
+            if(params[i] === '') {
+              delete params[i]
+            }
           }
           this.getListData(params)
         }
