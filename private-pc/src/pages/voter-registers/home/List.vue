@@ -252,7 +252,7 @@ export default {
     },
     exportFile(val) {
       try {
-        output({url: `/import/export/${val.id}`},{params:this.authToken.token})
+        output({url: `/import/export/${val.id}`,param:{token:this.authToken.token}})
       } catch (err) {
         console.log(err)
       }
