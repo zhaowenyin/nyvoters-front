@@ -196,7 +196,7 @@ export default {
     async throughItem() {
       let params = {
         id: this.multipleSelection[0].id,
-        pass: false,
+        pass: true,
         reason: '',
 
       }

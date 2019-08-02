@@ -92,7 +92,7 @@ export default {
       this.loading = true
       let params = {
         id: this.id,
-        pass: true,
+        pass: false,
         reason: this.form.reason
       }
       await throughTabel(params)

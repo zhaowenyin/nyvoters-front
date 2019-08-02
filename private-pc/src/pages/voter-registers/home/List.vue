@@ -111,7 +111,7 @@
           prop="" >
         </el-table-column>
         <el-table-column
-          width="150"
+          width="200"
           label="操作"
         >
         <template slot-scope="scope">
@@ -135,7 +135,8 @@
       <CreateDialog
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
-      :last-id="lastId"
+      :tast-id="tastId"
+      :operateType="operateType"
       />
   </div>
 </template>
@@ -144,16 +145,20 @@ import { mapState, mapActions,mapMutations } from 'vuex'
 import { formatDate } from '../../../utils/format.js'
 import CreateDialog from './CreateDialog'
 import  output from '../../../utils/output.js'
+import { getSession } from '../../../utils/session.js'
 
 export default {
   data () {
+    const authToken = getSession()
     return {
       downLoading: false,
       createDialogVisible: false,
-      lastId: null,
+      tastId: '',
       getRowKeys(row) {
         return row.id
       },
+      operateType: null,
+      authToken
     }
   },
   computed: {
@@ -184,9 +189,6 @@ export default {
     // 分页
     handleCurrentChange (val) {
       this.getListData({ pageNum: val })
-    },
-    look (id) {
-      console.log(id)
     },
     formatDate,
     handleSelectionChange(val) {
@@ -243,21 +245,22 @@ export default {
       }
       return text
     },
-    repair() {
+    repair(val) {
       this.createDialogVisible = true
-      this.lastId = null
+      this.operateType = 1
+      this.tastId = val.id
     },
     exportFile(val) {
       try {
-        output({url: '/doc/download', param: {id: val.id, module: 1}})
+        output({url: `/import/export/${val.id}`},{params:this.authToken.token})
       } catch (err) {
         console.log(err)
       }
     },
     contrast (val) {
-      console.log(val)
       this.createDialogVisible = true
-      this.lastId = val.lastId
+      this.operateType = 2
+      this.tastId = val.id
     }
   }
 }

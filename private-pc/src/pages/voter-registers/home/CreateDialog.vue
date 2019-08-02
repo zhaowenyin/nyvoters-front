@@ -82,6 +82,7 @@ import {getProcessSate} from './service.js'
 import { baseURL } from '../../../utils/api.js'
 import { getSession } from '../../../utils/session.js'
 import { mapActions } from 'vuex'
+import  output from '../../../utils/output.js'
 export default {
   data () {
     const authToken = getSession()
@@ -110,15 +111,22 @@ export default {
       default: () => {},
       type: Object
     },
-    lastId: {
+    tastId: {
+      default: '',
+      type: String
+    },
+    operateType: {
       default: null,
-      type: Number
+      type: null
     }
   },
   computed: {
     allUrl () {
       let param = {
         type: 0,
+      }
+      if(this.tastId) {
+        param.id = this.tastId
       }
       let paramStr = ''
       for (const k in param) {
@@ -134,10 +142,10 @@ export default {
   },
   created () {
     clearInterval(this.timer)
-    if (this.lastId) {
-      this.active = +(this.lastId + 1)
+    if (+this.operateType === 2) {
+      this.active = 2
       this.loading = true
-      this.searchProcessSate({id: this.lastId})
+      this.searchProcessSate({id: this.tastId})
     }
 
   },
@@ -151,7 +159,11 @@ export default {
       clearInterval(this.timer)
     },
     submitForm () {
-
+      try {
+        output({url: `/import/export/${this.tastId}`},{params: this.header.token})
+      } catch (err) {
+        console.log(err)
+      }
     },
 
     comfirmClose () {

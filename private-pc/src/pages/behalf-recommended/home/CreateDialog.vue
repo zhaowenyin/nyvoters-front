@@ -42,7 +42,7 @@
               prop="belongAreaId">
               <DistrictSelect
                 :multiple="false"
-                :disabled="isDisabled"
+                :disabled="true"
                 v-model="form.belongAreaId"
                 :item='item'
                 :data="data"

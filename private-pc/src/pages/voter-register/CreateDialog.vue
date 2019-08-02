@@ -221,7 +221,7 @@
       </el-row>
     </el-form>
      <el-dialog
-      width="30%"
+      width="500px"
       title="提示"
       :visible.sync="innerVisible"
       append-to-body>
@@ -239,7 +239,7 @@
         <el-input
           type="textarea"
           :rows="4"
-          placeholder="请填写审核不通过原因"
+          placeholder="请填写申请转移原因"
           v-model="innerForm.reason">
         </el-input>
       </el-form-item>
@@ -444,8 +444,8 @@ export default {
           const{data} = await setSubmit(this.handerParams())
           handerdata = data
         }
-        if(handerdata.code === 1) {
-          this.handerdata = handerdata
+        if(handerdata.code&&handerdata.code==='30200001') {
+          this.handerdata = handerdata.content
           this.innerVisible = true
           return
         }
@@ -484,12 +484,21 @@ export default {
     cardVali,
     async supplyTransfer() {
       const params = {
-        idNum: this.form.idNum,
+        idNum: this.handerdata.idNum,
         transferReason: this.innerForm.reason,
-        fromPrecinctId: this.innerForm.fromPrecinctId,
-        toPrecinctId: this.innerForm.toPrecinctId
+        fromPrecinctId: this.handerdata.fromPrecinctId,
+        toPrecinctId: this.handerdata.toPrecinctId
       }
       await supplyTransfer(params)
+      this.getListData()
+      this.innerClose()
+      this.close()
+      this.$notify({
+        title: '',
+        message: '转移成功',
+        type: 'success'
+      });
+
     },
     innerClose () {
       this.innerVisible = false
