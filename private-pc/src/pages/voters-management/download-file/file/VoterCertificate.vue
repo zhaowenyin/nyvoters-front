@@ -15,7 +15,7 @@
 
       <div
         class="item"
-        v-for="(i, index) in data.list"
+        v-for="(i, index) in [data]"
         :key="index"
         >
         <div  class="inner-item">
@@ -24,7 +24,7 @@
           <span class="line">{{i.name}}</span>
           <br/>
           <span>性别:</span>
-          <span class="line">{{handlegender(i.gender)}}</span>
+          <span class="line">{{i.sex}}</span>
           <span>年龄:</span>
           <span class="line">{{i.age}}</span>岁
           <div class="warning">
@@ -36,14 +36,14 @@
             </div>
           </div>
           <div class="mark mark1">{{i.districtName}}选举委员会</div>
-          <div class="mark mark2"><span class="date">{{formatDate(i.date).year}}</span>年<span class="date">{{formatDate(i.date).month}}</span>月<span class="date">{{formatDate(i.date).day}}</span>日</div>
+          <div class="mark mark2">{{i.date}}</div>
         </div>
       </div>
      </div>
      <div v-if="+type === 6" class="content">
        <div
         class="item"
-        v-for="(i, index) in data.list"
+        v-for="(i, index) in [data]"
         :key="index"
         >
         <div  class="inner-item inner-item2">
@@ -54,7 +54,7 @@
           </div>
           <div style="display: flex;">
             <span>性别:</span>
-            <span class="line2">{{handlegender(i.gender)}}</span>
+            <span class="line2">{{i.sex}}</span>
           </div>
           <div style="display: flex;">
             <span>年龄:</span>
@@ -68,7 +68,7 @@
             </div>
           </div>
           <div class="mark6 mark1">{{i.districtName}}选举委员会</div>
-          <div class="mark6"><span class="date">{{formatDate(i.date).year}}</span>年<span class="date">{{formatDate(i.date).month}}</span>月<span class="date">{{formatDate(i.date).day}}</span>日</div>
+          <div class="mark6">{{data.date}}</div>
         </div>
       </div>
      </div>
