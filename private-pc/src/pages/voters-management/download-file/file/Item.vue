@@ -62,7 +62,7 @@ export default {
   methods: {
     async searchInfo (val) {
       this.loading = true
-      const{data} = await getInfo({type:this.$route.query.type,...val})
+      const{data} = await getInfo({type:this.$route.query.type,...val,fileName: this.$route.query.title})
       this.data = data
       this.loading = false
     },

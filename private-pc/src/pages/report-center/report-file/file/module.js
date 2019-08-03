@@ -1,16 +1,10 @@
-import { getTree } from './service'
+import { getTree } from '../service'
+import func from '../../../../utils/func'
 
 export default {
   namespaced: true,
   state: {
     loading: false,
-    list: [],
-    total: 0,
-    searchParam: {
-      pageSize: 10,
-      pageNum: 1
-    },
-    multipleSelection: [],
     treeList: [],
     belongAreaId: '',
     belongArea: ''
@@ -18,13 +12,10 @@ export default {
   mutations: {
     clearState (state) {
       state.loading = false
-      state.list = []
-      state.total = 0
-      state.searchParam = {
-        pageSize: 20,
-        pageNum: 1
-      }
-      state.multipleSelection = []
+      state.treeList = [],
+      state.belongAreaId = ''
+      state.belongArea = ''
+
     },
     showLoading (state) {
       state.loading = true
@@ -37,8 +28,9 @@ export default {
     },
     updateTreeList(state, payload) {
       state.treeList = [payload.data.content]
-      state.belongAreaId = payload.data.content.id
-      state.belongArea = payload.data.content.name
+      const belongAreaItem = func([payload.data.content])
+      state.belongAreaId = belongAreaItem.id
+      state.belongArea = belongAreaItem.name
     },
     saveDistrictId(state, payload) {
       state.belongAreaId = payload

@@ -39,7 +39,7 @@ import commonCommittee from './pages/district-management/committee/module'
 import  authority from './pages/system-manage/authorization-config/module'
 import addressBook from './pages/system-manage/address-book/module'
 // 报表中心
-import reportCenter from './pages/report-center/report-file/module'
+import reportCenter from './pages/report-center/report-file/file/module'
 
 
 Vue.use(Vuex)

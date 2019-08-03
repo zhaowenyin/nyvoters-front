@@ -13,8 +13,8 @@
   </div>
 </template>
 <script>
-import {getOther} from './service.js'
-import output from '../../../utils/output.js'
+import {getOther} from '../service.js'
+import output from '../../../../utils/output.js'
 export default {
   data () {
     return {
@@ -46,7 +46,7 @@ export default {
   methods: {
     async searchOther () {
       this.loading = true
-      const{data} = await getOther({belongAreaId: this.belongAreaId,id: this.id})
+      const{data} = await getOther({belongAreaId: this.belongAreaId,id: this.id,fileName: this.$route.query.title})
       this.data = data
       this.loading = false
     },

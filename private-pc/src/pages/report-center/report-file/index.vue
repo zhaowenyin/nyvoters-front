@@ -1,86 +1,102 @@
-<template>
-  <div class="view">
-    <div class="view-left">
-      <CommonTree
-        :current-node-key="this.belongAreaId"
-        node-key="id"
-        :expand-on-click-node="false"
-        :data="data"
-        @node-click="handleNodeClick" />
+ <template>
+  <div class="download">
+    <el-table
+      v-loading="loading"
+      :data="list"
+      style="width: 100%">
+      <el-table-column
+        prop="fileName"
+        label="文件资料">
+      </el-table-column>
+      <el-table-column
+        prop="action"
+        label="文件下载">
+        <template slot-scope="scope">
+          <el-button
+          @click="download(scope.row)"
+          size="medium"
+          type="primary">下载</el-button>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="action"
+        label="在线生成">
+        <template slot-scope="scope">
+          <el-button
+          v-if="scope.row.isFillData===1"
+          @click="create(scope.row)"
+          size="medium"
+          type="primary">在线生成</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div
+      v-show="total"
+      class="add_pagination">
+      <el-pagination
+        @current-change="handleCurrentChange"
+        :page-size="params.pageSize"
+        background
+        :current-page="params.pageNum"
+        layout="prev, pager, next"
+        :total="total" />
+      </div>
     </div>
-    <div class="view-content">
-      <OtherFile
-      :belongAreaId="belongAreaId"
-      :id="$route.query.id"/>
-    </div>
-  </div>
 </template>
-
 <script>
-import CommonTree from '../../../components/common-tree'
-import { mapMutations, mapActions, mapState } from 'vuex'
-import OtherFile from './OtherFile'
+import {getList} from './service.js'
+import output from '../../../utils/output.js'
+import {getSession} from '../../../utils/session'
 export default {
-  data () {
+  data() {
+    const authToken = getSession()
     return {
+      list: [],
+      loading: false,
+      params: {
+        pageNum: 1,
+        pageSize: 20
+      },
+      total: 0,
+      authToken
 
     }
-  },
-  computed: {
-    ...mapState('reportCenter', {
-      data: state => state.treeList,
-      belongAreaId: state => state.belongAreaId
-    })
-  },
-  components: {
-    CommonTree,
-    OtherFile
   },
   created () {
-    this.clearState()
-    this.searchDistrictTree({type: 0, id: ''})
+    this.searchList(this.params)
   },
   methods: {
-    ...mapMutations('reportCenter', [
-      'clearState',
-      'saveDistrictId',
-      'saveDistrictName'
-    ]),
-    ...mapActions('reportCenter', [
-      'searchDistrictTree',
-    ]),
-    handleNodeClick(data) {
-      if(!data.access) {
-        return
+    async searchList (val) {
+      this.loading = true
+      const{data} = await getList({...this.params,...val,module: 5})
+      this.list = data.content.data
+      this.total=+data.content.total
+      this.loading = false
+    },
+    create (item) {
+      this.$router.push({
+        path:'/report-file-detail',
+        query: {type: item.doctype,fileSuffix: item.fileSuffix,title: item.fileName,id: item.id}
+      })
+
+    },
+    async download (item) {
+      try {
+        output({url: '/doc/download', param: {id: item.id,fileName: item.fileName,token:this.authToken.token}})
+      } catch (err) {
+        console.log(err)
       }
-      this.saveDistrictId(data.id)
-      this.saveDistrictName(data.name)
-    }
+    },
+    handleCurrentChange (val) {
+      this.searchList({ pageNum: val })
+    },
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  .view{
-    display: flex;
-  }
-  .view-left {
-    width: 270px;
-    background-color: #ffffff;
-    border-right: 1px solid #ddd;
-    height: 100%;
-    overflow: auto;
-    padding-top: 6px;
-  }
-  .view-content {
+  .download {
     background: #f8f8f8;
-    height: 100%;
-    overflow: auto;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    padding: 0px 20px;
+    padding: 16px 20px;
   }
 </style>
+

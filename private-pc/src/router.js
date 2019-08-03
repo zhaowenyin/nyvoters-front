@@ -46,8 +46,10 @@ const OfficialCandidate = () => import('@/pages/official-candidate')
 const OfficialBehalf = () => import('@/pages/official-behalf')
 const BehalfFile = () => import('@/pages/behalf-file-manage')
 // 报表中心
-const ReportAnalysis = () => import('./pages/report-center/report-analysis')
-const ReportFile = () => import('./pages/report-center/report-file')
+const ReportAnalysis = () => import('@/pages/report-center/report-analysis')
+const ReportFile = () => import('@/pages/report-center/report-file')
+const ReportFileDetail = () => import('@/pages/report-center/report-file/file')
+
 // 选民管理
 const VotersQualification = () =>import('@/pages/voters-management/voters-qualification')
 const VotersTransfer = ()=>import('@/pages/voters-management/voters-transfer')
@@ -246,6 +248,11 @@ const router = new Router({
           path: 'report-file',
           name: '报表文件',
           component: ReportFile
+        },
+        {
+          path: 'report-file-detail',
+          name: '报表文件详情',
+          component: ReportFileDetail
         },
         {
           path: 'voters-qualification',
