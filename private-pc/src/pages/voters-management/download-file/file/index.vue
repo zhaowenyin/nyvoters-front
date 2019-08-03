@@ -10,7 +10,7 @@
     </div>
     <div class="view-content">
       <Item
-      v-if="$route.query.fileSuffix==='docx'"
+      v-if="$route.query.fileSuffix==='docx' || $route.query.title === '选举委员会关于选民名单公告（1）'"
       :belongAreaId="belongAreaId"/>
       <OtherFile
       :belongAreaId="belongAreaId"

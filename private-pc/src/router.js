@@ -64,8 +64,8 @@ const News = () => import('@/pages/news-center')
 const Read = () => import('@/pages//news-center/read')
 const Unread = () => import('@/pages//news-center/unread')
 // 文件资料
-const File = () => import('./pages/behalf-file-manage/file')
-const FileVoters = () => import('./pages/voters-management/download-file/file')
+const File = () => import('@/pages/behalf-file-manage/file')
+const FileVoters = () => import('@/pages/voters-management/download-file/file')
 
 
 

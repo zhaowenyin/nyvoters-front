@@ -18,7 +18,8 @@ import output from '../../../../utils/output.js'
 export default {
   data () {
     return {
-      data: {}
+      data: {},
+      loading: false
     }
   },
   created() {

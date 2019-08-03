@@ -24,16 +24,16 @@
           <li
             :key="index"
             class="person"
-            v-for="(i,index) in data.list">
-              <div>{{i.name || '暂无名字'}}</div>
+            v-for="(i,index) in data.votersList">
+              <div>{{i.name}}</div>
               <div>{{handlegender(i.gender)}}</div>
-              <div>{{i.q || '1993年12月'}}</div>
-              <div>{{i.q || '2018-12-01'}}</div>
+              <div>{{i.birthDayStr}}</div>
+              <div>{{i.regDate}}</div>
           </li>
         </ul>
       </div>
       <div class="mark mark1">{{data.districtName}}选举委员会</div>
-      <div class="mark"><span class="date">{{formatDate(data.date).year}}</span>年<span class="date">{{formatDate(data.date).month}}</span>月<span class="date">{{formatDate(data.date).day}}</span>日</div>
+      <div class="mark">{{data.date}}</div>
     </div>
   </div>
 </template>
@@ -137,6 +137,7 @@ export default {
     color: #000;
     font-weight: bold;
     text-align: center;
+    margin-top: 20px;
   }
   .announcement2 {
     padding-bottom: 30px;
@@ -151,6 +152,8 @@ export default {
   }
   .person {
     display: flex;
+    line-height: 25px;
+    margin-bottom: 15px;
     & div {
       flex: 1;
       text-align: center;
