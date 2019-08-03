@@ -15,11 +15,14 @@
 <script>
 import {getOther} from '../service.js'
 import output from '../../../../utils/output.js'
+import {getSession} from '../../../../utils/session'
 export default {
   data () {
+    const authToken = getSession()
     return {
       data: {},
-      loading:false
+      loading:false,
+      authToken
     }
   },
   created() {
@@ -52,7 +55,7 @@ export default {
     },
     async download () {
       try {
-        output({url: '/doc/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title}})
+        output({url: '/doc/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title,token: this.authToken.token}})
       } catch (err) {
         console.log(err)
       }
