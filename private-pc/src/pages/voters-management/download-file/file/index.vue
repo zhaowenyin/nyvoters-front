@@ -57,7 +57,7 @@ export default {
       this.belongAreaId = data.id
     },
     async searchTree (val) {
-      const {data} = await getTree({val,type:this.$route.query.type})
+      const {data} = await getTree({val,type:this.$route.query.precinct})
       this.data = [data.content]
       this.belongAreaId =  func([data.content]).id
     }

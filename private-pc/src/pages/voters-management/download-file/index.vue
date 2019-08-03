@@ -67,6 +67,7 @@ export default {
       const{data} = await getList({...this.params,...val,module: 1})
       this.list = data.content.data.map(i=> {
         i.doctype=this.handlegender(i.fileName)
+        i.precinct = this.handerCommittee(i.fileName)
         return i
       })
 
@@ -76,7 +77,7 @@ export default {
     async create (item) {
       this.$router.push({
         path:'/create-votersfile',
-        query: {type: item.doctype,fileSuffix: item.fileSuffix,title: item.fileName,id: item.id}
+        query: {type: item.doctype,fileSuffix: item.fileSuffix,title: item.fileName,id: item.id,precinct: item.precinct}
       })
     },
     async download (item) {
@@ -109,6 +110,23 @@ export default {
         break;
       default:
         text = null
+      }
+      return text
+    },
+    handerCommittee(fileName) {
+      let text = 2
+      switch(fileName) {
+      case '选区选民情况统计表（1）':
+        text = 1
+        break
+      case '选区选民情况统计表（2）':
+        text = 1
+        break
+      case '选举委员会关于选举日及选举登记时间的公告':
+        text = 1
+        break
+      default:
+        text = 2
       }
       return text
     },

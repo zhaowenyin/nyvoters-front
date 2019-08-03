@@ -15,7 +15,7 @@
 
       <div
         class="item"
-        v-for="(i, index) in [data]"
+        v-for="(i, index) in data.list"
         :key="index"
         >
         <div  class="inner-item">
@@ -43,7 +43,7 @@
      <div v-if="+type === 6" class="content">
        <div
         class="item"
-        v-for="(i, index) in [data]"
+        v-for="(i, index) in data.list"
         :key="index"
         >
         <div  class="inner-item inner-item2">
