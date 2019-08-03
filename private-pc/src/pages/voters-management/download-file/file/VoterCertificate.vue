@@ -77,11 +77,14 @@
 <script>
 import output from '../../../../utils/output.js'
 import format from 'date-fns/format'
+import {getSession} from '../../../../utils/session'
 export default {
   data(){
+    const authToken = getSession()
     return {
       loading: false,
-      radio: 1
+      radio: 1,
+      authToken
     }
   },
   props: {
@@ -112,7 +115,7 @@ export default {
   methods: {
     async download () {
       try {
-        output({url: '/doc/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title}})
+        output({url: '/voter/files/preview/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title,token: this.authToken.token}})
       } catch (err) {
         console.log(err)
       }
