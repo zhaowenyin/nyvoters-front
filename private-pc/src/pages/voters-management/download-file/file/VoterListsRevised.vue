@@ -4,32 +4,34 @@
       <div>>> {{$route.query.title}}</div>
       <el-button
       type="primary"
+      :disabled="!(data.voterNum&&+data.voterNum>0)"
       size="small">下载</el-button>
     </div>
-    <div class="content">
+    <div class="content" v-if="data.voterNum&&+data.voterNum>0">
       <div v-if="+type===3" class="announcement-title">公告</div>
       <div v-if="+type===4" class="announcement1">{{data.districtName}}选举委员会公告</div>
       <div v-if="+type===4" class="announcement2">(第xx号)</div>
       <div>
-        &nbsp;&nbsp;根据《选举法》和《{{data.districtName}}省县、乡两级人民代表大会代表选举工作实施细则》的规定，现将<span style="text-decoration:underline;">{{data.precinctName}}</span>选区选民名单公告后的选民增减情况做如下补正：
+        &nbsp;&nbsp;根据《选举法》和《{{data.precinctName}}省县、乡两级人民代表大会代表选举工作实施细则》的规定，现将<span style="text-decoration:underline;">{{data.precinctName}}</span>选区选民名单公告后的选民增减情况做如下补正：
       </div>
       <div class="message">
         <div>一、增加的选民：</div>
-        <div>{{data.addVoters.join('、')}}</div>
+        <div>{{data.addVotersStr}}</div>
         <div>二、迁出出名的选民：</div>
-        <div>{{data.cutOutVoters.join('、')}}</div>
+        <div>{{data.cutOutVotersStr}}</div>
         <div>三、死亡除名的选民：</div>
-         <div>{{data.dieVoters.join('、')}}</div>
+         <div>{{data.dieVotersStr}}</div>
         <div>四、停止行使选举权利除名的选民：</div>
-         <div>{{data.disempowerVoters.join('、')}}</div>
+         <div>{{data.disempowerVotersStr}}</div>
         <div>五、本选区原登记选民 {{data.regNum}}人，现实有选民{{data.voterNum}}人。</div>
         <div>特此公告</div>
       </div>
 
-      <div class="mark mark1">{{data.precinctName}}选举委员会</div>
-      <div class="mark"><span class="date">{{formatDate(data.date).year}}</span>年<span class="date">{{formatDate(data.date).month}}</span>月<span class="date">{{formatDate(data.date).day}}</span>日</div>
+      <div class="mark mark1">{{data.districtName}}选举委员会</div>
+      <div class="mark">{{data.date}}</div>
 
     </div>
+    <div class="not" v-else>该选区还未生成正式选民名单公告，无法生成补正公告</div>
   </div>
 </template>
 <script>
@@ -107,6 +109,9 @@ export default {
       display: flex;
       flex-direction: column;
       padding-left: 50px;
+      & div {
+        padding: 10px 0;
+      }
     }
   }
   .announcement1,.announcement2{
@@ -128,6 +133,12 @@ export default {
   }
   .date {
     text-decoration:underline;
+  }
+  .not {
+    padding-top: 200px;
+    text-align: center;
+    font-size: 16px;
+
   }
 </style>
 
