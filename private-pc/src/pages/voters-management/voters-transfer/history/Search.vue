@@ -50,7 +50,7 @@
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.fromPrecinctId" />
+          v-model.trim="searchForm.fromPrecinctName" />
       </el-form-item>
       <el-form-item
         v-if="type === 4"
@@ -59,7 +59,7 @@
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.toPrecinctId" />
+          v-model.trim="searchForm.toPrecinctName" />
       </el-form-item>
       <el-form-item
         v-if="type === 5"
@@ -92,9 +92,10 @@ export default {
       searchForm: {
         name: '',
         idNum: '',
-        phoneNum: '',
         type: 0,
-        date: []
+        date: [],
+        fromPrecinctName: '',
+        toPrecinctName: ''
       },
       createDialogVisible: false,
       list: {1: '发起申请记录',2:'处理申请记录'},
@@ -115,7 +116,8 @@ export default {
       let value={
         name: '',
         idNum: '',
-        phoneNum: '',
+        fromPrecinctName: '',
+        toPrecinctName: '',
         type: 0,
         date: []
       }

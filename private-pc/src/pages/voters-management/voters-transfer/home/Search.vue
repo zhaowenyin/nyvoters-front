@@ -48,7 +48,7 @@
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.fromPrecinctId" />
+          v-model.trim="searchForm.fromPrecinctName" />
       </el-form-item>
       <el-form-item
         v-if="type === 4"
@@ -57,7 +57,7 @@
           class="item"
           size="medium"
           placeholder="请输入关键字"
-          v-model.trim="searchForm.toPrecinctId" />
+          v-model.trim="searchForm.toPrecinctName" />
       </el-form-item>
       <el-form-item
         v-if="type === 5"
@@ -98,8 +98,8 @@ export default {
         name: '',
         idNum: '',
         date: [],
-        fromPrecinctId: '',
-        toPrecinctId: ''
+        fromPrecinctName: '',
+        toPrecinctName: ''
       },
       createDialogVisible: false,
       id: ''
@@ -119,8 +119,8 @@ export default {
         name: '',
         idNum: '',
         date: [],
-        fromPrecinctId: '',
-        toPrecinctId: ''
+        fromPrecinctName: '',
+        toPrecinctName: ''
       }
       this.searchForm = {...value}
       console.log(this.searchForm)
