@@ -27,7 +27,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="上传日期"
+        label="更新时间"
       >
         <template slot-scope="scope">
           {{formatDate(scope.row.uploadTime)}}

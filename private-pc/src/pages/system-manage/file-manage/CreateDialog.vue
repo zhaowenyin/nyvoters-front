@@ -11,7 +11,6 @@
       :rules="rules"
       ref="form"
       class="form">
-      {{form.fileList}}
        <el-form-item
         label="选择文件"
         class="complait-content"
