@@ -123,7 +123,6 @@ export default {
         toPrecinctName: ''
       }
       this.searchForm = {...value}
-      console.log(this.searchForm)
     }
   },
   created () {
