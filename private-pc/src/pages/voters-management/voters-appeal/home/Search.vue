@@ -17,8 +17,6 @@
           placeholder="请选择">
           <el-option label="申诉人" :value="1"></el-option>
           <el-option label="申诉时间" :value="2"></el-option>
-          <el-option label="审核人" :value="3"></el-option>
-          <el-option label="审核时间" :value="4"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -35,27 +33,6 @@
         prop="">
          <el-date-picker
           v-model="searchForm.applyTime"
-          size="medium"
-          type="daterange"
-          :default-time="['00:00:00', '23:59:59']"
-          range-separator="-"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"  />
-      </el-form-item>
-        <el-form-item
-        v-if="type === 3"
-        prop="">
-        <el-input
-          class="item"
-          size="medium"
-          placeholder="请输入关键字"
-          v-model.trim="searchForm.auditer" />
-      </el-form-item>
-      <el-form-item
-        v-if="type === 4"
-        prop="">
-        <el-date-picker
-          v-model="searchForm.auditTime"
           size="medium"
           type="daterange"
           :default-time="['00:00:00', '23:59:59']"
@@ -88,9 +65,7 @@ export default {
       type: 1,
       searchForm: {
         name: '',
-        auditer: '',
-        applyTime: [],
-        auditTime: []
+        applyTime: []
       },
       createDialogVisible: false,
       id: null
@@ -108,9 +83,7 @@ export default {
     type () {
       let value={
         name: '',
-        auditer: '',
-        applyTime: [],
-        auditTime: []
+        applyTime: []
       }
       this.searchForm = {...value}
     }
@@ -134,14 +107,6 @@ export default {
             params.applyTimeStart = ''
             params.applyTimeEnd = ''
           }
-          if (params.auditTime && params.auditTime.length > 0) {
-            params.auditTimeStart = new Date(params.auditTime[0]).getTime()
-            params.auditTimeEnd = new Date(params.auditTime[1]).getTime()
-          } else {
-            params.auditTimeStart = ''
-            params.auditTimeEnd = ''
-          }
-          delete params.auditTime
           delete params.applyTime
           this.getListData(params)
         }

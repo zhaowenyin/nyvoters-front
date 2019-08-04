@@ -17,8 +17,8 @@
           placeholder="请选择">
           <el-option label="申诉人" :value="1"></el-option>
           <el-option label="申诉时间" :value="2"></el-option>
-          <el-option label="审核人" :value="3"></el-option>
-          <el-option label="审核时间" :value="4"></el-option>
+          <el-option label="处理人" :value="3"></el-option>
+          <el-option label="处理时间" :value="4"></el-option>
 
         </el-select>
       </el-form-item>
@@ -37,7 +37,7 @@
          <el-date-picker
           v-model="searchForm.applyTime"
           size="medium"
-          type="datetimerange"
+          type="daterange"
           range-separator="-"
           start-placeholder="开始日期"
           end-placeholder="结束日期" />
@@ -57,7 +57,7 @@
         <el-date-picker
           v-model="searchForm.auditTime"
           size="medium"
-          type="datetimerange"
+          type="daterange"
           range-separator="-"
           start-placeholder="开始日期"
           end-placeholder="结束日期" />
@@ -118,7 +118,7 @@ export default {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           params.pageNum = 1
-          if (params.applyTime && params.daapplyTimete.length > 0) {
+          if (params.applyTime && params.applyTime.length > 0) {
             params.applyTimeStart = new Date(params.applyTime[0]).getTime()
             params.applyTimeEnd = new Date(params.applyTime[1]).getTime()
           } else {
@@ -130,7 +130,7 @@ export default {
             params.auditTimeEnd = new Date(params.auditTime[1]).getTime()
           } else {
             params.auditTimeStart = ''
-            params.aauditTimeEnd = ''
+            params.auditTimeEnd = ''
           }
           delete params.auditTime
           delete params.applyTime
