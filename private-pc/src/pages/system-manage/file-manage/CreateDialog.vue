@@ -11,6 +11,7 @@
       :rules="rules"
       ref="form"
       class="form">
+      {{form.fileList}}
        <el-form-item
         label="选择文件"
         class="complait-content"
@@ -24,6 +25,7 @@
             :on-change="changeFile"
             :on-success="successFn"
             :on-error="errorFn"
+            :on-remove="Onremove"
             :disabled="!!item.id"
             :multiple="false"
             :before-upload="beforeAvatarUpload"
@@ -216,6 +218,9 @@ export default {
         console.log(e)
       }
 
+    },
+    Onremove () {
+      this.form.fileList = []
     }
   }
 
