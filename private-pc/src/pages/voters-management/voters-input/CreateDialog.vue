@@ -90,7 +90,7 @@ export default {
     },
 
     async submitForm () {
-      if(this.selectItem.value) {
+      if(!this.selectItem.id) {
         this.$notify({
           title: '',
           message: '请选择区域！',
