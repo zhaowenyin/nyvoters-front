@@ -3,6 +3,7 @@
     <div class="top-title">
       <div>>> {{$route.query.title}}</div>
       <el-button
+      @click="download"
       type="primary"
       size="small">下载</el-button>
     </div>

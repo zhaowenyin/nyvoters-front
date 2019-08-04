@@ -4,6 +4,7 @@
       <div>>> {{$route.query.title}}</div>
       <el-button
       type="primary"
+       @click="download"
       :disabled="!(data.voterNum&&+data.voterNum>0)"
       size="small">下载</el-button>
     </div>
