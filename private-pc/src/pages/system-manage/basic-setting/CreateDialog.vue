@@ -233,8 +233,12 @@ export default {
     },
     successFn (response) {
       // this.$notify.success({title: '上传成功'})
-      console.log()
-      this.form.loginBackgroudId = response.content
+      if(this.data&&this.data[4]&&this.data[4].value) {
+        this.form.loginBackgroudId = this.data[4].value
+      } else {
+        this.form.loginBackgroudId = response.content
+      }
+
       // this.form.id = response.data.content
       // this.$refs.upload.clearFiles()
     },
