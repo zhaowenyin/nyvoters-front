@@ -152,7 +152,7 @@ export default {
     allUrl () {
       let param = {
         module: 5,
-        isFillData: 1,
+        isFillData: 0,
         fileName: '登录背景地址ID'
       }
       let paramStr = ''
@@ -166,7 +166,7 @@ export default {
       paramStr = paramStr.substr(1)
       let url = ''
       if(this.data&&this.data[4]&&this.data[4].value) {
-        url=`${baseURL}/doc/modify/?${paramStr}`
+        url=`${baseURL}/doc/modify/?${paramStr}&loginBackgroudId=${this.data[4].value}`
       } else {
         url =`${baseURL}/doc/upload/?${paramStr}`
       }
