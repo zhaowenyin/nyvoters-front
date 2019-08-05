@@ -160,7 +160,7 @@ export default {
     },
     submitForm () {
       try {
-        output({url: `/import/export/${this.tastId}`,param:{token:this.header.token}})
+        output({url: `/import/export/${this.form.id}`,param:{token:this.headers.token}})
       } catch (err) {
         console.log(err)
       }
