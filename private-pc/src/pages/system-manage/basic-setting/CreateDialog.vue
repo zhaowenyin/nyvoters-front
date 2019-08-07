@@ -60,7 +60,7 @@
             style="100%"
             :class="['commom1',{'uploadcomplait':fileList.length>0}]"
             :headers="headers"
-            :action="allUrl"
+            :action="url"
             ref="upload"
             :on-change="changeFile"
             :on-success="successFn"
@@ -71,11 +71,11 @@
             :limit="1"
             :file-list="fileList"
             accept="image/jpeg,image/gif,image/png"
-            :auto-upload="true">
+            :auto-upload="false">
             <div
             v-if="fileList.length===0"
             class="but">
-            <span style="color: #606266" v-if="data&&data[4]&&data[4].name">{{data&&data[4].name}}</span>
+            <span style="color: #606266" v-if="fileName">{{fileName}}</span>
             <span v-else>请上传登录背景地址</span>
             </div>
           </el-upload>
@@ -96,7 +96,7 @@
   </el-dialog>
 </template>
 <script>
-import {setSubmit,getConfig} from './service.js'
+import {setSubmit,getConfig,getName} from './service.js'
 import { baseURL } from '../../../utils/api.js'
 import { getSession } from '../../../utils/session.js'
 export default {
@@ -134,7 +134,8 @@ export default {
       headers: {
         token: authToken.token,
       },
-      fileName: ''
+      fileName: '',
+      url: ''
     }
 
   },
@@ -149,29 +150,7 @@ export default {
     }
   },
   computed: {
-    allUrl () {
-      let param = {
-        module: 5,
-        isFillData: 0,
-        fileName: '登录背景地址ID'
-      }
-      let paramStr = ''
-      for (const k in param) {
-        if (param[k] !== undefined &&
-            param[k] !== null &&
-            param[k] !== '') {
-          paramStr += `&${k}=${param[k]}`
-        }
-      }
-      paramStr = paramStr.substr(1)
-      let url = ''
-      if(this.data&&this.data[4]&&this.data[4].value) {
-        url=`${baseURL}/doc/modify/?${paramStr}&loginBackgroudId=${this.data[4].value}`
-      } else {
-        url =`${baseURL}/doc/upload/?${paramStr}`
-      }
-      return url
-    }
+
   },
   created () {
     this.getConfig()
@@ -199,6 +178,10 @@ export default {
         registerEndDate: new Date(+content[3].value),
         loginBackgroudId: content[4].value,
       }
+      if(this.form.loginBackgroudId) {
+        this.getName(this.form.loginBackgroudId)
+      }
+      this.allUrl('')
       this.loading = false
     },
     async sumitData () {
@@ -211,6 +194,10 @@ export default {
       this.close()
       this.loading = false
     },
+    async getName (val) {
+      const {data} = await getName({id: val})
+      this.fileName = data.content.fileName
+    },
     comfirmClose () {
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')
         .then(() => {
@@ -220,10 +207,16 @@ export default {
     },
     changeFile (file, fileList) {
       this.fileList = fileList
+      if(file.name){
+        this.allUrl(file.name)
+        setTimeout(()=>{
+          this.$refs.upload.submit()
+        },1000)
+      }
+
     },
     beforeAvatarUpload (file) {
       console.log(file)
-      this.fileName=file.name
       // const isXlsx = file.type ===
       //   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       // if (!isXlsx) {
@@ -247,6 +240,29 @@ export default {
       const errorObj = JSON.parse(message)
       this.$notify.error({title: errorObj.message || '上传失败'})
     },
+    allUrl (val) {
+      let param = {
+        module: 3,
+        isFillData: 0,
+        fileName: val
+      }
+      let paramStr = ''
+      for (const k in param) {
+        if (param[k] !== undefined &&
+            param[k] !== null &&
+            param[k] !== '') {
+          paramStr += `&${k}=${param[k]}`
+        }
+      }
+      paramStr = paramStr.substr(1)
+      let url = ''
+      if(this.data&&this.data[4]&&this.data[4].value) {
+        url=`${baseURL}/doc/modify/?${paramStr}&loginBackgroudId=${this.data[4].value}`
+      } else {
+        url =`${baseURL}/doc/upload/?${paramStr}`
+      }
+      this.url= url
+    }
   }
 
 }

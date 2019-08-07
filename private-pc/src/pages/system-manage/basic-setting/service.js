@@ -44,3 +44,16 @@ export async function getConfig () {
   // })
   return api.post('/sys-config/list')
 }
+export async function getName (payload) {
+  // console.log(payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.post('/doc/get',payload)
+}
+
