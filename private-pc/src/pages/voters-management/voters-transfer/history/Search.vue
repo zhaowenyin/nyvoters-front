@@ -152,9 +152,11 @@ export default {
       })
     },
     handleCheckedCitiesChange(val) {
-      if(val.length === 0 || val.length === 2) {
-        this.searchForm.type=0
-      } else {
+      if(val.length === 0) {
+        this.searchForm.type=''
+      } else if (val.length === 2) {
+        this.searchForm.type = 0
+      }else{
         this.searchForm.type = val[0]
       }
       this.checkedItem = val
