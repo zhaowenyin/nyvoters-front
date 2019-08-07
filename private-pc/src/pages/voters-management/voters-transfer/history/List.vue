@@ -37,6 +37,9 @@
           {{scope.row.toPrecinctName}}
         </template>
       </el-table-column>
+      <el-table-column
+        label="转移原因"
+        prop="transferReason" />
        <el-table-column
         label="申请时间">
         <template slot-scope="scope">
