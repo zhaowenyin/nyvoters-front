@@ -11,10 +11,10 @@
         prop="userName" />
       <el-table-column
         width="180"
-        label="身份证号码"
+        label="身份证号"
         prop="idNum" />
       <el-table-column
-        label="手机号"
+        label="联系电话"
         prop="phoneNum" />
       <el-table-column
         width="180"

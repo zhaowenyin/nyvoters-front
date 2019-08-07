@@ -14,10 +14,10 @@
         width="120"
         prop="userName" />
       <el-table-column
-        label="身份证号码"
+        label="身份证号"
         prop="idNum" />
       <el-table-column
-        label="手机号"
+        label="联系电话"
         prop="phoneNum" />
       <el-table-column
         label="申请时间">
@@ -25,6 +25,9 @@
           {{formatDate(scope.row.applyTime)}}
         </template>
       </el-table-column>
+       <el-table-column
+        label="申诉书"
+        prop="docName" />
     </el-table>
     <div
       v-show="total"
