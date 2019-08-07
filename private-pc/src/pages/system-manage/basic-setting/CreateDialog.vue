@@ -242,7 +242,7 @@ export default {
     },
     allUrl (val) {
       let param = {
-        module: 3,
+        module: 6,
         isFillData: 0,
         fileName: val
       }
@@ -257,7 +257,7 @@ export default {
       paramStr = paramStr.substr(1)
       let url = ''
       if(this.data&&this.data[4]&&this.data[4].value) {
-        url=`${baseURL}/doc/modify/?${paramStr}&loginBackgroudId=${this.data[4].value}`
+        url=`${baseURL}/doc/modify/?${paramStr}&id=${this.data[4].value}`
       } else {
         url =`${baseURL}/doc/upload/?${paramStr}`
       }
