@@ -222,8 +222,10 @@
     </el-form>
      <el-dialog
       width="500px"
+      :close-on-click-modal="false"
       title="提示"
       :visible.sync="innerVisible"
+      :before-close="innerClose"
       append-to-body>
       <div>该选民已经在：{{handerdata.fromPrecinctName}}</div>
       <div style="padding-bottom:20px;">是否申请转入：{{handerdata.toPrecinctName}}？</div>
@@ -231,7 +233,7 @@
       label-width="60px"
       :model="innerForm"
       :rules="innerRules"
-      ref="form"
+      ref="innerForm"
       class="login-form">
       <el-form-item
         label="原因"
@@ -246,7 +248,7 @@
     </el-form>
       <div slot="footer" class="dialog-footer">
       <el-button
-          @click="supplyTransfer"
+          @click="handerSupply"
           size="medium"
           :loading="loading"
           type="primary">申请</el-button>
@@ -482,6 +484,13 @@ export default {
       return params
     },
     cardVali,
+    handerSupply(){
+      this.$refs.innerForm.validate((valid) => {
+        if (valid) {
+          this.supplyTransfer()
+        }
+      })
+    },
     async supplyTransfer() {
       const params = {
         idNum: this.handerdata.idNum,
