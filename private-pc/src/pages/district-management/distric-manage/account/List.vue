@@ -30,14 +30,6 @@
           {{handerType(scope.row.accountType)}}
         </template>
       </el-table-column>
-        <el-table-column
-        label="角色"
-        prop="gender">
-        <template slot-scope="scope">
-          {{handerRole(scope.row.accountRole)}}
-        </template>
-      </el-table-column>
-
       <el-table-column
         label="选区">
           <template slot-scope="scope">
