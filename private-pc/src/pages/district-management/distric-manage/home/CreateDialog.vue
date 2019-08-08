@@ -225,16 +225,20 @@ export default {
       })
     },
     async sumitData () {
-      this.loading = true
-      if(this.item.id) {
-        await modifySubmit({...this.handerParams(),id: this.item.id})
-      }else {
-        await setSubmit(this.handerParams())
+      try {
+        this.loading = true
+        if(this.item.id) {
+          await modifySubmit({...this.handerParams(),id: this.item.id})
+        }else {
+          await setSubmit(this.handerParams())
+        }
+        this.getListData()
+        this.searchTree({type: 0, id: '',modify:true})
+        this.close()
+      } finally {
+        this.loading = false
       }
-      this.getListData()
-      this.searchTree({type: 0, id: '',modify:true})
-      this.close()
-      this.loading = false
+
     },
     comfirmClose () {
       if(this.isDisabled){

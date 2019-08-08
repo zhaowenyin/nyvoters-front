@@ -206,32 +206,41 @@ export default {
       })
     },
     async sumitData () {
-      this.loading = true
-      const params = {
-        ...this.form
-      }
-      params.sort = +params.sort
-      params.pnum = +params.pnum
-      await setSubmit(params)
+      try {
+        this.loading = true
+        const params = {
+          ...this.form
+        }
+        params.sort = +params.sort
+        params.pnum = +params.pnum
+        await setSubmit(params)
 
-      this.getListData({})
-      this.close()
-      this.loading = false
+        this.getListData({})
+        this.close()
+      } finally{
+        this.loading = false
+      }
+
     },
     async modifyData () {
-      this.loading = true
-      const params = {
-        ...this.form
+      try {
+        this.loading = true
+        const params = {
+          ...this.form
 
+        }
+        params.sort = +params.sort
+        params.pnum = +params.pnum
+        params.level = +params.level
+        await modifySubmit(params)
+        this.getListData({ districtId: this.belongAreaId })
+        this.searchDistrictTree({type: 0, id: ''})
+        this.close()
+      } finally{
+        this.loading = false
       }
-      params.sort = +params.sort
-      params.pnum = +params.pnum
-      params.level = +params.level
-      await modifySubmit(params)
-      this.getListData({ districtId: this.belongAreaId })
-      this.searchDistrictTree({type: 0, id: ''})
-      this.close()
-      this.loading = false
+
+
     },
     comfirmClose () {
       if(this.isDisabled){
