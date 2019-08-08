@@ -45,8 +45,6 @@ export async function setSubmit (payload) {
   //   }, 500)
   // })
   return api.post('/district/add', payload)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
 }
 
 export async function modifySubmit (payload) {
@@ -60,8 +58,6 @@ export async function modifySubmit (payload) {
   //   }, 500)
   // })
   return api.post('/district/edit', payload)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
 }
 
 
