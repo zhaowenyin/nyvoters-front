@@ -65,11 +65,11 @@ export default {
     if (this.belongAreaId === '') {
       return
     }
-    this.getListData({ districtId: this.belongAreaId })
+    this.getListData({ districtId: this.belongAreaId,pageNum: 1 })
   },
   watch: {
     belongAreaId () {
-      this.getListData({districtId: this.belongAreaId })
+      this.getListData({districtId: this.belongAreaId,pageNum: 1  })
     }
   },
   methods: {
