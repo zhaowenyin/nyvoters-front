@@ -174,7 +174,7 @@
               prop="idNum">
               <el-input
                 size="medium"
-                :disabled="isDisabled"
+                :disabled="true"
                 placeholder="请输入"
                 :maxlength="18"
                 v-model="form.idNum" />
