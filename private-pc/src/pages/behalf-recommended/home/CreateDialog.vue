@@ -56,7 +56,6 @@
                <el-select
                :disabled="isDisabled"
                 filterable
-                allow-create
                 size="medium"
                 style="width: 100%;"
                 class="item"
