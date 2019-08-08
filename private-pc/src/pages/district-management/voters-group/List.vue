@@ -31,6 +31,9 @@
       <el-table-column
         label="类型"
         prop="type">
+        <el-table-column
+        label='排序号'
+        prop="sort" />
         <template slot-scope="scope">
           {{scope.row.type === 0 ? "区县小组" : '乡镇小组'}}
         </template>
