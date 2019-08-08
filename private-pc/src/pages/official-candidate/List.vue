@@ -88,14 +88,14 @@ export default {
   },
   watch: {
     belongAreaId () {
-      this.getListData({ belongAreaId: this.belongAreaId,statusList: ['FORMAL_REPRESENTATIVE','FORMAL_CANDIDATE']})
+      this.getListData({ belongAreaId: this.belongAreaId,statusList: ['FORMAL_REPRESENTATIVE','FORMAL_CANDIDATE'],pageNum:1})
     }
   },
   created () {
     if (this.belongAreaId === '') {
       return
     }
-    this.getListData({belongAreaId: this.belongAreaId,statusList: ['FORMAL_REPRESENTATIVE','FORMAL_CANDIDATE']})
+    this.getListData({belongAreaId: this.belongAreaId,statusList: ['FORMAL_REPRESENTATIVE','FORMAL_CANDIDATE'],pageNum:1})
   },
   methods: {
     ...mapActions('officialCandidate', [

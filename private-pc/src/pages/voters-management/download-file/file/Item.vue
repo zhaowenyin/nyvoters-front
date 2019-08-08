@@ -49,7 +49,7 @@ export default {
   },
   watch: {
     belongAreaId () {
-      this.searchInfo({belongAreaId: this.belongAreaId})
+      this.searchInfo({belongAreaId: this.belongAreaId,pageNum:1})
     }
   },
   created(){
@@ -57,7 +57,7 @@ export default {
     if (this.belongAreaId === '') {
       return
     }
-    this.searchInfo({belongAreaId: this.belongAreaId})
+    this.searchInfo({belongAreaId: this.belongAreaId,pageNum:1})
   },
   methods: {
     async searchInfo (val) {

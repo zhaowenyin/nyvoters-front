@@ -92,14 +92,14 @@ export default {
   },
   watch: {
     belongAreaId () {
-      this.getListData({ precinctId: this.belongAreaId })
+      this.getListData({ precinctId: this.belongAreaId,pageNum:1})
     }
   },
   created () {
     if (this.belongAreaId === '') {
       return
     }
-    this.getListData({precinctId: this.belongAreaId })
+    this.getListData({precinctId: this.belongAreaId,pageNum:1})
   },
   methods: {
     ...mapActions('votersOut', [

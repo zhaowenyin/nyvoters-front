@@ -91,11 +91,11 @@ export default {
     if (this.belongAreaId === '') {
       return
     }
-    this.getListData({ belongAreaId: this.belongAreaId,statusList:['WAIT_REVIEW']})
+    this.getListData({ belongAreaId: this.belongAreaId,statusList:['WAIT_REVIEW'],pageNum:1})
   },
   watch: {
     belongAreaId () {
-      this.getListData({belongAreaId: this.belongAreaId, statusList:['WAIT_REVIEW']})
+      this.getListData({belongAreaId: this.belongAreaId, statusList:['WAIT_REVIEW'],pageNum:1})
     }
   },
   methods: {
