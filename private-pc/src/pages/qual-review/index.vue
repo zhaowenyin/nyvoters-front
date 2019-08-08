@@ -1,6 +1,6 @@
 <template>
   <div class="view">
-    <div v-if="activeIndex === '/qual-review'" class="view-left">
+    <div class="view-left">
       <CommonTree
         :current-node-key="this.belongAreaId"
         node-key="id"
