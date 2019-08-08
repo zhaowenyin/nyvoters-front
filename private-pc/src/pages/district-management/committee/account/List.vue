@@ -67,12 +67,12 @@ export default {
   },
   watch: {
     belongAreaId () {
-      this.getListData1({ precinctId: this.belongAreaId })
+      this.getListData1({ precinctId: this.belongAreaId,pageNum: 1 })
     }
   },
   created () {
     if(this.belongAreaId !== '') {
-      this.getListData1({precinctId: this.belongAreaId })
+      this.getListData1({precinctId: this.belongAreaId,pageNum: 1 })
     }
   },
   methods: {

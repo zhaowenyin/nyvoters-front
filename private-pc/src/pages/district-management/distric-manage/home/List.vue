@@ -71,12 +71,12 @@ export default {
   },
   created () {
     if(this.belongAreaId!=='') {
-      this.getListData({precinctId: this.belongAreaId })
+      this.getListData({precinctId: this.belongAreaId,pageNum: 1 })
     }
   },
   watch: {
     belongAreaId () {
-      this.getListData({precinctId: this.belongAreaId })
+      this.getListData({precinctId: this.belongAreaId,pageNum: 1 })
     }
   },
   methods: {

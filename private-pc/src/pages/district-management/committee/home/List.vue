@@ -70,12 +70,12 @@ export default {
   },
   watch: {
     committeeId () {
-      this.getListData({ committeeId: this.committeeId })
+      this.getListData({ committeeId: this.committeeId,pageNum: 1 })
     }
   },
   created () {
     if(this.committeeId !== '') {
-      this.getListData({committeeId: this.committeeId })
+      this.getListData({committeeId: this.committeeId,pageNum: 1 })
     }
   },
   methods: {
