@@ -17,6 +17,7 @@
           <el-option label="姓名" :value="1"></el-option>
           <el-option label="推荐方式" :value="2"></el-option>
           <el-option label="类型" :value="3"></el-option>
+          <el-option label="状态" :value="4"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -52,6 +53,22 @@
           </el-option>
         </el-select>
       </el-form-item>
+       <el-form-item
+        v-if="type === 4"
+        prop="status">
+        <el-select
+        size="medium"
+        placeholder="请选择状态"
+        style="width: 200px;"
+        v-model.trim="searchForm.status">
+          <el-option
+            v-for="(item, key) in QualficationStatusList"
+            :key="key"
+            :label="item"
+            :value="key">
+          </el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item>
         <el-button
           @click="submitForm()"
@@ -64,6 +81,7 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
+import {QualficationStatusList} from '../../../common-data/config.js'
 
 export default {
   data () {
@@ -73,6 +91,7 @@ export default {
         recommendedPerson: '',
         recommendType: '',
         type: '',
+        status: ''
       },
       methodList: [
         {
@@ -94,7 +113,8 @@ export default {
           label: '乡镇代表'
         }
       ],
-      createDialogVisible: false
+      createDialogVisible: false,
+      QualficationStatusList
     }
   },
   computed: {
@@ -111,6 +131,7 @@ export default {
         recommendedPerson: '',
         recommendType: '',
         type: '',
+        status: ''
       }
       this.searchForm = {...value}
     }
@@ -126,6 +147,8 @@ export default {
       this.$refs.form.validate((valid) => {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
+          params.statusList=[params.status]
+          delete params.status
           params.pageNum = 1
           this.getListData(params)
         }

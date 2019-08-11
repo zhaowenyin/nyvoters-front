@@ -93,3 +93,14 @@ export const statusList = {
   6: '其他',
   7: '登记成功'
 }
+// 资格选民状态
+export const QualficationStatusList = {
+  'DELETE': '删除',
+  'WAIT_SUBMIT': '待提交',
+  'WAIT_REVIEW': '待资格审查',
+  'REVIEW_FAIL': '资格审查不通',
+  'REVIEW_SUCCESS': '资格审查通过',
+  'PRELIMINARY_CANDIDATE': '初步候选人',
+  'FORMAL_CANDIDATE': '正式候选人',
+  'FORMAL_REPRESENTATIVE': '正式代表'
+}
