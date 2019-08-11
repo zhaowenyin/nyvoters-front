@@ -98,6 +98,7 @@
               label="户籍地"
               prop="householdRegistration">
               <el-input
+                @change="housechange"
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入户籍地"
@@ -111,6 +112,7 @@
               label=""
               prop="householdRegistrationDetail">
               <el-input
+                @change="detailchange"
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="详细地址"
@@ -123,6 +125,7 @@
               label="现居住地"
               prop="living">
             <el-input
+              @change="livingChange"
               :disabled="isDisabled"
               placeholder="请输入现居住地"
               class="item"
@@ -135,6 +138,7 @@
             label-width="0"
             prop="livingDetail">
             <el-input
+              @change="livingDetailChange"
               :disabled="isDisabled"
               size="medium"
               placeholder="详细地址"
@@ -379,7 +383,9 @@ export default {
       candidateTypeList,
       session,
       innerVisible: false,
-      handerdata: {}
+      handerdata: {},
+      livingDetail: false,
+      living: false
     }
 
   },
@@ -511,6 +517,23 @@ export default {
     },
     innerClose () {
       this.innerVisible = false
+    },
+    housechange (val) {
+      if(!this.living) {
+        this.form.living = val
+      }
+    },
+    detailchange(val) {
+      if(!this.livingDetail) {
+        this.form.livingDetail = val
+      }
+
+    },
+    livingChange () {
+      this.living = true
+    },
+    livingDetailChange () {
+      this.livingDetail = true
     }
   }
 
