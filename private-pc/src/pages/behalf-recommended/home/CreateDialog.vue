@@ -493,6 +493,14 @@ export default {
       })
     },
     async sumitData () {
+      if(+this.form.recommendType===2&&this.form.recommendPersonList.length<10) {
+        this.$notify({
+          title: '',
+          message: '推荐人应该大于等于10人！',
+          type: 'warning'
+        });
+        return
+      }
       try {
         this.loading = true
         let data1 = {}
