@@ -397,7 +397,7 @@ export default {
           { required: true, message: '请输入推荐人姓名！', trigger: 'blur' }
         ],
         recommendPersonPhone:  [
-          { required: true, message: '请输入推荐人手机！', trigger: 'blur' }
+          { required: true,alidator: validate, trigger: 'blur' }
         ],
         recommendPersonWorkUnit: [
           { required: true, message: '请输入推荐人工作单位！', trigger: 'blur' }

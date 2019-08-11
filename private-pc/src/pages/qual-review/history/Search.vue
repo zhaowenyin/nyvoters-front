@@ -17,7 +17,7 @@
           <el-option label="姓名" :value="1"></el-option>
           <el-option label="推荐方式" :value="2"></el-option>
           <el-option label="类型" :value="3"></el-option>
-          <el-option label="状态" :value="4"></el-option>
+          <!-- <el-option label="状态" :value="4"></el-option> -->
         </el-select>
       </el-form-item>
       <el-form-item
@@ -53,7 +53,7 @@
           </el-option>
         </el-select>
       </el-form-item>
-       <el-form-item
+       <!-- <el-form-item
         v-if="type === 4"
         prop="status">
         <el-select
@@ -68,7 +68,7 @@
             :value="key">
           </el-option>
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <el-button
           @click="submitForm()"
