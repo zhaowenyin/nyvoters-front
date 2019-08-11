@@ -97,6 +97,7 @@ export default {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           params.pageNum = 1
+          params.type=4
           this.getListData1(params)
         }
       })
