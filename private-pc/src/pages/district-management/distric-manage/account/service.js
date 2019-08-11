@@ -50,6 +50,7 @@ export async function getList (payload) {
       delete payload[i]
     }
   }
+  payload.type=4
   return api.post('/user/list', payload)
 }
 
