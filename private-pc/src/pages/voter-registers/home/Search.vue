@@ -14,12 +14,15 @@
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
 import  output from '../../../utils/output.js'
+import { getSession } from '../../../utils/session.js'
 
 export default {
   data () {
+    const authToken = getSession()
     return {
       type: 1,
-      createDialogVisible: false
+      createDialogVisible: false,
+      authToken
     }
   },
   computed: {
@@ -42,7 +45,7 @@ export default {
     },
     async download () {
       try {
-        output({url: '/doc/download', param: {fileName: '选民登记', module: 1}})
+        output({url: '/doc/download', param: {fileName: '选民登记', module: 1,token:this.authToken.token}})
       } catch (err) {
         console.log(err)
       }
