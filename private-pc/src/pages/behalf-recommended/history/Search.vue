@@ -141,7 +141,7 @@ export default {
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',
-          message: '请勾选数据进撤销！',
+          message: '请勾选数据进行撤销！',
           type: 'warning'
         });
         return
