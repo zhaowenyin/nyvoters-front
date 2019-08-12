@@ -215,7 +215,8 @@ export default {
         params.pnum = +params.pnum
         await setSubmit(params)
 
-        this.getListData({})
+        this.getListData()
+        this.searchDistrictTree({type: 0, id: ''})
         this.close()
       } finally{
         this.loading = false
@@ -233,7 +234,7 @@ export default {
         params.pnum = +params.pnum
         params.level = +params.level
         await modifySubmit(params)
-        this.getListData({ districtId: this.belongAreaId })
+        this.getListData()
         this.searchDistrictTree({type: 0, id: ''})
         this.close()
       } finally{
