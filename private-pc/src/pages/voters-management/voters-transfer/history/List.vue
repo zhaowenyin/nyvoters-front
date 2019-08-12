@@ -49,7 +49,7 @@
         <el-table-column
         label="类型">
         <template slot-scope="scope">
-          {{+scope.row.type===0 ? '发起' : '处理'}}
+          {{+scope.row.type===1 ? '发起' : '处理'}}
         </template>
       </el-table-column>
       <el-table-column
