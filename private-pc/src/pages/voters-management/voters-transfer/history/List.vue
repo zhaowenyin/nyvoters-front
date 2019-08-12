@@ -49,7 +49,7 @@
         <el-table-column
         label="类型">
         <template slot-scope="scope">
-          {{scope.row.candidateType===0 ? '发起' : '处理'}}
+          {{+scope.row.candidateType===0 ? '发起' : '处理'}}
         </template>
       </el-table-column>
       <el-table-column
@@ -62,7 +62,8 @@
         label="操作">
         <template slot-scope="scope">
           <el-button
-          @click="repeal(scope.row)"
+          v-if="+scope.row.status===0&&scope.row.candidateType===0"
+          @click="repealI(scope.row)"
           size="small"
           type="primary">撤销</el-button>
         </template>
@@ -152,8 +153,15 @@ export default {
       return text
     },
     formatDate,
+    repealI(val) {
+      this.$confirm('确认撤销已发起的转移申请？')
+        .then(() => {
+          this.repeal(val)
+        })
+        .catch(() => {})
+    },
     async repeal (val) {
-      await repealTabel({id: val.id})
+      await repealTabel(val.id)
       this.getListData()
     }
   }

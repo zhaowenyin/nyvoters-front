@@ -63,7 +63,7 @@ export async function repealTabel (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post('/group/delete', payload)
+  return api.get(`/transfer/cancel/${payload}`)
 }
 
 
