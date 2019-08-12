@@ -8,7 +8,7 @@
         label="时间"
         prop="opTime">
         <template slot-scope="scope">
-          {{formatDate(scope.row.opTime)}}
+          {{formatDateMinute(scope.row.opTime)}}
         </template>
       </el-table-column>
 
@@ -51,7 +51,7 @@
   </div>
 </template>
 <script>
-import { formatDate } from '../../../utils/format.js'
+import { formatDateMinute } from '../../../utils/format.js'
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -83,7 +83,7 @@ export default {
     handleCurrentChange (val) {
       this.getListData({ pageNum: val })
     },
-    formatDate
+    formatDateMinute
 
   }
 }
