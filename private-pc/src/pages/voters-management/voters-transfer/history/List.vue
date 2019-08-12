@@ -49,7 +49,7 @@
         <el-table-column
         label="类型">
         <template slot-scope="scope">
-          {{+scope.row.candidateType===0 ? '发起' : '处理'}}
+          {{+scope.row.type===0 ? '发起' : '处理'}}
         </template>
       </el-table-column>
       <el-table-column
@@ -62,7 +62,7 @@
         label="操作">
         <template slot-scope="scope">
           <el-button
-          v-if="+scope.row.status===0&&scope.row.candidateType===0"
+
           @click="repealI(scope.row)"
           size="small"
           type="primary">撤销</el-button>
@@ -147,8 +147,11 @@ export default {
       case 1:
         text = '转移成功'
         break
-      default:
+      case 2:
         text = '不同意转移'
+        break
+      default:
+        text = '已撤销'
       }
       return text
     },
