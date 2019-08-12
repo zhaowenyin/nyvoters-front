@@ -62,10 +62,11 @@
         label="操作">
         <template slot-scope="scope">
           <el-button
-
+          v-if="+scope.row.type===1&&+scope.row.status===0"
           @click="repealI(scope.row)"
           size="small"
           type="primary">撤销</el-button>
+          <div v-else>无</div>
         </template>
       </el-table-column>
     </el-table>
