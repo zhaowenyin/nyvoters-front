@@ -79,6 +79,11 @@ export default {
       this.$nextTick(() => {
         this.$refs.tree.setCurrentKey(val)
       })
+    },
+    data () {
+      this.$nextTick(() => {
+        this.$refs.tree.setCurrentKey(this.currentNodeKey)
+      })
     }
   },
   components: {

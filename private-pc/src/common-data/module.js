@@ -37,8 +37,8 @@ export default {
         state.belongAreaId = state.belongAreaItem.id
         state.belongArea = state.belongAreaItem.name
         state.saveItem =  state.belongAreaItem
-        state.treeList = [payload.payload.data.content]
       }
+      state.treeList = [payload.payload.data.content]
     },
     updateNews(state, payload) {
       const list =  payload.data.content.data
