@@ -235,7 +235,7 @@ export default {
       if(this.item.id || this.item.id===0) {
         params.password = this.item.password
       } else {
-        params.password=md5(this.item.password)
+        params.password=md5(this.form.password)
       }
       return params
     }
