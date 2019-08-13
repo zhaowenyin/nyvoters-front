@@ -66,8 +66,6 @@ export default {
 }
 .content {
   margin-top: 50px;
-  display: flex;
-  justify-content: center;
 }
 .top-title {
   padding: 15px;

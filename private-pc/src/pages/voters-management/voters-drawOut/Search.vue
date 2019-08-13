@@ -169,6 +169,10 @@ export default {
       const param = JSON.parse(JSON.stringify(this.searchForm))
       param.pageNum = 1
       this.getListData(param)
+      this.$notify({
+        message: '划出成功！',
+        type: 'success'
+      })
     }
   }
 }

@@ -63,7 +63,7 @@ export default {
     },
     async download () {
       try {
-        output({url: '/doc/download', param: {fileName: '选区选民情况统计表',token:this.authToken.token,belongAreaId:this.belongAreaItem.districtId,id: 1}})
+        output({url: '/doc/download', param: {fileName: '选区选民情况统计表',token:this.authToken.token,belongAreaId:this.belongAreaId,id: 1}})
       } catch (err) {
         console.log(err)
       }
