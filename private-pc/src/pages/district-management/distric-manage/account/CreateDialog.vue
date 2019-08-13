@@ -269,7 +269,7 @@ export default {
         params.password = this.item.password
         params.id = this.item.id
       } else {
-        params.password=md5(this.item.password)
+        params.password=md5(this.form.password)
       }
       params.precinctId = this.belongAreaId
       return params
