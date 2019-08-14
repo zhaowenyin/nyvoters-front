@@ -17,7 +17,6 @@
               label="推荐方式"
               prop="recommendType">
               <el-radio-group
-                @change="change"
                 :disabled="isDisabled"
                 size="medium"
                 v-model="form.recommendType">
