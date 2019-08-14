@@ -21,7 +21,7 @@
               size="medium"
               placeholder="请输入姓名"
               class="item"
-              v-model="form.name" />
+              v-model.trim="form.name" />
           </el-form-item>
         </el-col>
          <el-col :span="12">
