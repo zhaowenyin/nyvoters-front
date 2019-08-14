@@ -71,7 +71,7 @@
                 size="medium"
                 placeholder="请输入代表名额"
                 class="item"
-                v-model="form.pnum" />
+                v-model.trim="form.pnum" />
             </el-form-item>
           </el-col>
            <el-col :span="12">
@@ -84,6 +84,18 @@
                 placeholder="请输入排序码"
                 class="item"
                 v-model="form.sort" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+             <el-form-item
+              label="需登记人数"
+              prop="total">
+              <el-input
+                :disabled="isDisabled"
+                size="medium"
+                placeholder="请输入需登记人数"
+                class="item"
+                v-model.trim="form.total" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -126,15 +138,19 @@ export default {
         sort: '',
         type: '',
         typeName: '',
-        parentId: ''
+        parentId: '',
+        total: ''
       },
       multipleSelection: [],
       rules: {
         name: [
-          { required: true, message: '选区名称', trigger: 'blur' }
+          { required: true, message: '请输入选区名称', trigger: 'blur' }
         ],
         code: [
-          { required: true, message: '选区编码', trigger: 'change' }
+          { required: true, message: '请输入选区编码', trigger: 'blur' }
+        ],
+        total:[
+          { required: true, message: '请输入需登记人数', trigger: 'blur' }
         ],
 
       },
@@ -180,6 +196,7 @@ export default {
         districtId: this.item.districtId,
         sort: this.item.sort,
         type: this.item.type,
+        total: this.item.total || '',
         parentId: this.item.parentId,
         typeName:(+this.item.type)=== 0 ? '区县选区' : '乡镇选区'
       }
@@ -253,7 +270,10 @@ export default {
     },
     handerParams () {
       let params = {...this.form}
-      params.pnum = +params.pnum
+      if(params.pnum) {
+        params.pnum = +params.pnum
+      }
+      params.total = +params.total
       delete params.typeName
       return params
     },
