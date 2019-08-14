@@ -76,7 +76,7 @@
               size="medium"
               placeholder="请输入"
               class="item"
-              v-model.trim="form.phoneNum" />
+              v-model="form.phoneNum" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -88,7 +88,7 @@
               size="medium"
               placeholder="请输入"
               class="item"
-              v-model.trim="form.contactInformation" />
+              v-model="form.contactInformation" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -117,7 +117,7 @@
                 size="medium"
                 placeholder="详细地址"
                 class="item"
-                v-model.trim="form.householdRegistrationDetail" />
+                v-model="form.householdRegistrationDetail" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -129,7 +129,7 @@
               :disabled="isDisabled"
               placeholder="请输入现居住地"
               class="item"
-              v-model.trim="form.living" />
+              v-model="form.living" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -143,7 +143,7 @@
               size="medium"
               placeholder="详细地址"
               class="item"
-              v-model.trim="form.livingDetail" />
+              v-model="form.livingDetail" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
