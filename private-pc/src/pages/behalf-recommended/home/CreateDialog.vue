@@ -30,9 +30,9 @@
             <el-form-item
               label="类型"
               prop="type">
-              <el-radio-group size="medium" v-model="form.type" :disabled="isDisabled">
-                <el-radio :label="'1'" :disabled="form.recommendType==='2'&&isDisabled">区县代表</el-radio>
-                <el-radio :label="'2'" :disabled="form.recommendType==='2'&&isDisabled">乡镇代表</el-radio>
+              <el-radio-group size="medium" v-model="form.type" :disabled="isDisabled||ref2">
+                <el-radio :label="'1'">区县代表</el-radio>
+                <el-radio :label="'2'">乡镇代表</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -439,14 +439,17 @@ export default {
       postList,
       list: [{}],
       createDialogVisible: false,
-      data: []
+      data: [],
+      ref1: false,
+      ref2: false
     }
 
   },
   computed: {
     ...mapState('commonData', {
       nationList: state => state.nationList,
-      belongAreaId: state => state.belongAreaId
+      belongAreaId: state => state.belongAreaId,
+      belongAreaItem:state => state.belongAreaItem
     })
   },
   components: {
@@ -467,10 +470,15 @@ export default {
     }
   },
   created () {
+    console.log(11,this.belongAreaItem)
+    this.ref1 = this.belongAreaItem.level === 3 && this.belongAreaItem.committee
+    this.ref2 = this.belongAreaItem.level === 1 && !this.belongAreaItem.committee
+    if( this.ref2) {
+      this.form.type = '2'
+    }
     if(this.item.id){
       this.getDetail()
     }
-
     this.searchnation()
     this.searchTree({type: 0, id: ''})
     this.searchPeople({statusList: [7],precinctId: this.belongAreaId})
