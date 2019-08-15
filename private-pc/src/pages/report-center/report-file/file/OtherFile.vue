@@ -69,6 +69,7 @@ export default {
 }
 .content {
   margin-top: 50px;
+  overflow: auto;
 }
 .top-title {
   padding: 15px;
