@@ -411,25 +411,25 @@ export default {
           { required: true, message: '请选择类型！', trigger: 'change' }
         ],
         belongAreaId: [
-          { required: true, message: '请选择被推荐人！', trigger: 'blur' }
+          { required: true, message: '请选择选区！', trigger: 'blur' }
         ],
         idNum: [
           { validator: validate1, required: true, trigger: 'blur' }
         ],
         nation: [
-          { required: true, message: '请选择民族', trigger: 'change' }
+          { required: true, message: '请选择民族！', trigger: 'change' }
         ],
         gender: [
-          { required: true, message: '请选择性别', trigger: 'change' }
+          { required: true, message: '请选择性别！', trigger: 'change' }
         ],
         phoneNum: [
           { required: true,  validator: validate, trigger: 'blur' }
         ],
         birthDay: [
-          { required: true, message: '请选择出生日期', trigger: 'change' }
+          { required: true, message: '请选择出生日期！', trigger: 'change' }
         ],
         recommendedPersonId:[
-          { required: true, message: '被推选人', trigger: 'change' }
+          { required: true, message: '请选择被推荐人！', trigger: 'change' }
         ]
       },
       educationList,

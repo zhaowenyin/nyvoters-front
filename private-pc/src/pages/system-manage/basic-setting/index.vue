@@ -4,6 +4,7 @@
      <span class="text">余：<span class="num">{{info.canRegisterDays}}</span>  天可登记</span>
      <CreateDialog
       v-if="createDialogVisible"
+      @updateConfig="updateConfig"
       :item='item'
       :visible.sync='createDialogVisible'
       />
@@ -40,6 +41,9 @@ export default {
       this.info = data.content
       this.loading = false
     },
+    updateConfig () {
+      this.getinfo()
+    }
   }
 }
 </script>

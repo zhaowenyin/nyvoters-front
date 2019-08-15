@@ -11,6 +11,7 @@
     <div class="view-content">
       <div class="down" v-if="belongAreaItem.committee" @click="download">数据导出</div>
       <Echart
+        :belongAreaItem="belongAreaItem"
         v-if="belongAreaId"
         :belongAreaId="belongAreaId"
       />

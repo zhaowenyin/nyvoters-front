@@ -1,6 +1,6 @@
 <template>
   <div v-loading="loading" class="view1">
-    <div class="content-title">南阳市第一选区情况统计表</div>
+    <div class="content-title">{{belongAreaItem.name}}情况统计表</div>
     <ul class="pieall">
       <li class="pie">
         <div class="text">总人口数</div>
@@ -48,6 +48,12 @@ export default {
     belongAreaId: {
       default: '',
       type: null
+    },
+    belongAreaItem: {
+      default: ()=>{
+
+      },
+      type: Object
     }
   },
   watch: {

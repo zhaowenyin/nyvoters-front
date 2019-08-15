@@ -191,6 +191,7 @@ export default {
       param.registerStartDate = param.registerStartDate.getTime()
       param.voteDate = param.voteDate.getTime()
       await setSubmit(param)
+      this.$emit('updateConfig')
       this.close()
       this.loading = false
     },
