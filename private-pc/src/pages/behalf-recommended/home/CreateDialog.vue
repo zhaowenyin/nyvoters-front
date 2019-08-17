@@ -261,6 +261,7 @@
           <el-table
             @selection-change="handleSelectionChange"
             :data="list"
+            ref="multipleTable"
             class="add_table">
             <el-table-column
               type="selection"
@@ -605,6 +606,7 @@ export default {
             "recommendPersonWorkUnit": ""
           }
           let list  = JSON.parse(JSON.stringify(this.list))
+          this.form.recommendPersonList = []
           for(let i of list) {
             if (i.recommendPersonName) {
               this.form.recommendPersonList.push(i)
@@ -629,18 +631,22 @@ export default {
         "recommendPersonWorkUnit": ""
       }
       let list  = JSON.parse(JSON.stringify(this.list))
-      list.forEach((i,index) => {
+      this.list = list.filter((i) => {
+        let isI = true
         for(let obj of this.multipleSelection) {
           if(obj.recommendPersonPhone&&(obj.recommendPersonPhone===i.recommendPersonPhone)) {
-            this.list.splice(index,1)
+            isI = false
           }
         }
+        return isI
       })
+      this.form.recommendPersonList = []
       for(let i of this.list) {
         if (i.recommendPersonName) {
           this.form.recommendPersonList.push(i)
         }
       }
+      this.$refs.multipleTable.clearSelection()
     },
     handleSelectionChange(val) {
       this.multipleSelection = val
@@ -653,8 +659,11 @@ export default {
       this.data = [data.content]
     },
     async getDetail () {
+      this.list = [{}]
       const {data} = await getDetail({id: this.item.id})
       this.form = {...this.form, ...data.content}
+      this.list = JSON.parse(JSON.stringify(this.form.recommendPersonList))
+      this.list.push({})
     },
     cardVali
   }
