@@ -270,7 +270,7 @@
             label="推荐人姓名">
               <template slot-scope="scope">
                 <el-form-item
-                  prop="recommendPersonName">
+                  :prop="!scope.row.recommendPersonName ? 'recommendPersonName' : ''">
                     <el-input
                     :disabled="isDisabled"
                     v-if="!scope.row.recommendPersonName"
@@ -286,7 +286,7 @@
             label="推荐人手机">
               <template slot-scope="scope">
                 <el-form-item
-                prop="recommendPersonPhone">
+                :prop="!scope.row.recommendPersonPhone ? 'recommendPersonPhone' : ''">
                   <el-input
                     :disabled="isDisabled"
                     v-if="!scope.row.recommendPersonPhone"
@@ -302,7 +302,7 @@
             label="推荐人工作单位">
             <template slot-scope="scope">
               <el-form-item
-                prop="recommendPersonWorkUnit">
+                :prop="!scope.row.recommendPersonWorkUnit?'recommendPersonWorkUnit' : ''">
                 <el-input
                   :disabled="isDisabled"
                   v-if="!scope.row.recommendPersonWorkUnit"
@@ -597,8 +597,8 @@ export default {
               return
             }
           }
-
-          this.list.unshift(this.tableObj)
+          this.Obj =JSON.parse(JSON.stringify(this.tableObj))
+          this.list.unshift(this.Obj)
           this.tableObj = {
             "recommendPersonName": "",
             "recommendPersonPhone": null,
@@ -629,17 +629,12 @@ export default {
         "recommendPersonWorkUnit": ""
       }
       let list  = JSON.parse(JSON.stringify(this.list))
-      this.list = list.filter(i => {
-        let isI = false
+      list.forEach((i,index) => {
         for(let obj of this.multipleSelection) {
-          if(obj.recommendPersonPhone&&(!obj.recommendPersonPhone===i.recommendPersonPhone)) {
-            isI = true
+          if(obj.recommendPersonPhone&&(obj.recommendPersonPhone===i.recommendPersonPhone)) {
+            this.list.splice(index,1)
           }
         }
-        if(!i.recommendPersonPhone) {
-          isI = true
-        }
-        return isI
       })
       for(let i of this.list) {
         if (i.recommendPersonName) {
