@@ -75,7 +75,7 @@
               label="身份证号码"
               prop="idNum">
               <el-input
-               :disabled="isDisabled"
+               :disabled="true"
                 size="medium"
                 placeholder="请输入"
                 :maxlength="18"
@@ -88,7 +88,7 @@
               label="手机号码"
               prop="phoneNum">
               <el-input
-               :disabled="isDisabled"
+               :disabled="true"
                 size="medium"
                 placeholder="请输入"
                 :maxlength="11"
@@ -101,7 +101,7 @@
                 label="出生日期"
                 prop="birthDay">
                 <el-date-picker
-                  :disabled="isDisabled"
+                  :disabled="true"
                   style="width: 100%;"
                   v-model="form.birthDay"
                   type="date"
@@ -114,7 +114,7 @@
             <el-form-item
               label="性别："
               prop="gender">
-              <el-radio-group :disabled="isDisabled" size="medium" v-model="form.gender">
+              <el-radio-group :disabled="true" size="medium" v-model="form.gender">
                 <el-radio :label="1">男</el-radio>
                 <el-radio :label="2">女</el-radio>
               </el-radio-group>
@@ -125,7 +125,7 @@
               label=" 民族："
               prop="nation">
               <el-select
-                :disabled="isDisabled"
+                :disabled="true"
                 size="medium"
                 style="width: 100%;"
                 class="item"
