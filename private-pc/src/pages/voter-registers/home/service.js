@@ -101,7 +101,5 @@ export async function getProcessSate(payload) {
   //   }, 500)
   // })
   return api.get(`/import/${payload.id}`)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
 }
 

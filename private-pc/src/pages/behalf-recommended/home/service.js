@@ -67,8 +67,7 @@ export async function setSubmit (payload) {
   //   }, 500)
   // })
   return api.post('/repre-recommend/register', payload)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
+
 }
 // 代表推荐登记修改
 export async function modifySubmit (payload) {
@@ -82,8 +81,6 @@ export async function modifySubmit (payload) {
   //   }, 500)
   // })
   return api.post('/repre-recommend/modify', payload)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
 }
 
 export async function submitTabel (payload) {

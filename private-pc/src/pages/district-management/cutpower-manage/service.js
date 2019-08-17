@@ -57,8 +57,6 @@ export async function setSubmit (payload) {
   //   }, 500)
   // })
   return api.post('/disempower/add', payload)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
 }
 
 

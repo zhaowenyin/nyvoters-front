@@ -65,8 +65,6 @@ export async function setSubmit (payload) {
   //   }, 500)
   // })
   return api.post('/user/committee/add', payload)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
 }
 
 export async function modifySubmit (payload) {
@@ -80,8 +78,6 @@ export async function modifySubmit (payload) {
   //   }, 500)
   // })
   return api.post('/user/committee/edit', payload)
-    .then(data => data)
-    .catch(() => Promise.resolve({data: null}))
 }
 
 export async function deletetTabel (payload) {
