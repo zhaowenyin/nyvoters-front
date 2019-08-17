@@ -79,6 +79,9 @@ export default {
   computed: {
     ...mapState('districtAccount', {
       multipleSelection: state=>state.multipleSelection
+    }),
+    ...mapState('commonData', {
+      belongAreaItem: state => state.belongAreaItem
     })
   },
   components: {
@@ -103,6 +106,14 @@ export default {
     },
     create (val) {
       this.val = +val
+      if(this.belongAreaItem&&+this.belongAreaItem.committee===1) {
+        this.$notify({
+          title: '',
+          message: '请选择选区后新建！',
+          type: 'warning'
+        });
+        return
+      }
       this.item = {}
       this.createDialogVisible = true
     },
