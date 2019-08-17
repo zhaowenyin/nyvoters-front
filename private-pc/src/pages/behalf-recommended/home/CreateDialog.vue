@@ -205,6 +205,7 @@
               label="工作单位"
               prop="workUnit">
               <el-input
+                :maxlength="80"
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入"
@@ -217,6 +218,7 @@
               label="职称"
               prop="jobTitle">
               <el-input
+                :maxlength="80"
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入"
@@ -231,6 +233,7 @@
           <el-input
             :disabled="isDisabled"
             size="medium"
+            :maxlength="500"
             placeholder="请输入"
             class="item"
             v-model="form.recommendReason" />
@@ -240,6 +243,7 @@
           label="推荐单位"
           prop="recommendUnit">
           <el-input
+            :maxlength="80"
             :disabled="isDisabled"
             placeholder="请输入"
             class="item"
