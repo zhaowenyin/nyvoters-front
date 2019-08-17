@@ -19,7 +19,7 @@
           placeholder="请输入"
           :maxlength="18"
           class="item"
-          v-model="form.sessionNum" />
+          v-model.trim="form.sessionNum" />
       </el-form-item>
       <el-form-item
         label="选举日"

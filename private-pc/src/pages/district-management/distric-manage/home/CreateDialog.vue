@@ -23,7 +23,7 @@
                 type="number"
                 placeholder="请输入选区编码"
                 class="item"
-                v-model="form.code" />
+                v-model.trim="form.code" />
             </el-form-item>
           </el-col>
            <el-col :span="12">
@@ -35,7 +35,7 @@
                 size="medium"
                 placeholder="请输入选区名称"
                 class="item"
-                v-model="form.name" />
+                v-model.trim="form.name" />
             </el-form-item>
           </el-col>
            <el-col :span="12">
@@ -46,7 +46,7 @@
                :disabled="true"
                 size="medium"
                 class="item"
-                v-model="form.typeName" />
+                v-model.trim="form.typeName" />
             </el-form-item>
           </el-col>
            <el-col :span="12">
@@ -83,7 +83,7 @@
                 size="medium"
                 placeholder="请输入排序码"
                 class="item"
-                v-model="form.sort" />
+                v-model.trim="form.sort" />
             </el-form-item>
           </el-col>
           <el-col :span="12">

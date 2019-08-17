@@ -38,7 +38,7 @@
             size="medium"
             placeholder="请输入选委会"
             class="item"
-            v-model="form.name" />
+            v-model.trim="form.name" />
         </el-form-item>
         <el-form-item
           label="选委会编码"
@@ -49,7 +49,7 @@
             size="medium"
             placeholder="请输入选委会编码"
             class="item"
-            v-model="form.code" />
+            v-model.trim="form.code" />
         </el-form-item>
         <el-form-item
           label="对应行政区"
@@ -71,7 +71,7 @@
             size="medium"
             placeholder="请输入联系人"
             class="item"
-            v-model="form.manager" />
+            v-model.trim="form.manager" />
         </el-form-item>
         <el-form-item
           label="手机号码"
@@ -82,7 +82,7 @@
             :maxlength="11"
             placeholder="请输入手机号码"
             class="item"
-            v-model="form.phoneName" />
+            v-model.trim="form.phoneName" />
         </el-form-item>
         <el-form-item
           label="排序码"
@@ -92,7 +92,7 @@
             size="medium"
             placeholder="请输入排序码"
             class="item"
-            v-model="form.sort" />
+            v-model.trim="form.sort" />
         </el-form-item>
       </el-form>
 

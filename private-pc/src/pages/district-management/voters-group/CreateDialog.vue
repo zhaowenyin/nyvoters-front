@@ -20,7 +20,7 @@
             size="medium"
             placeholder="请输入小组名称"
             class="item"
-            v-model="form.name" />
+            v-model.trim="form.name" />
         </el-form-item>
          <el-row :gutter="20">
            <el-col :span="12">
@@ -57,7 +57,7 @@
                 :disabled="isDisabled"
                 class="item"
                 placeholder="请输入组长"
-                v-model="form.manager" />
+                v-model.trim="form.manager" />
             </el-form-item>
           </el-col>
            <el-col :span="12">
@@ -70,7 +70,7 @@
                 size="medium"
                 placeholder="请输入组长联系电话"
                 class="item"
-                v-model="form.managerPhone" />
+                v-model.trim="form.managerPhone" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -82,7 +82,7 @@
                 size="medium"
                 placeholder="请输入召集人"
                 class="item"
-                v-model="form.convener" />
+                v-model.trim="form.convener" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -95,7 +95,7 @@
                 size="medium"
                 placeholder="召集人联系电话"
                 class="item"
-                v-model="form.convenerPhone" />
+                v-model.trim="form.convenerPhone" />
             </el-form-item>
           </el-col>
            <el-col :span="12">
@@ -107,7 +107,7 @@
                 size="medium"
                 placeholder="请输入排序码"
                 class="item"
-                v-model="form.sort" />
+                v-model.trim="form.sort" />
             </el-form-item>
           </el-col>
         </el-row>

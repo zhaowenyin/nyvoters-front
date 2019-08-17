@@ -24,7 +24,7 @@
             class="item"
             type="password"
             :maxlength="20"
-            v-model="form.password" />
+            v-model.trim="form.password" />
         </el-form-item>
         <el-form-item
           label="登录密码"
@@ -36,7 +36,7 @@
             autocomplete="off"
             :maxlength="20"
             type="password"
-            v-model="form.checkPass" />
+            v-model.trim="form.checkPass" />
         </el-form-item>
       </el-form>
       <div

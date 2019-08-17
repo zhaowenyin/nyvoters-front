@@ -80,7 +80,7 @@
                 placeholder="请输入"
                 :maxlength="18"
                 class="item"
-                v-model="form.idNum" />
+                v-model.trim="form.idNum" />
             </el-form-item>
           </el-col>
             <el-col :span="12">
@@ -210,7 +210,7 @@
                 size="medium"
                 placeholder="请输入"
                 class="item"
-                v-model="form.workUnit" />
+                v-model.trim="form.workUnit" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -223,7 +223,7 @@
                 size="medium"
                 placeholder="请输入"
                 class="item"
-                v-model="form.jobTitle" />
+                v-model.trim="form.jobTitle" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -236,7 +236,7 @@
             :maxlength="500"
             placeholder="请输入"
             class="item"
-            v-model="form.recommendReason" />
+            v-model.trim="form.recommendReason" />
         </el-form-item>
         <el-form-item
           v-if="form.recommendType==='1'"
@@ -247,7 +247,7 @@
             :disabled="isDisabled"
             placeholder="请输入"
             class="item"
-            v-model="form.recommendUnit" />
+            v-model.trim="form.recommendUnit" />
         </el-form-item>
       </el-form>
       <el-form
@@ -282,7 +282,7 @@
                     size="medium"
                     placeholder="请输入"
                     class="item"
-                    v-model="tableObj.recommendPersonName" />
+                    v-model.trim="tableObj.recommendPersonName" />
                   <div v-else>{{scope.row.recommendPersonName}}</div>
                 </el-form-item>
               </template>
@@ -298,7 +298,7 @@
                     size="medium"
                     placeholder="请输入"
                     class="item"
-                    v-model="tableObj.recommendPersonPhone" />
+                    v-model.trim="tableObj.recommendPersonPhone" />
                   <div v-else>{{scope.row.recommendPersonPhone}}</div>
                 </el-form-item>
             </template>
@@ -314,7 +314,7 @@
                   size="medium"
                   placeholder="请输入"
                   class="item"
-                  v-model="tableObj.recommendPersonWorkUnit" />
+                  v-model.trim="tableObj.recommendPersonWorkUnit" />
                 <div v-else>{{scope.row.recommendPersonWorkUnit}}</div>
               </el-form-item>
             </template>

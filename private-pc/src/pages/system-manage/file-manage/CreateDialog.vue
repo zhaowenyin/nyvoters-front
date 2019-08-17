@@ -49,7 +49,7 @@
           size="medium"
           placeholder="请输入"
           class="item"
-          v-model="form.fileName" />
+          v-model.trim="form.fileName" />
       </el-form-item>
       <el-form-item
         label="所属模块"

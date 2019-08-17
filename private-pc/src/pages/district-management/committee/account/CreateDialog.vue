@@ -32,7 +32,7 @@
             placeholder="请输入登录账号"
             class="item"
             :maxlength="20"
-            v-model="form.account" />
+            v-model.trim="form.account" />
         </el-form-item>
         <el-form-item
           label="登录密码"
@@ -41,10 +41,10 @@
             size="medium"
             type='password'
             :disabled="item.id&&isDisabled"
-            placeholder="请输入登录密码"
+            placeholder="请输入新登录密码 （6位以上的字符）"
             class="item"
             :maxlength="20"
-            v-model="form.password" />
+            v-model.trim="form.password" />
         </el-form-item>
         <el-form-item
           label="手机号码"
@@ -75,7 +75,7 @@
             size="medium"
             placeholder="请输入排序码"
             class="item"
-            v-model="form.sort" />
+            v-model.trim="form.sort" />
         </el-form-item>
       </el-form>
       <div

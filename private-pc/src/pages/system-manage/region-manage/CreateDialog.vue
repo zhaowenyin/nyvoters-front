@@ -34,7 +34,7 @@
           :disabled="isDisabled"
           placeholder="请输入行政区名"
           class="item"
-          v-model="form.name" />
+          v-model.trim="form.name" />
       </el-form-item>
        <el-form-item
         label="行政区代码"
@@ -45,7 +45,7 @@
           :disabled="isDisabled"
           placeholder="请输入行政区代码"
           class="item"
-          v-model="form.code" />
+          v-model.trim="form.code" />
       </el-form-item>
       <el-form-item
         label="行政区级别"
@@ -74,7 +74,7 @@
           size="medium"
           placeholder="请输入人口数"
           class="item"
-          v-model="form.pnum" />
+          v-model.trim="form.pnum" />
       </el-form-item>
        <el-form-item
         label="排序码"
@@ -85,7 +85,7 @@
           size="medium"
           placeholder="请输入排序吗"
           class="item"
-          v-model="form.sort" />
+          v-model.trim="form.sort" />
       </el-form-item>
     </el-form>
     <div
