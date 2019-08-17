@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    :title="item.id ? '修改' : '登记'"
+    :title="item.id ? (isDisabled ? '查看' : '修改') : '登记'"
     :visible="visible"
     width="820px"
     :close-on-click-modal="false"
