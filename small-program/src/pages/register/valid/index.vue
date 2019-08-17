@@ -14,7 +14,7 @@
     </div>
     <input
       @blur="blur"
-      v-model="form.captcha"
+      v-model.trim="form.captcha"
       placeholder="请输入验证码"
       class="input"/>
   </div>

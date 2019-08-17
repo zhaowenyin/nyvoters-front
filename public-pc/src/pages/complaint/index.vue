@@ -15,7 +15,7 @@
             size="medium"
             placeholder="请输入申诉人"
             class="item"
-            v-model="userLogin.userName" />
+            v-model.trim="userLogin.userName" />
         </el-form-item>
         <el-form-item
           class="padding"
@@ -26,7 +26,7 @@
             placeholder="请输入身份证号码"
             :maxlength="18"
             class="item"
-            v-model="userLogin.idNum" />
+            v-model.trim="userLogin.idNum" />
         </el-form-item>
          <el-form-item
           class="padding "
@@ -68,7 +68,7 @@
             :maxlength="11"
             class="item"
             size="medium"
-            v-model="userLogin.phoneNum" />
+            v-model.trim="userLogin.phoneNum" />
         </el-form-item>
         <el-form-item
           label="验证码："

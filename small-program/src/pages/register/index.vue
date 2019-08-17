@@ -8,7 +8,7 @@
       </div>
       <input
         @blur="blur"
-        v-model="form.userName"
+        v-model.trim="form.userName"
         placeholder="请填写姓名"
         class="input"/>
     </div>
@@ -20,7 +20,7 @@
       <input
         @blur="blur"
         :maxlength="18"
-        v-model="form.idNum"
+        v-model.trim="form.idNum"
         placeholder="请填写身份证号码"
         class="input"/>
     </div>
@@ -58,7 +58,7 @@
         <span>手机号</span>
       </div>
       <input
-        v-model="form.phoneNum"
+        v-model.trim="form.phoneNum"
         :maxlength="11"
         placeholder="请填写手机号"
         class="input"/>
@@ -69,7 +69,7 @@
         <span>联系方式</span>
       </div>
       <input
-        v-model="form.contactInformation"
+        v-model.trim="form.contactInformation"
         placeholder="请填写联系方式"
         class="input"/>
     </div>
@@ -80,7 +80,7 @@
       </div>
       <input
         @blur="blur"
-        v-model="form.householdRegistration"
+        v-model.trim="form.householdRegistration"
         placeholder="请填写户籍地"
         class="input"/>
     </div>

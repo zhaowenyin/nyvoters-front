@@ -16,7 +16,7 @@
             placeholder="请输入用户名"
             :maxlength="18"
             class="item"
-            v-model="userLogin.userName" />
+            v-model.trim="userLogin.userName" />
         </el-form-item>
         <el-form-item
           class="padding"
@@ -27,7 +27,7 @@
             placeholder="请输入身份证号码"
             :maxlength="18"
             class="item"
-            v-model="userLogin.idNum" />
+            v-model.trim="userLogin.idNum" />
         </el-form-item>
         <el-form-item
           label="验证码："
@@ -39,7 +39,7 @@
               placeholder="请输入验证码"
               :maxlength="18"
               class="item"
-              v-model="userLogin.captcha" />
+              v-model.trim="userLogin.captcha" />
             <div class="out-img"><img class="img" :src="captchaImg"/></div>
           </div>
           <div class="change" @click="change">[换一张]</div>

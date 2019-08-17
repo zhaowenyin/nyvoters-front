@@ -8,7 +8,7 @@
       </div>
       <input
         @blur="blur"
-        v-model="form.userName"
+        v-model.trim="form.userName"
         placeholder="请填写姓名"
         class="input"/>
     </div>
@@ -19,7 +19,7 @@
       </div>
       <input
         @blur="blur"
-        v-model="form.idNum"
+        v-model.trim="form.idNum"
         :maxlength="18"
         placeholder="请填写身份证号码"
         class="input"/>
@@ -38,7 +38,7 @@
       </div>
       <input
         @blur="blur"
-        v-model="form.captcha"
+        v-model.trim="form.captcha"
         placeholder="请输入验证码"
         class="input"/>
     </div>

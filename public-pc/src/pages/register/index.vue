@@ -17,7 +17,7 @@
                 size="medium"
                 placeholder="请输入户姓名"
                 class="item"
-                v-model="form.userName" />
+                v-model.trim="form.userName" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -29,7 +29,7 @@
                   placeholder="请输入身份证号码"
                   :maxlength="18"
                   class="item"
-                  v-model="form.idNum" />
+                  v-model.trim="form.idNum" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -69,7 +69,7 @@
                 size="medium"
                 placeholder="请输入电话号码"
                 class="item"
-                v-model="form.phoneNum" />
+                v-model.trim="form.phoneNum" />
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -92,7 +92,7 @@
             size="medium"
             placeholder="请输入户籍地"
             class="item"
-            v-model="form.householdRegistration" />
+            v-model.trim="form.householdRegistration" />
         </el-form-item>
         <el-form-item
 
@@ -101,7 +101,7 @@
           <el-input
             placeholder="请输入现居住地"
             class="item"
-            v-model="form.living" />
+            v-model.trim="form.living" />
         </el-form-item>
          <el-form-item
           class="padding"
@@ -129,7 +129,7 @@
               placeholder="请输入验证码"
               maxlength="18"
               class="item3"
-              v-model="form.captcha" />
+              v-model.trim="form.captcha" />
             <div class="out-img"><img class="img" :src="captchaImg"/></div>
             <div class="change" @click="change">[换一张]</div>
           </div>
