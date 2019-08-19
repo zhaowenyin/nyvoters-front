@@ -20,6 +20,7 @@
              :disabled="isDisabled"
               size="medium"
               placeholder="请输入姓名"
+              :maxlength="20"
               class="item"
               v-model.trim="form.name" />
           </el-form-item>
@@ -217,7 +218,7 @@
                 :disabled="true"
                 size="medium"
                 placeholder="请输入登记人"
-                :maxlength="18"
+                :maxlength="20"
                 class="item"
                 v-model.trim="form.registrar" />
           </el-form-item>
