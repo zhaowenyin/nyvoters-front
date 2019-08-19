@@ -259,8 +259,8 @@
         class="innerobj"
         >
           <div class="left">
-            <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">添加</el-button>
-            <el-button size="medium" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
+            <el-button size="medium" :disabled="isDisabled" @click="create" type="primary" icon="el-icon-circle-plus-outline">添加</el-button>
+            <el-button size="medium" :disabled="isDisabled" @click="deleteI" type="primary" icon="el-icon-delete">删除</el-button>
           </div>
           <el-table
             @selection-change="handleSelectionChange"
