@@ -169,15 +169,26 @@ export default {
         });
         return
       }
-      let idList = []
-      for (let i of this.multipleSelection) {
-        idList.push(i.id)
-      }
-      let params = {id: idList[0]}
+      this.$confirm('行政区删除后将不可恢复，请确认是否删除？')
+        .then(() => {
+          let idList = []
+          for (let i of this.multipleSelection) {
+            idList.push(i.id)
+          }
+          let params = {id: idList[0]}
+          this.deletetTabel(params)
+        })
+        .catch(() => {})
+
+
+
+    },
+    async deletetTabel (params){
       await deletetTabel(params)
       this.$emit('searchDistrictTree',{type: 0, id: ''})
       this.getListData()
     }
+
   }
 }
 </script>
