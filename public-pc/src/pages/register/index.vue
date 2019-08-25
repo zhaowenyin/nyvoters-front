@@ -15,7 +15,7 @@
               prop="userName">
               <el-input
                 size="medium"
-                placeholder="请输入户姓名"
+                placeholder="请输入姓名"
                 class="item"
                 v-model.trim="form.userName" />
               </el-form-item>
