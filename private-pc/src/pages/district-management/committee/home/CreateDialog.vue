@@ -161,7 +161,7 @@ export default {
           { required: true, validator: validate1 }
         ],
         code: [
-          { required: true, message: '请输入选委会代码！', trigger: 'blur' }
+          { required: true, message: '请输入选委会编码！', trigger: 'blur' }
         ],
         phoneName: [
           { required: true,  validator: validate,  trigger: 'blur' }
