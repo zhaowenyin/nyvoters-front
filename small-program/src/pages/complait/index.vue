@@ -235,18 +235,21 @@ export default {
       if(!newFile) {
         return
       }
+      console.log(newFile)
       // 自动上传
       this.$refs.upload.active = true
       this.file = newFile
       if (newFile.progress) {
         this.progress=newFile.progress
       }
-      if (newFile.error) {
+
+      if (newFile.response.message&& newFile.error) {
         Toast({
-          message: newFile.error,
+          message: newFile.response.message,
           position: 'top',
           duration: 3000
         })
+        this.$refs.upload.remove(newFile)
         return
       }
 
@@ -254,14 +257,7 @@ export default {
         console.log('success', newFile.success, newFile)
         this.form.appealDocumentId = this.file.response.content
       }
-      if (newFile.response.message) {
-        Toast({
-          message: newFile.response.message,
-          position: 'top',
-          duration: 3000
-        })
-        return
-      }
+
 
     },
     remove(file) {
