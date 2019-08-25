@@ -13,7 +13,7 @@
             :expand-on-click-node="false"
             :hasSearch="true"
             :data="data"
-            :props="{children: 'children',label: 'name',disabled: data => !data.access || data.committee}"
+            :props="{children: 'children',label: 'name',disabled: data => !data.access || Boolean(data.committee)}"
             @node-click="handleNodeClick" />
         </div>
 
