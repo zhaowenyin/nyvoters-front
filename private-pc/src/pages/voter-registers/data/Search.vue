@@ -144,6 +144,14 @@ export default {
         });
         return
       }
+      if(+this.multipleSelection[0].status===7) {
+        this.$notify({
+          title: '',
+          message: '登记成功不允许勾选修改！',
+          type: 'warning'
+        });
+        return
+      }
       this.item = this.multipleSelection[0]
       this.$emit('lookDetail',{val: this.item, isDisabled: false})
     }
