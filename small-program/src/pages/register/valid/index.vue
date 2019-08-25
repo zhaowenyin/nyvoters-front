@@ -33,9 +33,7 @@ export default {
   data () {
     return {
       form: {
-        captcha: '',
-        captchaId: '',
-        type: 2
+        captcha: ''
       },
       error: '',
       timer: null
@@ -47,9 +45,6 @@ export default {
   watch: {
     loading (val) {
       val ? Indicator.open() : Indicator.close()
-    },
-    captchaId (val) {
-      this.form.captchaId = val
     }
   },
   created () {
@@ -71,28 +66,26 @@ export default {
       'clearState',
     ]),
     ...mapActions('register', [
-      'submitForm'
+      'submitForm',
+      'searchCode'
     ]),
     cancel () {
       this.$router.push({path:'/register'})
     },
     comfire () {
-      if (!this.verify()) {
+      if (!this.captchaId) {
         Toast({
-          message: this.error,
+          message: '请输入验证码',
           position: 'top',
           duration: 3000
         })
         return
       }
-      this.submitForm({...this.formData, ...this.form})
+      this.submitForm({...this.formData, ...this.form,captchaId: this.captchaId})
 
     },
     change(){
       this.searchCode()
-    },
-    verify() {
-      return true
     },
     blur () {
       clearTimeout(this.timer)

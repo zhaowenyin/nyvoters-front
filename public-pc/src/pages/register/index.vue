@@ -2,7 +2,7 @@
   <div class="loginDiv">
     <div class="form">
       <el-form
-        label-width="110px"
+        label-width="130px"
         :model="form"
         :rules="rules"
         ref="form"
@@ -103,22 +103,36 @@
             class="item"
             v-model.trim="form.living" />
         </el-form-item>
-         <el-form-item
-          class="padding"
-          label="参选地类型："
-          prop="candidateType">
-          <el-select
-            class="item"
-            v-model="form.candidateType"
-            clearable placeholder="请选择参选地类型">
-            <el-option
-              v-for="(item,key) in candidateTypeList"
-              :key="key"
-              :label="item"
-              :value="key">
-            </el-option>
-          </el-select>
-        </el-form-item>
+        <el-row :gutter="60">
+          <el-col :span="12">
+            <el-form-item
+            class="padding"
+            label="参选地类型："
+            prop="candidateType">
+            <el-select
+              class="item"
+              v-model="form.candidateType"
+              clearable placeholder="请选择参选地类型">
+              <el-option
+                v-for="(item,key) in candidateTypeList"
+                :key="key"
+                :label="item"
+                :value="key">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+         <el-col v-if="+form.candidateType === 1" :span="12">
+          <el-form-item
+            label="持资格转移证明"
+            prop="isProve">
+            <el-radio-group size="medium" v-model="form.isProve">
+              <el-radio :label="1">是</el-radio>
+              <el-radio :label="0">否</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+        </el-row>
         <el-form-item
           prop="captcha"
           label="有效验证码："
@@ -187,7 +201,8 @@ export default {
         contactInformation: '',
         type: 1,
         captcha: '',
-        captchaId: ''
+        captchaId: '',
+        isProve: ''
       },
       rules: {
         userName: [
@@ -216,7 +231,10 @@ export default {
         ],
         candidateType: [
           { required: true, message: '请输入参选地址类型', trigger: 'blur' }
-        ]
+        ],
+        isProve: [
+          { required: true, message: '请选择持资格转移证明!', trigger: 'change' }
+        ],
       },
       candidateTypeList,
       captchaImg: ''
@@ -239,6 +257,10 @@ export default {
       'searchnation'
     ]),
     submitForm () {
+      if(this.form.candidateType === 0) {
+        this.$refs.form.clearValidate('candidateType')
+        this.form.isProve=""
+      }
       this.$refs.form.validate((valid) => {
         if (valid) {
           this.loading = true

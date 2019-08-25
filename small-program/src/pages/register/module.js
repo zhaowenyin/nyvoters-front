@@ -8,6 +8,7 @@ export default {
     formData: {},
     loading: false,
     captchaImg: '',
+    captchaId: ''
   },
   mutations: {
     clearState(state) {

@@ -103,8 +103,23 @@
         class="input"
         :options="candidateTypeList"
         :multiple="false"
+        @change="change"
         placeholder="请选择参选地类型"
         v-model="form.candidateType"
+        :getItemLabel="(item)=>item.label"
+        :getItemValue="(item)=>item.value"/>
+    </div>
+    <div class="out-input" v-if="form.candidateType===1">
+      <div class="label-width">
+        <span class="dot">*</span>
+        <span>持资格转移证明</span>
+      </div>
+      <Select
+        class="input"
+        :options="list"
+        :multiple="false"
+        placeholder="请选择持资格转移证明"
+        v-model="form.isProve"
         :getItemLabel="(item)=>item.label"
         :getItemValue="(item)=>item.value"/>
     </div>
@@ -134,11 +149,19 @@ export default {
         gender: '',
         phoneNum: '',
         contactInformation: '',
-        type: 2
+        type: 2,
+        isProve: ''
       },
       error: '',
       candidateTypeList,
-      timer: null
+      timer: null,
+      list: [{
+        value: 0,
+        label: '否'
+      },{
+        value: 1,
+        label: '是'
+      }]
     }
   },
   components: {
@@ -171,6 +194,9 @@ export default {
     ]),
     cancel () {
       this.$router.push({path:'/'})
+    },
+    change() {
+      this.form.isProve=""
     },
     comfire (){
       if (!this.verify()) {
@@ -214,8 +240,12 @@ export default {
         this.error = '请填写现居住地'
         return false
       }
-      if(!this.form.candidateType === '') {
+      if(this.form.candidateType === '') {
         this.error = '请选择参选地类型'
+        return false
+      }
+      if(this.form.isProve === ''&& +this.form.candidateType===1) {
+        this.error = '请选择持资格转移证明'
         return false
       }
       return true

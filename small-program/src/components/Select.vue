@@ -108,6 +108,7 @@ export default {
     },
     comfire (val) {
       this.$emit('input', val)
+      this.$emit('change', val)
     },
     showselect () {
       if (this.disabled) {

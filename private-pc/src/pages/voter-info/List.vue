@@ -102,7 +102,9 @@ export default {
     }
   },
   created () {
-    this.getListData({precinctId: this.belongAreaId })
+    if(this.belongAreaId) {
+      this.getListData({precinctId: this.belongAreaId })
+    }
   },
   methods: {
     ...mapMutations('voterInfo', [

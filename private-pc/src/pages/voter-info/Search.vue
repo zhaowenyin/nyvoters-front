@@ -80,7 +80,7 @@ export default {
         name: '',
         idNum: '',
         registrationType: '',
-        status: null
+        status: ''
       },
       createDialogVisible: false,
       item: {},

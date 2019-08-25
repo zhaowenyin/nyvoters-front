@@ -174,7 +174,9 @@ export default {
         this.loading = true
         const {data} = await complaitSubmit(this.form)
         if(data.content) {
-          this.$router.push({path:'/success',query: {type: 3,info: data.content.info}})
+          setTimeout(()=>{
+            this.$router.push({path:'/success',query: {type: 3,info: data.content.info}})
+          },500)
         } else {
           Toast({
             message: data.message,

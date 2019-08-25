@@ -54,7 +54,7 @@
 import { getCode } from './service.js'
 import { Toast,Indicator } from 'mint-ui'
 import {searchSubmit} from './service.js'
-import {resolveBug} from '../../utils/format'
+import {resolveBug,cardVali} from '../../utils/format'
 export default {
   data () {
     return {
@@ -109,8 +109,12 @@ export default {
         const {data} = await searchSubmit(this.form)
         let content = data.content
         this.loading = false
+
         if(data.content) {
-          this.$router.push({path:'/success',query: {type: 2, id: content.fileId,info: content.info}})
+          setTimeout(() => {
+            this.$router.push({path:'/success',query: {type: 2, id: content.fileId,info: content.info}})
+          },500)
+
         } else {
           Toast({
             message: data.message,
@@ -131,8 +135,8 @@ export default {
         this.error = '请填写用户名'
         return false
       }
-      if(!this.form.idNum) {
-        this.error = '请填写身份证号'
+      if(cardVali(this.form.idNum).status !== 1) {
+        this.error = this.cardVali(this.form.idNum).message
         return false
       }
       if(!this.form.captcha) {

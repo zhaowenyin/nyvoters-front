@@ -172,8 +172,8 @@
             label="持资格转移证明"
             prop="proveDocId">
             <el-radio-group  :disabled="isDisabled" size="medium" v-model="form.proveDocId">
-              <el-radio :label="'1'">是</el-radio>
-              <el-radio :label="'0'">否</el-radio>
+              <el-radio :label="1">是</el-radio>
+              <el-radio :label="0">否</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
@@ -415,7 +415,7 @@ export default {
   },
   created () {
     if(this.item.id) {
-      this.form = {...this.form, ...this.item,registrationTime: this.item.registrationTime ? new Date(this.item.registrationTime) : ''}
+      this.form = {...this.form, ...this.item,registrationTime: this.item.registrationTime ? new Date(this.item.registrationTime) : '',proveDocId:+this.item.proveDocId}
     }
     this.form.registrationType = this.session.accountType
     this.form.registrar = this.session.name
