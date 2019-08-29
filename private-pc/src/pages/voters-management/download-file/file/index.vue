@@ -83,6 +83,7 @@ export default {
     height: 100%;
     flex: 1;
     display: flex;
+    overflow: auto;
     flex-direction: column;
     position: relative;
     padding: 0px 20px;

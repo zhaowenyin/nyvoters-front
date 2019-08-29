@@ -485,7 +485,7 @@ export default {
     }
     this.searchnation()
     this.searchTree({type: 0, id: ''})
-    this.searchPeople({statusList: [7],precinctId: this.belongAreaId})
+    this.searchPeople({statusList: [7],precinctId: this.belongAreaId,pageSize:200})
   },
   methods: {
     ...mapActions('commonData', [
