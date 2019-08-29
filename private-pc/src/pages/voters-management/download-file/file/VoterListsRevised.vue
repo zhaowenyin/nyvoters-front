@@ -18,13 +18,14 @@
       <div class="message">
         <div>一、增加的选民：</div>
         <div>{{data.addVotersStr}}</div>
-        <div>二、迁出出名的选民：</div>
+        <div>二、迁出除名的选民：</div>
         <div>{{data.cutOutVotersStr}}</div>
         <div>三、死亡除名的选民：</div>
          <div>{{data.dieVotersStr}}</div>
         <div>四、停止行使选举权利除名的选民：</div>
          <div>{{data.disempowerVotersStr}}</div>
-        <div>五、本选区原登记选民 {{data.regNum}}人，现实有选民{{data.voterNum}}人。</div>
+        <div v-if="+type === 3">五、本选区原登记选民 {{data.regNum}}人，现实有选民{{data.voterNum}}人。</div>
+        <div v-if="+type === 4">五、本选区原登记选民 {{data.regNum}}人，经补正现实有选民{{data.voterNum}}人。</div>
         <div>特此公告</div>
       </div>
 
