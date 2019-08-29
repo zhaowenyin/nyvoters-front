@@ -44,7 +44,7 @@ export default {
   data(){
     return {
       loading: false,
-      list: ['姓名','年龄','出生日期','登记日期']
+      list: ['姓名','性别','出生年月','登记日期']
     }
   },
   props: {
