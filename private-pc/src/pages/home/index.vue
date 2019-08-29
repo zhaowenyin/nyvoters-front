@@ -14,7 +14,7 @@
         <div class="number">{{data.votersNum}}</div>
       </li>
     </ul>
-    <div class="content-title">南阳选民统计图</div>
+    <div class="content-title">选民统计图</div>
     <CenbterChart :data="data.votersCounts" height="300px"/>
     <Tabel :list="data.votersCounts"/>
     <div class="content-title">XX选区登记情况综合统计</div>
