@@ -71,9 +71,7 @@
 </template>
 
 <script type="text/jsx">
-import ElCollapseTransition from 'element-ui/src/transitions/collapse-transition';
-import ElCheckbox from 'element-ui/packages/checkbox';
-import emitter from 'element-ui/src/mixins/emitter';
+import emitter from './mixins/emitter';
 import { getNodeKey } from './model/util';
 
 export default {
@@ -98,8 +96,6 @@ export default {
   },
 
   components: {
-    ElCollapseTransition,
-    ElCheckbox,
     NodeContent: {
       props: {
         node: {

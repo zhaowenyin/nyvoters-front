@@ -83,7 +83,7 @@
           :disabled="isDisabled"
           type="number"
           size="medium"
-          placeholder="请输入排序吗"
+          placeholder="请输入排序码"
           class="item"
           v-model.trim="form.sort" />
       </el-form-item>
