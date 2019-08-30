@@ -57,6 +57,7 @@
           <DistrictSelect
             :disabled="isDisabled"
             :multiple="false"
+            :noallow="true"
             v-model="form.districtId"
             :item='item'
             @change="changeId"

@@ -13,9 +13,11 @@
         <div>待选</div>
         <div class="content">
           <CommonTree
+            :noallow="noallow"
             :expand-on-click-node="false"
             :hasSearch="true"
             :data="data"
+            :props="{children: 'children',label: 'name',disabled: data => !data.access && !this.noallow}"
             @node-click="handleNodeClick" />
         </div>
 
@@ -78,6 +80,10 @@ export default {
     data: {
       default: () => [],
       type: Array
+    },
+    noallow:{
+      default: false,
+      type: Boolean
     }
   },
   watch: {

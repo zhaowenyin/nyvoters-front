@@ -5,10 +5,7 @@
       ref="select"
       @click="showselect"
       class="select-input">
-      <div :class="['value',{'disab': disabled}]">{{valueStr}}</div>
-      <input
-        :placeholder="valueStr ? '' : '请选择'"
-        class="selectContent" disabled/>
+      <div :class="['value',{'disab': !valueStr || disabled}]">{{valueStr ? valueStr : '请选择'}}</div>
     </ul>
      <div
         @click="close"
@@ -16,6 +13,7 @@
         <i/>
     </div>
      <PrecinctList
+     :noallow="noallow"
      style="z-index: 10000"
       @saveData="saveData"
       :multiple="multiple"
@@ -38,10 +36,11 @@ export default {
   },
   computed: {
     valueStr () {
-      if(toString.call(this.value) === '[object Array]') {
+      if(this.multiple) {
         if(this.value.length===0) {
           return ''
         }
+        this.handerlist()
         for(let i of this.value) {
           this.func(this.data,i)
         }
@@ -49,6 +48,7 @@ export default {
         if(this.value==='') {
           return ''
         }
+        this.handerlist()
         this.func(this.data,this.value)
       }
       let str = []
@@ -90,6 +90,10 @@ export default {
     data: {
       default: () => [],
       type: Array
+    },
+    noallow: {
+      default: false,
+      type: Boolean
     }
   },
   created() {
@@ -97,7 +101,6 @@ export default {
   },
   methods: {
     func (list,i) {
-      this.list = []
       let defaultValue = i
       const re = (array) => {
         if (!array || array.length === 0) return false
@@ -132,6 +135,9 @@ export default {
       this.list = []
       this.$emit('input', value)
       this.$emit('change')
+    },
+    handerlist () {
+      this.list = []
     },
     saveData (val) {
       let value = []
@@ -216,7 +222,8 @@ export default {
   font-size: 14px;
   line-height: 14px;
   width: 100%;
-  min-height: 30px;
+  /* min-height: 30px; */
+  padding: 5px 0;
   margin-right:10px;
   color:#333;
   &.disab{

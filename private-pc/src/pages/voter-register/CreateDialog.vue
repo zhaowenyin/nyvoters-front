@@ -109,7 +109,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item
-            label-width="0"
+              label-width="0px"
               label=""
               prop="householdRegistrationDetail">
               <el-input
@@ -136,7 +136,7 @@
         <el-col :span="12">
           <el-form-item
             label=""
-            label-width="0"
+            label-width="0px"
             prop="livingDetail">
             <el-input
               @change="livingDetailChange"
@@ -147,6 +147,8 @@
               v-model.trim="form.livingDetail" />
           </el-form-item>
         </el-col>
+      </el-row>
+      <el-row :gutter="20">
         <el-col :span="12">
            <el-form-item
             class="padding"
