@@ -17,7 +17,7 @@
     <div class="content-title">选民统计图</div>
     <CenbterChart :data="data.votersCounts" height="300px"/>
     <Tabel :list="data.votersCounts"/>
-    <div class="content-title">XX选区登记情况综合统计</div>
+    <div class="content-title">登记情况综合统计</div>
     <el-row :gutter="20">
       <el-col :span="12" class="pie">
         <div class="text">登记类型</div>
