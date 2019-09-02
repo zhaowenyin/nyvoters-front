@@ -68,7 +68,7 @@
             </div>
           </div>
           <div class="mark6 mark1">{{i.districtName}}选举委员会</div>
-          <div class="mark6">{{data.date}}</div>
+          <div class="mark6">{{i.date}}</div>
         </div>
       </div>
      </div>
