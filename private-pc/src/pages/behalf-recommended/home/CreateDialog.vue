@@ -120,8 +120,8 @@
               </el-radio-group>
             </el-form-item>
           </el-col>
+       </el-row>
         <el-row :gutter="20">
-        </el-row>
           <el-col :span="12">
             <el-form-item
               label=" 民族："

@@ -155,6 +155,8 @@
                 v-model="form.partyPost" />
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item
               label="参加工作日期"
@@ -168,7 +170,8 @@
               </el-date-picker>
             </el-form-item>
           </el-col>
-          <el-col :span="16">
+
+          <el-col :span="8">
             <el-form-item
               label="身份证号码"
               prop="idNum">
@@ -180,6 +183,8 @@
                 v-model="form.idNum" />
             </el-form-item>
           </el-col>
+        </el-row>
+        <el-row :gutter="20">
           <el-col :span="8">
             <el-form-item
               label="全日制教育"
