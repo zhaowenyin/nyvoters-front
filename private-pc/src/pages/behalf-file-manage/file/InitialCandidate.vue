@@ -15,8 +15,15 @@
         <ul class="message">
           <li
             :key="index"
+            class="list"
             v-for="(i,index) in data.list">
-              {{`${i.recommendedPerson || '暂无名字'}，${handlegender(i.gender)}，${i.age}，${i.nation}，${i.workUnitAndPost}，${i.recommendPersonList || '无'}`}}
+            <div class="name">{{i.recommendedPerson}}</div>
+            <div class="gender">{{i.gender}}</div>
+            <div class="gender">{{i.age}}</div>
+            <div class="nation">{{i.nation}}</div>
+            <div class="item">{{i.workUnitAndPost || '无'}}</div>
+            <div class="item">{{i.recommendPersonList || '无'}}</div>
+              <!-- {{`${i.recommendedPerson }，${i.gender}，${i.age}，${i.nation}，${i.workUnitAndPost}，${i.recommendPersonList || '无'}`}} -->
           </li>
         </ul>
       </div>
@@ -69,24 +76,7 @@ export default {
       } catch (err) {
         console.log(err)
       }
-    },
-    handlegender(module) {
-      let text = ""
-      switch(module) {
-      case 0:
-        text = '未设置'
-        break
-      case 1:
-        text = '男'
-        break
-      case 2:
-        text = '女'
-        break
-      default:
-        text = '其他'
-      }
-      return text
-    },
+    }
   }
 }
 </script>
@@ -144,6 +134,28 @@ export default {
   }
   .mark1 {
     padding-top: 50px;
+  }
+  .list {
+    display: flex;
+    & div {
+      margin-right: 15px;
+      line-height: 20px;
+      margin-bottom: 15px;
+       &.gender{
+        width: 60px;
+      }
+      &.nation {
+        width: 120px;
+      }
+      &.name{
+        width: 150px;
+      }
+      &.item {
+        flex:1;
+
+      }
+    }
+
   }
 </style>
 
