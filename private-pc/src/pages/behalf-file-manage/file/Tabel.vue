@@ -57,6 +57,7 @@
       </el-table-column>
       <el-table-column
         width="90"
+        v-if="!isoffice"
         align="center"
         label="推荐者">
         <template slot-scope="scope">
@@ -81,6 +82,10 @@ export default {
     list: {
       defaut: () => [],
       type: Array
+    },
+    isoffice: {
+      defaut: false,
+      type: Boolean
     }
   },
   components: {
