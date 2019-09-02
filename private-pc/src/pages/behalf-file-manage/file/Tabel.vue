@@ -9,18 +9,20 @@
         width="80"
         align="center"
         label="姓名"
-        prop="recommendedPersonre" />
+        prop="recommendedPerson" />
       <el-table-column
         align="center"
         label="性别"
+        width="70"
         prop="gender">
         <template slot-scope="scope">
-          {{handlegender(scope.row.gender)}}
+          {{scope.row.gender}}
         </template>
       </el-table-column>
       <el-table-column
         align="center"
         label="年龄"
+        width="70"
         prop="age">
       </el-table-column>
       <el-table-column
@@ -50,7 +52,7 @@
         align="center"
         label="单位及职务">
           <template slot-scope="scope">
-          {{scope.row.workUnitAndPost}}
+          {{scope.row.workUnitAndPost || '无'}}
         </template>
       </el-table-column>
       <el-table-column
@@ -58,7 +60,7 @@
         align="center"
         label="推荐者">
         <template slot-scope="scope">
-          {{scope.row.commendPersonList}}
+          {{scope.row.commendPersonList || '无'}}
         </template>
       </el-table-column>
     </el-table>
