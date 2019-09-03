@@ -54,6 +54,8 @@
               prop="recommendedPersonId">
                <el-select
                :disabled="isDisabled"
+               :remote-method="remoteMethod"
+                remote
                 filterable
                 size="medium"
                 style="width: 100%;"
@@ -476,7 +478,6 @@ export default {
     }
   },
   created () {
-    console.log(11,this.belongAreaItem)
     this.ref1 = this.belongAreaItem.level === 3 && this.belongAreaItem.committee
     this.ref2 = this.belongAreaItem.level === 1 && !this.belongAreaItem.committee
     if( this.ref2) {
@@ -485,9 +486,10 @@ export default {
     if(this.item.id){
       this.getDetail()
     }
+    this.searchPeople({statusList: [7],precinctId: this.belongAreaId})
     this.searchnation()
     this.searchTree({type: 0, id: ''})
-    this.searchPeople({statusList: [7],precinctId: this.belongAreaId,pageSize:200})
+
   },
   methods: {
     ...mapActions('commonData', [
@@ -671,7 +673,13 @@ export default {
       this.list = JSON.parse(JSON.stringify(this.form.recommendPersonList))
       this.list.push({})
     },
-    cardVali
+    cardVali,
+    remoteMethod (val) {
+      setTimeout(() => {
+        this.searchPeople({statusList: [7],precinctId: this.belongAreaId,name: val})
+      }, 1000)
+
+    }
   }
 
 }
