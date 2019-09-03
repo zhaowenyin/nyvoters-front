@@ -10,7 +10,7 @@
     <div class="content">
       <div class="announcement1">xx选举大会公告</div>
        <div class="announcement2">(第xx号)</div>
-       &nbsp;&nbsp;根据《中华人民共和国全国人民代表大会和地方各级人民代表大会选举法》、《{{data.districtName || 'xx'}}县乡两集人民代表大会代表选举工作实施细则》以及我县人大常委会关于县人大换届是时间的决定及安排意见，经研究确定{{data.voterDate}}为县人大代表的选举日，选民登记工作从{{data.regStartDate}}日起，到{{data.regEndDate}}止。务请给喂选民在此期间积极做好选民登记工作。
+       &nbsp;&nbsp;根据《中华人民共和国全国人民代表大会和地方各级人民代表大会选举法》、《{{data.districtName || 'xx'}}县乡两集人民代表大会代表选举工作实施细则》以及我县人大常委会关于县人大换届的时间的决定及安排意见，经研究确定{{data.voterDate}}为县人大代表的选举日，选民登记工作从{{data.regStartDate}}日起，到{{data.regEndDate}}止。务请各位选民在此期间积极做好选民登记工作。
          <br/>&nbsp;&nbsp;对于外来人员的选民登记问题作如下规定：凡常住户口不在本地
          的外来暂住人员，应当回原户口所在地或原工作单位的选区进行选民
          登记，参加选举。如本人要求参加现居住地和工作单位所在地选举的，必
