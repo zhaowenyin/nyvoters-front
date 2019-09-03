@@ -19,7 +19,7 @@
 import { mapMutations } from 'vuex'
 import Search from './Search'
 import List from './List'
-import CreateDialog from './CreateDialog'
+import CreateDialog from '../../voter-register/CreateDialog'
 export default {
   data () {
     return {

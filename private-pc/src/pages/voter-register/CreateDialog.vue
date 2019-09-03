@@ -417,7 +417,7 @@ export default {
   },
   created () {
     if(this.item.id) {
-      this.form = {...this.form, ...this.item,registrationTime: this.item.registrationTime ? new Date(this.item.registrationTime) : '',proveDocId:+this.item.proveDocId}
+      this.form = {...this.form, ...this.item,registrationTime: this.item.registrationTime ? new Date(this.item.registrationTime) : '',proveDocId:this.item.proveDocId ? +this.item.proveDocId : ''}
     }
     this.form.registrationType = this.session.accountType
     this.form.registrar = this.session.name

@@ -53,29 +53,4 @@ export async function getList (payload) {
   return api.post('/import/data/list', payload )
 }
 
-// post请求
-export async function setSubmit (payload) {
-  // console.log(payload)
-  // return new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve({
-  //       data: {
-  //       }
-  //     })
-  //   }, 500)
-  // })
-  return api.post('/register/add', payload)
-}
-export async function modifySubmit (payload) {
-  // console.log(payload)
-  // return new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve({
-  //       data: {
-  //       }
-  //     })
-  //   }, 500)
-  // })
-  return api.post('/register/edit', payload)
-}
 

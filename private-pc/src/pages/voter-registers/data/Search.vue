@@ -76,7 +76,7 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import CreateDialog from './CreateDialog'
+import CreateDialog from '../../voter-register/CreateDialog'
 
 export default {
   data () {
