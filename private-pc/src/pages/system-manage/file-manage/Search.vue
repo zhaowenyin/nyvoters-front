@@ -3,7 +3,7 @@
     <div class="left">
       <el-button @click="upload" size="medium" type="primary" icon="el-icon-upload2">上传</el-button>
       <el-button @click="modify" size="medium" type="primary" icon="el-icon-edit">修改</el-button>
-      <el-button @click="deleteI" size="medium" type="primary" icon="el-icon-delete">删除</el-button>
+      <el-button @click="deleteItem" size="medium" type="primary" icon="el-icon-delete">删除</el-button>
     </div>
     <el-form
       ref="form"
@@ -91,6 +91,13 @@ export default {
       }
       this.item = this.multipleSelection[0]
       this.$emit('lookDetail',{val: this.item, isDisabled: false})
+    },
+    deleteItem() {
+      this.$confirm('选区删除后将不可恢复，请确认是否删除？')
+        .then(() => {
+          this.deleteI()
+        })
+        .catch(() => {})
     },
     async deleteI () {
       if(this.multipleSelection.length === 0) {
