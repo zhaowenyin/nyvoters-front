@@ -424,9 +424,6 @@ export default {
     this.searchnation()
   },
   methods: {
-    ...mapActions('voterRegister', [
-      'getListData'
-    ]),
     ...mapActions('commonData', [
       'searchnation'
     ]),
@@ -508,7 +505,7 @@ export default {
         toPrecinctId: this.handerdata.toPrecinctId
       }
       await supplyTransfer(params)
-      this.getListData()
+      this.$emit('getListData')
       this.innerClose()
       this.close()
       this.$notify({

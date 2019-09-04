@@ -72,6 +72,7 @@
     <CreateDialog
       :belongAreaId="belongAreaId"
       :item="item"
+      @getListData="getListData"
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
       />

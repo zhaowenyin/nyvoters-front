@@ -69,6 +69,7 @@
     </el-form>
     <CreateDialog
       :item="item"
+      @getListData="getListData"
       v-if="createDialogVisible"
       :visible.sync='createDialogVisible'
       />
