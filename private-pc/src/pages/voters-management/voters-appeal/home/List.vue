@@ -12,7 +12,7 @@
       <el-table-column
         label="申述人"
         width="120"
-        prop="userName" />
+        prop="name" />
       <el-table-column
         label="身份证号"
         prop="idNum" />
@@ -22,7 +22,7 @@
       <el-table-column
         label="申请时间">
         <template slot-scope="scope">
-          {{formatDate(scope.row.applyTime)}}
+          {{scope.row.applyTime}}
         </template>
       </el-table-column>
        <el-table-column
