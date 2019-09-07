@@ -457,9 +457,8 @@ export default {
           this.innerVisible = true
           return
         }
-
-        this.close()
         this.$emit('getListData')
+        this.close()
         this.$notify({
           title: '',
           message: '数据保存成功',
