@@ -37,7 +37,7 @@
         width="180"
         label="处理时间">
         <template slot-scope="scope">
-          {{formatDate(scope.row.auditTime)}}
+          {{scope.row.auditTime}}
         </template>
       </el-table-column>
     </el-table>
