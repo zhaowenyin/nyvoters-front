@@ -459,7 +459,7 @@ export default {
         }
 
         this.close()
-        this.getListData()
+        this.$emit('getListData')
         this.$notify({
           title: '',
           message: '数据保存成功',
