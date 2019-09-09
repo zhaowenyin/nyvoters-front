@@ -203,7 +203,7 @@ export default {
       await throughTabel(params)
       this.$notify({
         title: '',
-        message: '登记成功！',
+        message: '转移成功！',
         type: 'success'
       })
       this.getListData()
