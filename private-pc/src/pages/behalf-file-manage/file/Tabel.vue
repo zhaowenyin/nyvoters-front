@@ -61,7 +61,7 @@
         align="center"
         label="推荐者">
         <template slot-scope="scope">
-          {{scope.row.commendPersonList || '无'}}
+          {{scope.row.recommendPersonList || '无'}}
         </template>
       </el-table-column>
     </el-table>
