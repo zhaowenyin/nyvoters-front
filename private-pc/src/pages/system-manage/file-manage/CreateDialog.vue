@@ -140,7 +140,7 @@ export default {
         if (param[k] !== undefined &&
             param[k] !== null &&
             param[k] !== '') {
-          paramStr += `&${k}=${param[k]}`
+          paramStr += `&${k}=${encodeURI(param[k])}`
         }
       }
       paramStr = paramStr.substr(1)

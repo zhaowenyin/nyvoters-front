@@ -123,10 +123,10 @@ export default {
         text = 1
         break
       case '选举委员会关于选举日及选举登记时间的公告':
-        text = 1
+        text = 2
         break
       default:
-        text = 2
+        text = 3
       }
       return text
     },

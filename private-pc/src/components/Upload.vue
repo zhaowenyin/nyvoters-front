@@ -57,7 +57,7 @@ export default {
         if (this.param[k] !== undefined &&
             this.param[k] !== null &&
             this.param[k] !== '') {
-          paramStr += `&${k}=${this.param[k]}`
+          paramStr += `&${k}=${encodeURI(this.param[k])}`
         }
       }
       paramStr = paramStr.substr(1)
