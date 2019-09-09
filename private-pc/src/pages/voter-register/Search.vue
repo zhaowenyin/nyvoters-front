@@ -74,6 +74,7 @@
       :item="item"
       @getListData="getListData"
       v-if="createDialogVisible"
+      :isDisabled="false"
       :visible.sync='createDialogVisible'
       />
   </div>
@@ -164,7 +165,7 @@ export default {
         return
       }
       this.item = this.multipleSelection[0]
-      this.$emit('lookDetail',{val: this.item, isDisabled: false})
+      this.createDialogVisible = true
     }
   }
 }

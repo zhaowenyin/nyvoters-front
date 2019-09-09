@@ -68,6 +68,7 @@
       </el-form-item>
     </el-form>
     <CreateDialog
+      :isDisabled="false"
       :item="item"
       @getListData="getListData"
       v-if="createDialogVisible"
@@ -154,7 +155,7 @@ export default {
         return
       }
       this.item = this.multipleSelection[0]
-      this.$emit('lookDetail',{val: this.item, isDisabled: false})
+      this.createDialogVisible = true
     }
   }
 }
