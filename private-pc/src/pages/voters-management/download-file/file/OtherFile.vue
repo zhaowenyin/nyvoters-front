@@ -6,7 +6,7 @@
         v-if="$route.query.title==='选举委员会关于选民名单公告（2）'"
         type="primary"
         @click="fomatDownload"
-        size="small">正式公告</el-button>
+        size="small">{{data1.button}}</el-button>
       <el-button
       type="primary"
       @click="download"
@@ -18,18 +18,22 @@
   </div>
 </template>
 <script>
-import {getOther} from '../service.js'
+import {getOther,getInfo} from '../service.js'
 import output from '../../../../utils/output.js'
 export default {
   data () {
     return {
       data: {},
-      loading: false
+      loading: false,
+      data1 :{}
     }
   },
   created() {
     if(this.belongAreaId) {
       this.searchOther()
+    }
+    if(this.$route.query.title==='选举委员会关于选民名单公告（2）') {
+      this.searchInfo()
     }
 
   },
@@ -46,6 +50,9 @@ export default {
   watch: {
     belongAreaId () {
       this.searchOther()
+      if(this.$route.query.title==='选举委员会关于选民名单公告（2）') {
+        this.searchInfo()
+      }
     }
   },
   methods: {
@@ -64,12 +71,17 @@ export default {
     },
     async fomatDownload () {
       try {
-        output({url: '/doc/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title}})
+        console.log(122,{id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title,button: this.data.button})
+        output({url: '/doc/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title,button: this.data.button}})
       } catch (err) {
         console.log(err)
       }
     },
-
+    async searchInfo () {
+      const{data} = await getInfo({type:1,belongAreaId: this.belongAreaId,fileName: this.$route.query.title})
+      this.data1 = data
+      console.log(12222,this.data1)
+    },
   }
 }
 </script>

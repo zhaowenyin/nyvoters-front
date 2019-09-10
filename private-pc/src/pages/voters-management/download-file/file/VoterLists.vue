@@ -5,7 +5,7 @@
        <el-button
         type="primary"
         @click="fomatDownload"
-        size="small">正式公告</el-button>
+        size="small">{{data.button}}</el-button>
       <el-button
       type="primary"
       @click="download"
