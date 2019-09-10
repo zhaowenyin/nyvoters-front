@@ -509,7 +509,7 @@ export default {
       this.close()
       this.$notify({
         title: '',
-        message: '转移成功',
+        message: '申请转移成功',
         type: 'success'
       });
 

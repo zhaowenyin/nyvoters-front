@@ -1,7 +1,12 @@
 <template>
   <div class="other" v-loading="loading">
     <div class="top-title">
-      <div>>> {{$route.query.title}}</div>
+      <div class="title">>> {{$route.query.title}}</div>
+      <el-button
+        v-if="$route.query.title==='选举委员会关于选民名单公告（2）'"
+        type="primary"
+        @click="fomatDownload"
+        size="small">正式公告</el-button>
       <el-button
       type="primary"
       @click="download"
@@ -57,6 +62,14 @@ export default {
         console.log(err)
       }
     },
+    async fomatDownload () {
+      try {
+        output({url: '/doc/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title}})
+      } catch (err) {
+        console.log(err)
+      }
+    },
+
   }
 }
 </script>
@@ -71,7 +84,9 @@ export default {
 .top-title {
   padding: 15px;
   display: flex;
-  justify-content:space-between;
+  & .title {
+    flex: 1;
+  }
 }
 </style>
 
