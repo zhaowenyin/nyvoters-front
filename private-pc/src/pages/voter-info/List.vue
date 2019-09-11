@@ -182,8 +182,14 @@ export default {
       case 1:
         text = '单位'
         break
-      default:
+      case 2:
         text = '学校'
+        break
+      case 3:
+        text = '个人'
+        break
+      default:
+        text = ''
       }
       return text
     },
