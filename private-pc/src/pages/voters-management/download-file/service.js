@@ -137,7 +137,7 @@ export async function getInfo (payload) {
   } else if(+payload.type === 3 || +payload.type === 4) {
     return api.get('/voter/files/preview/voterCorrectionNotice', {params:{belongAreaId: payload.belongAreaId}})
   } else if(+payload.type === 6 || +payload.type === 7) {
-    return api.get('/voter/files/preview/voterCertificate', {params:{belongAreaId: payload.belongAreaId,radio:  payload.radio || 1}})
+    return api.get('/voter/files/preview/voterCertificate', {params:{belongAreaId: payload.belongAreaId,button:  payload.button || '正式选民'}})
   } else if(+payload.type === 1) {
     return api.get('/voter/files/preview/voterList', {params:{belongAreaId: payload.belongAreaId}})
   }

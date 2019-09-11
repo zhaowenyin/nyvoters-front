@@ -7,9 +7,9 @@
       @click="download"
       size="small">下载</el-button>
     </div>
-    <el-radio-group @change="change" v-model="radio">
-      <el-radio :label="1">正式选民</el-radio>
-      <el-radio :label="2">补正选民</el-radio>
+    <el-radio-group @change="change" v-model="button">
+      <el-radio :label="'正式选民'">正式选民</el-radio>
+      <el-radio :label="'补正选民'">补正选民</el-radio>
     </el-radio-group>
     <div v-if="+type === 7" class="content">
 
@@ -83,7 +83,7 @@ export default {
     const authToken = getSession()
     return {
       loading: false,
-      radio: 1,
+      button: '正式选民',
       authToken
     }
   },
@@ -109,13 +109,13 @@ export default {
   },
   watch: {
     belongAreaId () {
-      this.radio = 1
+      this.button = '正式选民'
     }
   },
   methods: {
     async download () {
       try {
-        output({url: '/voter/files/preview/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title,token: this.authToken.token}})
+        output({url: '/voter/files/preview/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title,token: this.authToken.token},button: this.button})
       } catch (err) {
         console.log(err)
       }

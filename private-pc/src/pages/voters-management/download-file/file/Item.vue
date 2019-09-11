@@ -67,7 +67,7 @@ export default {
       this.loading = false
     },
     getlist (val) {
-      this.searchInfo({belongAreaId: this.belongAreaId,type:this.$route.query.type,radio: val})
+      this.searchInfo({belongAreaId: this.belongAreaId,type:this.$route.query.type,button: val})
     }
   }
 }
