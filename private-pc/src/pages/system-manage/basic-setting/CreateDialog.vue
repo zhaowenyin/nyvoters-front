@@ -173,7 +173,7 @@ export default {
       const content = data.content
       let obj = {}
       for(let i of content) {
-        obj[i.key] = i.name
+        obj[i.key] = i.value
       }
       this.form = {
         sessionNum: obj.sessionNum,
