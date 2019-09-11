@@ -83,6 +83,14 @@ export async function modifyFile (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post(`/doc/modify/?id=${payload.id}&module=${payload.module}&fileName=${payload.fileName}&isFillData=${payload.isFillData}`)
+  let paramStr = ''
+  for (const k in payload) {
+    if (payload[k] !== undefined &&
+      payload[k] !== null &&
+      payload[k] !== '') {
+      paramStr += `&${k}=${encodeURI(payload[k])}`
+    }
+  }
+  return api.post(`/doc/modify/?${paramStr}`)
 }
 
