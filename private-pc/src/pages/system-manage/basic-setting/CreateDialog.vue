@@ -171,12 +171,16 @@ export default {
       const{data} = await getConfig()
       this.data = data.content
       const content = data.content
+      let obj = {}
+      for(let i of content) {
+        obj[i.key] = i.name
+      }
       this.form = {
-        sessionNum: content[0].value,
-        voteDate: new Date(+content[1].value),
-        registerStartDate: new Date(+content[2].value),
-        registerEndDate: new Date(+content[3].value),
-        loginBackgroudId: content[4].value,
+        sessionNum: obj.sessionNum,
+        voteDate: new Date(+obj.voteDate),
+        registerStartDate: new Date(+obj.registerStartDate),
+        registerEndDate: new Date(+obj.registerEndDate),
+        loginBackgroudId: obj.loginBackgroudId,
       }
       if(this.form.loginBackgroudId) {
         this.getName(this.form.loginBackgroudId)
