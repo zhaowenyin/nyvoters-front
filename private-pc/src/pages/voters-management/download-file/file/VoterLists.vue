@@ -77,7 +77,7 @@ export default {
     },
     async fomatDownload () {
       try {
-        output({url: '/doc/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title}})
+        output({url: '/doc/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title,button: this.data.button}})
       } catch (err) {
         console.log(err)
       }
