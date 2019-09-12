@@ -20,7 +20,7 @@
         width="180"
         label="申请时间">
         <template slot-scope="scope">
-          {{scope.row.applyTime}}
+          {{ formatDate(scope.row.applyTime) }}
         </template>
       </el-table-column>
       <el-table-column
@@ -37,7 +37,7 @@
         width="180"
         label="处理时间">
         <template slot-scope="scope">
-          {{scope.row.auditTime}}
+          {{ formatDate(scope.row.auditTime) }}
         </template>
       </el-table-column>
     </el-table>
