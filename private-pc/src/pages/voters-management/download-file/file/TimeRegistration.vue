@@ -36,7 +36,11 @@ export default {
     type: {
       default: null,
       type: null
-    }
+    },
+    belongAreaId: {
+      default: null,
+      type: null
+    },
   },
   components: {
 

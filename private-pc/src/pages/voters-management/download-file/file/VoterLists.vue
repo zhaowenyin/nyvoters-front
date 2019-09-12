@@ -59,7 +59,11 @@ export default {
     type: {
       default: null,
       type: null
-    }
+    },
+    belongAreaId: {
+      default: null,
+      type: null
+    },
   },
   components: {
 
@@ -77,6 +81,7 @@ export default {
     },
     async fomatDownload () {
       try {
+        console.log(122,{id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title,button: this.data.button})
         output({url: '/doc/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title,button: this.data.button}})
       } catch (err) {
         console.log(err)

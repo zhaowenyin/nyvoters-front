@@ -115,7 +115,7 @@ export default {
   methods: {
     async download () {
       try {
-        output({url: '/voter/files/preview/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title,token: this.authToken.token},button: this.button})
+        output({url: '/voter/files/preview/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title,token: this.authToken.token,button: this.button}})
       } catch (err) {
         console.log(err)
       }

@@ -1,14 +1,17 @@
 <template>
   <div class="out" v-loading="loading">
     <VoterLists
+    :belongAreaId="belongAreaId"
     v-if="+type===1"
     :type="type"
     :data="data"/>
     <VoterListsRevised
+    :belongAreaId="belongAreaId"
     v-if="+type===3 || +type===4"
     :type="type"
     :data="data"/>
     <TimeRegistration
+    :belongAreaId="belongAreaId"
     :type="type"
     :data="data"
     v-if="+type===5"/>
