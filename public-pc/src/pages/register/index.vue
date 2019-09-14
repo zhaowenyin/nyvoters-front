@@ -75,7 +75,7 @@
             <el-col :span="12">
               <el-form-item
                 label="联系方式："
-                prop="phoneNum">
+                prop="contactInformation">
                 <el-input
                   size="medium"
                   placeholder="请输入联系方式"
