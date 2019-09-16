@@ -36,7 +36,7 @@
          width="90"
         prop="party">
         <template slot-scope="scope">
-          {{handlepath(scope.row.path)}}
+          {{scope.row.party}}
         </template>
       </el-table-column>
       <el-table-column
@@ -44,7 +44,7 @@
         align="center"
         label="文化程度">
         <template slot-scope="scope">
-          {{handleeducation(scope.row.education)}}
+          {{scope.row.education}}
         </template>
       </el-table-column>
       <el-table-column
@@ -95,58 +95,7 @@ export default {
 
   },
   methods: {
-    formatDate,
-    handlegender(module) {
-      let text = ""
-      switch(module) {
-      case 0:
-        text = '未设置'
-        break
-      case 1:
-        text = '男'
-        break
-      case 2:
-        text = '女'
-        break
-      default:
-        text = '其他'
-      }
-      return text
-    },
-    handlepath(module){
-      let text = ""
-      switch(module) {
-      case 1:
-        text = '共产党'
-        break
-      case 2:
-        text = '民革党'
-        break
-      case 3:
-        text = '民盟党'
-        break
-      default:
-        text = '民进党'
-      }
-      return text
-    },
-    handleeducation(module){
-      let text = ""
-      switch(module) {
-      case 1:
-        text = '大学以上'
-        break
-      case 2:
-        text = '大专'
-        break
-      case 3:
-        text = '中专及高中'
-        break
-      default:
-        text = '初中及以下'
-      }
-      return text
-    }
+    formatDate
   }
 }
 </script>
