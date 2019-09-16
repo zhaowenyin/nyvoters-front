@@ -68,6 +68,7 @@
           label="联系人"
           prop="manager">
           <el-input
+            :maxlength="20"
             :disabled="isDisabled"
             size="medium"
             placeholder="请输入联系人"

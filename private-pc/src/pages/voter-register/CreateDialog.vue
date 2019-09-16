@@ -101,6 +101,7 @@
               <el-input
                 @change="housechange"
                 :disabled="isDisabled"
+                :maxlength="80"
                 size="medium"
                 placeholder="请输入户籍地"
                 class="item"
@@ -128,6 +129,7 @@
             <el-input
               @change="livingChange"
               :disabled="isDisabled"
+              :maxlength="80"
               placeholder="请输入现居住地"
               class="item"
               v-model.trim="form.living" />

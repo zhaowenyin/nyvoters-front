@@ -34,7 +34,8 @@ export const levelList = {
 export const registrationTypeList = {
   0: '登记站',
   1: '单位',
-  2: '学校'
+  2: '学校',
+  3: '个人'
 }
 // 参选地类型
 export const candidateTypeList = {
