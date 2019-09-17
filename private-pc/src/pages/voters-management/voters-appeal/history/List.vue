@@ -101,7 +101,7 @@ export default {
         text = '未处理 '
         break
       case 1:
-        text = '对比中'
+        text = '接受'
         break
       default:
         text = '驳回'

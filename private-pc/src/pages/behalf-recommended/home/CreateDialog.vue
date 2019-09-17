@@ -285,6 +285,7 @@
                     v-if="!scope.row.recommendPersonName"
                     size="medium"
                     placeholder="请输入"
+                    :maxlength="20"
                     class="item"
                     v-model.trim="tableObj.recommendPersonName" />
                   <div v-else>{{scope.row.recommendPersonName}}</div>
