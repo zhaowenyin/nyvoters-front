@@ -11,7 +11,7 @@
         prop="name" />
       <el-table-column
         width="180"
-        label="身份证号"
+        label="身份证号码"
         prop="idNum" />
       <el-table-column
         label="联系电话"

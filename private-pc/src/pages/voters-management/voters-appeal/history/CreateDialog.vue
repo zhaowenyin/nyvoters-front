@@ -20,7 +20,7 @@
         </el-col>
          <el-col :span="12">
           <el-form-item
-            label="身份证号："
+            label="身份证号码："
             :rules="[{required: true}]">
             {{data.idNum}}
           </el-form-item>
