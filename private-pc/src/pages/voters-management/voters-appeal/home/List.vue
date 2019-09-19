@@ -27,7 +27,15 @@
       </el-table-column>
        <el-table-column
         label="申诉书"
-        prop="docName" />
+        prop="docName">
+        <template slot-scope="scope">
+          <el-button
+            @click="download()"
+            size="small"
+            icon="el-icon-search"
+            type="text">{{scope.row.docName}}</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <div
       v-show="total"
@@ -45,6 +53,7 @@
 <script>
 import { mapState, mapActions,mapMutations } from 'vuex'
 import { formatDate } from '../../../../utils/format.js'
+import output from '../../../utils/output.js'
 
 export default {
   data () {
@@ -80,7 +89,14 @@ export default {
     handleSelectionChange(val) {
       this.saveSelection(val)
     },
-    formatDate
+    formatDate,
+    async download (item) {
+      try {
+        output({url: '/doc/download', param: {id: item.id,fileName: item.fileName}})
+      } catch (err) {
+        console.log(err)
+      }
+    },
   }
 }
 </script>
