@@ -18,7 +18,7 @@
             prop="accountType">
             <el-radio-group :disabled="isDisabled" size="medium" v-model="form.accountType">
               <el-radio
-                v-for="(i, key) in registrationTypeList"
+                v-for="(i, key) in districtAccountTypeList"
                 :key="key"
                 :label="+key">{{i}}</el-radio>
             </el-radio-group>
@@ -105,7 +105,7 @@
 <script>
 import {setSubmit,modifySubmit,getTree,searchUser} from './service.js'
 import { mapActions,mapState } from 'vuex'
-import {registrationTypeList} from '../../../../common-data/config.js'
+import {districtAccountTypeList} from '../../../../common-data/config.js'
 import DistrictSelect from '../../../../components/DistrictSelect'
 import md5 from 'blueimp-md5'
 export default {
@@ -156,7 +156,7 @@ export default {
           { required: true, message: '请选择管理选区！', trigger: 'change' }
         ],
       },
-      registrationTypeList,
+      districtAccountTypeList,
       itemL: {}
     }
   },

@@ -37,6 +37,14 @@ export const registrationTypeList = {
   2: '学校',
   3: '个人'
 }
+
+//选区账号类型
+export const districtAccountTypeList = {
+  0: '登记站',
+  1: '单位',
+  2: '学校'
+}
+
 // 参选地类型
 export const candidateTypeList = {
   0: '户籍地',

@@ -20,7 +20,7 @@
         label="联系电话"
         prop="phoneNum" />
       <el-table-column
-        label="申请时间">
+        label="申诉时间">
         <template slot-scope="scope">
           {{scope.row.applyTime}}
         </template>

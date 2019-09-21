@@ -18,7 +18,7 @@
         prop="phoneNum" />
       <el-table-column
         width="180"
-        label="申请时间">
+        label="申诉时间">
         <template slot-scope="scope">
           {{ formatDate(scope.row.applyTime) }}
         </template>
