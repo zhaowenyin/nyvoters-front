@@ -104,6 +104,7 @@
               prop="sort	">
               <el-input
                 :disabled="isDisabled"
+                type="number"
                 size="medium"
                 placeholder="请输入排序码"
                 class="item"

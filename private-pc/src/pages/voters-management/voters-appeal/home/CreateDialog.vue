@@ -13,7 +13,7 @@
       class="login-form">
       <el-form-item
         label="处理结论"
-        prop="reason">
+        prop="conclusion">
         <el-radio-group v-model="form.conclusion">
           <el-radio :label="1">接受</el-radio>
           <el-radio :label="2">驳回</el-radio>

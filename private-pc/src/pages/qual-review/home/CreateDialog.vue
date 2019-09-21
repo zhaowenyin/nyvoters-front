@@ -190,7 +190,7 @@
               label="全日制教育"
               prop="fullTimeEducation">
               <el-input
-               :maxlength="500"
+               :maxlength="80"
                 size="medium"
                 :disabled="isDisabled"
                 placeholder="请输入"
@@ -214,7 +214,7 @@
               label="在职教育"
               prop="inServiceEducation">
               <el-input
-              :maxlength="500"
+              :maxlength="80"
               :disabled="isDisabled"
               size="medium"
               placeholder="请输入"
@@ -238,7 +238,7 @@
               label="工作单位"
               prop="workUnit">
               <el-input
-              :maxlength="500"
+              :maxlength="80"
               :disabled="isDisabled"
               size="medium"
               placeholder="请输入"
@@ -270,7 +270,7 @@
               label="职称"
               prop="jobTitle">
               <el-input
-              :maxlength="500"
+              :maxlength="80"
               :disabled="isDisabled"
               size="medium"
               placeholder="请输入"
@@ -282,7 +282,7 @@
               label="代表阶层"
               prop="repreClass">
               <el-input
-              :maxlength="500"
+              :maxlength="80"
               :disabled="isDisabled"
               size="medium"
               placeholder="请输入"
@@ -294,6 +294,7 @@
               label="同任何级人大代表"
               prop="withRepreAnyLevel">
               <el-input
+                :maxlength="80"
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入"
@@ -305,7 +306,7 @@
               label="同任何级政协委员"
               prop="withAnyMemberCppcc">
               <el-input
-              :maxlength="500"
+              :maxlength="80"
               :disabled="isDisabled"
               size="medium"
               placeholder="请输入"
@@ -430,7 +431,7 @@
           :disabled="isDisabled"
           type="textarea"
           :rows="2"
-          :maxlength="500"
+          :maxlength="200"
           placeholder="请输入"
           class="item"
           v-model="form.remarks" />

@@ -43,6 +43,8 @@ api.interceptors.request.use((config) => {
         config.params[i] === null ||
         config.params[i] === '') {
         delete config.params[i]
+      } else {
+        config.params[i]=encodeURI(config.params[i])
       }
     }
   }

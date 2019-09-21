@@ -32,6 +32,7 @@
         <el-input
           size="medium"
           :disabled="isDisabled"
+          :maxlength="20"
           placeholder="请输入行政区名"
           class="item"
           v-model.trim="form.name" />

@@ -15,12 +15,12 @@
           <el-form-item
             label="申述人："
             :rules="[{required: true}]">
-            {{data.userName}}
+            {{data.name}}
           </el-form-item>
         </el-col>
          <el-col :span="12">
           <el-form-item
-            label="身份证号："
+            label="身份证号码："
             :rules="[{required: true}]">
             {{data.idNum}}
           </el-form-item>
@@ -36,14 +36,14 @@
           <el-form-item
             label="申诉时间："
             :rules="[{required: true}]">
-            {{formatDate(data.appealTime)}}
+            {{formatDate(data.createTime)}}
           </el-form-item>
         </el-col>
          <el-col :span="12">
           <el-form-item
             label="申诉书："
             :rules="[{required: true}]">
-            {{data.appealDocumentId}}
+            {{data.docName}}
           </el-form-item>
         </el-col>
       </el-row>
@@ -53,7 +53,7 @@
           <el-form-item
             label="处理结论："
             :rules="[{ required: true}]">
-            {{data.remark}}
+            {{data.status==1?'接受':'驳回'}}
           </el-form-item>
         </el-col>
         <el-col :span="12">
@@ -67,7 +67,7 @@
           <el-form-item
             label="处理时间："
             :rules="[{required: true}]">
-             {{formatDate(data.appealTime)}}
+             {{formatDate(data.auditTime)}}
           </el-form-item>
         </el-col>
          <el-col :span="12">

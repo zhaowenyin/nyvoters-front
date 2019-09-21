@@ -40,7 +40,7 @@
         </el-select>
       </el-form-item>
        <el-form-item
-       label="状态"
+       label="选民状态"
         prop="status">
         <el-select
         size="medium"

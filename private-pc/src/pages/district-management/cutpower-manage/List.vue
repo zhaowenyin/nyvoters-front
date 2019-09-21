@@ -14,7 +14,7 @@
         label="姓名"
         prop="name" />
       <el-table-column
-        label="身份证号"
+        label="身份证号码"
         prop="idNum" />
       <el-table-column
         label="剥权时间">

@@ -34,7 +34,8 @@ export const levelList = {
 export const registrationTypeList = {
   0: '登记站',
   1: '单位',
-  2: '学校'
+  2: '学校',
+  3: '个人'
 }
 // 参选地类型
 export const candidateTypeList = {
@@ -95,10 +96,10 @@ export const statusList = {
 }
 // 资格选民状态
 export const QualficationStatusList = {
-  'DELETE': '删除',
-  'WAIT_SUBMIT': '待提交',
-  'WAIT_REVIEW': '待资格审查',
-  'REVIEW_FAIL': '资格审查不通',
+  //'DELETE': '删除',
+  //'WAIT_SUBMIT': '待提交',
+  //'WAIT_REVIEW': '待资格审查',
+  //'REVIEW_FAIL': '资格审查不通',
   'REVIEW_SUCCESS': '资格审查通过',
   'PRELIMINARY_CANDIDATE': '初步候选人',
   'FORMAL_CANDIDATE': '正式候选人',
