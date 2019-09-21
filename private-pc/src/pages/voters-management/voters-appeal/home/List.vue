@@ -30,9 +30,8 @@
         prop="docName">
         <template slot-scope="scope">
           <el-button
-            @click="download()"
+            @click="download(scope.row)"
             size="small"
-            icon="el-icon-search"
             type="text">{{scope.row.docName}}</el-button>
         </template>
       </el-table-column>
@@ -53,7 +52,7 @@
 <script>
 import { mapState, mapActions,mapMutations } from 'vuex'
 import { formatDate } from '../../../../utils/format.js'
-import output from '../../../utils/output.js'
+import output from '../../../../utils/output.js'
 
 export default {
   data () {
@@ -92,7 +91,7 @@ export default {
     formatDate,
     async download (item) {
       try {
-        output({url: '/doc/download', param: {id: item.id,fileName: item.fileName}})
+        output({url: '/doc/download', param: {id: item.docId,fileName: item.docName}})
       } catch (err) {
         console.log(err)
       }
