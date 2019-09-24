@@ -48,7 +48,10 @@ export const districtAccountTypeList = {
 // 参选地类型
 export const candidateTypeList = {
   0: '户籍地',
-  1: '居住地'
+  1: '居住地',
+  2: '单位',
+  3: '学校',
+  4: '其他'
 }
 // 党派
 export const partyList = {
@@ -100,7 +103,10 @@ export const statusList = {
   4: '迁出',
   5: '死亡',
   6: '其他',
-  7: '登记成功'
+  7: '登记成功',
+  8:'暂停行使选举权利',
+  9:'长期外出下落不明',
+  10:'无资格转移证明'
 }
 // 资格选民状态
 export const QualficationStatusList = {

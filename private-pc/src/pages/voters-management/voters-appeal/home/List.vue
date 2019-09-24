@@ -22,7 +22,7 @@
       <el-table-column
         label="申诉时间">
         <template slot-scope="scope">
-          {{scope.row.applyTime}}
+          {{formatDateMinute(scope.row.applyTime)}}
         </template>
       </el-table-column>
        <el-table-column
@@ -51,7 +51,7 @@
 </template>
 <script>
 import { mapState, mapActions,mapMutations } from 'vuex'
-import { formatDate } from '../../../../utils/format.js'
+import { formatDateMinute } from '../../../../utils/format.js'
 import output from '../../../../utils/output.js'
 
 export default {
@@ -88,7 +88,7 @@ export default {
     handleSelectionChange(val) {
       this.saveSelection(val)
     },
-    formatDate,
+    formatDateMinute,
     async download (item) {
       try {
         output({url: '/doc/download', param: {id: item.docId,fileName: item.docName}})

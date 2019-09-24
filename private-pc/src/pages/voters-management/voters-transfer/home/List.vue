@@ -49,7 +49,7 @@
         width="180"
         label="申请时间">
         <template slot-scope="scope">
-          {{formatDate(scope.row.applyTime)}}
+          {{formatDateMinute(scope.row.applyTime)}}
         </template>
       </el-table-column>
     </el-table>
@@ -68,7 +68,7 @@
 </template>
 <script>
 import { mapState, mapActions,mapMutations } from 'vuex'
-import { formatDate } from '../../../../utils/format.js'
+import { formatDateMinute } from '../../../../utils/format.js'
 
 export default {
   data () {
@@ -179,7 +179,7 @@ export default {
       }
       return text
     },
-    formatDate
+    formatDateMinute
   }
 }
 </script>
