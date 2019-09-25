@@ -35,7 +35,7 @@ export default {
   methods:{
     async download () {
       try {
-        output({url: '/doc/download', param: {id: this.$route.query.id, module: 4,fileName: '选民证'}})
+        output({url: '/doc/download', param: {id: this.$route.query.id, module: 4,fileName: '选民证', voterId: this.$route.query.voterId}})
       } catch (err) {
         console.log(err)
       }

@@ -96,7 +96,7 @@ export default {
           searchSubmit(this.userLogin)
             .then(({data}) => {
               if(data.content) {
-                this.$router.push({path:'/search-success',query: {type: 2,info: data.content.info,id:data.content.fileId}})
+                this.$router.push({path:'/search-success',query: {type: 2,info: data.content.info,id:data.content.fileId,voterId:data.content.voterId}})
               } else {
                 this.$notify({
                   title: '',
