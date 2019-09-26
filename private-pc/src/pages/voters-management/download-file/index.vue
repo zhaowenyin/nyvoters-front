@@ -105,7 +105,7 @@ export default {
       case '选民证（1）':
         text = 6
         break
-      case '选民证2（2）':
+      case '选民证（2）':
         text = 7
         break;
       default:
