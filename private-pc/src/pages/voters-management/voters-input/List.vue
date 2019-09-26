@@ -147,6 +147,15 @@ export default {
       case 7:
         text = '登记成功'
         break
+      case 8:
+        text = '暂停行使选举权利'
+        break
+      case 9:
+        text = '长期外出下落不明'
+        break
+      case 10:
+        text = '无资格转移证明'
+        break
       default:
         text = ''
       }
