@@ -34,7 +34,7 @@
         width="100"
         prop="candidateType">
          <template slot-scope="scope">
-          {{ scope.row.candidateType === 0 ? '户籍地' : '现居地'}}
+          {{ handercandidateType(scope.row.candidateType)}}
         </template>
       </el-table-column>
       <el-table-column
@@ -119,6 +119,29 @@ export default {
     formatDate,
     handleSelectionChange(val) {
       this.saveSelection(val)
+    },
+    handercandidateType(val){
+      let text = ""
+      switch(val) {
+      case 0:
+        text = '户籍地'
+        break
+      case 1:
+        text = '居住地'
+        break
+      case 2:
+        text = '单位'
+        break
+      case 3:
+        text = '学校'
+        break
+      case 4:
+        text = '其他'
+        break
+      default:
+        text = '其他'
+      }
+      return text
     },
     handergender(val) {
       let text = ""
