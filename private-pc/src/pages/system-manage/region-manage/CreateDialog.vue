@@ -19,7 +19,7 @@
         v-model="form.parentId"
         /> -->
         <DistrictSelect
-          :disabled="isDisabled"
+          :disabled="true"
           :multiple="false"
           v-model="form.parentId"
           :item='item'
