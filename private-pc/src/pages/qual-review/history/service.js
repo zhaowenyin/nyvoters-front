@@ -41,3 +41,16 @@ export async function getList (payload) {
   return api.post('/qualification-review-record/list', payload )
 }
 
+export async function repealTabel (payload) {
+  // console.log(payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.post('/qualification-review-record/cancel', payload)
+}
+

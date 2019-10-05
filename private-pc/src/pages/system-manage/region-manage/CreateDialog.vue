@@ -52,7 +52,7 @@
         label="行政区级别"
         prop="level">
         <el-select
-          :disabled="isDisabled"
+          :disabled="true"
           size="medium"
           style="width: 100%;"
           class="item"
@@ -158,7 +158,8 @@ export default {
   },
   computed: {
     ...mapState('regionManage', {
-      belongAreaId: state => state.belongAreaId
+      belongAreaId: state => state.belongAreaId,
+      level: state => state.level
     })
   },
   props:{
@@ -184,6 +185,7 @@ export default {
       this.form = {...this.form, ...this.item}
     } else {
       this.form.parentId = this.belongAreaId
+      this.form.level = this.level?this.level+1:1
     }
     this.searchDistrictTree1({type: 0, id: ''})
   },

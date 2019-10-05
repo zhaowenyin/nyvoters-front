@@ -1,6 +1,7 @@
 <template>
   <div class="search-box">
     <div class="left">
+      <el-button @click="repeal" size="medium" type="primary" icon="el-icon-delete">撤销</el-button>
     </div>
     <el-form
       ref="form"
@@ -82,6 +83,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import {QualficationStatusList} from '../../../common-data/config.js'
+import {repealTabel} from './service.js'
 
 export default {
   data () {
@@ -160,6 +162,36 @@ export default {
     create () {
       this.createDialogVisible = true
     },
+    async repeal () {
+      if(this.multipleSelection.length === 0) {
+        this.$notify({
+          title: '',
+          message: '请勾选数据进行撤销！',
+          type: 'warning'
+        });
+        return
+      }
+      let idList = []
+      for (let i of this.multipleSelection) {
+        if(i.status !== 'REVIEW_SUCCESS'){
+          this.$notify({
+            title: '',
+            message: '只允许撤销【资格审查通过】状态的数据！',
+            type: 'warning'
+          });
+          return
+        }
+        idList.push(i.id)
+      }
+      let params = {idList,status: "REVIEW_SUCCESS"}
+      await repealTabel(params)
+      this.$notify({
+        title: '',
+        message: '撤销成功',
+        type: 'success'
+      })
+      this.getListData()
+    }
   }
 }
 </script>

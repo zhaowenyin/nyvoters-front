@@ -57,7 +57,8 @@ export default {
     ...mapMutations('regionManage', [
       'clearState',
       'saveDistrictId',
-      'saveDistrictName'
+      'saveDistrictName',
+      'saveLevel'
     ]),
     ...mapActions('regionManage', [
       'searchDistrictTree',
@@ -65,6 +66,7 @@ export default {
     handleNodeClick(data) {
       this.saveDistrictId(data.id)
       this.saveDistrictName(data.name)
+      this.saveLevel(data.level)
     },
     lookDetail (val) {
       this.item = val.val

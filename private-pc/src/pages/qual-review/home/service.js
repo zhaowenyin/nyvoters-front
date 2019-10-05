@@ -71,3 +71,15 @@ export async function setSubmit(payload) {
 export async function getDetail (payload) {
   return api.post('/qualification-review/supplement/get', payload )
 }
+export async function repealTabel (payload) {
+  // console.log(payload)
+  // return new Promise((resolve) => {
+  //   setTimeout(() => {
+  //     resolve({
+  //       data: {
+  //       }
+  //     })
+  //   }, 500)
+  // })
+  return api.post('/repre-recommend-record/cancel', payload)
+}

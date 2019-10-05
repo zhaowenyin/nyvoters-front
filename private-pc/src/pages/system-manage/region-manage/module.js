@@ -13,7 +13,8 @@ export default {
     multipleSelection: [],
     treeList: [],
     belongAreaId: '',
-    belongArea: ''
+    belongArea: '',
+    level: ''
   },
   mutations: {
     clearState (state) {
@@ -53,6 +54,9 @@ export default {
     },
     saveDistrictName(state, payload) {
       state.belongArea = payload
+    },
+    saveLevel(state, payload) {
+      state.level = payload
     },
   },
   actions: {

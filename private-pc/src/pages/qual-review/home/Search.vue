@@ -1,7 +1,8 @@
 <template>
   <div class="search-box">
     <div class="left">
-      <el-button size="medium" @click="qualReviewI" type="primary" icon="el-icon-view">审查</el-button>
+      <el-button size="medium" @click="qualReviewI" type="primary" icon="el-icon-view">审查通过</el-button>
+      <el-button size="medium" @click="qualReviewII" type="primary" icon="el-icon-view">审查不通过</el-button>
       <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">资料补充</el-button>
     </div>
     <el-form
@@ -73,6 +74,7 @@
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
 import {qualReview} from './service.js'
+import {repealTabel} from './service.js'
 
 export default {
   data () {
@@ -176,6 +178,33 @@ export default {
         })
         .catch(() => {})
 
+    },
+    qualReviewII () {
+      if(this.multipleSelection.length === 0) {
+        this.$notify({
+          title: '',
+          message: '请勾选数据后再操作！',
+          type: 'warning'
+        });
+        return
+      }
+      this.$confirm('确认审查不通过，退回到上一节点？')
+        .then(() => {
+          this.qualReviewIItem()
+        })
+        .catch(() => {})
+
+    },
+    async qualReviewIItem() {
+      let idList = []
+      for (let i of this.multipleSelection) {
+        idList.push(i.id)
+      }
+      let params = {idList,status: 'REVIEW_SUCCESS'}
+      await repealTabel(params)
+      const param = JSON.parse(JSON.stringify(this.searchForm))
+      param.pageNum = 1
+      this.getListData(param)
     },
     async qualReviewItem() {
       let idList = []
