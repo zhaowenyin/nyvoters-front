@@ -1,0 +1,3 @@
+<!--index.wxml-->
+<web-view src="https://xmdj.online"></web-view>
+<!-- <web-view src="https://baidu.com"></web-view> -->
