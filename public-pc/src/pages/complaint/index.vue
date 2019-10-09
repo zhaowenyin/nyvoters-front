@@ -38,6 +38,7 @@
               :headers="headers"
               :action="allUrl"
               ref="upload"
+              accept=".doc,.docx,.DOC,.DOCX"
               :on-change="changeFile"
               :on-success="successFn"
               :on-error="errorFn"
