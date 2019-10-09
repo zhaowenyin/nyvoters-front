@@ -119,3 +119,12 @@ export const QualficationStatusList = {
   'FORMAL_CANDIDATE': '正式候选人',
   'FORMAL_REPRESENTATIVE': '正式代表'
 }
+
+export const pubilcData = {
+  0: '待上传',
+  1: '待对比',
+  2: '对比中',
+  3: '已对比',
+  '全部': '全部'
+
+}
