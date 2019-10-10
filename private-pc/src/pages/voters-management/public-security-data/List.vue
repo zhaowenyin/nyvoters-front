@@ -3,8 +3,6 @@
     <el-table
       :data="list"
       class="add_table"
-      @selection-change="handleSelectionChange"
-      @row-dblclick="dblclick"
       v-loading="loading">
       <el-table-column
         type="selection"
@@ -29,7 +27,7 @@
           <el-upload
             class="upload-demo"
             ref="upload"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            :action="allUrl"
             :on-remove="handleRemove"
             :on-change="changeFile"
             :on-success="successFn"
@@ -37,7 +35,7 @@
             :before-upload="beforeAvatarUpload"
             :file-list="fileList"
             :auto-upload="true">
-            <el-button slot="trigger" size="small" type="success" @click="submitUpload(scope.row)">上传到服务器</el-button>
+            <el-button slot="trigger" size="small" type="primary" @click="submitUpload(scope.row)">上传</el-button>
           </el-upload>
         </template>
       </el-table-column>
@@ -81,6 +79,24 @@ export default {
     ...mapState('commonData', {
       belongAreaId: state => state.belongAreaId
     }),
+    allUrl () {
+      let param = {
+        precinctId: this.precinctId,
+        token: this.authToken.token
+      }
+      let paramStr = ''
+      for (const k in param) {
+        if (param[k] !== undefined &&
+            param[k] !== null &&
+            param[k] !== '') {
+          paramStr += `&${k}=${encodeURI(param[k])}`
+        }
+      }
+      paramStr = paramStr.substr(1)
+      let url = ''
+      url =`${baseURL}/police/upload?${paramStr}`
+      return url
+    }
   },
   components: {
   },
@@ -106,8 +122,8 @@ export default {
     handleCurrentChange (val) {
       this.getListData({ pageNum: val })
     },
-    submitUpload() {
-      this.$refs.upload.submit();
+    submitUpload(val) {
+      this.precinctId = val.id
     },
     handleSelectionChange(val) {
       this.saveSelection(val)
@@ -158,24 +174,6 @@ export default {
     },
     handleRemove () {
 
-    },
-    allUrl () {
-      let param = {
-        precinctId: this.precinctId,
-        token: this.authToken.token
-      }
-      let paramStr = ''
-      for (const k in param) {
-        if (param[k] !== undefined &&
-            param[k] !== null &&
-            param[k] !== '') {
-          paramStr += `&${k}=${encodeURI(param[k])}`
-        }
-      }
-      paramStr = paramStr.substr(1)
-      let url = ''
-      url =`${baseURL}/doc/upload/?${paramStr}`
-      return url
     }
   }
 }
