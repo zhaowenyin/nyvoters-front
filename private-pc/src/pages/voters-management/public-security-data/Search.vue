@@ -15,7 +15,7 @@
           size="medium"
           style="width: 120px;"
           placeholder="请选择">
-          <el-option label="选民状态" :value="5"></el-option>
+          <el-option label="选民状态" :value="1"></el-option>
         </el-select>
       </el-form-item>
         <el-form-item
@@ -23,7 +23,7 @@
         prop="status">
         <el-select  size="medium" v-model.trim="searchForm.status">
           <el-option
-            v-for="(item, key) in statusList"
+            v-for="(item, key) in pubilcData"
             :key="key"
             :label="item"
             :value="key">
@@ -33,7 +33,7 @@
       <el-form-item>
         <el-button
           @click="submitForm()"
-          size="medium"
+          size="small"
           icon="el-icon-search"
           type="primary"></el-button>
       </el-form-item>

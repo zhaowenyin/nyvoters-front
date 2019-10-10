@@ -25,6 +25,7 @@
         <el-menu-item v-if="power.indexOf('7')>-1" class="item" index="/voters-draw">选民划出管理</el-menu-item>
         <el-menu-item v-if="power.indexOf('8')>-1" class="item" index="/voters-apeal">选民申诉管理</el-menu-item>
         <el-menu-item v-if="power.indexOf('9')>-1" class="item" index="/voters-down">文件资料</el-menu-item>
+        <el-menu-item class="item" index="/public-ecurity-data">公安数据管理</el-menu-item>
       </el-submenu>
        <el-submenu v-if="isSimilar(['10','11','12','13','14'])" index="2">
         <template slot="title">

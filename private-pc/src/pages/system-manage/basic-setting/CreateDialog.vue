@@ -195,7 +195,8 @@ export default {
         token: authToken.token,
       },
       fileName: '',
-      url: ''
+      url: '',
+      obj: {}
     }
 
   },
@@ -235,6 +236,7 @@ export default {
       for(let i of content) {
         obj[i.key] = i.value
       }
+      this.obj = obj
       this.form = {
         sessionNum: obj.sessionNum,
         voteDate: new Date(+obj.voteDate),
@@ -291,8 +293,8 @@ export default {
     },
     successFn (response) {
       // this.$notify.success({title: '上传成功'})
-      if(this.data&&this.data[4]&&this.data[4].value) {
-        this.form.loginBackgroudId = this.data[4].value
+      if(this.obj.loginBackgroudId) {
+        this.form.loginBackgroudId = this.obj.loginBackgroudId
       } else {
         this.form.loginBackgroudId = response.content
       }
@@ -321,8 +323,8 @@ export default {
       }
       paramStr = paramStr.substr(1)
       let url = ''
-      if(this.data&&this.data[4]&&this.data[4].value) {
-        url=`${baseURL}/doc/modify/?${paramStr}&id=${this.data[4].value}`
+      if(this.obj.loginBackgroudId) {
+        url=`${baseURL}/doc/modify/?${paramStr}&id=${this.obj.loginBackgroudId}`
       } else {
         url =`${baseURL}/doc/upload/?${paramStr}`
       }

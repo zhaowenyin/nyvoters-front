@@ -121,10 +121,9 @@ export const QualficationStatusList = {
 }
 
 export const pubilcData = {
+  '全部': '全部',
   0: '待上传',
   1: '待对比',
   2: '对比中',
-  3: '已对比',
-  '全部': '全部'
-
+  3: '已对比'
 }

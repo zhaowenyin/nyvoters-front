@@ -26,10 +26,16 @@
        <el-table-column
         label="自动对比结果">
         <template slot-scope="scope">
-          <el-button
-          @click="upload(scope.row)"
-          size="medium"
-          type="primary">上传</el-button>
+          <el-upload
+            class="upload-demo"
+            ref="upload"
+            action="https://jsonplaceholder.typicode.com/posts/"
+            :on-preview="handlePreview"
+            :on-remove="handleRemove"
+            :file-list="fileList"
+            :auto-upload="false">
+            <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload(scope.row)">上传到服务器</el-button>
+          </el-upload>
         </template>
       </el-table-column>
     </el-table>
@@ -91,8 +97,8 @@ export default {
     handleCurrentChange (val) {
       this.getListData({ pageNum: val })
     },
-    look (id) {
-      console.log(id)
+    submitUpload() {
+      this.$refs.upload.submit();
     },
     handleSelectionChange(val) {
       this.saveSelection(val)
