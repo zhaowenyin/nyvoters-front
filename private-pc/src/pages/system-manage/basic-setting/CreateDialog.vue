@@ -280,7 +280,6 @@ export default {
           this.$refs.upload.submit()
         },1000)
       }
-
     },
     beforeAvatarUpload (file) {
       console.log(file)

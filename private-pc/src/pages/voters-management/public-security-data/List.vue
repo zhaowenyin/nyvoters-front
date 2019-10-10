@@ -30,11 +30,14 @@
             class="upload-demo"
             ref="upload"
             action="https://jsonplaceholder.typicode.com/posts/"
-            :on-preview="handlePreview"
             :on-remove="handleRemove"
+            :on-change="changeFile"
+            :on-success="successFn"
+            :on-error="errorFn"
+            :before-upload="beforeAvatarUpload"
             :file-list="fileList"
-            :auto-upload="false">
-            <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload(scope.row)">上传到服务器</el-button>
+            :auto-upload="true">
+            <el-button slot="trigger" size="small" type="success" @click="submitUpload(scope.row)">上传到服务器</el-button>
           </el-upload>
         </template>
       </el-table-column>
@@ -54,11 +57,17 @@
 </template>
 <script>
 import { mapState, mapActions,mapMutations } from 'vuex'
+import { baseURL } from '../../../utils/api.js'
+import { getSession } from '../../../utils/session.js'
 
 export default {
   data () {
+    const authToken = getSession()
     return {
       downLoading: false,
+      fileList:[],
+      authToken,
+      precinctId: ''
     }
   },
   computed: {
@@ -71,7 +80,7 @@ export default {
     }),
     ...mapState('commonData', {
       belongAreaId: state => state.belongAreaId
-    })
+    }),
   },
   components: {
   },
@@ -125,6 +134,48 @@ export default {
     },
     upload () {
 
+    },
+    successFn (response) {
+      console.log(123,response)
+      // this.form.id = response.id
+      this.$refs.upload.clearFiles()
+    },
+    errorFn (err) {
+      const { message = `{}` } = err
+      const errorObj = JSON.parse(message)
+      this.$notify.error({title: errorObj.message || '上传失败'})
+    },
+    changeFile (file, fileList) {
+      this.fileList = fileList
+    },
+    beforeAvatarUpload (file) {
+      const isXlsx = file.type ===
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      if (!isXlsx) {
+        this.$notify.error({title: '只能上传 xlsx 格式的文件!'})
+      }
+      return isXlsx
+    },
+    handleRemove () {
+
+    },
+    allUrl () {
+      let param = {
+        precinctId: this.precinctId,
+        token: this.authToken.token
+      }
+      let paramStr = ''
+      for (const k in param) {
+        if (param[k] !== undefined &&
+            param[k] !== null &&
+            param[k] !== '') {
+          paramStr += `&${k}=${encodeURI(param[k])}`
+        }
+      }
+      paramStr = paramStr.substr(1)
+      let url = ''
+      url =`${baseURL}/doc/upload/?${paramStr}`
+      return url
     }
   }
 }
