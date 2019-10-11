@@ -1,4 +1,4 @@
-import api from '../../../utils/api'
+// import api from '../../../utils/api'
 
 // get请求
 export async function getList (payload) {
@@ -46,18 +46,15 @@ export async function getList (payload) {
   // return api.post('/out/list',  payload )
 }
 
-export async function drawOut (payload) {
-  // console.log(payload)
-  // return new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve({
-  //       data: {
-  //       }
-  //     })
-  //   }, 500)
-  // })
-  return api.post('/out/cut', payload)
+export async function getcontrast (payload) {
+  console.log(payload)
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+        }
+      })
+    }, 500)
+  })
+  // return api.post('/police/compare', payload)
 }
-
-
-

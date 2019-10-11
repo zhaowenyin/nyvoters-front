@@ -22,9 +22,10 @@
         </template>
       </el-table-column>
        <el-table-column
-        label="自动对比结果">
+        label="操作">
         <template slot-scope="scope">
           <el-upload
+            v-if="+scope.row.status === 0"
             class="upload-demo"
             ref="upload"
             :action="allUrl"
@@ -37,6 +38,7 @@
             :auto-upload="true">
             <el-button slot="trigger" size="small" type="primary" @click="submitUpload(scope.row)">上传</el-button>
           </el-upload>
+          <el-button v-if="+scope.row.status === 1" size="small" type="primary" @click="contrast(scope.row)">对比</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -55,8 +57,9 @@
 </template>
 <script>
 import { mapState, mapActions,mapMutations } from 'vuex'
-import { baseURL } from '../../../utils/api.js'
+// import { baseURL } from '../../../utils/api.js'
 import { getSession } from '../../../utils/session.js'
+import {getcontrast} from './service'
 
 export default {
   data () {
@@ -65,7 +68,8 @@ export default {
       downLoading: false,
       fileList:[],
       authToken,
-      precinctId: ''
+      precinctId: '',
+      contrastLoading: false
     }
   },
   computed: {
@@ -94,7 +98,7 @@ export default {
       }
       paramStr = paramStr.substr(1)
       let url = ''
-      url =`${baseURL}/police/upload?${paramStr}`
+      url =`https://jsonplaceholder.typicode.com/posts/?${paramStr}`
       return url
     }
   },
@@ -151,9 +155,12 @@ export default {
     upload () {
 
     },
-    successFn (response) {
-      console.log(123,response)
-      // this.form.id = response.id
+    successFn () {
+      for(let i of this.list) {
+        if(this.precinctId === i.id) {
+          i.status = 1
+        }
+      }
       this.$refs.upload.clearFiles()
     },
     errorFn (err) {
@@ -174,6 +181,17 @@ export default {
     },
     handleRemove () {
 
+    },
+    async contrast (val) {
+      this.contrastLoading = true
+      const {data} = await getcontrast({precinctId: val.id})
+      for(let i of this.list) {
+        if(this.precinctId === i.id) {
+          i.status = 2
+        }
+      }
+      this.contrastLoading = false
+      console.log(data)
     }
   }
 }
