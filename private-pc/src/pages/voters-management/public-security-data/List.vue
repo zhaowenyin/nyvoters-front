@@ -99,7 +99,7 @@ export default {
       }
       paramStr = paramStr.substr(1)
       let url = ''
-      url =`https://jsonplaceholder.typicode.com/posts/?${paramStr}`
+      url =`/police/upload?${paramStr}`
       return url
     }
   },
