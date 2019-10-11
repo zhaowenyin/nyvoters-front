@@ -15,20 +15,14 @@
         <el-form-item
           label="上级选委会"
           prop="parentId">
-          <el-select
-            :disabled="isDisabled"
-            size="medium"
-            style="width: 100%;"
-            class="item"
+          <DistrictSelect
+            :disabled="true"
+            :multiple="false"
+            :noallow="true"
             v-model="form.parentId"
-            placeholder="请选择">
-            <el-option
-              v-for="(item, key) in parentList"
-              :key="key"
-              :label="item.name"
-              :value="item.id">
-            </el-option>
-          </el-select>
+            :item='item'
+            :data="treeList"
+          />
         </el-form-item>
         <el-form-item
           label="选委会"
@@ -171,8 +165,7 @@ export default {
 
       },
       createDialogVisible: false,
-      data: [],
-      parentList: []
+      data: []
     }
 
   },
@@ -180,7 +173,8 @@ export default {
     ...mapState('commonCommittee', {
       committeeId: state => state.belongAreaId,
       belongArea: state => state.belongArea,
-      belongItem: state => state.belongItem
+      belongItem: state => state.belongItem,
+      treeList: state => state.treeList,
     })
   },
   props:{
@@ -203,23 +197,22 @@ export default {
   },
   created () {
     this.form.parentId = this.committeeId
-    const params = {
-      parentId: this.item.parentId,
-      name: this.item.name,
-      code: this.item.code,
-      districtId: this.item.districtId,
-      manager: this.item.manager,
-      phoneName: this.item.phoneName,
-      sort: this.item.sort,
-    }
+    let params = {}
     if (this.item.id) {
+      params =  {
+        parentId: this.item.parentId,
+        name: this.item.name,
+        code: this.item.code,
+        districtId: this.item.districtId,
+        manager: this.item.manager,
+        phoneName: this.item.phoneName,
+        sort: this.item.sort,
+      }
       this.form = {...this.form, ...params }
       this.searchTree1({id: this.item.parentId})
     } else {
       this.searchTree1({id: this.committeeId})
     }
-
-    this.parentList.push({name:this.item.name || this.belongArea,id:this.item.parentId || this.committeeId})
   },
 
   methods: {
