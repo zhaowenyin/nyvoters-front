@@ -38,7 +38,8 @@
             :auto-upload="true">
             <el-button slot="trigger" size="small" type="primary" @click="submitUpload(scope.row)">上传</el-button>
           </el-upload>
-          <el-button v-if="+scope.row.status === 1" size="small" type="primary" @click="contrast(scope.row)">对比</el-button>
+          <el-button v-else-if="+scope.row.status === 1" size="small" type="primary" @click="contrast(scope.row)">对比</el-button>
+          <div v-else>-</div>
         </template>
       </el-table-column>
     </el-table>
