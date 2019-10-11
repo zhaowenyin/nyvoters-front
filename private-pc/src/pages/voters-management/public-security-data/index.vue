@@ -84,6 +84,7 @@ export default {
   .view-content {
     background: #f8f8f8;
     flex: 1;
+    overflow: auto;
     padding: 16px 20px;
   }
 </style>

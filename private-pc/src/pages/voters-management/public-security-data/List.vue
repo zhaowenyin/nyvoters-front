@@ -34,7 +34,7 @@
             :on-success="successFn"
             :on-error="errorFn"
             :before-upload="beforeAvatarUpload"
-            :file-list="fileList"
+            :file-list="scope.row.fileList || []"
             :auto-upload="true">
             <el-button slot="trigger" size="small" type="primary" @click="submitUpload(scope.row)">上传</el-button>
           </el-upload>
@@ -58,7 +58,7 @@
 </template>
 <script>
 import { mapState, mapActions,mapMutations } from 'vuex'
-// import { baseURL } from '../../../utils/api.js'
+import { baseURL } from '../../../utils/api.js'
 import { getSession } from '../../../utils/session.js'
 import {getcontrast} from './service'
 
@@ -67,7 +67,6 @@ export default {
     const authToken = getSession()
     return {
       downLoading: false,
-      fileList:[],
       authToken,
       precinctId: '',
       contrastLoading: false
@@ -99,7 +98,7 @@ export default {
       }
       paramStr = paramStr.substr(1)
       let url = ''
-      url =`/police/upload?${paramStr}`
+      url =`${baseURL}/police/upload?${paramStr}`
       return url
     }
   },
@@ -128,7 +127,7 @@ export default {
       this.getListData({ pageNum: val })
     },
     submitUpload(val) {
-      this.precinctId = val.id
+      this.precinctId = val.precinctId
     },
     handleSelectionChange(val) {
       this.saveSelection(val)
@@ -158,7 +157,8 @@ export default {
     },
     successFn () {
       for(let i of this.list) {
-        if(this.precinctId === i.id) {
+        if(this.precinctId === i.precinctId) {
+          console.log(888+'-----',this.precinctId,i.precinctId)
           i.status = 1
         }
       }
@@ -170,7 +170,11 @@ export default {
       this.$notify.error({title: errorObj.message || '上传失败'})
     },
     changeFile (file, fileList) {
-      this.fileList = fileList
+      for(let i of this.list) {
+        if(this.precinctId === i.precinctId) {
+          i.fileList = fileList
+        }
+      }
     },
     beforeAvatarUpload (file) {
       const isXlsx = file.type ===
@@ -185,9 +189,9 @@ export default {
     },
     async contrast (val) {
       this.contrastLoading = true
-      const {data} = await getcontrast({precinctId: val.id})
+      const {data} = await getcontrast({precinctId: val.precinctId})
       for(let i of this.list) {
-        if(this.precinctId === i.id) {
+        if(val.precinctId === i.precinctId) {
           i.status = 2
         }
       }

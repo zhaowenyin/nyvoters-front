@@ -78,7 +78,11 @@ export default {
     submitForm () {
       this.$refs.form.validate((valid) => {
         if (valid) {
-          const params = JSON.parse(JSON.stringify(this.searchForm))
+          let status = this.searchForm.status
+          if(this.searchForm.status === '全部'){
+            status = ''
+          }
+          const params = JSON.parse(JSON.stringify({...this.searchForm,status}))
           params.pageNum = 1
           this.getListData(params)
         }
@@ -86,7 +90,7 @@ export default {
     },
     async download () {
       try {
-        output({url: '/doc/download', param: {fileName: '公安数据模板.xlsx', token:this.authToken.token,belongAreaId: this.belongAreaId}})
+        output({url: '/doc/download', param: {fileName: '公安数据模板', token:this.authToken.token,belongAreaId: this.belongAreaId}})
       } catch (err) {
         console.log(err)
       }
