@@ -38,7 +38,7 @@
             :auto-upload="true">
             <el-button slot="trigger" size="small" type="primary" @click="submitUpload(scope.row)">上传</el-button>
           </el-upload>
-          <el-button v-else-if="+scope.row.status === 1" size="small" type="primary" @click="contrast(scope.row)">对比</el-button>
+          <el-button v-loading="contrastLoading&&(precinctId ===scope.row.precinctId)" v-else-if="+scope.row.status === 1" size="small" type="primary" @click="contrast(scope.row)">对比</el-button>
           <div v-else>-</div>
         </template>
       </el-table-column>
@@ -158,7 +158,6 @@ export default {
     successFn () {
       for(let i of this.list) {
         if(this.precinctId === i.precinctId) {
-          console.log(888+'-----',this.precinctId,i.precinctId)
           i.status = 1
         }
       }
@@ -195,7 +194,9 @@ export default {
           i.status = 2
         }
       }
+      this.precinctId = val.precinctId
       this.contrastLoading = false
+      this.getListData()
       console.log(data)
     }
   }
