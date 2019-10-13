@@ -74,7 +74,6 @@
 import { mapState, mapActions } from 'vuex'
 import CreateDialog from './CreateDialog'
 import {qualReview} from './service.js'
-import {repealTabel} from './service.js'
 
 export default {
   data () {
@@ -200,8 +199,8 @@ export default {
       for (let i of this.multipleSelection) {
         idList.push(i.id)
       }
-      let params = {idList,status: 'REVIEW_SUCCESS'}
-      await repealTabel(params)
+      let params = {idList,status: 'REVIEW_FAIL'}
+      await qualReview(params)
       const param = JSON.parse(JSON.stringify(this.searchForm))
       param.pageNum = 1
       this.getListData(param)

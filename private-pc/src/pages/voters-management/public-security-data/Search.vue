@@ -15,7 +15,7 @@
           size="medium"
           style="width: 120px;"
           placeholder="请选择">
-          <el-option label="选民状态" :value="1"></el-option>
+          <el-option label="状态" :value="1"></el-option>
         </el-select>
       </el-form-item>
         <el-form-item
