@@ -112,7 +112,7 @@ export default {
 
         if(data.content) {
           setTimeout(() => {
-            this.$router.push({path:'/success',query: {type: 2, id: content.fileId,info: content.info}})
+            this.$router.push({path:'/success',query: {type: 2, id: content.fileId,info: content.info,voterId:data.content.voterId}})
           },500)
 
         } else {
@@ -156,7 +156,7 @@ export default {
         resolveBug()
       },10)
     },
-
+    cardVali
   }
 }
 </script>

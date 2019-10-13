@@ -34,7 +34,7 @@ export default function ({ url, param, download, data, type }) {
     if (/^(http:\/\/)|(https:\/\/)/g.test(url)) {
       el.href = `${url}${paramStr}`
     } else {
-      el.href = `${getBaseURL}${url}${paramStr}`
+      el.href = `${getBaseURL()}${url}${paramStr}`
     }
   }
 
