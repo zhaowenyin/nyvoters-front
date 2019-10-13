@@ -20,6 +20,10 @@ export const dataList = [
     label: ' 选民管理',
     children:[
       {
+        label: '公安数据管理',
+        id: '30'
+      },
+      {
         label: '选民资格审查',
         id: '4'
       },
