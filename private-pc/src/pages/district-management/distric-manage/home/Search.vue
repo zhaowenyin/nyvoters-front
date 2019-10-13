@@ -105,7 +105,7 @@ export default {
     ...mapActions('distictHome', [
       'getListData',
     ]),
-    ...mapActions('commonCommittee', [
+    ...mapActions('commonData', [
       'searchTree',
     ]),
     // 搜索

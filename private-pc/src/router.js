@@ -61,6 +61,7 @@ const VotersApeal = ()=>import('@/pages/voters-management/voters-appeal')
 const VotersApealHome = ()=>import('@/pages/voters-management/voters-appeal/home')
 const VotersApealistory = ()=>import('@/pages/voters-management/voters-appeal/history')
 const VotersDown = ()=>import('@/pages/voters-management/download-file')
+const PublicSecurityData = ()=>import('@/pages/voters-management/public-security-data')
 // 消息中心
 const News = () => import('@/pages/news-center')
 const Read = () => import('@/pages//news-center/read')
@@ -135,6 +136,11 @@ const router = new Router({
               component: QualReviewHistory
             }
           ]
+        },
+        {
+          path: 'public-ecurity-data',
+          name: '公安数据管理',
+          component: PublicSecurityData
         },
         {
           path: 'behalf-recommended',

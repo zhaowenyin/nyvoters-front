@@ -46,7 +46,8 @@ export const verifyArr = [
   '/create-votersfile',
   '/address-book',
   '/authorization-config',
-  '/report-file-detail'
+  '/report-file-detail',
+  '/public-ecurity-data'
 
 ]
 
