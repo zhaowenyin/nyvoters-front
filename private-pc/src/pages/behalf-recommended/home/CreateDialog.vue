@@ -480,7 +480,7 @@ export default {
   },
   created () {
     this.ref1 = this.belongAreaItem.level === 3 && this.belongAreaItem.committee
-    this.ref2 = this.belongAreaItem.level === 1 && !this.belongAreaItem.committee
+    this.ref2 = this.belongAreaItem.level === 2 && !this.belongAreaItem.committee
     if( this.ref2) {
       this.form.type = '2'
     }
