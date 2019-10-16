@@ -181,7 +181,7 @@ export default {
     },
     async delectItem() {
       await deletetTabel({id:this.multipleSelection[0].id})
-      this.searchTree({type: 0, id: '',modify:true})
+      this.searchTree({type: 0, id: ''})
       this.getListData()
     }
   }

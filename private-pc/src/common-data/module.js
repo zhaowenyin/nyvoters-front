@@ -11,9 +11,9 @@ export default {
     belongArea: '',
     treeList: [],
     news: [],
-    saveItem: {},
+    // saveItem: {},
     belongAreaItem: {},
-    type: null
+    // type: null
   },
   mutations: {
     updateUserInfo (state, payload) {
@@ -36,7 +36,7 @@ export default {
         state.belongAreaItem = func([payload.payload.data.content])
         state.belongAreaId = state.belongAreaItem.id
         state.belongArea = state.belongAreaItem.name
-        state.saveItem =  state.belongAreaItem
+        // state.saveItem =  state.belongAreaItem
       }
       state.treeList = [payload.payload.data.content]
     },
@@ -62,16 +62,16 @@ export default {
         data
       })
     },
-    async searchTree ({ commit, state }, payload) {
-      if(!payload.modify){
-        if(!isEmptyObj(state.treeList)&&state.type===payload.type) {
-          state.belongAreaId = state.saveItem.id
-          state.belongArea = state.saveItem.name
-          state.belongAreaItem = JSON.parse(JSON.stringify(state.saveItem))
-          return
-        }
-      }
-      state.type = payload.type
+    async searchTree ({ commit }, payload) {
+      // if(!payload.modify){
+      //   if(!isEmptyObj(state.treeList)&&state.type===payload.type) {
+      // state.belongAreaId = state.saveItem.id
+      // state.belongArea = state.saveItem.name
+      // state.belongAreaItem = JSON.parse(JSON.stringify(state.saveItem))
+      //   return
+      // }
+      // }
+      // state.type = payload.type
       const { data } = await getTree({type: payload.type,id:payload.id})
       commit({
         type: 'updateTreeList',
