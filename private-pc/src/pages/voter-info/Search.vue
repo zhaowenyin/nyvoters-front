@@ -39,7 +39,7 @@
           </el-option>
         </el-select>
       </el-form-item>
-       <el-form-item
+      <el-form-item
        label="选民状态"
         prop="status">
         <el-select
@@ -49,6 +49,22 @@
         v-model.trim="searchForm.status">
           <el-option
             v-for="(item, key) in statusList"
+            :key="key"
+            :label="item"
+            :value="key">
+          </el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item
+       label="参选地类型"
+        prop="status">
+        <el-select
+        size="medium"
+        placeholder="请选择"
+        style="width: 200px;"
+        v-model.trim="searchForm.candidateType">
+          <el-option
+            v-for="(item, key) in candidateTypeList"
             :key="key"
             :label="item"
             :value="key">
@@ -70,7 +86,7 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import {registrationTypeList, typeList,statusList} from '../../common-data/config.js'
+import {registrationTypeList, typeList,statusList, candidateTypeList} from '../../common-data/config.js'
 
 export default {
   data () {
@@ -86,7 +102,8 @@ export default {
       item: {},
       registrationTypeList,
       typeList,
-      statusList
+      statusList,
+      candidateTypeList
     }
   },
   computed: {
