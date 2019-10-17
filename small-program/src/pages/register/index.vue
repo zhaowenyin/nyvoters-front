@@ -109,7 +109,7 @@
         :getItemLabel="(item)=>item.label"
         :getItemValue="(item)=>item.value"/>
     </div>
-    <div class="out-input" v-if="form.candidateType===1">
+    <div class="out-input" v-if="+form.candidateType !== 0">
       <div class="label-width">
         <span class="dot">*</span>
         <span>持资格转移证明</span>
