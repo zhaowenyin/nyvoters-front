@@ -4,6 +4,7 @@
       :data="list"
       class="add_table"
       @selection-change="handleSelectionChange"
+      @row-dblclick="dblclick"
       v-loading="loading">
        <el-table-column
         type="selection"
@@ -107,6 +108,9 @@ export default {
     // 分页
     handleCurrentChange (val) {
       this.getListData({ pageNum: val })
+    },
+    dblclick(val){
+      this.$emit('lookDetail',{val,isDisabled: true})
     },
     look (id) {
       console.log(id)

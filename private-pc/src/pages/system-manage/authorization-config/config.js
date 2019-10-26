@@ -24,6 +24,10 @@ export const dataList = [
         id: '30'
       },
       {
+        label: '比对失败数据',
+        id: '31'
+      },
+      {
         label: '选民资格审查',
         id: '4'
       },

@@ -20,6 +20,7 @@
           <span>选民管理</span>
         </template>
         <el-menu-item v-if="power.indexOf('30')>-1" class="item" index="/public-ecurity-data">公安数据管理</el-menu-item>
+        <el-menu-item v-if="power.indexOf('31')>-1" class="item" index="/compare-fail-data">比对失败数据</el-menu-item>
         <el-menu-item v-if="power.indexOf('4')>-1" class="item" index="/voters-qualification">选民资格审查</el-menu-item>
         <el-menu-item v-if="power.indexOf('5')>-1" class="item" index="/voters-transfer">选民转移管理</el-menu-item>
         <el-menu-item v-if="power.indexOf('6')>-1" class="item" index="/voters-input">选民划入管理</el-menu-item>

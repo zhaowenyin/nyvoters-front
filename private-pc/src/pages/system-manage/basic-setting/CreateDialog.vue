@@ -251,15 +251,19 @@ export default {
       this.loading = false
     },
     async sumitData () {
-      this.loading = true
-      let param = {...this.form}
-      param.registerEndDate = param.registerEndDate.getTime()
-      param.registerStartDate = param.registerStartDate.getTime()
-      param.voteDate = param.voteDate.getTime()
-      await setSubmit(param)
-      this.$emit('updateConfig')
-      this.close()
-      this.loading = false
+      try{
+        this.loading = true
+        let param = {...this.form}
+        param.registerEndDate = param.registerEndDate.getTime()
+        param.registerStartDate = param.registerStartDate.getTime()
+        param.voteDate = param.voteDate.getTime()
+        await setSubmit(param)
+        this.$emit('updateConfig')
+        this.close()
+        this.loading = false
+      }finally{
+        this.loading = false
+      }
     },
     async getName (val) {
       const {data} = await getName({id: val})

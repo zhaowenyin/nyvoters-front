@@ -1,7 +1,6 @@
 <template>
   <div class="view">
     <div class="view-left">
-      <!-- :hasSearch="true" 可搜索 -->
       <CommonTree
         :current-node-key="this.belongAreaId"
         node-key="id"
@@ -10,14 +9,9 @@
         @node-click="handleNodeClick" />
     </div>
     <div class="view-content">
-      <Search @lookDetail="lookDetail"/>
-      <List @lookDetail="lookDetail"/>
-      <CreateDialog
-        v-if="createDialogVisible"
-        :item='item'
-        :isDisabled="isDisabled"
-        :visible.sync='createDialogVisible'
-      />
+      <Search />
+     <List
+      @lookDetail="lookDetail"/>
     </div>
   </div>
 </template>
@@ -25,28 +19,25 @@
 import { mapMutations,mapActions,mapState } from 'vuex'
 import Search from './Search'
 import List from './List'
-import CommonTree from '../../components/common-tree'
-import CreateDialog from '../qual-review/home/CreateDialog'
+import CommonTree from '../../../components/common-tree'
 
 export default {
   data () {
     return {
-      item: {},
-      createDialogVisible: false,
-      isDisabled: false
+      item: {}
     }
   },
   computed: {
     ...mapState('commonData', {
       data: state => state.treeList,
-      belongAreaId:state => state.belongAreaId
+      belongAreaId: state => state.belongAreaId
     })
+
   },
   components: {
     Search,
     List,
     CommonTree,
-    CreateDialog
   },
   created () {
     // 初始化清除数据
@@ -54,7 +45,7 @@ export default {
     this.searchTree({type: 0, id: ''})
   },
   methods: {
-    ...mapMutations('initialCandidate', [
+    ...mapMutations('comparefaildata', [
       'clearState'
     ]),
     ...mapMutations('commonData', [
@@ -74,6 +65,7 @@ export default {
       this.createDialogVisible = true
       this.isDisabled = val.isDisabled
     }
+
   }
 }
 </script>
@@ -92,6 +84,7 @@ export default {
   .view-content {
     background: #f8f8f8;
     flex: 1;
+    overflow: auto;
     padding: 16px 20px;
   }
 </style>

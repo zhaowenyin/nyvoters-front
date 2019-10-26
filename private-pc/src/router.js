@@ -62,6 +62,7 @@ const VotersApealHome = ()=>import('@/pages/voters-management/voters-appeal/home
 const VotersApealistory = ()=>import('@/pages/voters-management/voters-appeal/history')
 const VotersDown = ()=>import('@/pages/voters-management/download-file')
 const PublicSecurityData = ()=>import('@/pages/voters-management/public-security-data')
+const CompareFailData = ()=>import('@/pages/voters-management/compare-fail-data')
 // 消息中心
 const News = () => import('@/pages/news-center')
 const Read = () => import('@/pages//news-center/read')
@@ -141,6 +142,11 @@ const router = new Router({
           path: 'public-ecurity-data',
           name: '公安数据管理',
           component: PublicSecurityData
+        },
+        {
+          path: 'compare-fail-data',
+          name: '比对失败数据',
+          component: CompareFailData
         },
         {
           path: 'behalf-recommended',

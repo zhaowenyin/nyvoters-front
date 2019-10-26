@@ -171,7 +171,7 @@
             </el-select>
           </el-form-item>
         </el-col>
-         <el-col v-if="+form.candidateType !== 1" :span="12">
+         <el-col v-if="+form.candidateType !== 0" :span="12">
           <el-form-item
             label="持资格转移证明"
             prop="proveDocId">

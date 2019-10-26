@@ -1,7 +1,7 @@
 <template>
   <el-dialog
     v-loading="loading"
-    title="新建"
+    :title="item.id ? (isDisabled ? '查看' : '修改') : '新建'"
     :visible="visible"
     width="820px"
     :close-on-click-modal="false"
@@ -202,7 +202,7 @@
   </el-dialog>
 </template>
 <script>
-import {setSubmit} from './service.js'
+import {setSubmit,modifySubmit} from './service.js'
 import {cardVali} from '../../../utils/format'
 import { mapActions, mapState } from 'vuex'
 export default {
@@ -295,7 +295,10 @@ export default {
     })
   },
   created () {
-    this.form = {...this.form, ...this.item }
+    if(this.item.id) {
+      this.form = {...this.form, ...this.item,startTime: this.item.startTime ? new Date(this.item.startTime) : '',endTime: this.item.endTime ? new Date(this.item.endTime) : ''}
+    }
+    //this.form = {...this.form, ...this.item }
     this.searchnation()
   },
   methods: {
@@ -318,7 +321,21 @@ export default {
     async sumitData () {
       try {
         this.loading = true
-        await setSubmit(this.handerParams())
+        if(this.item.name) {
+          await modifySubmit({...this.handerParams(), id: this.item.id})
+          this.$notify({
+            title: '',
+            message: '修改成功',
+            type: 'success'
+          });
+        }else {
+          await setSubmit(this.handerParams())
+          this.$notify({
+            title: '',
+            message: '新建成功',
+            type: 'success'
+          });
+        }
         this.close()
         this.getListData()
       } finally{

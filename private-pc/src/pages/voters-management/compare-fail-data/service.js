@@ -10,18 +10,18 @@ export async function getList (payload) {
   //         "content": {
   //           "data": [
   //             {
-  //               "contactInformation": "string",
-  //               "endTime":  1552489000,
-  //               "gender": true,
-  //               "householdRegistration": "string",
+  //               "createTime": new Date,
+  //               "createUserId": 0,
+  //               "createUserName": "string",
+  //               "docId": 0,
+  //               "fileName": "string",
   //               "id": 0,
-  //               "idNum": "string",
-  //               "living": "string",
-  //               "name": "string",
-  //               "nation": "string",
-  //               "phoneNum": "string",
-  //               "startTime":  1552489000
-
+  //               "precinctId": 0,
+  //               "precinctName": "string",
+  //               "status": 0,
+  //               "updateTime": new Date,
+  //               "updateUserId": 0,
+  //               "updateUserName": "string"
   //             }
   //           ],
   //           "endRow": 0,
@@ -43,11 +43,11 @@ export async function getList (payload) {
       delete payload[i]
     }
   }
-  return api.post('/disempower/list', payload )
+  return api.post('/police/list',  payload )
 }
 
-export async function setSubmit (payload) {
-  // console.log(1,payload)
+export async function getcontrast (payload) {
+  // console.log(payload)
   // return new Promise((resolve) => {
   //   setTimeout(() => {
   //     resolve({
@@ -56,21 +56,5 @@ export async function setSubmit (payload) {
   //     })
   //   }, 500)
   // })
-  return api.post('/disempower/add', payload)
+  return api.post('/police/compare', payload)
 }
-
-export async function modifySubmit (payload) {
-  // console.log(2,payload)
-  // return new Promise((resolve) => {
-  //   setTimeout(() => {
-  //     resolve({
-  //       data: {
-  //       }
-  //     })
-  //   }, 500)
-  // })
-  return api.post('/disempower/edit', payload)
-}
-
-
-

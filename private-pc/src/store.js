@@ -28,7 +28,7 @@ import votersTransfer from './pages/voters-management/voters-transfer/home/modul
 import votersAppealHome from './pages/voters-management/voters-appeal/home/module'
 import votersAppealHistory from './pages/voters-management/voters-appeal/history/module'
 import publicsecuritydata from './pages/voters-management/public-security-data/module'
-
+import comparefaildata from './pages/voters-management/compare-fail-data/module'
 // 选民信息查询
 import voterInfo from './pages/voter-info/module'
 import voterRegisters from './pages/voter-registers/home/module'
@@ -81,6 +81,7 @@ export default new Vuex.Store({
     authority,
     addressBook,
     reportCenter,
-    publicsecuritydata
+    publicsecuritydata,
+    comparefaildata
   }
 })

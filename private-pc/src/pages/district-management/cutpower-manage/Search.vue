@@ -2,6 +2,7 @@
   <div class="search-box">
     <div class="left">
       <el-button size="medium" @click="create" type="primary" icon="el-icon-circle-plus-outline">新建</el-button>
+      <el-button size="medium"  @click="modify" type="primary" icon="el-icon-edit">修改</el-button>
     </div>
     <el-form
       ref="form"
@@ -159,6 +160,17 @@ export default {
       this.val = +val
       this.item = {}
       this.createDialogVisible = true
+    },
+    modify () {
+      if(this.multipleSelection.length !== 1) {
+        this.$notify({
+          title: '',
+          message: '请勾选一条数据进行修改！',
+          type: 'warning'
+        });
+        return
+      }
+      this.$emit('lookDetail',{val:this.multipleSelection[0],isDisabled: false})
     },
   }
 }

@@ -47,7 +47,8 @@ export const verifyArr = [
   '/address-book',
   '/authorization-config',
   '/report-file-detail',
-  '/public-ecurity-data'
+  '/public-ecurity-data',
+  '/compare-fail-data'
 
 ]
 
