@@ -86,12 +86,31 @@
     </div>
     <div class="out-input">
       <div class="label-width">
+        <span>户籍详细</span>
+      </div>
+      <input
+        @blur="blur"
+        v-model.trim="form.householdRegistrationDetail"
+        placeholder="请填写户籍详细地址"
+        class="input"/>
+    </div>
+    <div class="out-input">
+      <div class="label-width">
         <span class="dot">*</span>
         <span>现居住地</span>
       </div>
       <input
         v-model="form.living"
         placeholder="请填写现居住地"
+        class="input"/>
+    </div>
+    <div class="out-input">
+      <div class="label-width">
+        <span>现居详细</span>
+      </div>
+      <input
+        v-model="form.livingDetail"
+        placeholder="请填写现居住详细地址"
         class="input"/>
     </div>
     <div class="out-input">
