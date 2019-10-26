@@ -84,25 +84,57 @@
               </el-form-item>
             </el-col>
         </el-row>
-        <el-form-item
-
-          label="户籍地："
-          prop="householdRegistration">
-          <el-input
-            size="medium"
-            placeholder="请输入户籍地"
-            class="item"
-            v-model.trim="form.householdRegistration" />
-        </el-form-item>
-        <el-form-item
-
-          label="现居住地："
-          prop="living">
-          <el-input
-            placeholder="请输入现居住地"
-            class="item"
-            v-model.trim="form.living" />
-        </el-form-item>
+        <el-row :gutter="20">
+          <el-col :span="12">
+            <el-form-item
+              label="户籍地："
+              prop="householdRegistration">
+              <el-input
+                size="medium"
+                placeholder="请输入户籍地"
+                class="item"
+                v-model.trim="form.householdRegistration" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label-width="0px"
+              label=""
+              prop="householdRegistrationDetail">
+              <el-input
+                @change="detailchange"
+                :disabled="isDisabled"
+                size="medium"
+                placeholder="详细地址"
+                class="item"
+                v-model.trim="form.householdRegistrationDetail" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label="现居住地："
+              prop="living">
+              <el-input
+                placeholder="请输入现居住地"
+                class="item"
+                v-model.trim="form.living" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item
+              label=""
+              label-width="0px"
+              prop="livingDetail">
+              <el-input
+                @change="livingDetailChange"
+                :disabled="isDisabled"
+                size="medium"
+                placeholder="详细地址"
+                class="item"
+                v-model.trim="form.livingDetail" />
+            </el-form-item>
+          </el-col>
+        </el-row>
         <el-row :gutter="60">
           <el-col :span="12">
             <el-form-item
