@@ -1,43 +1,58 @@
 <template>
   <div class="view">
     <div class="view-left">
+      <!-- :hasSearch="true" 可搜索 -->
       <CommonTree
-        :current-node-key="this.belongAreaId"
+        :current-node-key="belongAreaId"
         node-key="id"
         :expand-on-click-node="false"
         :data="data"
         @node-click="handleNodeClick" />
     </div>
     <div class="view-content">
-      <Search />
-     <List
+      <Search
+      @lookDetail="lookDetail"
+      />
+      <List
       @lookDetail="lookDetail"/>
+      <CreateDialog
+      v-if="createDialogVisible"
+      :item='item'
+      :isDisabled="isDisabled"
+      :enableItem="enableItem"
+      :openMode="openMode"
+      :visible.sync='createDialogVisible'
+      />
     </div>
   </div>
 </template>
 <script>
-import { mapMutations,mapActions,mapState } from 'vuex'
 import Search from './Search'
+import { mapMutations, mapActions, mapState } from 'vuex'
 import List from './List'
-import CommonTree from '../../../components/common-tree'
+import CommonTree from '../../components/common-tree'
+import CreateDialog from './CreateDialog'
 
 export default {
   data () {
     return {
-      item: {}
+      item: {},
+      createDialogVisible: false,
+      isDisabled: false,
+      enableItem: {}
     }
   },
   computed: {
     ...mapState('commonData', {
       data: state => state.treeList,
-      belongAreaId: state => state.belongAreaId
+      belongAreaId:state => state.belongAreaId
     })
-
   },
   components: {
     Search,
     List,
     CommonTree,
+    CreateDialog
   },
   created () {
     // 初始化清除数据
@@ -45,7 +60,7 @@ export default {
     this.searchTree({type: 0, id: ''})
   },
   methods: {
-    ...mapMutations('comparefaildata', [
+    ...mapMutations('voterRegister', [
       'clearState'
     ]),
     ...mapMutations('commonData', [
@@ -64,8 +79,8 @@ export default {
       this.item = val.val
       this.createDialogVisible = true
       this.isDisabled = val.isDisabled
+      this.openMode = "2"
     }
-
   }
 }
 </script>
@@ -84,7 +99,7 @@ export default {
   .view-content {
     background: #f8f8f8;
     flex: 1;
-    overflow: auto;
     padding: 16px 20px;
+    overflow: auto;
   }
 </style>

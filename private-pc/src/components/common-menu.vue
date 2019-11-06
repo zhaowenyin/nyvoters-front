@@ -13,6 +13,7 @@
         <el-menu-item v-if="power.indexOf('1')>-1" class="item" index="/voter-register">选民在线登记</el-menu-item>
         <el-menu-item v-if="power.indexOf('2')>-1" class="item" index="/voter-registers">选民批量导入</el-menu-item>
         <el-menu-item v-if="power.indexOf('3')>-1" class="item" index="/voter-info">选民信息查询</el-menu-item>
+        <el-menu-item v-if="power.indexOf('31')>-1" class="item" index="/compare-fail-data">比对失败数据</el-menu-item>
       </el-submenu>
        <el-submenu index="1" v-if="isSimilar(['4','5','6','7','8','9','30'])">
         <template slot="title">
@@ -20,7 +21,6 @@
           <span>选民管理</span>
         </template>
         <el-menu-item v-if="power.indexOf('30')>-1" class="item" index="/public-ecurity-data">公安数据管理</el-menu-item>
-        <el-menu-item v-if="power.indexOf('31')>-1" class="item" index="/compare-fail-data">比对失败数据</el-menu-item>
         <el-menu-item v-if="power.indexOf('4')>-1" class="item" index="/voters-qualification">选民资格审查</el-menu-item>
         <el-menu-item v-if="power.indexOf('5')>-1" class="item" index="/voters-transfer">选民转移管理</el-menu-item>
         <el-menu-item v-if="power.indexOf('6')>-1" class="item" index="/voters-input">选民划入管理</el-menu-item>

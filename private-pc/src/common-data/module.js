@@ -72,7 +72,7 @@ export default {
       // }
       // }
       // state.type = payload.type
-      const { data } = await getTree({type: payload.type,id:payload.id})
+      const { data } = await getTree(payload)
       commit({
         type: 'updateTreeList',
         payload: {

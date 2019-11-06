@@ -111,7 +111,7 @@
   </el-dialog>
 </template>
 <script>
-import {setSubmit,modifySubmit,getTree} from './service.js'
+import {setSubmit,modifySubmit,getTree,getNextSort} from './service.js'
 import {levelList} from '../../../common-data/config.js'
 import { mapActions,mapState } from 'vuex'
 // import Tree from './common-tree'
@@ -186,8 +186,9 @@ export default {
     } else {
       this.form.parentId = this.belongAreaId
       this.form.level = this.level?this.level+1:1
+      this.getNextSort1(this.belongAreaId)
     }
-    this.searchDistrictTree1({type: 0, id: ''})
+    this.searchDistrictTree1({type: 1, id: this.item.id?this.item.id:this.belongAreaId})
   },
   methods: {
     ...mapActions('regionManage', [
@@ -260,6 +261,11 @@ export default {
     async searchDistrictTree1(val) {
       const{data} = await getTree(val)
       this.data = [data.content]
+    },
+    async getNextSort1(val){
+      const{data} = await getNextSort(val)
+      console.log(data)
+      this.form.sort = data.content
     }
   }
 

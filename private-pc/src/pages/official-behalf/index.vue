@@ -26,7 +26,7 @@ import { mapMutations,mapActions,mapState } from 'vuex'
 import Search from './Search'
 import List from './List'
 import CommonTree from '../../components/common-tree'
-import CreateDialog from '../qual-review/home/CreateDialog'
+import CreateDialog from '../initial-candidate/CreateDialog1'
 
 export default {
   data () {

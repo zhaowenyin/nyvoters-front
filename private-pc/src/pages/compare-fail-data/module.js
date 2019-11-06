@@ -7,7 +7,7 @@ export default {
     list: [],
     total: 0,
     searchParam: {
-      pageSize: 10,
+      pageSize: 20,
       pageNum: 1
     },
     multipleSelection: []
@@ -31,6 +31,7 @@ export default {
     },
     updateList (state, payload) {
       const { data = [], total = 0 } = payload.data
+      console.log(payload.data)
       state.list = data
       state.total = total
     },
@@ -39,7 +40,7 @@ export default {
     },
     saveSelection(state, payload) {
       state.multipleSelection = payload
-    },
+    }
   },
   actions: {
     async getListData ({ commit, state }, payload) {

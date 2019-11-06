@@ -56,6 +56,10 @@ export async function getList (payload) {
   return api.post('/common/list',  payload)
 }
 
+export async function getDetail (payload) {
+  return api.post('/qualification-review/supplement/get', payload )
+}
+
 export async function repeal (payload) {
   // console.log(payload)
   // return new Promise((resolve) => {

@@ -17,7 +17,7 @@
             label="姓名"
             prop="name">
             <el-input
-             :disabled="isDisabled"
+             :disabled="isDisabled&&!enableItem.name"
               size="medium"
               placeholder="请输入姓名"
               :maxlength="20"
@@ -30,7 +30,7 @@
             label="身份证号码"
             prop="idNum">
             <el-input
-              :disabled="isDisabled"
+              :disabled="isDisabled&&!enableItem.idNum"
               size="medium"
               placeholder="请输入身份证号码"
               :maxlength="18"
@@ -101,7 +101,7 @@
               prop="householdRegistration">
               <el-input
                 @change="housechange"
-                :disabled="isDisabled"
+                :disabled="isDisabled&&!enableItem.householdRegistration"
                 :maxlength="80"
                 size="medium"
                 placeholder="请输入户籍地"
@@ -116,7 +116,7 @@
               prop="householdRegistrationDetail">
               <el-input
                 @change="detailchange"
-                :disabled="isDisabled"
+                :disabled="isDisabled&&!enableItem.householdRegistrationDetail"
                 :maxlength="150"
                 size="medium"
                 placeholder="详细地址"
@@ -178,7 +178,7 @@
           <el-form-item
             label="持资格转移证明"
             prop="proveDocId">
-            <el-radio-group  :disabled="isDisabled" size="medium" v-model="form.proveDocId">
+            <el-radio-group  :disabled="isDisabled&&!enableItem.proveDocId" size="medium" v-model="form.proveDocId">
               <el-radio :label="1">是</el-radio>
               <el-radio :label="0">否</el-radio>
             </el-radio-group>
@@ -209,7 +209,7 @@
             label="登记日期"
             prop="registrationTime">
             <el-date-picker
-              :disabled="isDisabled"
+              :disabled="true"
               class="item"
               v-model="form.registrationTime"
               type="date"
@@ -271,17 +271,17 @@
       slot="footer"
       class="footer">
        <el-button
-         v-if="!isDisabled"
+         v-if="+openMode === 1"
           @click="submitForm()"
           size="medium"
           :loading="loading"
           type="primary">确定</el-button>
           <el-button
-           v-if="!isDisabled"
+           v-if="+openMode === 1"
           @click="comfirmClose()"
           size="medium">取消</el-button>
           <el-button
-           v-if="isDisabled"
+           v-if="+openMode === 2"
            type="primary"
             @click="comfirmClose()"
           size="medium">确定</el-button>
@@ -410,9 +410,17 @@ export default {
       default: '',
       type: String,
     },
+    openMode: {
+      default: 1,
+      type: Number,
+    },
     isDisabled: {
       default: false,
       type: Boolean
+    },
+    enableItem: {
+      default: () => {},
+      type: Object
     }
   },
   computed: {
@@ -427,6 +435,8 @@ export default {
     this.form.registrationType = this.session.accountType
     this.form.registrar = this.session.name
     this.searchnation()
+    console.log(this.enableItem)
+    console.log(this.openMode)
   },
   methods: {
     ...mapActions('commonData', [
@@ -478,7 +488,7 @@ export default {
 
     },
     comfirmClose () {
-      if(this.isDisabled){
+      if(+this.openMode===2){
         this.close()
         return
       }

@@ -23,7 +23,7 @@
         label="性别"
         prop="gender">
         <template slot-scope="scope">
-          {{handlegender(scope.row.gender)}}
+          {{handergender(scope.row.gender)}}
         </template>
       </el-table-column>
       <el-table-column
@@ -37,25 +37,27 @@
           {{ handercandidateType(scope.row.candidateType)}}
         </template>
       </el-table-column>
+      <!--
       <el-table-column
-        width="120"
-        label="比对结果">
+        width="180"
+        label="登记日期">
         <template slot-scope="scope">
-          {{handerResultStatus(scope.row.compareResult)}}
+          {{ formatDate(scope.row.registrationTime) }}
         </template>
       </el-table-column>
+      -->
       <el-table-column
-        label="选民状态"
-        prop="type">
+        label="失败原因"
+        prop="compareResult">
          <template slot-scope="scope">
-          {{handerstatus(scope.row.status)}}
+          {{handerResultStatus(scope.row.compareResult)}}
         </template>
       </el-table-column>
     </el-table>
     <div
       v-show="total"
       class="add_pagination">
-      <el-pagination
+      <Pagination
         @current-change="handleCurrentChange"
         :page-size="pageSize"
         background
@@ -66,16 +68,18 @@
   </div>
 </template>
 <script>
-import { mapState, mapActions,mapMutations } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
+import { formatDate } from '../../utils/format.js'
+import Pagination from '../../components/Pagination'
 
 export default {
   data () {
     return {
-      downLoading: false,
+      downLoading: false
     }
   },
   computed: {
-    ...mapState('votersQualification', {
+    ...mapState('comparefaildata', {
       loading: state => state.loading,
       list: state => state.list,
       total: state => state.total,
@@ -87,6 +91,7 @@ export default {
     })
   },
   components: {
+    Pagination
   },
   watch: {
     belongAreaId () {
@@ -100,19 +105,20 @@ export default {
     this.getListData({precinctId: this.belongAreaId,pageNum:1})
   },
   methods: {
-    ...mapActions('votersQualification', [
-      'getListData'
-    ]),
-    ...mapMutations('votersQualification', [
+    ...mapMutations('comparefaildata', [
       'saveSelection'
+    ]),
+    ...mapActions('comparefaildata', [
+      'getListData'
     ]),
     // 分页
     handleCurrentChange (val) {
       this.getListData({ pageNum: val })
     },
-    look (id) {
-      console.log(id)
+    dblclick(val){
+      this.$emit('lookDetail',{val,isDisabled: true})
     },
+    formatDate,
     handleSelectionChange(val) {
       this.saveSelection(val)
     },
@@ -139,7 +145,7 @@ export default {
       }
       return text
     },
-    handlegender(val) {
+    handergender(val) {
       let text = ""
       switch(val) {
       case 0:
@@ -179,6 +185,18 @@ export default {
         break
       case 6:
         text = '其他'
+        break
+      case 7:
+        text = '登记成功'
+        break
+      case 8:
+        text = '暂停行使选举权利'
+        break
+      case 9:
+        text = '长期外出下落不明'
+        break
+      case 10:
+        text = '无资格转移证明'
         break
       default:
         text = '登记成功'
@@ -229,9 +247,6 @@ export default {
       }
       return text
     },
-    dblclick(val){
-      this.$emit('lookDetail',{val,isDisabled: true})
-    }
   }
 }
 </script>

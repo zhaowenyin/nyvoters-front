@@ -76,3 +76,7 @@ export async function deletetTabel (payload) {
 export async function getTree (payload) {
   return api.post('/district/tree', payload)
 }
+
+export async function getNextSort (payload) {
+  return api.get(`/district/${payload}/nextSort`, payload)
+}

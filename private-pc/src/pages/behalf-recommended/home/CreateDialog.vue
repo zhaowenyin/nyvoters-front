@@ -48,10 +48,15 @@
               />
             </el-form-item>
           </el-col>
+          <el-form-item
+            v-if="false"
+            prop="recommendedPersonId">
+            <el-input v-model.trim="form.recommendedPersonId" />
+          </el-form-item>
           <el-col :span="12">
               <el-form-item
               label="被推选人"
-              prop="recommendedPersonId">
+              prop="recommendedPerson">
                <el-select
                :disabled="isDisabled"
                :remote-method="remoteMethod"
@@ -61,7 +66,7 @@
                 style="width: 100%;"
                 class="item"
                 @change="personChange"
-                v-model="form.recommendedPersonId"
+                v-model="form.recommendedPerson"
                 clearable placeholder="请选择">
                 <el-option
                   v-for="item in recommendedPersonList"
@@ -438,7 +443,7 @@ export default {
         birthDay: [
           { required: true, message: '请选择出生日期！', trigger: 'change' }
         ],
-        recommendedPersonId:[
+        recommendedPerson:[
           { required: true, message: '请选择被推荐人！', trigger: 'change' }
         ]
       },
@@ -590,6 +595,7 @@ export default {
           this.form.gender = i.gender
           this.form.idNum = i.idNum
           this.form.recommendedPerson = i.name
+          this.form.recommendedPersonId = i.id
           break
         }
       }

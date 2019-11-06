@@ -12,7 +12,7 @@
       </el-table-column>
       <el-table-column
         label="姓名"
-        width="120"
+        width="80"
         prop="name" />
       <el-table-column
         width="180"
@@ -47,6 +47,13 @@
         label="登记方式">
         <template slot-scope="scope">
           {{ handerType(scope.row.registrationType) }}
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="比对结果"
+        prop="compareResult">
+         <template slot-scope="scope">
+          {{handerResultStatus(scope.row.compareResult)}}
         </template>
       </el-table-column>
       <el-table-column
@@ -202,6 +209,50 @@ export default {
         break
       default:
         text = ''
+      }
+      return text
+    },
+    handerResultStatus(val) {
+      let text = ""
+      switch(val) {
+      case 0:
+        text = '待对比'
+        break
+      case 1:
+        text = '正常'
+        break
+      case 2:
+        text = '地址信息错误'
+        break
+      case 3:
+        text = '姓名与身份证不符'
+        break
+      case 4:
+        text = '身份证号码错误'
+        break
+      case 5:
+        text = '迁出'
+        break
+      case 6:
+        text = '死亡'
+        break
+      case 7:
+        text = '不能行使选举权'
+        break
+      case 8:
+        text = '被剥夺政治权利'
+        break
+      case 9:
+        text = '暂停行使选举权'
+        break
+      case 10:
+        text = '长期外出下落不明'
+        break
+      case 11:
+        text = '未持资格转移证明'
+        break
+      default:
+        text = '其他'
       }
       return text
     },

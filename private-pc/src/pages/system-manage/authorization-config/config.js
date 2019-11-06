@@ -13,6 +13,10 @@ export const dataList = [
       {
         label: '选民信息查询',
         id: '3'
+      },
+      {
+        label: '比对失败数据',
+        id: '31'
       }
     ]
   },
@@ -22,10 +26,6 @@ export const dataList = [
       {
         label: '公安数据管理',
         id: '30'
-      },
-      {
-        label: '比对失败数据',
-        id: '31'
       },
       {
         label: '选民资格审查',

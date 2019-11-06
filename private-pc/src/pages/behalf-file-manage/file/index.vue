@@ -43,7 +43,12 @@ export default {
     OtherFile
   },
   created () {
-    this.searchTree({type: 0, id: ''})
+    if(this.$route.query.id === '-6677295243971456535'){
+      //代表名册
+      this.searchTree({type: 0, id: '', maxLevel: '2'})
+    }else{
+      this.searchTree({type: 0, id: ''})
+    }
   },
   methods: {
     ...mapMutations('commonData', [

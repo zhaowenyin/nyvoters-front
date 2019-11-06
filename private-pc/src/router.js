@@ -62,7 +62,7 @@ const VotersApealHome = ()=>import('@/pages/voters-management/voters-appeal/home
 const VotersApealistory = ()=>import('@/pages/voters-management/voters-appeal/history')
 const VotersDown = ()=>import('@/pages/voters-management/download-file')
 const PublicSecurityData = ()=>import('@/pages/voters-management/public-security-data')
-const CompareFailData = ()=>import('@/pages/voters-management/compare-fail-data')
+const CompareFailData = ()=>import('@/pages/compare-fail-data')
 // 消息中心
 const News = () => import('@/pages/news-center')
 const Read = () => import('@/pages//news-center/read')

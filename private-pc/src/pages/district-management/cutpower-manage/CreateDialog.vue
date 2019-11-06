@@ -76,7 +76,7 @@
               :disabled="isDisabled"
               :maxlength="11"
               size="medium"
-              placeholder="请输入"
+              placeholder="请输入手机号"
               class="item"
               v-model.trim="form.phoneNum" />
           </el-form-item>
@@ -88,7 +88,7 @@
             <el-input
               :disabled="isDisabled"
               size="medium"
-              placeholder="请输入"
+              placeholder="请输入联系方式"
               class="item"
               v-model.trim="form.contactInformation" />
           </el-form-item>
