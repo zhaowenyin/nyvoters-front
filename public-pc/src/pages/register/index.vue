@@ -67,7 +67,7 @@
               prop="phoneNum">
               <el-input
                 size="medium"
-                placeholder="请输入电话号码"
+                placeholder="请输入手机号"
                 class="item"
                 v-model.trim="form.phoneNum" />
               </el-form-item>
