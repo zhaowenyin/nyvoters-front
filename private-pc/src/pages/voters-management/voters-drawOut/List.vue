@@ -48,7 +48,7 @@
       </el-table-column>
        <el-table-column
         width="120"
-        label="自动对比结果">
+        label="比对结果">
         <template slot-scope="scope">
           {{handercompareResult(scope.row.compareResult)}}
         </template>
@@ -194,6 +194,9 @@ export default {
       case 10:
         text = '无资格转移证明'
         break
+      case 11:
+        text = '比对失败'
+        break
       default:
         text = ''
       }
@@ -209,16 +212,34 @@ export default {
         text = '正常'
         break
       case 2:
-        text = '被剥夺政治权利 '
+        text = '地址信息错误'
         break
       case 3:
-        text = '被剥夺政治权利'
+        text = '姓名与身份证不符'
         break
       case 4:
-        text = '迁出'
+        text = '身份证号码错误'
         break
       case 5:
+        text = '迁出'
+        break
+      case 6:
         text = '死亡'
+        break
+      case 7:
+        text = '不能行使选举权'
+        break
+      case 8:
+        text = '被剥夺政治权利'
+        break
+      case 9:
+        text = '暂停行使选举权'
+        break
+      case 10:
+        text = '长期外出下落不明'
+        break
+      case 11:
+        text = '未持资格转移证明'
         break
       default:
         text = '其他'

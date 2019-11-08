@@ -173,6 +173,9 @@ export default {
       case 10:
         text = '无资格转移证明'
         break
+      case 11:
+        text = '比对失败'
+        break
       default:
         text = ''
       }

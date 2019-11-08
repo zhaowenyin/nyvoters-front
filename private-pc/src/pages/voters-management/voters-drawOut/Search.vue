@@ -86,7 +86,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { drawOut} from './service.js'
-import {typeList, candidateTypeList} from '../../../common-data/config.js'
+import {typeList, candidateTypeList, statusList} from '../../../common-data/config.js'
 
 export default {
   data () {
@@ -102,21 +102,8 @@ export default {
       typeList,
       candidateTypeList,
       createDialogVisible: false,
-
       id: '',
-      statusList: {
-        // 0: '待对比',
-        1: '待资格审查',
-        2: '不能行使选举权',
-        3: '被剥夺政治权利',
-        // 4: '迁出',
-        5: '死亡',
-        // 6: '其他',
-        7: '登记成功',
-        8: '暂停行使选举权利',
-        9: '长期外出下落不明',
-        10:'无资格转移证明'
-      }
+      statusList
     }
   },
   computed: {

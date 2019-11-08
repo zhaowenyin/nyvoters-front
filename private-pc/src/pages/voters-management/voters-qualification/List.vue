@@ -160,7 +160,7 @@ export default {
       let text = ""
       switch(+val) {
       case 0:
-        text = '待对比'
+        text = '待比对'
         break
       case 1:
         text = '待资格审查'
@@ -179,6 +179,9 @@ export default {
         break
       case 6:
         text = '其他'
+        break
+      case 11:
+        text = '比对失败'
         break
       default:
         text = '登记成功'
