@@ -16,6 +16,7 @@
               <el-input
                 size="medium"
                 placeholder="请输入姓名"
+                :maxlength="20"
                 class="item"
                 v-model.trim="form.userName" />
               </el-form-item>
@@ -79,6 +80,7 @@
                 <el-input
                   size="medium"
                   placeholder="请输入联系方式"
+                  :maxlength="80"
                   class="item"
                   v-model="form.contactInformation" />
               </el-form-item>
@@ -92,6 +94,7 @@
               <el-input
                 size="medium"
                 placeholder="请输入户籍地"
+                :maxlength="80"
                 class="item"
                 v-model.trim="form.householdRegistration" />
             </el-form-item>
@@ -106,6 +109,7 @@
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="详细地址"
+                :maxlength="80"
                 class="item"
                 v-model.trim="form.householdRegistrationDetail" />
             </el-form-item>
@@ -116,6 +120,7 @@
               prop="living">
               <el-input
                 placeholder="请输入现居住地"
+                :maxlength="80"
                 class="item"
                 v-model.trim="form.living" />
             </el-form-item>
@@ -130,6 +135,7 @@
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="详细地址"
+                :maxlength="80"
                 class="item"
                 v-model.trim="form.livingDetail" />
             </el-form-item>
