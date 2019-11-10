@@ -147,10 +147,10 @@
                 </el-option>
               </el-select> -->
                 <el-input
-                :maxlength="500"
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入担任党派职务"
+                :maxlength="80"
                 class="item"
                 v-model="form.partyPost" />
             </el-form-item>
@@ -418,6 +418,7 @@
               <el-input
                 :disabled="isDisabled"
                 placeholder="请输入"
+                :maxlength="80"
                 class="item"
                 v-model="form.contactInformation" />
             </el-form-item>
@@ -431,7 +432,7 @@
           :disabled="isDisabled"
           type="textarea"
           :rows="2"
-          :maxlength="200"
+          :maxlength="80"
           placeholder="请输入"
           class="item"
           v-model="form.remarks" />

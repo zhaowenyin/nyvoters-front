@@ -96,7 +96,7 @@ export const educationList = {
   '4': '中专及以下',
 }
 export const statusList = {
-  0: '待对比',
+  0: '待比对',
   1: '待资格审查',
   2: '不能行使选举权',
   3: '被剥夺政治权利',
@@ -106,7 +106,9 @@ export const statusList = {
   7: '登记成功',
   8:'暂停行使选举权利',
   9:'长期外出下落不明',
-  10:'无资格转移证明'
+  10:'无资格转移证明',
+  11:'比对失败',
+  12:'比对中',//实际是不存在的
 }
 // 资格选民状态
 export const QualficationStatusList = {

@@ -21,6 +21,7 @@
               :disabled="isDisabled"
               size="medium"
               placeholder="请输入姓名"
+              :maxlength="20"
               class="item"
               v-model.trim="form.name" />
           </el-form-item>

@@ -22,6 +22,7 @@
                 size="medium"
                 type="number"
                 placeholder="请输入选区编码"
+                :maxlength="20"
                 class="item"
                 v-model.trim="form.code" />
             </el-form-item>
@@ -34,6 +35,7 @@
                :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入选区名称"
+                :maxlength="20"
                 class="item"
                 v-model.trim="form.name" />
             </el-form-item>
@@ -67,10 +69,11 @@
              <el-form-item
               label="代表名额"
               prop="pnum">
-              <el-input
+              <el-input-number
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入代表名额"
+                :max="999999"
                 class="item"
                 v-model.trim="form.pnum" />
             </el-form-item>
@@ -78,11 +81,12 @@
            <el-col :span="12">
             <el-form-item
               label="排序码"
-              prop="sort	">
-              <el-input
+              prop="sort">
+              <el-input-number
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入排序码"
+                :max="9999"
                 class="item"
                 v-model.trim="form.sort" />
             </el-form-item>
@@ -91,10 +95,11 @@
              <el-form-item
               label="需登记人数"
               prop="total">
-              <el-input
+              <el-input-number
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入需登记人数"
+                :max="999999999"
                 class="item"
                 v-model.trim="form.total" />
             </el-form-item>

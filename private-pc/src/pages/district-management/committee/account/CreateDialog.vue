@@ -69,11 +69,12 @@
         </el-form-item>
         <el-form-item
           label="排序码"
-          prop="sort	">
-          <el-input
+          prop="sort">
+          <el-input-number
             :disabled="isDisabled"
             size="medium"
             placeholder="请输入排序码"
+            :max="9999"
             class="item"
             v-model.trim="form.sort" />
         </el-form-item>

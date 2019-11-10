@@ -31,6 +31,7 @@
             :disabled="isDisabled"
             size="medium"
             placeholder="请输入选委会"
+            :maxlength="20"
             class="item"
             v-model.trim="form.name" />
         </el-form-item>
@@ -42,6 +43,7 @@
             :disabled="isDisabled"
             size="medium"
             placeholder="请输入选委会编码"
+            :maxlength="20"
             class="item"
             v-model.trim="form.code" />
         </el-form-item>
@@ -83,10 +85,11 @@
         <el-form-item
           label="排序码"
           prop="sort">
-          <el-input
+          <el-input-number
             :disabled="isDisabled"
             size="medium"
             placeholder="请输入排序码"
+            :max="9999"
             class="item"
             v-model.trim="form.sort" />
         </el-form-item>

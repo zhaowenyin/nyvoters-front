@@ -19,6 +19,7 @@
             :disabled="isDisabled"
             size="medium"
             placeholder="请输入小组名称"
+            :maxlength="20"
             class="item"
             v-model.trim="form.name" />
         </el-form-item>
@@ -38,7 +39,7 @@
            <el-col :span="12">
             <el-form-item
               label="类型">
-              <el-select  :disabled="isDisabled" class="item" size="medium" v-model.trim="form.type" placeholder="请选择类型">
+              <el-select  :disabled="true" class="item" size="medium" v-model.trim="form.type" placeholder="请选择类型">
                 <el-option
                   v-for="(item, key) in typeList"
                   :key="key"
@@ -57,6 +58,7 @@
                 :disabled="isDisabled"
                 class="item"
                 placeholder="请输入组长"
+                :maxlength="20"
                 v-model.trim="form.manager" />
             </el-form-item>
           </el-col>
@@ -81,6 +83,7 @@
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入召集人"
+                :maxlength="20"
                 class="item"
                 v-model.trim="form.convener" />
             </el-form-item>
@@ -101,12 +104,13 @@
            <el-col :span="12">
             <el-form-item
               label="排序码"
-              prop="sort	">
-              <el-input
+              prop="sort">
+              <el-input-number
                 :disabled="isDisabled"
                 type="number"
                 size="medium"
                 placeholder="请输入排序码"
+                :max="9999"
                 class="item"
                 v-model.trim="form.sort" />
             </el-form-item>
@@ -212,7 +216,8 @@ export default {
   },
   computed: {
     ...mapState('commonData', {
-      belongAreaId: state => state.belongAreaId
+      belongAreaId: state => state.belongAreaId,
+      belongAreaItem:state => state.belongAreaItem
     })
   },
   created () {
@@ -220,6 +225,12 @@ export default {
       this.form = {...this.form, ...this.item }
     } else {
       this.form.precinctId = this.belongAreaId
+      // 新建时根据选区类型确定小组类型
+      if(this.belongAreaItem.level === 1){
+        this.form.type = 0
+      }else if(this.belongAreaItem.level === 2){
+        this.form.type = 1
+      }
     }
 
     this.searchTree({type: 0, id: ''})

@@ -40,17 +40,17 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="选民状态"
-        prop="type">
-         <template slot-scope="scope">
-          {{handerstatus(scope.row.status)}}
-        </template>
-      </el-table-column>
-       <el-table-column
         width="120"
         label="比对结果">
         <template slot-scope="scope">
           {{handercompareResult(scope.row.compareResult)}}
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="选民状态"
+        prop="type">
+         <template slot-scope="scope">
+          {{handerstatus(scope.row.status)}}
         </template>
       </el-table-column>
     </el-table>
