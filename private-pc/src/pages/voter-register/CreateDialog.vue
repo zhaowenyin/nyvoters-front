@@ -354,14 +354,8 @@ export default {
         householdRegistration: [
           { required: true, message: '请输入户籍地！', trigger: 'blur' }
         ],
-        householdRegistrationDetail: [
-          { required: true, message: '请输入详细地址！', trigger: 'blur' }
-        ],
         living:[
           { required: true, message: '请输入现居地！', trigger: 'blur' }
-        ],
-        livingDetail:[
-          { required: true, message: '请输入详细地址！', trigger: 'blur' }
         ],
         candidateType:[
           { required: true, message: '请选择参选地类型！', trigger: 'change' }

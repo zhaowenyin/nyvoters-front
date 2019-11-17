@@ -54,13 +54,14 @@
            <el-col :span="12">
               <el-form-item
               label="对应行政区"
-              prop="precinctId">
+              prop="districtId">
               <DistrictSelect
                 :disabled="isDisabled"
                 :multiple="false"
                 :noallow="true"
                 v-model="form.districtId"
                 :item='item'
+                @change="changeId"
                 :data="data"
                 />
             </el-form-item>
@@ -129,11 +130,18 @@
   </div>
 </template>
 <script>
-import {setSubmit, modifySubmit,getTree,getTreeList} from './service.js'
+import {setSubmit, modifySubmit,getTree,getTreeList,getNextSort} from './service.js'
 import { mapActions, mapState } from 'vuex'
 import DistrictSelect from '../../../../components/DistrictSelect'
 export default {
   data () {
+    let validate1 = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请选择对应行政区！'))
+      } else {
+        callback()
+      }
+    }
     return {
       loading: false,
       form: {
@@ -157,6 +165,9 @@ export default {
         ],
         total:[
           { required: true, message: '请输入需登记人数', trigger: 'blur' }
+        ],
+        districtId:[
+          { required: true, validator: validate1, trigger: 'blur' }
         ],
 
       },
@@ -214,6 +225,7 @@ export default {
     }
     this.form = {...this.form, ...params }
     if(!this.item.id) {
+      this.getNextSort({id: this.belongAreaId})
       if (+this.val=== 0) {
         this.searchList({id: this.belongAreaId})
       } else {
@@ -291,6 +303,15 @@ export default {
       const {data} = await getTreeList(val)
       this.data = data.content
     },
+    async getNextSort (val) {
+      const {data} = await getNextSort(val)
+      this.form.sort = data.content
+    },
+    changeId() {
+      if(this.form.districtId) {
+        this.$refs.form.clearValidate('districtId')
+      }
+    }
   }
 
 }

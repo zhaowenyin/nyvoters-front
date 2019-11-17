@@ -66,7 +66,7 @@
         prop="status">
         <el-select  size="medium" v-model.trim="searchForm.status">
           <el-option
-            v-for="(item, key) in statusList"
+            v-for="(item, key) in statusListDrawOut"
             :key="key"
             :label="item"
             :value="key">
@@ -86,7 +86,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 import { drawOut} from './service.js'
-import {typeList, candidateTypeList, statusList} from '../../../common-data/config.js'
+import {typeList, candidateTypeList, statusListDrawOut} from '../../../common-data/config.js'
 
 export default {
   data () {
@@ -103,7 +103,7 @@ export default {
       candidateTypeList,
       createDialogVisible: false,
       id: '',
-      statusList
+      statusListDrawOut
     }
   },
   computed: {

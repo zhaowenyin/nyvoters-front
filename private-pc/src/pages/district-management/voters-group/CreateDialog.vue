@@ -140,7 +140,7 @@
   </div>
 </template>
 <script>
-import {setSubmit, modifySubmit,getTree} from './service.js'
+import {setSubmit, modifySubmit,getTree,getNextSort} from './service.js'
 import DistrictSelect from '../../../components/DistrictSelect'
 import { mapActions,mapState } from 'vuex'
 export default {
@@ -224,6 +224,7 @@ export default {
     if(this.item.id || this.item.id===0) {
       this.form = {...this.form, ...this.item }
     } else {
+      this.getNextSort({id: this.belongAreaId})
       this.form.precinctId = this.belongAreaId
       // 新建时根据选区类型确定小组类型
       if(this.belongAreaItem.level === 1){
@@ -283,6 +284,10 @@ export default {
     async searchTree (val) {
       const{data} = await getTree(val)
       this.data = [data.content]
+    },
+    async getNextSort (val) {
+      const {data} = await getNextSort(val)
+      this.form.sort = data.content
     },
   }
 

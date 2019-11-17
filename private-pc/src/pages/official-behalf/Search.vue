@@ -73,6 +73,7 @@
       :status="status"
       :visible.sync='visible'
       :statuslist="statuslist"
+      :belongAreaId="belongAreaId"
     />
   </div>
 </template>
@@ -123,6 +124,9 @@ export default {
     ...mapState('officialBehalf', {
       multipleSelection: state=>state.multipleSelection,
       list: state => state.list
+    }),
+    ...mapState('commonData', {
+      belongAreaId: state => state.belongAreaId
     })
   },
   components: {

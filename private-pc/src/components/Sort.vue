@@ -68,10 +68,14 @@ export default {
     statuslist:{
       default: null,
       type: null
-    }
+    },
+    belongAreaId: {
+      default: '',
+      type: String,
+    },
   },
   created () {
-    this.getSortList({statusList:this.statuslist})
+    this.getSortList({statusList:this.statuslist,belongAreaId:this.belongAreaId})
   },
   components: {
     draggable

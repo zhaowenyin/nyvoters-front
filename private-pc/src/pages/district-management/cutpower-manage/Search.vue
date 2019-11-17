@@ -17,7 +17,7 @@
           style="width: 120px;"
           placeholder="请选择">
           <el-option label="姓名" :value="1"></el-option>
-          <el-option label="身份证" :value="2"></el-option>
+          <el-option label="身份证号码" :value="2"></el-option>
           <el-option label="剥权时间" :value="3"></el-option>
           <el-option label="剥权恢复时间" :value="4"></el-option>
         </el-select>

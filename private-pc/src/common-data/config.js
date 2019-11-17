@@ -110,6 +110,20 @@ export const statusList = {
   11:'比对失败',
   12:'比对中',//实际是不存在的
 }
+
+export const statusListDrawOut = {
+  1: '待资格审查',
+  2: '不能行使选举权',
+  3: '被剥夺政治权利',
+  4: '迁出',
+  5: '死亡',
+  6: '其他',
+  7: '登记成功',
+  8:'暂停行使选举权利',
+  9:'长期外出下落不明',
+  10:'无资格转移证明',
+}
+
 // 资格选民状态
 export const QualficationStatusList = {
   //'DELETE': '删除',

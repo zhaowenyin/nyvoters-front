@@ -17,7 +17,7 @@
         label="身份证号码"
         prop="idNum" />
       <el-table-column
-        label="剥权时间">
+        label="开始剥权时间">
         <template slot-scope="scope">
           {{ formatDate(scope.row.startTime) }}
         </template>

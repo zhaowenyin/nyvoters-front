@@ -170,7 +170,6 @@ export default {
         return
       }
       this.item = this.multipleSelection[0]
-      this.createDialogVisible = true
       if(+this.item.compareResult>4 && +this.item.compareResult<11){
         //5-10
         this.$notify({
@@ -180,20 +179,36 @@ export default {
         });
         return
       }
+      this.createDialogVisible = true
       this.isDisabled = true;
       if(+this.item.compareResult===2){
         //地址信息错误
         this.enableItem.householdRegistration = true
         this.enableItem.householdRegistrationDetail = true
+        this.enableItem.name = false
+        this.enableItem.idNum = false
+        this.enableItem.proveDocId = false
       }else if(+this.item.compareResult===3){
         //姓名与身份证不符
         this.enableItem.name = true
+        this.enableItem.householdRegistration = false
+        this.enableItem.householdRegistrationDetail = false
+        this.enableItem.idNum = false
+        this.enableItem.proveDocId = false
       }else if(+this.item.compareResult===4){
         //身份证号码错误
         this.enableItem.idNum = true
+        this.enableItem.householdRegistration = false
+        this.enableItem.householdRegistrationDetail = false
+        this.enableItem.name = false
+        this.enableItem.proveDocId = false
       }else if(+this.item.compareResult===11){
         //未持资格转移证明
         this.enableItem.proveDocId = true
+        this.enableItem.householdRegistration = false
+        this.enableItem.householdRegistrationDetail = false
+        this.enableItem.name = false
+        this.enableItem.idNum = false
       }else if(+this.item.compareResult===12){
         //其他
         this.isDisabled = false

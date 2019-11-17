@@ -73,6 +73,7 @@
       :status="status"
       :statuslist="statuslist"
       :visible.sync='visible'
+      :belongAreaId="belongAreaId"
     />
   </div>
 </template>
@@ -122,8 +123,11 @@ export default {
   computed: {
     ...mapState('initialCandidate', {
       multipleSelection: state=>state.multipleSelection,
-      list: state => state.list
+      list: state => state.list,
     }),
+    ...mapState('commonData', {
+      belongAreaId: state => state.belongAreaId
+    })
   },
   components: {
     CreateDialog,

@@ -86,6 +86,9 @@ export async function getTree (payload) {
 export async function getTreeList (payload) {
   return api.get(`/district/selectPrecinct/${payload.id}`)
 }
+export async function getNextSort (payload) {
+  return api.get(`/precinct/${payload.id}/nextSort`)
+}
 
 
 
