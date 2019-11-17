@@ -63,10 +63,12 @@ export default {
 <style scoped>
 .other {
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .content {
-  margin-top: 50px;
   overflow: auto;
+  flex:1;
 }
 .top-title {
   padding: 15px;
