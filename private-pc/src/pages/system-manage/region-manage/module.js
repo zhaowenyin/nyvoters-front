@@ -1,4 +1,5 @@
 import { getList,getTree } from './service'
+import func from '../../../utils/func'
 
 export default {
   namespaced: true,
@@ -14,7 +15,8 @@ export default {
     treeList: [],
     belongAreaId: '',
     belongArea: '',
-    level: ''
+    level: '',
+    belongAreaItem: {}
   },
   mutations: {
     clearState (state) {
@@ -26,6 +28,9 @@ export default {
         pageNum: 1
       }
       state.multipleSelection = []
+      state.belongAreaId = ''
+      state.belongArea = ''
+      state.belongAreaItem = {}
     },
     showLoading (state) {
       state.loading = true
@@ -45,9 +50,9 @@ export default {
       state.multipleSelection = payload
     },
     updateTreeList(state, payload) {
-      state.treeList = [payload.data.content]
-      state.belongAreaId = payload.data.content.id
-      state.belongArea = payload.data.content.name
+      state.belongAreaItem = func([payload.payload.data.content])
+      state.belongAreaId = state.belongAreaItem.id
+      state.belongArea = state.belongAreaItem.name
     },
     saveDistrictId(state, payload) {
       state.belongAreaId = payload
