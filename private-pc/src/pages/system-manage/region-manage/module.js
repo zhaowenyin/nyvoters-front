@@ -50,9 +50,10 @@ export default {
       state.multipleSelection = payload
     },
     updateTreeList(state, payload) {
-      state.belongAreaItem = func([payload.payload.data.content])
+      state.belongAreaItem = func([payload.data.content])
       state.belongAreaId = state.belongAreaItem.id
       state.belongArea = state.belongAreaItem.name
+      state.treeList = [payload.data.content]
     },
     saveDistrictId(state, payload) {
       state.belongAreaId = payload
