@@ -3,6 +3,8 @@
     <div class="view-left">
        <CommonTree
         :expand-on-click-node="false"
+        :current-node-key="belongAreaId"
+        node-key="id"
         :data="data"
         @node-click="handleNodeClick" />
     </div>
@@ -39,7 +41,8 @@ export default {
   },
   computed: {
     ...mapState('regionManage', {
-      data: state => state.treeList
+      data: state => state.treeList,
+      belongAreaId:state => state.belongAreaId
     })
   },
   components: {
