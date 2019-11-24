@@ -268,7 +268,7 @@ export default {
           { required: true, message: '请输入验证码', trigger: 'blur' }
         ],
         candidateType: [
-          { required: true, message: '请输入参选地址类型', trigger: 'blur' }
+          { required: true, message: '请选择参选地址类型', trigger: 'change' }
         ],
         isProve: [
           { required: true, message: '请选择持资格转移证明!', trigger: 'change' }
@@ -325,7 +325,11 @@ export default {
       })
     },
     cancelForm () {
-
+      this.$confirm('取消将丢失已编辑的内容，确认取消？')
+        .then(() => {
+          this.$router.push({path:'/'})
+        })
+        .catch(() => {})
     },
     change () {
       this.searchCode()

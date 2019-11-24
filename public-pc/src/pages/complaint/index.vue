@@ -212,7 +212,11 @@ export default {
       this.searchCode()
     },
     cancelForm () {
-
+      this.$confirm('取消将丢失已编辑的内容，确认取消？')
+        .then(() => {
+          this.$router.push({path:'/'})
+        })
+        .catch(() => {})
     },
     changeFile (file, fileList) {
       this.fileList = fileList
