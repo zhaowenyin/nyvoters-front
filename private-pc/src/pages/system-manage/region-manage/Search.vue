@@ -89,7 +89,9 @@ export default {
   },
   computed: {
     ...mapState('regionManage', {
-      multipleSelection: state=>state.multipleSelection
+      multipleSelection: state=>state.multipleSelection,
+      belongAreaId: state => state.belongAreaId,
+      level: state => state.level
     })
   },
   components: {
@@ -117,11 +119,20 @@ export default {
         if (valid) {
           const params = JSON.parse(JSON.stringify(this.searchForm))
           params.pageNum = 1
+          console.log(params)
           this.getListData(params)
         }
       })
     },
     create () {
+      if(!this.belongAreaId){
+        this.$notify({
+          title: '',
+          message: '请先选择父级行政区！',
+          type: 'warning'
+        });
+        return
+      }
       this.item = {}
       this.createDialogVisible = true
     },

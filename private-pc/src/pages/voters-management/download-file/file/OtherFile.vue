@@ -71,8 +71,8 @@ export default {
     },
     async fomatDownload () {
       try {
-        console.log(122,{id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title,button: this.data.button})
-        output({url: '/doc/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title,button: this.data.button}})
+        console.log(122,{id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title,button: this.data1.button})
+        output({url: '/doc/download', param: {id: this.$route.query.id,belongAreaId: this.belongAreaId,fileName: this.$route.query.title,button: this.data1.button}})
       } catch (err) {
         console.log(err)
       }
@@ -97,7 +97,7 @@ export default {
 }
 .top-title {
   padding: 15px;
-  display: flex;
+  display: -webkit-box;
   justify-content:space-between;
 }
 </style>

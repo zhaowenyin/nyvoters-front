@@ -82,6 +82,7 @@
               </el-select>
             </el-form-item>
           </el-col>
+          <!--
           <el-col :span="8">
             <el-form-item
               label="籍贯"
@@ -108,7 +109,8 @@
                 v-model="form.birthPlace" />
             </el-form-item>
           </el-col>
-            <el-col :span="8">
+          -->
+          <el-col :span="8">
             <el-form-item
               label="党派"
               prop="party">
@@ -128,6 +130,7 @@
               </el-select>
             </el-form-item>
           </el-col>
+          <!--
           <el-col :span="8">
             <el-form-item
               label="入党时间"
@@ -145,7 +148,7 @@
             <el-form-item
               label="担任党派职务"
               prop="partyPost">
-              <!-- <el-select
+              <el-select
                 size="medium"
                 style="width: 100%;"
                 class="item"
@@ -157,31 +160,20 @@
                   :label="item"
                   :value="item">
                 </el-option>
-              </el-select> -->
-                <el-input
-                :maxlength="500"
-                :disabled="isDisabled"
-                size="medium"
-                placeholder="请输入担任党派职务"
-                class="item"
-                v-model="form.partyPost" />
+              </el-select>
+              <el-input
+              :maxlength="500"
+              :disabled="isDisabled"
+              size="medium"
+              placeholder="请输入担任党派职务"
+              class="item"
+              v-model="form.partyPost" />
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item
-              label="手机号码"
-              prop="phoneNum">
-                <el-input
-                :maxlength="500"
-                :disabled="isDisabled"
-                size="medium"
-                placeholder="请输入手机号码"
-                class="item"
-                v-model="form.phoneNum" />
-            </el-form-item>
-          </el-col>
+          -->
         </el-row>
         <el-row :gutter="20">
+          <!--
           <el-col :span="8">
             <el-form-item
               label="参加工作日期"
@@ -195,7 +187,38 @@
               </el-date-picker>
             </el-form-item>
           </el-col>
-
+          -->
+          <el-col :span="8">
+            <el-form-item
+              label="手机号码"
+              prop="phoneNum">
+                <el-input
+                :maxlength="500"
+                :disabled="isDisabled"
+                size="medium"
+                placeholder="请输入手机号码"
+                class="item"
+                v-model="form.phoneNum" />
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item
+              label="学历"
+              prop="education">
+              <el-select
+                :disabled="isDisabled"
+                size="medium"
+                v-model="form.education"
+                clearable placeholder="请选择">
+                <el-option
+                  v-for="(item, key) in educationList"
+                  :key="key"
+                  :label="item"
+                  :value="key">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
           <el-col :span="8">
             <el-form-item
               label="身份证号码"
@@ -210,6 +233,7 @@
           </el-col>
         </el-row>
         <el-row :gutter="20">
+          <!--
           <el-col :span="8">
             <el-form-item
               label="全日制教育"
@@ -258,6 +282,7 @@
                 v-model="form.iseGraduatedInstitution" />
             </el-form-item>
           </el-col>
+          -->
           <el-col :span="8">
             <el-form-item
               label="工作单位"
@@ -326,6 +351,7 @@
                 v-model="form.withRepreAnyLevel" />
             </el-form-item>
           </el-col>
+          <!--
           <el-col :span="8">
             <el-form-item
               label="同任何级政协委员"
@@ -338,7 +364,9 @@
               v-model="form.withAnyMemberCppcc" />
             </el-form-item>
           </el-col>
+          -->
         </el-row>
+        <!--
         <el-form-item
           label="工作简历"
           prop="resume">
@@ -375,6 +403,7 @@
             class="item"
             v-model="form.awardsHonors" />
         </el-form-item>
+        -->
         <el-form-item
           label="历任代表情况"
           prop="succession">
@@ -387,6 +416,7 @@
             class="item"
             v-model="form.succession" />
         </el-form-item>
+        <!--
         <el-form-item
           label="推荐理由"
           prop="recommendReason">
@@ -423,6 +453,8 @@
             class="item"
             v-model="form.reviewOpinion" />
         </el-form-item>
+        -->
+         <!--
          <el-row :gutter="20">
           <el-col :span="16">
              <el-form-item
@@ -448,7 +480,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-
+        -->
         <el-form-item
           label="备注"
           prop="remarks">
@@ -539,7 +571,7 @@
 <script>
 import {getDetail} from './service.js'
 import { mapActions,mapState } from 'vuex'
-import {partyList,postList} from '../../common-data/config.js'
+import {partyList,postList,educationList} from '../../common-data/config.js'
 export default {
   data () {
     return {
@@ -563,6 +595,7 @@ export default {
         iseGraduatedInstitution: '',
         workUnit: '',
         post: '',
+        education: '',
         jobTitle: '',
         repreClass: '',
         withRepreAnyLevel: '',
@@ -600,6 +633,7 @@ export default {
       },
       partyList,
       postList,
+      educationList,
       toast: false,
     }
 

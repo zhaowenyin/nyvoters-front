@@ -163,7 +163,7 @@ export default {
         });
         return
       }
-      this.$confirm('选区删除后将不可恢复，请确认是否删除？')
+      this.$confirm('选民小组删除后将不可恢复，请确认是否删除？')
         .then(() => {
           this.delectItem()
         })

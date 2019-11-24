@@ -42,7 +42,8 @@ export default {
   computed: {
     ...mapState('regionManage', {
       data: state => state.treeList,
-      belongAreaId:state => state.belongAreaId
+      belongAreaId:state => state.belongAreaId,
+      level: state => state.level
     })
   },
   components: {

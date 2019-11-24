@@ -30,6 +30,7 @@ export default {
       state.multipleSelection = []
       state.belongAreaId = ''
       state.belongArea = ''
+      state.level = ''
       state.belongAreaItem = {}
     },
     showLoading (state) {
@@ -53,6 +54,7 @@ export default {
       state.belongAreaItem = func([payload.data.content])
       state.belongAreaId = state.belongAreaItem.id
       state.belongArea = state.belongAreaItem.name
+      state.level = state.belongAreaItem.level
       state.treeList = [payload.data.content]
     },
     saveDistrictId(state, payload) {
