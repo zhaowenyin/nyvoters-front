@@ -57,7 +57,7 @@
                 size="medium"
                 :disabled="isDisabled"
                 class="item"
-                placeholder="请输入组长"
+                :placeholder="isDisabled?'':'请输入组长'"
                 :maxlength="20"
                 v-model.trim="form.manager" />
             </el-form-item>
@@ -82,7 +82,7 @@
               <el-input
                 :disabled="isDisabled"
                 size="medium"
-                placeholder="请输入召集人"
+                :placeholder="isDisabled?'':'请输入召集人'"
                 :maxlength="20"
                 class="item"
                 v-model.trim="form.convener" />

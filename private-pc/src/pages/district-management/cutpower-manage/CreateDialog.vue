@@ -43,7 +43,7 @@
           <el-form-item
             label="性别"
             prop="gender">
-            <el-radio-group :disabled="isDisabled" size="medium" v-model="form.gender">
+            <el-radio-group :disabled="true" size="medium" v-model="form.gender">
               <el-radio :label="1">男</el-radio>
               <el-radio :label="2">女</el-radio>
             </el-radio-group>
@@ -89,7 +89,7 @@
             <el-input
               :disabled="isDisabled"
               size="medium"
-              placeholder="请输入联系方式"
+              :placeholder="isDisabled?'':'请输入联系方式'"
               class="item"
               v-model.trim="form.contactInformation" />
           </el-form-item>
@@ -224,6 +224,13 @@ export default {
         callback(new Error(val.message))
       } else {
         callback()
+        if (value.substring(value.length-1, value.length) % 2 === 0) {
+          //女
+          this.form.gender = 2
+        }else{
+          //男
+          this.form.gender = 1
+        }
       }
     }
     return {

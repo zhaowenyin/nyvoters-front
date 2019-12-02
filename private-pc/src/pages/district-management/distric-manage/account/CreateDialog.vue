@@ -104,7 +104,7 @@
   </div>
 </template>
 <script>
-import {setSubmit,modifySubmit,getTree,searchUser} from './service.js'
+import {setSubmit,modifySubmit,getTree,searchUser,getNextSort} from './service.js'
 import { mapActions,mapState } from 'vuex'
 import {districtAccountTypeList} from '../../../../common-data/config.js'
 import DistrictSelect from '../../../../components/DistrictSelect'
@@ -195,6 +195,7 @@ export default {
     } else {
       this.form.accountRole=this.val
       this.form.precinctId = this.belongAreaId
+      this.getNextSort1(this.belongAreaId)
     }
     if(this.belongAreaItem.children) {
       this.searchTree({type: 2, id: this.belongAreaId})
@@ -278,6 +279,11 @@ export default {
     async searchTree (val) {
       const{data} = await getTree(val)
       this.data = [data.content]
+    },
+    async getNextSort1(val){
+      const{data} = await getNextSort(val)
+      console.log(data)
+      this.form.sort = data.content
     }
   }
 

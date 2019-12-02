@@ -42,7 +42,7 @@
           <el-form-item
             label="性别"
             prop="gender">
-            <el-radio-group :disabled="isDisabled" size="medium" v-model="form.gender">
+            <el-radio-group :disabled="true" size="medium" v-model="form.gender">
               <el-radio :label="1">男</el-radio>
               <el-radio :label="2">女</el-radio>
             </el-radio-group>
@@ -88,7 +88,7 @@
               :disabled="isDisabled"
               :maxlength="80"
               size="medium"
-              placeholder="请输入"
+              :placeholder="isDisabled?'':'请输入'"
               class="item"
               v-model.trim="form.contactInformation" />
           </el-form-item>
@@ -119,7 +119,7 @@
                 :disabled="isDisabled"
                 :maxlength="150"
                 size="medium"
-                placeholder="详细地址"
+                :placeholder="isDisabled?'':'详细地址'"
                 class="item"
                 v-model.trim="form.householdRegistrationDetail" />
             </el-form-item>
@@ -147,7 +147,7 @@
               :disabled="isDisabled"
               :maxlength="150"
               size="medium"
-              placeholder="详细地址"
+              :placeholder="isDisabled?'':'详细地址'"
               class="item"
               v-model.trim="form.livingDetail" />
           </el-form-item>
@@ -313,6 +313,13 @@ export default {
         callback(new Error(val.message))
       } else {
         callback()
+        if (value.substring(value.length-1, value.length) % 2 === 0) {
+          //女
+          this.form.gender = 2
+        }else{
+          //男
+          this.form.gender = 1
+        }
       }
     }
     return {

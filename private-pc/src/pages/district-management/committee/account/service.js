@@ -117,4 +117,6 @@ export async function searchUser (payload) {
   return api.get(`/user/${payload.id}`)
 }
 
-
+export async function getNextSort (payload) {
+  return api.get(`/user/${payload}/nextSort`, payload)
+}

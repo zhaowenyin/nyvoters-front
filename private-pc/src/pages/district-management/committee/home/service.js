@@ -93,4 +93,6 @@ export async function getTree (payload) {
   return api.get(`/district/select/${payload.id}`)
 }
 
-
+export async function getNextSort (payload) {
+  return api.get(`/committee/${payload}/nextSort`, payload)
+}

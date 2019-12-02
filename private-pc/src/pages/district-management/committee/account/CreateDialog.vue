@@ -63,7 +63,7 @@
           <el-input
             :disabled="isDisabled"
             size="medium"
-            placeholder="请输入联系电话"
+            :placeholder="isDisabled?'':'请输入联系电话'"
             class="item"
             v-model="form.contactInformation" />
         </el-form-item>
@@ -102,7 +102,7 @@
   </div>
 </template>
 <script>
-import {setSubmit,modifySubmit,searchUser} from './service.js'
+import {setSubmit,modifySubmit,searchUser,getNextSort} from './service.js'
 import { mapActions,mapState } from 'vuex'
 import md5 from 'blueimp-md5'
 export default {
@@ -178,6 +178,7 @@ export default {
       this.searchUser({id: this.item.id})
     } else {
       this.form.committeeId = this.belongAreaId
+      this.getNextSort1(this.belongAreaId)
     }
 
   },
@@ -239,6 +240,11 @@ export default {
         params.password=md5(this.form.password)
       }
       return params
+    },
+    async getNextSort1(val){
+      const{data} = await getNextSort(val)
+      console.log(data)
+      this.form.sort = data.content
     }
   }
 

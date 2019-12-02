@@ -67,7 +67,7 @@
             :maxlength="20"
             :disabled="isDisabled"
             size="medium"
-            placeholder="请输入联系人"
+            :placeholder="isDisabled?'':'请输入联系人'"
             class="item"
             v-model.trim="form.manager" />
         </el-form-item>
@@ -118,7 +118,7 @@
   </div>
 </template>
 <script>
-import {setSubmit,modifySubmit,getTree} from './service.js'
+import {setSubmit,modifySubmit,getTree,getNextSort} from './service.js'
 import { mapActions,mapState } from 'vuex'
 import DistrictSelect from '../../../../components/DistrictSelect'
 export default {
@@ -215,6 +215,7 @@ export default {
       this.searchTree1({id: this.item.parentId})
     } else {
       this.searchTree1({id: this.committeeId})
+      this.getNextSort1(this.committeeId)
     }
   },
 
@@ -292,6 +293,11 @@ export default {
       if(this.form.districtId) {
         this.$refs.form.clearValidate('districtId')
       }
+    },
+    async getNextSort1(val){
+      const{data} = await getNextSort(val)
+      console.log(data)
+      this.form.sort = data.content
     }
   }
 
