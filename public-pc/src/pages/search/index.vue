@@ -25,7 +25,7 @@
           <el-input
            size="medium"
             placeholder="请输入身份证号码"
-            :maxlength="18"
+            :maxlength="20"
             class="item"
             v-model.trim="userLogin.idNum" />
         </el-form-item>

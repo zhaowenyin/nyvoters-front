@@ -80,7 +80,7 @@
                 <el-input
                   size="medium"
                   placeholder="请输入联系方式"
-                  :maxlength="80"
+                  :maxlength="20"
                   class="item"
                   v-model="form.contactInformation" />
               </el-form-item>
