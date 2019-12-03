@@ -20,7 +20,7 @@
               label="姓名"
               prop="userName">
               <el-input
-                :disabled="isDisabled"
+                :disabled="true"
                 size="medium"
                 placeholder="请输入姓名"
                 class="item"
@@ -31,7 +31,7 @@
             <el-form-item
               label="性别"
               prop="gender">
-              <el-radio-group :disabled="isDisabled" size="medium" v-model="form.gender">
+              <el-radio-group :disabled="true" size="medium" v-model="form.gender">
                 <el-radio :label="1">男</el-radio>
                 <el-radio :label="2">女</el-radio>
               </el-radio-group>
@@ -42,7 +42,7 @@
               label="出生日期"
               prop="birthDay">
               <el-date-picker
-                :disabled="isDisabled"
+                :disabled="true"
                 class="item"
                 v-model="form.birthDay"
                 type="date"
@@ -55,7 +55,7 @@
               label=" 民族"
               prop="nation">
               <el-select
-                :disabled="isDisabled"
+                :disabled="true"
                 size="medium"
                 style="width: 100%;"
                 class="item"
@@ -366,7 +366,7 @@
           label="推荐理由"
           prop="recommendReason">
           <el-input
-            :disabled="isDisabled"
+            :disabled="true"
             type="textarea"
             :rows="2"
             :maxlength="500"

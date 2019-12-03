@@ -640,6 +640,13 @@ export default {
         });
         return
       }
+      this.$confirm('确认删除推荐人么？')
+        .then(() => {
+          this.deleteII()
+        })
+        .catch(() => {})
+    },
+    deleteII () {
       this.tableObj = {
         "recommendPersonName": "",
         "recommendPersonPhone": null,

@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="行政区"
+    :title="item.id ? (isDisabled ? '查看' : '修改') : '新建'"
     :visible="visible"
     width="600"
     :close-on-click-modal="false"
@@ -69,11 +69,13 @@
       <el-form-item
         label="人口数"
         prop="pnum">
-        <el-input
+        <el-input-number
          :disabled="isDisabled"
           type="number"
           size="medium"
           placeholder="请输入人口数"
+          :min="1"
+          :max="999999999"
           class="item"
           v-model.trim="form.pnum" />
       </el-form-item>
@@ -219,7 +221,11 @@ export default {
         params.sort = +params.sort
         params.pnum = +params.pnum
         await setSubmit(params)
-
+        this.$notify({
+          title: '',
+          message: '保存成功',
+          type: 'success'
+        })
         this.getListData()
         this.searchDistrictTree({type: 0, id: ''})
         this.close()
@@ -239,6 +245,11 @@ export default {
         params.pnum = +params.pnum
         params.level = +params.level
         await modifySubmit(params)
+        this.$notify({
+          title: '',
+          message: '保存成功',
+          type: 'success'
+        })
         this.getListData()
         this.searchDistrictTree({type: 0, id: ''})
         this.close()

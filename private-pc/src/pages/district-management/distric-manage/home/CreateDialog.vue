@@ -74,6 +74,7 @@
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入代表名额"
+                :min="1"
                 :max="999999"
                 class="item"
                 v-model.trim="form.pnum" />
@@ -100,6 +101,7 @@
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入需登记人数"
+                :min="1"
                 :max="999999999"
                 class="item"
                 v-model.trim="form.total" />
