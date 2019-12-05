@@ -74,7 +74,6 @@
           type="number"
           size="medium"
           placeholder="请输入人口数"
-          :min="1"
           :max="999999999"
           class="item"
           v-model.trim="form.pnum" />
@@ -121,6 +120,13 @@ import { mapActions,mapState } from 'vuex'
 import DistrictSelect from '../../../components/DistrictSelect'
 export default {
   data () {
+    let validate2 = (rule, value, callback) => {
+      if (value <= 0) {
+        callback(new Error('请输入正确人口数！'))
+      } else {
+        callback()
+      }
+    }
     return {
       loading: false,
       form: {
@@ -146,7 +152,7 @@ export default {
           { required: true, message: '请选择级行政区！', trigger: 'change' }
         ],
         pnum:  [
-          { required: true, message: '请输入人口数！', trigger: 'blur' }
+          { required: true, validator: validate2, trigger: 'blur' }
         ],
         sort:  [
           { required: true, message: '请输入排序码！', trigger: 'blur' }

@@ -101,7 +101,6 @@
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入需登记人数"
-                :min="1"
                 :max="999999999"
                 class="item"
                 v-model.trim="form.total" />
@@ -144,6 +143,13 @@ export default {
         callback()
       }
     }
+    let validate2 = (rule, value, callback) => {
+      if (value <= 0) {
+        callback(new Error('请输入正确需登记人数！'))
+      } else {
+        callback()
+      }
+    }
     return {
       loading: false,
       form: {
@@ -166,7 +172,7 @@ export default {
           { required: true, message: '请输入选区编码', trigger: 'blur' }
         ],
         total:[
-          { required: true, message: '请输入需登记人数', trigger: 'blur' }
+          { required: true, validator: validate2, trigger: 'blur' }
         ],
         districtId:[
           { required: true, validator: validate1, trigger: 'blur' }
