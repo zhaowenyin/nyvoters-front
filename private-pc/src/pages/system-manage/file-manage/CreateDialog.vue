@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    title="上传"
+    :title="item.id ? (isDisabled ? '详情' : '修改') : '上传'"
     :visible="visible"
     width="650px"
     :close-on-click-modal="false"

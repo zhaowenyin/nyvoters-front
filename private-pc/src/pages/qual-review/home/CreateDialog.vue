@@ -573,11 +573,17 @@ export default {
       })
     },
     async sumitData () {
-      this.loading = true
-      await setSubmit(this.handerParams())
-      this.close()
-      this.getListData()
-      this.loading = false
+      try{
+        this.loading = true
+        await setSubmit(this.handerParams())
+        this.close()
+        this.getListData()
+      }
+      catch (error) {
+        console.log(error)
+      }finally{
+        this.loading = false
+      }
     },
     comfirmClose () {
       if(this.isDisabled){
