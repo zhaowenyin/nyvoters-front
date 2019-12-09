@@ -96,7 +96,6 @@ export default {
   .content {
     width: 1000px;
     overflow: auto;
-    height: 100%;
     margin: 0 auto;
     background-color: #fff;
     padding: 30px;

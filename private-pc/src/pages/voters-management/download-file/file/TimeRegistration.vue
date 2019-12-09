@@ -76,7 +76,6 @@ export default {
   }
   .content {
     overflow: auto;
-    height: 100%;
     width: 760px;
     margin: 0 auto;
     background-color: #fff;
