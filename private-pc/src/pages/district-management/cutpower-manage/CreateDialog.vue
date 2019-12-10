@@ -224,7 +224,7 @@ export default {
         callback(new Error(val.message))
       } else {
         callback()
-        if (value.substring(value.length-1, value.length) % 2 === 0) {
+        if (value.substring(value.length-2, value.length-1) % 2 === 0) {
           //女
           this.form.gender = 2
         }else{
