@@ -14,7 +14,7 @@
           <el-input
            size="medium"
             placeholder="请输入用户名"
-            :maxlength="18"
+            :maxlength="20"
             class="item"
             v-model.trim="userLogin.userName" />
         </el-form-item>
