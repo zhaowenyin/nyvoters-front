@@ -8,7 +8,7 @@
       :disabled="!data.hasReport"
       size="small">下载</el-button>
     </div>
-    <div class="content" v-if="!data.hasReport">
+    <div class="content" v-if="data.hasReport">
       <div v-if="+type===3" class="announcement-title">公告</div>
       <div v-if="+type===4" class="announcement1">{{data.districtName}}选举委员会公告</div>
       <div v-if="+type===4" class="announcement2">(第xx号)</div>
