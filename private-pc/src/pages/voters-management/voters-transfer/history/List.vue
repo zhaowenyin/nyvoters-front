@@ -43,7 +43,7 @@
        <el-table-column
         label="申请时间">
         <template slot-scope="scope">
-          {{formatDate(scope.row.applyTime)}}
+          {{formatDateMinute(scope.row.applyTime)}}
         </template>
       </el-table-column>
         <el-table-column

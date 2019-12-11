@@ -33,7 +33,7 @@
               width='120'
               prop="importTime">
               <template slot-scope="scope">
-                {{formatDate(scope.row.importTime)}}
+                {{formatDateMinute(scope.row.importTime)}}
               </template>
             </el-table-column>
             <el-table-column
