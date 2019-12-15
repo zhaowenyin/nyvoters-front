@@ -19,7 +19,7 @@
           placeholder="请选择">
           <el-option label="行政区名" :value="1"></el-option>
           <el-option label="行政区代码" :value="2"></el-option>
-          <el-option label="级别" :value="3"></el-option>
+          <el-option label="行政区级别" :value="3"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -44,7 +44,7 @@
       <el-form-item
         v-if="type === 3"
         prop="level">
-         <el-select  size="medium" v-model.trim="searchForm.level" placeholder="请选择推荐方式">
+         <el-select  size="medium" v-model.trim="searchForm.level" placeholder="请选择行政区级别">
         <el-option
           v-for="(item, key) in levelList"
           :key="key"
@@ -152,7 +152,7 @@ export default {
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',
-          message: '请勾选数据进提交！',
+          message: '请勾选数据进行提交！',
           type: 'warning'
         });
         return

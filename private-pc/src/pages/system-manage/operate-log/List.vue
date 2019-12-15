@@ -14,7 +14,7 @@
 
       <el-table-column
         width="120"
-        label="用户"
+        label="操作人"
         prop="userName"/>
        <el-table-column
         label="模块"

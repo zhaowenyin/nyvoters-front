@@ -15,8 +15,8 @@
           size="medium"
           style="width: 120px;"
           placeholder="请选择">
-          <el-option label="操作人" :value="1"></el-option>
           <el-option label="时间" :value="2"></el-option>
+          <el-option label="操作人" :value="1"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item
@@ -56,7 +56,7 @@ import {mapActions } from 'vuex'
 export default {
   data () {
     return {
-      type: 1,
+      type: 2,
       searchForm: {
         userName: '',
         date: []

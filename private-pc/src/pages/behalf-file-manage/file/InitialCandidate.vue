@@ -30,9 +30,7 @@
       <div v-if="+type===2" class="announcement1">{{data.countyName}}选举委员会公告</div>
       <div v-if="+type===2" class="announcement2">第xx号</div>
       <div v-if="+type===2">
-         &nbsp;&nbsp;根据选举法的规定，现将{{data.belongAreaName}}选区政党、人民团体推荐和选民10人以上
-          联名推荐的{{data.countyName}}第{{data.sessionNum}}届人民代表大会初步代表候选人名单以姓名笔画为序公告如下。请选民依法进行酝酿讨论
-          以便协商确定本选区的正式代表候选人。
+         &nbsp;&nbsp;根据选举法的规定，现将{{data.belongAreaName}}政党、人民团体推荐和选民10人以上联名推荐的{{data.countyName}}第{{data.sessionNum}}届人民代表大会初步代表候选人名单以姓名笔画为序公告如下。请选民依法进行酝酿讨论以便协商确定本选区的正式代表候选人。
         <Tabel style="margin: 20px 0;"  :list="data.list"/>
       </div>
       <div class="mark mark1">{{data.countyName}}选举委员会</div>

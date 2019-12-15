@@ -142,7 +142,7 @@
 </template>
 <script>
 import { mapState, mapActions,mapMutations } from 'vuex'
-import { formatDate } from '../../../utils/format.js'
+import { formatDateMinute } from '../../../utils/format.js'
 import CreateDialog from './CreateDialog'
 import  output from '../../../utils/output.js'
 import { getSession } from '../../../utils/session.js'
@@ -190,7 +190,7 @@ export default {
     handleCurrentChange (val) {
       this.getListData({ pageNum: val })
     },
-    formatDate,
+    formatDateMinute,
     handleSelectionChange(val) {
       this.saveSelection(val)
     },

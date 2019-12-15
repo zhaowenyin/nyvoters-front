@@ -61,7 +61,7 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-import { formatDate } from '../../../../utils/format.js'
+import { formatDateMinute } from '../../../../utils/format.js'
 import CreateDialog from './CreateDialog'
 
 export default {
@@ -108,7 +108,7 @@ export default {
       }
       return text
     },
-    formatDate,
+    formatDateMinute,
     dblclick(row) {
       this.createDialogVisible = true
       this.id = row.id

@@ -85,7 +85,7 @@
 </template>
 <script>
 import { mapState, mapActions,mapMutations } from 'vuex'
-import { formatDate } from '../../../../utils/format.js'
+import { formatDateMinute } from '../../../../utils/format.js'
 import { repealTabel } from './service.js'
 
 export default {
@@ -156,7 +156,7 @@ export default {
       }
       return text
     },
-    formatDate,
+    formatDateMinute,
     repealI(val) {
       this.$confirm('确认撤销已发起的转移申请？')
         .then(() => {

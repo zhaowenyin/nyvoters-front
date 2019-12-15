@@ -149,7 +149,7 @@ export default {
         text = '待资格审查'
         break
       case 'REVIEW_FAIL':
-        text = '资格审查不通'
+        text = '资格审查不通过'
         break
       case 'REVIEW_SUCCESS':
         text = '资格审查通过'

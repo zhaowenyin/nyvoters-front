@@ -163,7 +163,7 @@ export default {
       if(this.multipleSelection.length === 0) {
         this.$notify({
           title: '',
-          message: '请勾选数据进提交！',
+          message: '请勾选数据进行提交！',
           type: 'warning'
         });
         return

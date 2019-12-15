@@ -93,7 +93,7 @@ export default {
       this.$emit('lookDetail',{val: this.item, isDisabled: false})
     },
     deleteItem() {
-      this.$confirm('选区删除后将不可恢复，请确认是否删除？')
+      this.$confirm('文件删除后将不可恢复，请确认是否删除？')
         .then(() => {
           this.deleteI()
         })

@@ -3,7 +3,7 @@
     <el-dialog
       class="qual"
       v-loading="loading"
-      title="资料补充"
+      :title="this.item.id ? (isDisabled ? '详情' : '资料补充') : '资料补充'"
       :visible="visible"
       width="90%"
       :close-on-click-modal="false"

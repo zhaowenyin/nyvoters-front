@@ -227,7 +227,7 @@
               label="职称"
               prop="jobTitle">
               <el-input
-                :maxlength="20"
+                :maxlength="80"
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入"

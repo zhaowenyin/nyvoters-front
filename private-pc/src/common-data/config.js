@@ -93,7 +93,7 @@ export const educationList = {
   '1': '大学以上',
   '2': '大专',
   '3': '中专及高中',
-  '4': '中专及以下',
+  '4': '初中及以下',
 }
 export const statusList = {
   0: '待比对',
