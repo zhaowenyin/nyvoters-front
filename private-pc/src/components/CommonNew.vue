@@ -56,6 +56,8 @@ export default {
 <style scoped>
   .news {
     padding-top: 16px;
+    max-height: 300px;
+    overflow: auto;
     & .item{
       padding-bottom: 8px;
       padding:10px;
