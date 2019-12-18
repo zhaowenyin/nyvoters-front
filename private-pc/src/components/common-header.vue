@@ -13,7 +13,7 @@
       width="350"
       trigger="click">
         <ul class="news">
-          <CommonNew :news="list"/>
+          <CommonNew :news="list" class="maxH"/>
           <li class="news-center" @click="jupNews">通知中心</li>
         </ul>
       <el-badge :value="news.length" slot="reference" class="item">
@@ -170,6 +170,10 @@ export default {
     font-size: 26px;
     color: #000;
     cursor: pointer;
+  }
+  .maxH {
+    max-height: 300px;
+    overflow: auto;
   }
   .news {
     & .item{
