@@ -65,11 +65,12 @@ const PublicSecurityData = ()=>import('@/pages/voters-management/public-security
 const CompareFailData = ()=>import('@/pages/compare-fail-data')
 // 消息中心
 const News = () => import('@/pages/news-center')
-const Read = () => import('@/pages//news-center/read')
-const Unread = () => import('@/pages//news-center/unread')
+const Read = () => import('@/pages/news-center/read')
+const Unread = () => import('@/pages/news-center/unread')
 // 文件资料
 const File = () => import('@/pages/behalf-file-manage/file')
 const FileVoters = () => import('@/pages/voters-management/download-file/file')
+const Home1 = () => import('@/pages/home1')
 
 
 
@@ -80,10 +81,15 @@ const router = new Router({
     {
       path: '/login',
       name: '登录',
+      component:Home1
+    },
+    {
+      path: '/88',
+      name: '登录',
       component: Login
     },
     {
-      path: '/',
+      path: '/999',
       component: CommonLayout,
       children: [
         {

@@ -20,6 +20,8 @@
   },
   "globals": {
     "Global_config": true,
-    "SignaturePad": true
+    "SignaturePad": true,
+    "AMap": true,
+    "AMapUI": false
   }
 }
