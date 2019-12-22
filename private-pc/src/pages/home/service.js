@@ -2,7 +2,7 @@ import api from '../../utils/api'
 
 // get请求
 export async function getList (payload) {
-  console.log(payload)
+  console.log(123,payload)
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
@@ -93,6 +93,7 @@ export async function getList (payload) {
       })
     }, 500)
   })
+
   // return api.get('/index/count', { params: payload })
 }
 export async function bindPhone (payload) {

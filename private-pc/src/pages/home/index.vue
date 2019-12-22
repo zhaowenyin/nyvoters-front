@@ -48,8 +48,7 @@
        <LineBar
         name="实际筛查人数&比例"
         :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
-        :list='screen'
-        :y-titles="['实际筛查人数','比例']"/>
+        :list='data.votersCounts'/>
     </div>
   </div>
 </template>
@@ -114,6 +113,7 @@ export default {
     },
     async Searchlist() {
       const {data} = await getList()
+      console.log(112,data)
       this.data = data.content
     },
     async bindPhone(val) {

@@ -1,55 +1,56 @@
 <template>
-    <div style="height:100%;" ref="myChart"></div>
+  <div style="height:100%;" ref="myChart"></div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      titles:[],
-      arr1:[],
-      arr2:[],
-      y1Max:0,
-      y2Max:0,
-      isEmpty:true,
-      emptyClassName:''
+      handerLis: [],
+      nameList: []
     }
   },
   props: {
-    colors: {
-      default: ()=>[],
-      type: Array
-    },
-    name: {
-      default: '',
-      type: String
-    },
     list: {
       default: ()=>[],
       type: Array
-    },
-    yTitles:{
-      default:()=>['',''],
-      type: Array
     }
   },
+
   watch:{
     list(){
-      this.echarts();
+      if(this.list.length>0) {
+        this.handerData()
+        this.echarts()
+      }
+
     }
   },
   created(){
+
   },
   mounted () {
     // 基于准备好的dom，初始化echarts实例
     this.myChart = echarts.init(this.$refs.myChart);
     window.onresize = this.myChart.resize;
-    this.echarts()
+    if(this.list.length>0) {
+      this.handerData()
+      this.echarts()
+    }
+
+
   },
   methods:{
 
     echarts () {
       let option ={
+        grid: {
+          top: '20',
+          containLabel: true,
+          bottom: '30',
+          left: '20',
+          right:'20'
+        },
         legend: {
           bottom: 10,
           left: "center",
@@ -61,13 +62,8 @@ export default {
         },
         tooltip: {},
         dataset: {
-          dimensions: ['product', '2015', '2016', '2017'],
-          source: [
-            {product: 'Matcha Latte', '2015': 43.3, '2016': 85.8, '2017': 93.7},
-            {product: 'Milk Tea', '2015': 83.1, '2016': 73.4, '2017': 55.1},
-            {product: 'Cheese Cocoa', '2015': 86.4, '2016': 65.2, '2017': 82.5},
-            {product: 'Walnut Brownie', '2015': 72.4, '2016': 53.9, '2017': 39.1}
-          ]
+          dimensions: this.nameList,
+          source: this.handerLis
         },
         xAxis: {
           type: 'category',
@@ -149,6 +145,20 @@ export default {
       };
       this.myChart.setOption(option)
     },
+    handerData () {
+      this.handerLis = []
+      this.nameList = ['product','总人口数','选民人数','登记成功人口数']
+      let obj = {peopleNum:null,votersNum: null,regVotersNum: null}
+      for(let i of this.list) {
+        let item = []
+        item.push(i.districtName)
+        for(let el in obj) {
+          item.push(i[el])
+        }
+        this.handerLis.push(item)
+      }
+
+    }
   }
 }
 </script>
