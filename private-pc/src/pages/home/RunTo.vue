@@ -26,6 +26,7 @@ export default {
     }
   },
   created(){
+
   },
   mounted () {
     // 基于准备好的dom，初始化echarts实例
@@ -53,28 +54,29 @@ export default {
           color: '#545454',
           fontSize: 10
         },
+
+        calculable : true,
         series: [
           {
-            name:'访问来源',
+            name:'半径模式',
             type:'pie',
-            radius: ['50%', '60%'],
-            avoidLabelOverlap: false,
+            radius : [20, 70],
+            center : ['50%', '50%'],
+            roseType : 'radius',
             label: {
               normal: {
-                show: false,
-                position: 'center'
+                show: false
               },
               emphasis: {
-                show: true,
-                textStyle: {
-                  fontSize: '30',
-                  fontWeight: 'bold'
-                }
+                show: true
               }
             },
-            labelLine: {
+            lableLine: {
               normal: {
                 show: false
+              },
+              emphasis: {
+                show: true
               }
             },
             data: this.handerList
@@ -87,10 +89,11 @@ export default {
       this.handerList = []
       this.nameList = []
       for(let i of this.list) {
+        i.name = i.label
         this.nameList.push(i.name)
         this.handerList.push(i)
       }
-      console.log(this.handerList)
+      console.log(89,this.nameList,this.handerList)
     }
   }
 }

@@ -35,8 +35,8 @@ export async function getList (payload) {
                 "value": 12
               }
             ],
-            "peopleNum": 0,
-            "regVotersNum": 0,
+            "peopleNum": 60,
+            "regVotersNum": 23,
             "registerTypeGraphs": [
               {
                 "label": "单位",
@@ -85,7 +85,7 @@ export async function getList (payload) {
                 "votersNum": 500
               }
             ],
-            "votersNum": 0
+            "votersNum": 66
           },
           "message": "string",
           "status": "string"

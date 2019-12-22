@@ -8,19 +8,11 @@
       <div class="common1">
         <div class="item" style="margin-bottom:10px;">
           <div class="img">登记率75%</div>
-          <LineBar
-            name="实际筛查人数&比例"
-            :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
-            :list='screen'
-            :y-titles="['实际筛查人数','比例']"/>
+          <Pie :list="regVotersList"/>
         </div>
         <div class="item">
           <div class="img">参选地</div>
-          <LineBar
-            name="实际筛查人数&比例"
-            :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
-            :list='screen'
-            :y-titles="['实际筛查人数','比例']"/>
+            <RunTo :list="data.candidateTypeGraphs"/>
         </div>
       </div>
       <div class="middle"></div>
@@ -56,6 +48,8 @@
 import Map from './Map'
 import { mapMutations } from 'vuex'
 import LineBar from './LineBar'
+import Pie from './Pie'
+import RunTo from './RunTo'
 import {getList,bindPhone} from './service.js'
 import { getSession } from '../../utils/session'
 export default {
@@ -65,12 +59,16 @@ export default {
       screen: [],
       data: {},
       bindLoading: false,
-      authToken
+      authToken,
+      regVotersList: []
+
     }
   },
   components: {
     Map,
-    LineBar
+    LineBar,
+    Pie,
+    RunTo
   },
   created () {
     // 初始化清除数据
@@ -115,6 +113,7 @@ export default {
       const {data} = await getList()
       console.log(112,data)
       this.data = data.content
+      this.regVotersList = [{name: '已登记人数',value:+this.data.regVotersNum},{name: '未登记人数',value:  +this.data.peopleNum - +this.data.regVotersNum}]
     },
     async bindPhone(val) {
       this.bindLoading = true
