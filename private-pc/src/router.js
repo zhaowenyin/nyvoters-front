@@ -8,7 +8,7 @@ import { noLoginArr } from './pages/login/config'
 import CommonLayout from './pages/common-layout'
 
 const Login = () => import('./pages/login')
-const Home = () => import('./pages/home')
+// const Home = () => import('./pages/home11')
 const VoterRegister = () => import('@/pages/voter-register')
 // 批量导入
 const VoterRegistersLayout = () => import('@/pages/voter-registers')
@@ -70,7 +70,7 @@ const Unread = () => import('@/pages/news-center/unread')
 // 文件资料
 const File = () => import('@/pages/behalf-file-manage/file')
 const FileVoters = () => import('@/pages/voters-management/download-file/file')
-const Home1 = () => import('@/pages/home1')
+const Home = () => import('@/pages/home')
 
 
 
@@ -81,15 +81,10 @@ const router = new Router({
     {
       path: '/login',
       name: '登录',
-      component:Home1
-    },
-    {
-      path: '/88',
-      name: '登录',
       component: Login
     },
     {
-      path: '/999',
+      path: '/',
       component: CommonLayout,
       children: [
         {
