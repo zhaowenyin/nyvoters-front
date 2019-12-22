@@ -1,88 +1,153 @@
 <template>
-  <div id="container" >
+  <div class="home1">
+    <Map class="map"/>
+    <div class="header">
+      河南省县乡人大选民登记情况
+    </div>
+    <div class="middel-content">
+      <div class="common1">
+        <div class="item" style="margin-bottom:10px;">
+          <div class="img">登记率75%</div>
+          <div >333</div>
+        </div>
+        <div class="item">
+          <div class="img">参选地</div>
+          <div>333</div>
+        </div>
+      </div>
+      <div class="middle"></div>
+      <div class="common1">
+        <div class="item"  style="margin-bottom:10px;">
+          <div class="img">民性别分析</div>
+          <div >333</div>
+        </div>
+        <div class="item" >
+          <div class="img">民年龄分析</div>
+          <div>333</div>
+        </div>
+      </div>
+    </div>
+    <div class="foot">
+      <div class="img2">民年龄分析</div>
+       <CenbterChart
+        name="实际筛查人数&比例"
+        :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
+        :list='screen'
+        :y-titles="['实际筛查人数','比例']"/>
+    </div>
   </div>
 </template>
 <script>
+import Map from './Map'
+import { mapMutations } from 'vuex'
+import CenbterChart from './CenbterChart'
+import {getList} from './service.js'
 export default {
-  data() {
+  data () {
     return {
-      map: null,
-      disProvince: null,
-      district: null
-
+      screen: [],
+      data: {},
     }
+  },
+  components: {
+    Map,
+    CenbterChart
   },
   created () {
-
-  },
-  mounted() {
-    this.initMap()
-
+    this.Searchlist()
   },
   methods: {
-    initMap(){
-      let map = new AMap.Map('container', {
-        pitch: 0,//50
-        viewMode: '3D',//海量点不支持3D
-        dragEnable: true,
-        zoomEnable: true,
-        zoom:7,
-        center: [113.473719, 33.723493],
-        mapStyle:'amap://styles/whitesmoke',//
-      });
-      this.map = map;
-      map.on('click',this.checkAndCloseInfo);
-      map.on('dragend', this.onMapDragEnd);
-
-      this.search(410000,1)
+    ...mapMutations('home', [
+      'clearState'
+    ]),
+    async Searchlist() {
+      const {data} = await getList()
+      this.data = data
     },
-    checkAndCloseInfo () {
-
-    },
-    onMapDragEnd() {
-      console.log(this.map.getCenter())
-    },
-    search (region,dep) {
-      let that = this
-      dep = typeof dep === 'undefined' ? 1 : dep;
-      this.disProvince && this.disProvince.setMap(null);
-      this.disProvince = new AMap.DistrictLayer.Province({
-        zIndex: 12,
-        adcode: [region],
-        depth: dep,
-        styles: {
-          'fill': function (properties) {
-            // properties为可用于做样式映射的字段，包含
-            // NAME_CHN:中文名称
-            // adcode_pro
-            // adcode_cit
-            // adcode
-            let adcode = properties.adcode;
-            return that.getColorByAdcode(adcode);
-          },
-          'province-stroke': 'cornflowerblue',
-          'city-stroke': 'white', // 中国地级市边界
-          'county-stroke': 'rgba(255,255,255,0.5)' // 中国区县边界
-        }
-      })
-
-      this.disProvince.setMap(this.map);
-    },
-    getColorByAdcode(adcode) {
-      let colors = {}
-      if (!colors[adcode]) {
-        let gb = Math.random() * 155 + 50;
-        colors[adcode] = 'rgb(' + gb + ',' + gb + ',255)';
-      }
-      return colors[adcode];
-    }
   }
 }
 </script>
 <style scoped>
-  #container {
-    margin:0;
-    height: 100%;
-    opacity: 1;
+.home1 {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  & .header {
+    width: 100%;
+    height: 60px;
+    background: url("../../assets/img/home-top.png") center center no-repeat;
+    background-size: 100% 100%;
+    z-index: 10;
+    text-align: center;
+    line-height: 60px;
+    font-size: 18px;
+    color: #fe8f47;
+    font-weight: bold;
+
   }
+  & .middel-content {
+    padding: 10px 24px;
+    flex: 2.2;
+    display: flex;
+  & .common1 {
+      z-index: 10;
+      flex:1;
+      display: flex;
+      flex-direction: column;
+      & .item {
+        width: 100%;
+        flex: 1;
+        display: flex;
+        background: rgba(255,255,255,0.7);
+        flex-direction: column;
+        border: 1px solid #fdaf51;
+
+
+      }
+    }
+  }
+  & .foot {
+    margin: 0px 24px;
+    z-index: 10;
+    height: 200px;
+    flex: 1;
+    border: 1px solid #fdaf51;
+    background-size: 100% 100%;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255,255,255,0.7);
+  }
+
+}
+.middle {
+  flex: 1.5;
+}
+.img {
+  width: 100%;
+  height:18px;
+  background: url("../../assets/img/home-middle2.png") center center no-repeat;
+  background-size: 100% 100%;
+  font-size: 10px;
+  color: #fffcf9;
+  text-align: center;
+  line-height: 18px;
+}
+.img2{
+  width: 100%;
+  height:24px;
+  background: url("../../assets/img/home-bottom.png") center center no-repeat;
+  background-size: 100% 100%;
+  font-size: 10px;
+  color: #fffcf9;
+  text-align: center;
+  line-height: 24px;
+}
+.map {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0
+}
 </style>

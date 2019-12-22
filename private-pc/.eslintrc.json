@@ -22,6 +22,7 @@
     "Global_config": true,
     "SignaturePad": true,
     "AMap": true,
-    "AMapUI": false
+    "AMapUI": false,
+    "echarts": true
   }
 }
