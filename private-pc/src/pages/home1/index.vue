@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="foot">
-      <div class="img2">民年龄分析</div>
+      <div class="img2">河南省各市登记情况</div>
        <CenbterChart
         name="实际筛查人数&比例"
         :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
