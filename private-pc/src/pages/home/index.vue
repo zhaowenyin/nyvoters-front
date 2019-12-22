@@ -8,22 +8,22 @@
       <div class="common1">
         <div class="item" style="margin-bottom:10px;">
           <div class="img">登记率75%</div>
-          <div >333</div>
+          <Pie :data="data.registerTypeGraphs"/>
         </div>
         <div class="item">
           <div class="img">参选地</div>
-          <div>333</div>
+          <Pie :data="data.candidateTypeGraphs"/>
         </div>
       </div>
       <div class="middle"></div>
       <div class="common1">
         <div class="item"  style="margin-bottom:10px;">
           <div class="img">民性别分析</div>
-          <div >333</div>
+         <Pie :data="data.candidateTypeGraphs"/>
         </div>
         <div class="item" >
           <div class="img">民年龄分析</div>
-          <div>333</div>
+          <Pie :data="data.candidateTypeGraphs"/>
         </div>
       </div>
     </div>
@@ -41,28 +41,71 @@
 import Map from './Map'
 import { mapMutations } from 'vuex'
 import CenbterChart from './CenbterChart'
-import {getList} from './service.js'
+import {getList,bindPhone} from './service.js'
+import { getSession } from '../../utils/session'
+import Pie from './Pie'
 export default {
   data () {
+    const authToken = getSession()
     return {
       screen: [],
       data: {},
+      bindLoading: false,
+      authToken
     }
   },
   components: {
     Map,
-    CenbterChart
+    CenbterChart,
+    Pie
   },
   created () {
+    // 初始化清除数据
+    if(!this.authToken.phoneNum) {
+      this.isfirstLogin()
+    }
+    this.clearState()
     this.Searchlist()
   },
   methods: {
     ...mapMutations('home', [
       'clearState'
     ]),
+    isfirstLogin () {
+      this.$prompt('手机号','绑定手机号', {
+        confirmButtonText: '确定',
+        showClose: false,
+        showCancelButton: false,
+        closeOnClickModal: false,
+        inputPattern: /^1[34578]\d{9}$/,
+        inputErrorMessage: '手机号格式不正确',
+        beforeClose: (action,instance, done) => {
+          if (action === 'confirm') {
+            instance.confirmButtonLoading = true
+            instance.confirmButtonText = '执行中...'
+            if(!this.bindLoading) {
+              instance.confirmButtonLoading = false
+              done()
+            }
+          } else {
+            done()
+          }
+        }
+
+      }).then(({ value }) => {
+        this.bindPhone(value)
+      }).catch(() => {
+
+      })
+    },
     async Searchlist() {
       const {data} = await getList()
-      this.data = data
+      this.data = data.content
+    },
+    async bindPhone(val) {
+      this.bindLoading = true
+      await bindPhone({phoneNum: val})
+      this.bindLoading = false
     },
   }
 }
