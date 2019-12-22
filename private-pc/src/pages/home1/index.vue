@@ -127,7 +127,7 @@ export default {
 .img {
   width: 100%;
   height:18px;
-  background: url("../../assets/img/home-middle2.png") center center no-repeat;
+  background: url("../../assets/img/99.png") center center no-repeat;
   background-size: 100% 100%;
   font-size: 10px;
   color: #fffcf9;
