@@ -4,7 +4,6 @@
 
 <script>
 export default {
-  name: "BarChart",
   data() {
     return {
       titles:[],
@@ -54,7 +53,7 @@ export default {
         legend: {
           bottom: 10,
           left: "center",
-          itemGap: 76,
+          itemGap: 40,
           itemWidth: 10,
           itemHeight: 5,
           color: '#545454',

@@ -23,10 +23,12 @@ export default {
 <style scoped>
   .view-wrapper {
     height: 100%;
+    width:100%;
     display: flex;
     flex-direction: column;
   }
   .view-content {
+    width:100%;
     flex: 1;
     display: flex;
     overflow: auto;

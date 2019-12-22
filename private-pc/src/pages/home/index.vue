@@ -1,5 +1,5 @@
 <template>
-  <div class="home1">
+  <div class="home122">
     <Map class="map"/>
     <div class="header">
       河南省县乡人大选民登记情况
@@ -8,28 +8,44 @@
       <div class="common1">
         <div class="item" style="margin-bottom:10px;">
           <div class="img">登记率75%</div>
-          <Pie :data="data.registerTypeGraphs"/>
+          <LineBar
+            name="实际筛查人数&比例"
+            :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
+            :list='screen'
+            :y-titles="['实际筛查人数','比例']"/>
         </div>
         <div class="item">
           <div class="img">参选地</div>
-          <Pie :data="data.candidateTypeGraphs"/>
+          <LineBar
+            name="实际筛查人数&比例"
+            :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
+            :list='screen'
+            :y-titles="['实际筛查人数','比例']"/>
         </div>
       </div>
       <div class="middle"></div>
       <div class="common1">
         <div class="item"  style="margin-bottom:10px;">
           <div class="img">民性别分析</div>
-         <Pie :data="data.candidateTypeGraphs"/>
+          <LineBar
+          name="实际筛查人数&比例"
+          :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
+          :list='screen'
+          :y-titles="['实际筛查人数','比例']"/>
         </div>
         <div class="item" >
           <div class="img">民年龄分析</div>
-          <Pie :data="data.candidateTypeGraphs"/>
+          <LineBar
+          name="实际筛查人数&比例"
+          :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
+          :list='screen'
+          :y-titles="['实际筛查人数','比例']"/>
         </div>
       </div>
     </div>
     <div class="foot">
       <div class="img2">河南省各市登记情况</div>
-       <CenbterChart
+       <LineBar
         name="实际筛查人数&比例"
         :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
         :list='screen'
@@ -40,10 +56,9 @@
 <script>
 import Map from './Map'
 import { mapMutations } from 'vuex'
-import CenbterChart from './CenbterChart'
+import LineBar from './LineBar'
 import {getList,bindPhone} from './service.js'
 import { getSession } from '../../utils/session'
-import Pie from './Pie'
 export default {
   data () {
     const authToken = getSession()
@@ -56,8 +71,7 @@ export default {
   },
   components: {
     Map,
-    CenbterChart,
-    Pie
+    LineBar
   },
   created () {
     // 初始化清除数据
@@ -111,12 +125,12 @@ export default {
 }
 </script>
 <style scoped>
-.home1 {
+.home122 {
   height: 100%;
-  width: 100%;
   display: flex;
   flex-direction: column;
-  position: relative;
+  position:relative;
+  overflow: auto;
   & .header {
     width: 100%;
     height: 60px;
@@ -132,6 +146,7 @@ export default {
   }
   & .middel-content {
     padding: 10px 24px;
+    overflow: auto;
     flex: 2.2;
     display: flex;
   & .common1 {
@@ -146,12 +161,11 @@ export default {
         background: rgba(255,255,255,0.7);
         flex-direction: column;
         border: 1px solid #fdaf51;
-
-
       }
     }
   }
   & .foot {
+    overflow: auto;
     margin: 0px 24px;
     z-index: 10;
     height: 200px;
@@ -161,8 +175,8 @@ export default {
     display: flex;
     flex-direction: column;
     background: rgba(255,255,255,0.7);
+    margin-bottom: 15px;
   }
-
 }
 .middle {
   flex: 1.5;
