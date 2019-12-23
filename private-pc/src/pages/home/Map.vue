@@ -17,11 +17,10 @@ export default {
   },
   mounted() {
     this.initMap()
-
+    this.aa()
   },
   methods: {
     initMap(){
-      JSON.stringify()
       let map = new AMap.Map('container', {
         pitch: 0,//50
         viewMode: '3D',//海量点不支持3D
@@ -32,15 +31,20 @@ export default {
         mapStyle:'amap://styles/light',//
       });
       this.map = map;
-      new AMap.TileLayer({
-        map: map,
-        // tileUrl: '../../assets/img/del.png', // s=Galil不加也能渲染
-        zIndex: 2, // 在默认层级之上
-        opacity: 0.1
-      })
+      this.district = new AMap.DistrictSearch({
+        showbiz:false,
+        subdistrict: 1,   //1 返回下一级行政区,0：不返回下级行政区
+        extensions: 'all',  //返回行政区边界坐标组等具体信息
+        level: 'city'  //查询行政级别为市
+      });
+      // new AMap.TileLayer({
+      //   map: map,
+      //   // tileUrl: '../../assets/img/del.png', // s=Galil不加也能渲染
+      //   zIndex: 2, // 在默认层级之上
+      //   opacity: 0.1
+      // })
       map.on('click',this.checkAndCloseInfo);
-
-      this.search(410000,1)
+      // this.search(410000,1)
     },
     checkAndCloseInfo (val) {
       console.log(val)
@@ -56,6 +60,7 @@ export default {
         depth: dep,
         styles: {
           'fill': function (properties) {
+            console.log(11,properties)
             // properties为可用于做样式映射的字段，包含
             // NAME_CHN:中文名称
             // adcode_pro
@@ -96,7 +101,61 @@ export default {
       }
       return color
 
-    }
+    },
+    aa () {
+      let that = this
+      this.district.search('999',(status,result)=>{
+        that.setMaskOut(that.map,status,result,true);
+      })
+    },
+    setMaskOut(map,status,result,isAll){
+      // 外多边形坐标数组和内多边形坐标数组
+      var outer = [
+        new AMap.LngLat(-360,90,true),
+        new AMap.LngLat(-360,-90,true),
+        new AMap.LngLat(360,-90,true),
+        new AMap.LngLat(360,90,true),
+      ];
+      var holes = result.districtList[0].boundaries;
+
+      var pathArray = [outer];
+      pathArray.push.apply(pathArray,holes);
+      new AMap.Polygon({
+        map:map,
+        path:pathArray,
+        zIndex:5,
+        bubble:true,
+        strokeColor: 'rgb(20,164,173)',
+        strokeWeight: 2,
+        strokeOpacity:0,
+        fillColor: '#292452',//'#000',
+        fillOpacity: 0.7,
+        strokeStyle:'dashed',//轮廓线样式，实线:solid，虚线:dashed
+        strokeDasharray:[10,2,10]
+        /*勾勒形状轮廓的虚线和间隙的样式，此属性在strokeStyle 为dashed 时有效， 此属性在
+          ie9+浏览器有效 取值：
+          实线：[0,0,0]
+          虚线：[10,10] ，[10,10] 表示10个像素的实线和10个像素的空白（如此反复）组成的虚线
+          点画线：[10,2,10]， [10,2,10] 表示10个像素的实线和2个像素的空白 + 10个像素的实
+          线和10个像素的空白 （如此反复）组成的虚线*/
+      });
+      if(!isAll)return;
+      new AMap.Polygon({
+        map:map,
+        path:holes,
+        zIndex:5,
+        bubble:true,
+        strokeColor: 'rgb(20,164,173)',
+        strokeWeight: 2,
+        strokeOpacity:0,
+        fillColor: '#292452',//'#000',
+        fillOpacity: 0.7,
+        strokeStyle:'solid',
+        strokeDasharray:[10,2,10]
+      });
+
+      // this.regionGroup.add(poly);
+    },
   }
 }
 </script>

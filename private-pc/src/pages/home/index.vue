@@ -8,54 +8,71 @@
       <div class="common1">
         <div class="item" style="margin-bottom:10px;">
           <div class="img">登记率75%</div>
-          <div class="out">
-            <div class="a">
-              <div class="a1"></div>
-              <div class="a2">
-                <div class="a2-1"></div>
-                <div class="a2-1 a2-2"></div>
-              </div>
-              <div class="a1 a3"></div>
-            </div>
-             <Pie style="flex: 1;background: rgba(255,255,255,0.7)" :list="regVotersList"/>
-             <div class="a a11">
-              <div class="a1"></div>
-              <div class="a2"></div>
-              <div class="a1"></div>
-            </div>
+          <ChartBox>
+            <template slot="right">
+              <Pie style="height: 100%;height: 100%;" :list="regVotersList"/>
+            </template>
+          </ChartBox>
+          <div class="out-bottom">
+            <div></div>
+            <div class="out-bottom-2"></div>
           </div>
         </div>
         <div class="item">
           <div class="img">参选地</div>
-            <RunTo :list="data.candidateTypeGraphs"/>
+            <ChartBox>
+              <template slot="right">
+                <RunTo :list="data.candidateTypeGraphs" name="right"/>
+              </template>
+            </ChartBox>
+          <div class="out-bottom">
+            <div></div>
+            <div class="out-bottom-2"></div>
+          </div>
         </div>
       </div>
       <div class="middle"></div>
       <div class="common1">
         <div class="item"  style="margin-bottom:10px;">
           <div class="img">民性别分析</div>
-          <LineBar
-          name="实际筛查人数&比例"
-          :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
-          :list='screen'
-          :y-titles="['实际筛查人数','比例']"/>
+            <ChartBox>
+              <template slot="right">
+                <RunTo :list="data.candidateTypeGraphs" name="right"/>
+              </template>
+            </ChartBox>
+            <div class="out-bottom">
+              <div></div>
+              <div class="out-bottom-2"></div>
+          </div>
         </div>
         <div class="item" >
           <div class="img">民年龄分析</div>
-          <LineBar
-          name="实际筛查人数&比例"
-          :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
-          :list='screen'
-          :y-titles="['实际筛查人数','比例']"/>
+          <ChartBox>
+            <template slot="right">
+             <RunTo :list="data.candidateTypeGraphs" name="right"/>
+            </template>
+          </ChartBox>
+          <div class="out-bottom">
+            <div></div>
+            <div class="out-bottom-2"></div>
+          </div>
         </div>
       </div>
     </div>
     <div class="foot">
       <div class="img2">河南省各市登记情况</div>
-       <LineBar
-        name="实际筛查人数&比例"
-        :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
-        :list='data.votersCounts'/>
+      <ChartBox>
+        <template slot="right">
+          <LineBar
+          name="实际筛查人数&比例"
+          :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
+          :list='data.votersCounts'/>
+        </template>
+      </ChartBox>
+      <div class="out-bottom">
+        <div></div>
+        <div class="out-bottom-2"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -67,6 +84,7 @@ import Pie from './Pie'
 import RunTo from './RunTo'
 import {getList,bindPhone} from './service.js'
 import { getSession } from '../../utils/session'
+import ChartBox from './ChartBox'
 export default {
   data () {
     const authToken = getSession()
@@ -83,7 +101,8 @@ export default {
     Map,
     LineBar,
     Pie,
-    RunTo
+    RunTo,
+    ChartBox
   },
   created () {
     // 初始化清除数据
@@ -184,18 +203,19 @@ export default {
     z-index: 10;
     height: 200px;
     flex: 1;
-    border: 1px solid #fdaf51;
     background-size: 100% 100%;
     display: flex;
     flex-direction: column;
-    background: rgba(255,255,255,0.7);
     margin-bottom: 15px;
   }
 }
 .middle {
   flex: 1.5;
+  background: rgba(255,255,255,0.7);
 }
 .img {
+  border: 1px solid #fdaf51;
+  border-bottom: none;
   width: 100%;
   height:18px;
   background: url("../../assets/img/99.png") center center no-repeat;
@@ -206,6 +226,8 @@ export default {
   line-height: 18px;
 }
 .img2{
+  border: 1px solid #fdaf51;
+  border-bottom: none;
   width: 100%;
   height:24px;
   background: url("../../assets/img/home-bottom.png") center center no-repeat;
@@ -221,44 +243,24 @@ export default {
   position: absolute;
   z-index: 0
 }
-.out {
+.out-bottom {
   display: flex;
-  flex: 1;
-}
-.a {
-  display: flex;
-  flex-direction: column;
-  & .a1 {
+  padding-left: 4px;
+  padding-right: 4px;
+  & div {
     flex: 1;
-    width: 10px;
+    height: 10px;
     border-left: 1px solid #fdaf51;
-    background: rgba(255,255,255,0.7)
-  }
-  & .a2 {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 4px 0;
-    & .a2-1 {
-      flex: 1;
-      width: 10px;
-      background: transparent;
-      border-right: 1px solid #fdaf51;
-      border-top: 1px solid #fdaf51;
-      color:white;
-      transform:skewY(40deg);
-      &.a2-2{
-         background: transparent;
-        transform:skewY(-40deg);
-        border-bottom: 1px solid #fdaf51;
-        border-top:0;
-      }
+    border-bottom: 1px solid #fdaf51;
+    background: rgba(255,255,255,0.7);
+    transform:skewX(40deg);
+    &.out-bottom-2 {
+      border-left: none;
+          border-right: 1px solid #fdaf51;
+      transform:skewX(-40deg);
     }
-  & .a11 {
-     & .a1 {
-       transform:skewY(-40deg);
-     }
   }
- }
+
 }
+
 </style>
