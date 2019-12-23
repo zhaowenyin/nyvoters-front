@@ -7,7 +7,9 @@
     <div class="middel-content">
       <div class="common1">
         <div class="item" style="margin-bottom:10px;">
-          <div class="img">登记率75%</div>
+          <div style="background: rgba(255,255,255,0.7)">
+            <div class="img">登记率75%</div>
+          </div>
           <ChartBox>
             <template slot="right">
               <Pie style="height: 100%;height: 100%;" :list="regVotersList"/>
@@ -19,7 +21,9 @@
           </div>
         </div>
         <div class="item">
-          <div class="img">参选地</div>
+           <div style="background: rgba(255,255,255,0.7)">
+             <div class="img">参选地</div>
+            </div>
             <ChartBox>
               <template slot="right">
                 <RunTo :list="data.candidateTypeGraphs" name="right"/>
@@ -34,7 +38,9 @@
       <div class="middle"></div>
       <div class="common1">
         <div class="item"  style="margin-bottom:10px;">
-          <div class="img">民性别分析</div>
+          <div style="background: rgba(255,255,255,0.7)">
+            <div class="img">民性别分析</div>
+          </div>
             <ChartBox>
               <template slot="right">
                 <RunTo :list="data.candidateTypeGraphs" name="right"/>
@@ -46,7 +52,9 @@
           </div>
         </div>
         <div class="item" >
-          <div class="img">民年龄分析</div>
+          <div style="background: rgba(255,255,255,0.7)">
+            <div class="img">民年龄分析</div>
+          </div>
           <ChartBox>
             <template slot="right">
              <RunTo :list="data.candidateTypeGraphs" name="right"/>
@@ -60,7 +68,9 @@
       </div>
     </div>
     <div class="foot">
-      <div class="img2">河南省各市登记情况</div>
+      <div style="background: rgba(255,255,255,0.7)">
+        <div class="img2">河南省各市登记情况</div>
+      </div>
       <ChartBox>
         <template slot="right">
           <LineBar

@@ -6,7 +6,9 @@
         <div class="a2-1"></div>
         <div class="a2-1 a2-2"></div>
       </div>
-      <div class="a1"><img src="../../assets/img/middel-left.png"/></div>
+      <div class="a1">
+        <div class="middle-left"></div>
+      </div>
     </div>
       <!-- <Pie style="flex: 1;background: rgba(255,255,255,0.7)" :list="regVotersList"/> -->
       <div style="flex: 1;background: rgba(255,255,255,0.7)">
@@ -18,7 +20,9 @@
         <div class="a2-1"></div>
         <div class="a2-1 a2-2-2"></div>
       </div>
-      <div class="a1 middle-right"><img style="margin-right: -1px;" src="../../assets/img/middle-right.png"/></div>
+      <div class="a1">
+        <div class="middel-right"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -46,7 +50,20 @@ export default {
     flex: 1;
     width: 6px;
     border-left: 1px solid #fdaf51;
-    background: rgba(255,255,255,0.7)
+    background: rgba(255,255,255,0.7);
+   & .middel-left {
+      width: 100%;
+      height: 100%;
+      background: url("../../assets/img/middel-left.png") center center no-repeat;
+      background-size: 100% 100%;
+    }
+    & .middel-right {
+      width: 100%;
+      height: 100%;
+      background: url("../../assets/img/middle-right.png") center center no-repeat;
+      background-size: 100% 100%;
+    }
+
   }
   & .a2 {
     flex: 1.5;
@@ -108,9 +125,5 @@ export default {
   }
 
 }
-.middle-right{
-  display: flex;
-  justify-content: flex-end;
 
-}
 </style>
