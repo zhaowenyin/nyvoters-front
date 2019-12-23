@@ -257,6 +257,7 @@ export default {
   display: flex;
   padding-left: 4px;
   padding-right: 4px;
+  padding-top: 2px;
   & div {
     flex: 1;
     height: 10px;

@@ -76,7 +76,6 @@ export default {
     flex: 1.5;
     display: flex;
     flex-direction: column;
-    padding: 2px 0;
     & .a2-1 {
       flex: 1;
       width: 6px;
@@ -117,27 +116,9 @@ export default {
      & .a4 {
        border-top: 1px solid #fdaf51;
        transform:skewY(40deg);
+       border-bottom:none;
      }
   }
-}
-.out-bottom {
-  display: flex;
-  padding-left: 4px;
-  padding-right: 4px;
-  & div {
-    flex: 1;
-    height: 10px;
-    border-left: 1px solid #fdaf51;
-    border-bottom: 1px solid #fdaf51;
-    background: rgba(255,255,255,0.7);
-    transform:skewX(40deg);
-    &.out-bottom-2 {
-      border-left: none;
-          border-right: 1px solid #fdaf51;
-      transform:skewX(-40deg);
-    }
-  }
-
 }
 
 </style>
