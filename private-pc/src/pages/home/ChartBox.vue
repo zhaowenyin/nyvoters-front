@@ -59,14 +59,14 @@ export default {
       background: url("../../assets/img/middel-left.png") center center no-repeat;
       background-size: 100% 100%;
       transform:skewY(40deg);
-      margin-top: 1px;
+      margin-top: 2px;
     }
     & .middel-right {
       width: 100%;
       height: 100%;
       background: url("../../assets/img/middle-right.png") center center no-repeat;
       background-size: 100% 100%;
-      margin-top: 1px;
+      margin-top: 2px;
       transform:skewY(-40deg);
 
     }
