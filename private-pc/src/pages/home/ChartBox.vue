@@ -6,7 +6,7 @@
         <div class="a2-1"></div>
         <div class="a2-1 a2-2"></div>
       </div>
-      <div class="a1">
+      <div class="a1 a4">
         <div class="middle-left"></div>
       </div>
     </div>
@@ -20,7 +20,7 @@
         <div class="a2-1"></div>
         <div class="a2-1 a2-2-2"></div>
       </div>
-      <div class="a1">
+      <div class="a1 a4">
         <div class="middel-right"></div>
       </div>
     </div>
@@ -51,18 +51,24 @@ export default {
     width: 6px;
     border-left: 1px solid #fdaf51;
     background: rgba(255,255,255,0.7);
+    transform:skewY(40deg);
+    border-bottom: 1px solid #fdaf51;
    & .middle-left {
       width: 100%;
       height: 100%;
       background: url("../../assets/img/middel-left.png") center center no-repeat;
       background-size: 100% 100%;
+      transform:skewY(40deg);
+      margin-top: 1px;
     }
     & .middel-right {
       width: 100%;
       height: 100%;
       background: url("../../assets/img/middle-right.png") center center no-repeat;
       background-size: 100% 100%;
-      padding-right: -1px;
+      margin-top: 1px;
+      transform:skewY(-40deg);
+
     }
 
   }
@@ -76,25 +82,29 @@ export default {
       width: 6px;
       background: transparent;
       border-right: 1px solid #fdaf51;
-      border-top: 1px solid #fdaf51;
       transform:skewY(40deg);
       &.a2-2{
-         background: transparent;
+        background: transparent;
         transform:skewY(-40deg);
-        border-bottom: 1px solid #fdaf51;
         border-top:none;
       }
     }
   }
+  & .a4 {
+    border-top: 1px solid #fdaf51;
+    transform:skewY(-40deg);
+    border-bottom:none;
+    }
   &.a11 {
      & .a1 {
        border-right: 1px solid #fdaf51;
        border-left: none;
+       transform:skewY(-40deg);
+      border-bottom: 1px solid #fdaf51;
      }
      & .a2 {
         & .a2-1 {
           border-right: 0;
-          border-top: 1px solid #fdaf51;
           border-left: 1px solid #fdaf51;
           border-bottom: none;
           transform:skewY(-40deg);
@@ -102,8 +112,11 @@ export default {
         & .a2-2-2{
           border-top: none;
           transform:skewY(40deg);
-          border-bottom:1px solid #fdaf51;
        }
+     }
+     & .a4 {
+       border-top: 1px solid #fdaf51;
+       transform:skewY(40deg);
      }
   }
 }
