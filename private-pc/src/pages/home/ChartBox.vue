@@ -51,7 +51,7 @@ export default {
     width: 6px;
     border-left: 1px solid #fdaf51;
     background: rgba(255,255,255,0.7);
-   & .middel-left {
+   & .middle-left {
       width: 100%;
       height: 100%;
       background: url("../../assets/img/middel-left.png") center center no-repeat;
@@ -62,6 +62,7 @@ export default {
       height: 100%;
       background: url("../../assets/img/middle-right.png") center center no-repeat;
       background-size: 100% 100%;
+      padding-right: -1px;
     }
 
   }
