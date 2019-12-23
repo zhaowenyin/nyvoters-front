@@ -93,6 +93,7 @@ export default {
     border-top: 1px solid #fdaf51;
     transform:skewY(-40deg);
     border-bottom:none;
+    margin-bottom: 2px;
     }
   &.a11 {
      & .a1 {

@@ -16,6 +16,7 @@
             </template>
           </ChartBox>
           <div class="out-bottom">
+            <div class="out-bottom-1"></div>
             <div></div>
             <div class="out-bottom-2"></div>
           </div>
@@ -29,7 +30,8 @@
                 <RunTo :list="data.candidateTypeGraphs" name="right"/>
               </template>
             </ChartBox>
-          <div class="out-bottom">
+           <div class="out-bottom">
+            <div class="out-bottom-1"></div>
             <div></div>
             <div class="out-bottom-2"></div>
           </div>
@@ -46,9 +48,10 @@
                 <RunTo :list="data.candidateTypeGraphs" name="right"/>
               </template>
             </ChartBox>
-            <div class="out-bottom">
-              <div></div>
-              <div class="out-bottom-2"></div>
+             <div class="out-bottom">
+            <div class="out-bottom-1"></div>
+            <div></div>
+            <div class="out-bottom-2"></div>
           </div>
         </div>
         <div class="item" >
@@ -60,7 +63,8 @@
              <RunTo :list="data.candidateTypeGraphs" name="right"/>
             </template>
           </ChartBox>
-          <div class="out-bottom">
+           <div class="out-bottom">
+            <div class="out-bottom-1"></div>
             <div></div>
             <div class="out-bottom-2"></div>
           </div>
@@ -79,7 +83,8 @@
           :list='data.votersCounts'/>
         </template>
       </ChartBox>
-      <div class="out-bottom">
+       <div class="out-bottom">
+        <div class="out-bottom-1"></div>
         <div></div>
         <div class="out-bottom-2"></div>
       </div>
@@ -255,19 +260,23 @@ export default {
 }
 .out-bottom {
   display: flex;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-top: 2px;
+  margin-left: 4px;
+  margin-right: 4px;
   & div {
     flex: 1;
-    height: 10px;
-    border-left: 1px solid #fdaf51;
-    border-bottom: 1px solid #fdaf51;
     background: rgba(255,255,255,0.7);
-    transform:skewX(40deg);
+    border-bottom: 1px solid #fdaf51;
+    &.out-bottom-1 {
+      height: 10px;
+      border-left: 1px solid #fdaf51;
+      background: rgba(255,255,255,0.7);
+      transform:skewX(40deg)
+    }
     &.out-bottom-2 {
+      height: 10px;
+      background: rgba(255,255,255,0.7);
       border-left: none;
-          border-right: 1px solid #fdaf51;
+      border-right: 1px solid #fdaf51;
       transform:skewX(-40deg);
     }
   }
