@@ -8,7 +8,22 @@
       <div class="common1">
         <div class="item" style="margin-bottom:10px;">
           <div class="img">登记率75%</div>
-          <Pie :list="regVotersList"/>
+          <div class="out">
+            <div class="a">
+              <div class="a1"></div>
+              <div class="a2">
+                <div class="a2-1"></div>
+                <div class="a2-1 a2-2"></div>
+              </div>
+              <div class="a1 a3"></div>
+            </div>
+             <Pie style="flex: 1;background: rgba(255,255,255,0.7)" :list="regVotersList"/>
+             <div class="a a11">
+              <div class="a1"></div>
+              <div class="a2"></div>
+              <div class="a1"></div>
+            </div>
+          </div>
         </div>
         <div class="item">
           <div class="img">参选地</div>
@@ -157,9 +172,9 @@ export default {
         width: 100%;
         flex: 1;
         display: flex;
-        background: rgba(255,255,255,0.7);
+        /* background: rgba(255,255,255,0.7); */
         flex-direction: column;
-        border: 1px solid #fdaf51;
+        /* border: 1px solid #fdaf51; */
       }
     }
   }
@@ -205,5 +220,45 @@ export default {
   height: 100%;
   position: absolute;
   z-index: 0
+}
+.out {
+  display: flex;
+  flex: 1;
+}
+.a {
+  display: flex;
+  flex-direction: column;
+  & .a1 {
+    flex: 1;
+    width: 10px;
+    border-left: 1px solid #fdaf51;
+    background: rgba(255,255,255,0.7)
+  }
+  & .a2 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 4px 0;
+    & .a2-1 {
+      flex: 1;
+      width: 10px;
+      background: transparent;
+      border-right: 1px solid #fdaf51;
+      border-top: 1px solid #fdaf51;
+      color:white;
+      transform:skewY(40deg);
+      &.a2-2{
+         background: transparent;
+        transform:skewY(-40deg);
+        border-bottom: 1px solid #fdaf51;
+        border-top:0;
+      }
+    }
+  & .a11 {
+     & .a1 {
+       transform:skewY(-40deg);
+     }
+  }
+ }
 }
 </style>
