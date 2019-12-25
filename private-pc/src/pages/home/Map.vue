@@ -37,17 +37,17 @@ export default {
         zIndex: 2, // 在默认层级之上
         opacity: 0.1
       })
-      this.locationSearch()
+      this.locationSearch("410000")
       this.initPointSimplifier(map);
     },
-    locationSearch () {
+    locationSearch (code) {
       this.district =  new AMap.DistrictSearch({
         subdistrict: 2,   ////返回下一级行政区。取值2，可以获取到上海的所有区
         extensions: 'all',  //返回行政区边界坐标组等具体信息
         level: 'city'  //查询行政级别为 市
       })
       let that = this
-      this.district.search("410000",function(status,result){
+      this.district.search(code,function(status,result){
         // 外多边形坐标数组和内多边形坐标数组
         var outer = [
           new AMap.LngLat(-360,90,true),
