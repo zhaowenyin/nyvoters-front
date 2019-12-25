@@ -62,7 +62,7 @@ export default {
         pathArray.push.apply(pathArray,holes)
         var polygon = new AMap.Polygon({
           pathL:pathArray,
-          strokeColor: '#00eeff',
+          strokeColor: '#fd9860',
           strokeWeight: 1,
           fillColor: 'rgba(255,255,255,1)',
           fillOpacity: 0.5
@@ -122,7 +122,7 @@ export default {
           strokeOpacity: 1, //线透明度
           strokeWeight: 1, //线宽
           fillColor: fillColor, //填充色
-          fillOpacity: 0.35, //填充透明度
+          fillOpacity: 1, //填充透明度
         };
       });
 
@@ -142,19 +142,18 @@ export default {
       var text = new AMap.Text({
         text:name,
         anchor:'center', // 设置文本标记锚点
-        draggable:true,
+        draggable:false,
         cursor:'pointer',
-        angle:10,
+        angle:0,
         style:{
           'padding': '.2rem .5rem',
-          'margin-bottom': '1rem',
           'border-radius': '.25rem',
           'background-color': 'transparent',
           'width': '5rem',
           'border-width': 0,
           'text-align': 'center',
           'font-size': '14px',
-          'color': '#333'
+          'color': '#00000080'
         },
         position: center
       });
@@ -176,7 +175,7 @@ export default {
         color = '#ffbe75'
       }
       return color
-    },
+    }
   }
 }
 </script>
