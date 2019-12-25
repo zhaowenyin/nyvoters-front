@@ -86,6 +86,21 @@ export default {
         that.districtExplorer.on('featureClick', function(e, feature) {
           that.switch2AreaNode(feature.properties.adcode);
         })
+        that.districtExplorer.on('outsideClick', function(e) {
+          that.districtExplorer.locatePosition(e.originalEvent.lnglat, function(error, routeFeatures) {
+            if (routeFeatures && routeFeatures.length > 1) {
+              //切换到省级区域
+              that.switch2AreaNode(routeFeatures[1].properties.adcode);
+            } else {
+              //切换到全国
+              that.switch2AreaNode(410000);
+            }
+
+          }, {
+            levelLimit: 2
+          });
+        });
+
         that.switch2AreaNode(code)
       })
     },
