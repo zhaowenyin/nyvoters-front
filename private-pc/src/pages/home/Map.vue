@@ -9,7 +9,9 @@ export default {
       map: null,
       disProvince: null,
       district: null,
-      regionMask: null
+      regionMask: null,
+      currentAreaNode: null,
+      districtExplorer:null
 
     }
   },
@@ -25,6 +27,7 @@ export default {
         pitch: 0,//50
         viewMode: '3D',//海量点不支持3D
         dragEnable: true,
+        bubble: true,
         zoomEnable: true,
         zoom:6.5,
         center: [113.473719, 33.723493-0.6],
@@ -33,12 +36,11 @@ export default {
       this.map = map;
       new AMap.TileLayer({
         map: map,
-        // tileUrl: '../../assets/img/del.png', // s=Galil不加也能渲染
         zIndex: 2, // 在默认层级之上
         opacity: 0.1
       })
       this.locationSearch("410000")
-      this.initPointSimplifier(map);
+      this.initPointSimplifier(410000);
     },
     locationSearch (code) {
       this.district =  new AMap.DistrictSearch({
@@ -47,7 +49,7 @@ export default {
         level: 'city'  //查询行政级别为 市
       })
       let that = this
-      this.district.search(code,function(status,result){
+      this.district.search(code,function(){
         // 外多边形坐标数组和内多边形坐标数组
         var outer = [
           new AMap.LngLat(-360,90,true),
@@ -55,7 +57,8 @@ export default {
           new AMap.LngLat(360,-90,true),
           new AMap.LngLat(360,90,true),
         ];
-        var holes = result.districtList[0].boundaries
+        // var holes = result.districtList[0].boundaries
+        var holes = []
         var pathArray = [
           outer
         ];
@@ -69,48 +72,40 @@ export default {
         });
         polygon.setPath(pathArray);
         that.map.add(polygon)
-      })
-    },
-    showBoundary (adcode) {
-      let that = this
-      this.district.search(adcode,function(status,result){
-        let color =  that.selectColor(result.districtList[0].adcode)
-        that.setMask(that.map,status,result.districtList[0].boundaries,color)
-      })
 
+      })
     },
-    initPointSimplifier () {
+    initPointSimplifier (code) {
       let that = this
       AMapUI.loadUI(['geo/DistrictExplorer'], function(DistrictExplorer) {
         //启动页面
-        that.initPage(DistrictExplorer);
-      });
+        that.districtExplorer = new DistrictExplorer({
+          map: that.map,//关联的地图实例
+          eventSupport: true,
+        });
+        that.districtExplorer.on('featureClick', function(e, feature) {
+          that.switch2AreaNode(feature.properties.adcode);
+        })
+        that.switch2AreaNode(code)
+      })
     },
-    initPage(DistrictExplorer) {
+    initPage(DistrictExplorer,code) {
       let that = this
       //创建一个实例
-      var districtExplorer = new DistrictExplorer({
-        map: that.map //关联的地图实例
-      });
-
-      var adcode = 410000; //全国的区划编码
-
-      districtExplorer.loadAreaNode(adcode, function(error, areaNode) {
-
+      var adcode = code; //全国的区划编码
+      DistrictExplorer.loadAreaNode(adcode, function(error, areaNode) {
         if (error) {
           console.error(error);
           return;
         }
         //绘制载入的区划节点
-        that.renderAreaNode(districtExplorer, areaNode);
+        that.renderAreaNode(DistrictExplorer, areaNode);
       });
     },
     renderAreaNode(districtExplorer, areaNode) {
       let that = this
       //清除已有的绘制内容
       districtExplorer.clearFeaturePolygons();
-
-
       //绘制子级区划
       districtExplorer.renderSubFeatures(areaNode, function(feature) {
         let fillColor = that.selectColor(feature.properties.adcode)
@@ -118,9 +113,9 @@ export default {
         return {
           cursor: 'default',
           bubble: true,
-          strokeColor: '#fab98e', //线颜色
+          strokeColor: '#fd9860', //线颜色
           strokeOpacity: 1, //线透明度
-          strokeWeight: 1, //线宽
+          strokeWeight: 2, //线宽
           fillColor: fillColor, //填充色
           fillOpacity: 1, //填充透明度
         };
@@ -130,11 +125,10 @@ export default {
       districtExplorer.renderParentFeature(areaNode, {
         cursor: 'default',
         bubble: true,
-        strokeColor: '#fab98e', //线颜色
+        strokeColor: '#fd9860', //线颜色
         fillColor: null,
         strokeWeight: 3, //线宽
       });
-
       //更新地图视野以适合区划面
       that.map.setFitView(districtExplorer.getAllFeaturePolygons());
     },
@@ -143,6 +137,7 @@ export default {
         text:name,
         anchor:'center', // 设置文本标记锚点
         draggable:false,
+        bubble: true,
         cursor:'pointer',
         angle:0,
         style:{
@@ -159,6 +154,92 @@ export default {
       });
 
       text.setMap(this.map);
+    },
+    switch2AreaNode(adcode, callback) {
+      let that = this
+      if (this.currentAreaNode && ('' + this.currentAreaNode.getAdcode() === '' + adcode)) {
+        return;
+      }
+      this.loadAreaNode(adcode, function(error, areaNode) {
+        if (error) {
+
+          if (callback) {
+            callback(error);
+          }
+          return;
+        }
+        that.currentAreaNode = window.currentAreaNode = areaNode;
+        //设置当前使用的定位用节点
+        that.districtExplorer.setAreaNodesForLocating([that.currentAreaNode]);
+        that.refreshAreaNode(areaNode);
+        if (callback) {
+          callback(null, areaNode);
+        }
+      });
+    },
+    refreshAreaNode(areaNode) {
+      this.districtExplorer.setHoverFeature(null);
+      this.renderAreaPolygons(areaNode);
+    },
+    //加载区域
+    loadAreaNode(adcode, callback) {
+      this.districtExplorer.loadAreaNode(adcode, function(error, areaNode) {
+        if (error) {
+
+          if (callback) {
+            callback(error);
+          }
+          console.error(error);
+
+          return;
+        }
+        // this.renderAreaPanel(areaNode);
+        if (callback) {
+          callback(null, areaNode);
+        }
+      });
+    },
+    renderAreaPolygons(areaNode) {
+      let that = this
+      var colors = [
+        "#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00",
+        "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707",
+        "#651067", "#329262", "#5574a6", "#3b3eac"
+      ];
+      //更新地图视野
+      this.map.setBounds(areaNode.getBounds(), null, null, true);
+
+      //清除已有的绘制内容
+      this.districtExplorer.clearFeaturePolygons();
+
+      //绘制子区域
+      this.districtExplorer.renderSubFeatures(areaNode, function(feature, i) {
+        that.setText(feature.properties.center,feature.properties.name)
+
+        var fillColor = colors[i % colors.length];
+        var strokeColor = colors[colors.length - 1 - i % colors.length];
+
+        return {
+          cursor: 'default',
+          bubble: true,
+          strokeColor: strokeColor, //线颜色
+          strokeOpacity: 1, //线透明度
+          strokeWeight: 1, //线宽
+          fillColor: fillColor, //填充色
+          fillOpacity: 1, //填充透明度
+        };
+      });
+
+      //绘制父区域
+      this.districtExplorer.renderParentFeature(areaNode, {
+        cursor: 'default',
+        bubble: true,
+        strokeColor: 'black', //线颜色
+        strokeOpacity: 1, //线透明度
+        strokeWeight: 1, //线宽
+        fillColor: areaNode.getSubFeatures().length ? null : colors[0], //填充色
+        fillOpacity: 0.35, //填充透明度
+      });
     },
 
     selectColor (adcode) {

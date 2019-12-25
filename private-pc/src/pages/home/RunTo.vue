@@ -93,7 +93,6 @@ export default {
         this.nameList.push(i.name)
         this.handerList.push(i)
       }
-      console.log(89,this.nameList,this.handerList)
     }
   }
 }
