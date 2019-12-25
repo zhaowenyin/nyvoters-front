@@ -69,10 +69,6 @@ export default {
         });
         polygon.setPath(pathArray);
         that.map.add(polygon)
-        // var cityArr = result.districtList[0].districtList;
-        // for(var i=0;i<cityArr.length;i++){
-        //   that.showBoundary(cityArr[i].adcode);
-        // }
       })
     },
     showBoundary (adcode) {
@@ -82,21 +78,6 @@ export default {
         that.setMask(that.map,status,result.districtList[0].boundaries,color)
       })
 
-    },
-    setMask(map,status,bounds,color){
-      this.regionMask = new AMap.Polygon({
-        map:map,
-        path:bounds,
-        bubble:true,
-        zIndex:100,
-        strokeColor: 'rgb(20,164,173)',
-        strokeWeight: 10,
-        strokeOpacity:0,
-        fillColor: color,//'#000',
-        fillOpacity: 0.3,
-        strokeStyle:'solid',
-        strokeDasharray:[10,2,10]
-      });
     },
     initPointSimplifier () {
       let that = this
@@ -126,23 +107,18 @@ export default {
     },
     renderAreaNode(districtExplorer, areaNode) {
       let that = this
-
       //清除已有的绘制内容
       districtExplorer.clearFeaturePolygons();
 
-      //just some colors
-      var colors = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00"];
 
       //绘制子级区划
-      districtExplorer.renderSubFeatures(areaNode, function(feature, i) {
-
-        var fillColor = colors[i % colors.length];
-        var strokeColor = colors[colors.length - 1 - i % colors.length];
-
+      districtExplorer.renderSubFeatures(areaNode, function(feature) {
+        let fillColor = that.selectColor(feature.properties.adcode)
+        that.setText(feature.properties.center,feature.properties.name)
         return {
           cursor: 'default',
           bubble: true,
-          strokeColor: strokeColor, //线颜色
+          strokeColor: '#fab98e', //线颜色
           strokeOpacity: 1, //线透明度
           strokeWeight: 1, //线宽
           fillColor: fillColor, //填充色
@@ -154,7 +130,7 @@ export default {
       districtExplorer.renderParentFeature(areaNode, {
         cursor: 'default',
         bubble: true,
-        strokeColor: 'black', //线颜色
+        strokeColor: '#fab98e', //线颜色
         fillColor: null,
         strokeWeight: 3, //线宽
       });
@@ -162,18 +138,35 @@ export default {
       //更新地图视野以适合区划面
       that.map.setFitView(districtExplorer.getAllFeaturePolygons());
     },
-    getColorByAdcode(adcode) {
-      let colors = {}
-      if (!colors[adcode]) {
-        colors[adcode] = this.selectColor(adcode)
-      }
-      return colors[adcode];
+    setText (center,name) {
+      var text = new AMap.Text({
+        text:name,
+        anchor:'center', // 设置文本标记锚点
+        draggable:true,
+        cursor:'pointer',
+        angle:10,
+        style:{
+          'padding': '.2rem .5rem',
+          'margin-bottom': '1rem',
+          'border-radius': '.25rem',
+          'background-color': 'transparent',
+          'width': '5rem',
+          'border-width': 0,
+          'text-align': 'center',
+          'font-size': '14px',
+          'color': '#333'
+        },
+        position: center
+      });
+
+      text.setMap(this.map);
     },
+
     selectColor (adcode) {
       // 信阳，三门峡市，平顶山市，焦作市，开封市，"鹤壁市"
-      let arr1 = ['411500','411200','410400','410800','410200','410600']
+      let arr1 = [411500,411200,410400,410800,410200,410600]
       //南阳市，济源市，漯河市，安阳市，商丘市
-      let arr2 = ['411300','419001','411100','410500','411400']
+      let arr2 = [411300,419001,411100,410500,411400]
       //洛阳市，"郑州市，驻马店，周口市，许昌市，新乡市，濮阳市
       // let arr3 = [410300,410100,411700,411600,411000,410700,410900]
       let color = '#fab98e'
