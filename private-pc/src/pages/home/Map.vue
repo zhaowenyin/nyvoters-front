@@ -101,9 +101,26 @@ export default {
             levelLimit: 2
           });
         });
+        that.districtExplorer.on('featureMouseout featureMouseover', function(e, feature) {
+          that.toggleHoverFeature(feature, e.type === 'featureMouseover',
+            e.originalEvent ? e.originalEvent.lnglat : null);
+        });
 
         that.switch2AreaNode(code)
       })
+    },
+    toggleHoverFeature(feature, isHover) {
+      if (!feature) {
+        return;
+      }
+      var props = feature.properties;
+      //更新相关多边形的样式
+      var polys = this.districtExplorer.findFeaturePolygonsByAdcode(props.adcode);
+      for (var i = 0, len = polys.length; i < len; i++) {
+        polys[i].setOptions({
+          fillOpacity: isHover ? 0.5 : 1
+        })
+      }
     },
     setText (center,name) {
       var text = new AMap.Text({
@@ -192,7 +209,8 @@ export default {
 
         var fillColor = colors[i % colors.length];
         var strokeColor = colors[colors.length - 1 - i % colors.length];
-        if(this.out_adcode === 410000) {
+        if(that.out_adcode === 410000) {
+
           fillColor = that.selectColor(feature.properties.adcode)
           strokeColor = '#fab98e'
         }
