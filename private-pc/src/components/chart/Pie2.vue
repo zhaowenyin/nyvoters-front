@@ -27,7 +27,6 @@ export default {
   mounted() {
     // 基于准备好的dom，初始化echarts实例
     this.myChart = echarts.init(this.$refs.myChart);
-    console.log(this.myChart)
     this.echarts();
   },
   methods: {

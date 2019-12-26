@@ -3,12 +3,16 @@
     <Pie1 :data="data"/>
     <div class="bottom-text">登记率=已登记人数/总选民数</div>
     <Pie2 :data="data2"/>
+    <Pie3 :data="data3"/>
+    <Pie4 :data="data4"/>
   </div>
 </template>
 
 <script>
 import Pie1 from '../components/chart/Pie1'
 import Pie2 from '../components/chart/Pie2'
+import Pie3 from '../components/chart/Pie3'
+import Pie4 from '../components/chart/Pie4'
 
 export default {
   data () {
@@ -35,12 +39,31 @@ export default {
       },{
         value: 100,
         name: '其他'
+      }],
+      data3: [{
+        value: 300,
+        name: '男'
+      },{
+        value: 200,
+        name: '女'
+      }],
+      data4: [{
+        value: 300,
+        name: '35岁以下'
+      },{
+        value: 200,
+        name: '36-55岁'
+      },{
+        value: 100,
+        name: '56岁以上'
       }]
     }
   },
   components: {
     Pie1,
-    Pie2
+    Pie2,
+    Pie3,
+    Pie4
   }
 }
 </script>
