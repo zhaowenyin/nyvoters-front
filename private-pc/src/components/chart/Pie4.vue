@@ -239,8 +239,8 @@ export default {
 
 <style scoped>
 .chart-box{
-  height: 260px;
-  width: 460px;
+  height: 100%;
+  width: 100%;
   position: relative;
 }
 .chart{

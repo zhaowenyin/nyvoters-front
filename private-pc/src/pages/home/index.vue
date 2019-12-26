@@ -1,6 +1,6 @@
 <template>
   <div class="home122">
-    <Map class="map"/>
+    <Map class="map" @Searchlist="Searchlist"/>
     <div class="header">
       河南省县乡人大选民登记情况
     </div>
@@ -12,7 +12,7 @@
           </div>
           <ChartBox>
             <template slot="right">
-              <Pie style="height: 100%;height: 100%;" :list="regVotersList"/>
+              <Pie1 v-if="data1.length>0" :data="data1"/>
             </template>
           </ChartBox>
           <div class="out-bottom">
@@ -27,7 +27,7 @@
             </div>
             <ChartBox>
               <template slot="right">
-                <RunTo :list="data.candidateTypeGraphs" name="right"/>
+                <Pie2 v-if="data2.length>0" :data="data2" name="right"/>
               </template>
             </ChartBox>
            <div class="out-bottom">
@@ -45,7 +45,7 @@
           </div>
             <ChartBox>
               <template slot="right">
-                <RunTo :list="data.candidateTypeGraphs" name="right"/>
+                <Pie3 v-if="data3.length>0" :data="data3" name="right"/>
               </template>
             </ChartBox>
              <div class="out-bottom">
@@ -60,7 +60,7 @@
           </div>
           <ChartBox>
             <template slot="right">
-             <RunTo :list="data.candidateTypeGraphs" name="right"/>
+             <Pie4 v-if="data4.length>0" :data="data4" name="right"/>
             </template>
           </ChartBox>
            <div class="out-bottom">
@@ -95,11 +95,13 @@
 import Map from './Map'
 import { mapMutations } from 'vuex'
 import LineBar from './LineBar'
-import Pie from './Pie'
-import RunTo from './RunTo'
 import {getList,bindPhone} from './service.js'
 import { getSession } from '../../utils/session'
 import ChartBox from './ChartBox'
+import Pie1 from '../../components/chart/Pie1'
+import Pie2 from '../../components/chart/Pie2'
+import Pie3 from '../../components/chart/Pie3'
+import Pie4 from '../../components/chart/Pie4'
 export default {
   data () {
     const authToken = getSession()
@@ -108,16 +110,21 @@ export default {
       data: {},
       bindLoading: false,
       authToken,
-      regVotersList: []
-
+      regVotersList: [],
+      data1: [],
+      data2: [],
+      data3: [],
+      data4: []
     }
   },
   components: {
     Map,
     LineBar,
-    Pie,
-    RunTo,
-    ChartBox
+    ChartBox,
+    Pie1,
+    Pie2,
+    Pie3,
+    Pie4
   },
   created () {
     // 初始化清除数据
@@ -125,7 +132,7 @@ export default {
       this.isfirstLogin()
     }
     this.clearState()
-    this.Searchlist()
+    this.Searchlist(410000)
   },
   methods: {
     ...mapMutations('home', [
@@ -158,11 +165,26 @@ export default {
 
       })
     },
-    async Searchlist() {
-      const {data} = await getList()
-      console.log(112,data)
+    async Searchlist(code) {
+      console.log(code)
+      const {data} = await getList('')
       this.data = data.content
-      this.regVotersList = [{name: '已登记人数',value:+this.data.regVotersNum},{name: '未登记人数',value:  +this.data.peopleNum - +this.data.regVotersNum}]
+      let data2 = this.data.candidateTypeGraphs
+      let data3 = this.data.ageGraphs
+      let data4 = this.data.ageGraphs
+      for (let i of data2) {
+        i.name = i.label
+      }
+      for (let i of data3) {
+        i.name = i.label
+      }
+      for (let i of data4) {
+        i.name = i.label
+      }
+      this.data2 = data2
+      this.data3 = data3
+      this.data4 = data4
+      this.data1 = [{name: '已登记人数',value:+this.data.regVotersNum},{name: '未登记人数',value:  +this.data.peopleNum - +this.data.regVotersNum}]
     },
     async bindPhone(val) {
       this.bindLoading = true

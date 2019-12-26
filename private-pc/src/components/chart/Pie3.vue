@@ -267,7 +267,7 @@ export default {
   justify-content: center;
 }
 .chart-box{
-  height: 180px;
+ height: 180px;
   width: 360px;
   position: relative;
 }

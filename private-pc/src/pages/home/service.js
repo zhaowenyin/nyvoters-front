@@ -9,6 +9,35 @@ export async function getList (payload) {
         data: {
           "code": "string",
           "content": {
+            "ageGraphs": [
+              {
+                "item": 0,
+                "label": "20-20岁",
+                "value": 100
+              },
+              {
+                "item": 0,
+                "label": "40-50岁",
+                "value": 200
+              },
+              {
+                "item": 0,
+                "label": "50岁以上",
+                "value": 400
+              }
+            ],
+            "sexGraphs": [
+              {
+                "item": 0,
+                "label": "男",
+                "value": 20
+              },
+              {
+                "item": 0,
+                "label": "女",
+                "value": 30
+              }
+            ],
             "candidateTypeGraphs": [
 
               {
@@ -70,7 +99,7 @@ export async function getList (payload) {
             "votersCounts": [
               {
                 "districtId": 0,
-                "districtName": "选区一",
+                "precinctName": "选区一",
                 "peopleNum": 3000,
                 "regRate": 0.5,
                 "regVotersNum": 500,
@@ -78,7 +107,7 @@ export async function getList (payload) {
               },
               {
                 "districtId": 0,
-                "districtName": "选区二",
+                "precinctName": "选区二",
                 "peopleNum": 900,
                 "regRate": 0.9,
                 "regVotersNum": 100,
@@ -94,7 +123,7 @@ export async function getList (payload) {
     }, 500)
   })
 
-  // return api.get('/index/count', { params: payload })
+  // return api.get(`/index/count/${payload}`)
 }
 export async function bindPhone (payload) {
   // console.log(payload)

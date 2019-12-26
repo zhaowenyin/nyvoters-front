@@ -86,6 +86,7 @@ export default {
         });
         that.districtExplorer.on('featureClick', function(e, feature) {
           that.switch2AreaNode(feature.properties.adcode);
+          that.$emit('Searchlist',feature.properties.adcode)
         })
         that.districtExplorer.on('outsideClick', function(e) {
           that.districtExplorer.locatePosition(e.originalEvent.lnglat, function(error, routeFeatures) {
@@ -223,7 +224,7 @@ export default {
           strokeOpacity: 1, //线透明度
           strokeWeight: 3, //线宽
           fillColor: fillColor, //填充色
-          fillOpacity: 1, //填充透明度
+          fillOpacity: 0.1, //填充透明度
         };
       });
 
@@ -235,7 +236,7 @@ export default {
         strokeOpacity: 1, //线透明度
         strokeWeight: 3, //线宽
         fillColor: areaNode.getSubFeatures().length ? null : colors[0], //填充色
-        fillOpacity: 1, //填充透明度
+        fillOpacity: 0.1, //填充透明度
       });
     },
 

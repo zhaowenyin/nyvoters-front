@@ -148,10 +148,10 @@ export default {
     handerData () {
       this.handerLis = []
       this.nameList = ['product','总人口数','选民人数','登记成功人口数']
-      let obj = {peopleNum:null,votersNum: null,regVotersNum: null}
+      let obj = {precinctName:null,votersNum: null,regVotersNum: null}
       for(let i of this.list) {
         let item = []
-        item.push(i.districtName)
+        item.push(i.precinctName)
         for(let el in obj) {
           item.push(i[el])
         }
