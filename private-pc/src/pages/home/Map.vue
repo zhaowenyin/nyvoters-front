@@ -193,9 +193,10 @@ export default {
     renderAreaPolygons(areaNode) {
       let that = this
       var colors = [
-        "#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00",
-        "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707",
-        "#651067", "#329262", "#5574a6", "#3b3eac"
+        '#fab98e',
+        '#fae0b5',
+        '#ffbe75'
+
       ];
       //更新地图视野
       this.map.setBounds(areaNode.getBounds(), null, null, true);
@@ -220,7 +221,7 @@ export default {
           bubble: true,
           strokeColor: strokeColor, //线颜色
           strokeOpacity: 1, //线透明度
-          strokeWeight: 2, //线宽
+          strokeWeight: 3, //线宽
           fillColor: fillColor, //填充色
           fillOpacity: 1, //填充透明度
         };
@@ -232,7 +233,7 @@ export default {
         bubble: true,
         strokeColor: '#fab98e', //线颜色
         strokeOpacity: 1, //线透明度
-        strokeWeight: 2, //线宽
+        strokeWeight: 3, //线宽
         fillColor: areaNode.getSubFeatures().length ? null : colors[0], //填充色
         fillOpacity: 1, //填充透明度
       });
