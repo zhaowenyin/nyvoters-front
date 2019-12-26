@@ -6,6 +6,8 @@ import { noLoginArr } from './pages/login/config'
 
 /* Global */
 import CommonLayout from './pages/common-layout'
+// 示例
+const Example = () => import('./pages/example')
 
 const Login = () => import('./pages/login')
 // const Home = () => import('./pages/home11')
@@ -360,14 +362,23 @@ const router = new Router({
 
       ]
     },
-
+    {
+      path: '/example',
+      name: '示例',
+      component: Example
+    },
   ]
 })
 
 router.beforeEach(async ({path},from, next) => {
-  console.log(path)
-  const isLogin = hasSession() // true用户已登录， false用户未登录
+  // 不需要登录验证的地址
+  for (let i = 0, len = noLoginArr.length; i < len; i++) {
+    if (noLoginArr[i] === path) {
+      return next()
+    }
+  }
 
+  const isLogin = hasSession() // true用户已登录， false用户未登录
   const authToken = getSession()
   const verifyArr = (authToken && authToken.verifyArr) || []
   //权限验证
@@ -381,13 +392,6 @@ router.beforeEach(async ({path},from, next) => {
     return false
   }
   if (!re(verifyArr)) return next({ path: '/login' })
-
-  // 不需要登录验证的地址
-  for (let i = 0, len = noLoginArr.length; i < len; i++) {
-    if (noLoginArr[i] === path) {
-      return next()
-    }
-  }
 
   if (path === '/login' && isLogin) {
     try {

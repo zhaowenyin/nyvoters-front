@@ -1,5 +1,11 @@
+// 不需要登录验证的地址
+export const noLoginArr = [
+  '/example'
+]
+
 // 不需要权限验证的地址
 export const noVerifyArr = [
+  ...noLoginArr,
 ]
 
 // 有权限验证的地址
@@ -50,9 +56,4 @@ export const verifyArr = [
   '/public-ecurity-data',
   '/compare-fail-data'
 
-]
-
-// 不需要登录验证的地址
-export const noLoginArr = [
-  ...noVerifyArr
 ]
