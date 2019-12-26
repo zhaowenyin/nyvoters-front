@@ -101,9 +101,26 @@ export default {
             levelLimit: 2
           });
         });
+        that.districtExplorer.on('featureMouseout featureMouseover', function(e, feature) {
+          that.toggleHoverFeature(feature, e.type === 'featureMouseover',
+            e.originalEvent ? e.originalEvent.lnglat : null);
+        });
 
         that.switch2AreaNode(code)
       })
+    },
+    toggleHoverFeature(feature, isHover) {
+      if (!feature) {
+        return;
+      }
+      var props = feature.properties;
+      //更新相关多边形的样式
+      var polys = this.districtExplorer.findFeaturePolygonsByAdcode(props.adcode);
+      for (var i = 0, len = polys.length; i < len; i++) {
+        polys[i].setOptions({
+          fillOpacity: isHover ? 0.5 : 1
+        })
+      }
     },
     setText (center,name) {
       var text = new AMap.Text({
@@ -176,9 +193,10 @@ export default {
     renderAreaPolygons(areaNode) {
       let that = this
       var colors = [
-        "#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00",
-        "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707",
-        "#651067", "#329262", "#5574a6", "#3b3eac"
+        '#fab98e',
+        '#fae0b5',
+        '#ffbe75'
+
       ];
       //更新地图视野
       this.map.setBounds(areaNode.getBounds(), null, null, true);
@@ -192,7 +210,8 @@ export default {
 
         var fillColor = colors[i % colors.length];
         var strokeColor = colors[colors.length - 1 - i % colors.length];
-        if(this.out_adcode === 410000) {
+        if(that.out_adcode === 410000) {
+
           fillColor = that.selectColor(feature.properties.adcode)
           strokeColor = '#fab98e'
         }
@@ -202,7 +221,7 @@ export default {
           bubble: true,
           strokeColor: strokeColor, //线颜色
           strokeOpacity: 1, //线透明度
-          strokeWeight: 2, //线宽
+          strokeWeight: 3, //线宽
           fillColor: fillColor, //填充色
           fillOpacity: 1, //填充透明度
         };
@@ -214,7 +233,7 @@ export default {
         bubble: true,
         strokeColor: '#fab98e', //线颜色
         strokeOpacity: 1, //线透明度
-        strokeWeight: 2, //线宽
+        strokeWeight: 3, //线宽
         fillColor: areaNode.getSubFeatures().length ? null : colors[0], //填充色
         fillOpacity: 1, //填充透明度
       });
