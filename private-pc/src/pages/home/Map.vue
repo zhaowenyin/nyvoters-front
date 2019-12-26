@@ -8,7 +8,11 @@ export default {
     return {
       map: null,
       disProvince: null,
-      district: null
+      district: null,
+      regionMask: null,
+      currentAreaNode: null,
+      districtExplorer:null,
+      out_adcode: null
 
     }
   },
@@ -17,7 +21,6 @@ export default {
   },
   mounted() {
     this.initMap()
-    this.aa()
   },
   methods: {
     initMap(){
@@ -25,67 +28,198 @@ export default {
         pitch: 0,//50
         viewMode: '3D',//海量点不支持3D
         dragEnable: true,
+        bubble: true,
         zoomEnable: true,
         zoom:6.5,
         center: [113.473719, 33.723493-0.6],
         mapStyle:'amap://styles/light',//
       });
       this.map = map;
-      this.district = new AMap.DistrictSearch({
-        showbiz:false,
-        subdistrict: 1,   //1 返回下一级行政区,0：不返回下级行政区
-        extensions: 'all',  //返回行政区边界坐标组等具体信息
-        level: 'city'  //查询行政级别为市
-      });
-      // new AMap.TileLayer({
-      //   map: map,
-      //   // tileUrl: '../../assets/img/del.png', // s=Galil不加也能渲染
-      //   zIndex: 2, // 在默认层级之上
-      //   opacity: 0.1
-      // })
-      map.on('click',this.checkAndCloseInfo);
-      // this.search(410000,1)
-    },
-    checkAndCloseInfo (val) {
-      console.log(val)
-
-    },
-    search (region,dep) {
-      let that = this
-      dep = typeof dep === 'undefined' ? 1 : dep;
-      this.disProvince && this.disProvince.setMap(null);
-      this.disProvince = new AMap.DistrictLayer.Province({
-        zIndex: 20,
-        adcode: [region],
-        depth: dep,
-        styles: {
-          'fill': function (properties) {
-            console.log(11,properties)
-            // properties为可用于做样式映射的字段，包含
-            // NAME_CHN:中文名称
-            // adcode_pro
-            // adcode_cit
-            // adcode
-            let adcode = properties.adcode;
-            return that.getColorByAdcode(adcode);
-          },
-          'province-stroke': '#fc9057',
-          'city-stroke': '#fc9057', // 中国地级市边界
-          'county-stroke': 'rgba(255,255,255,0.5)' // 中国区县边界
-        }
+      new AMap.TileLayer({
+        map: map,
+        zIndex: 2, // 在默认层级之上
+        opacity: 0.1
       })
+      this.locationSearch("410000")
+      this.initPointSimplifier(410000);
+    },
+    locationSearch (code) {
+      this.district =  new AMap.DistrictSearch({
+        subdistrict: 2,   ////返回下一级行政区。取值2，可以获取到上海的所有区
+        extensions: 'all',  //返回行政区边界坐标组等具体信息
+        level: 'city'  //查询行政级别为 市
+      })
+      let that = this
+      this.district.search(code,function(){
+        // 外多边形坐标数组和内多边形坐标数组
+        var outer = [
+          new AMap.LngLat(-360,90,true),
+          new AMap.LngLat(-360,-90,true),
+          new AMap.LngLat(360,-90,true),
+          new AMap.LngLat(360,90,true),
+        ];
+        // var holes = result.districtList[0].boundaries
+        var holes = []
+        var pathArray = [
+          outer
+        ];
+        pathArray.push.apply(pathArray,holes)
+        var polygon = new AMap.Polygon({
+          pathL:pathArray,
+          strokeColor: '#fd9860',
+          strokeWeight: 1,
+          fillColor: 'rgba(255,255,255,1)',
+          fillOpacity: 0.5
+        });
+        polygon.setPath(pathArray);
+        that.map.add(polygon)
 
-      this.disProvince.setMap(this.map);
+      })
     },
-    getColorByAdcode(adcode) {
-      let colors = {}
-      if (!colors[adcode]) {
-        // let gb = Math.random() * 155 + 50;
-        // colors[adcode] = 'rgb(' + gb + ',' + gb + ',255)';
-        colors[adcode] = this.selectColor(adcode)
+    initPointSimplifier (code) {
+      let that = this
+      AMapUI.loadUI(['geo/DistrictExplorer'], function(DistrictExplorer) {
+        //启动页面
+        that.districtExplorer = new DistrictExplorer({
+          map: that.map,//关联的地图实例
+          eventSupport: true,
+        });
+        that.districtExplorer.on('featureClick', function(e, feature) {
+          that.switch2AreaNode(feature.properties.adcode);
+        })
+        that.districtExplorer.on('outsideClick', function(e) {
+          that.districtExplorer.locatePosition(e.originalEvent.lnglat, function(error, routeFeatures) {
+            if (routeFeatures && routeFeatures.length > 1) {
+              //切换到省级区域
+              that.switch2AreaNode(routeFeatures[1].properties.adcode);
+            } else {
+              //切换到全国
+              that.switch2AreaNode(410000);
+            }
+
+          }, {
+            levelLimit: 2
+          });
+        });
+
+        that.switch2AreaNode(code)
+      })
+    },
+    setText (center,name) {
+      var text = new AMap.Text({
+        text:name,
+        anchor:'center', // 设置文本标记锚点
+        draggable:false,
+        bubble: true,
+        cursor:'pointer',
+        angle:0,
+        style:{
+          'padding': '.2rem .5rem',
+          'border-radius': '.25rem',
+          'background-color': 'transparent',
+          'width': '5rem',
+          'border-width': 0,
+          'text-align': 'center',
+          'font-size': '14px',
+          'color': '#00000080'
+        },
+        position: center
+      });
+
+      text.setMap(this.map);
+    },
+    switch2AreaNode(adcode, callback) {
+      this.out_adcode = adcode
+      let that = this
+      if (this.currentAreaNode && ('' + this.currentAreaNode.getAdcode() === '' + adcode)) {
+        return;
       }
-      return colors[adcode];
+      this.loadAreaNode(adcode, function(error, areaNode) {
+        if (error) {
+
+          if (callback) {
+            callback(error);
+          }
+          return;
+        }
+        that.currentAreaNode = window.currentAreaNode = areaNode;
+        //设置当前使用的定位用节点
+        that.districtExplorer.setAreaNodesForLocating([that.currentAreaNode]);
+        that.refreshAreaNode(areaNode);
+        if (callback) {
+          callback(null, areaNode);
+        }
+      });
     },
+    refreshAreaNode(areaNode) {
+      this.districtExplorer.setHoverFeature(null);
+      this.renderAreaPolygons(areaNode);
+    },
+    //加载区域
+    loadAreaNode(adcode, callback) {
+      this.districtExplorer.loadAreaNode(adcode, function(error, areaNode) {
+        if (error) {
+
+          if (callback) {
+            callback(error);
+          }
+          console.error(error);
+
+          return;
+        }
+        // this.renderAreaPanel(areaNode);
+        if (callback) {
+          callback(null, areaNode);
+        }
+      });
+    },
+    renderAreaPolygons(areaNode) {
+      let that = this
+      var colors = [
+        "#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00",
+        "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707",
+        "#651067", "#329262", "#5574a6", "#3b3eac"
+      ];
+      //更新地图视野
+      this.map.setBounds(areaNode.getBounds(), null, null, true);
+
+      //清除已有的绘制内容
+      this.districtExplorer.clearFeaturePolygons();
+
+      //绘制子区域
+      this.districtExplorer.renderSubFeatures(areaNode, function(feature, i) {
+        that.setText(feature.properties.center,feature.properties.name)
+
+        var fillColor = colors[i % colors.length];
+        var strokeColor = colors[colors.length - 1 - i % colors.length];
+        if(this.out_adcode === 410000) {
+          fillColor = that.selectColor(feature.properties.adcode)
+          strokeColor = '#fab98e'
+        }
+
+        return {
+          cursor: 'default',
+          bubble: true,
+          strokeColor: strokeColor, //线颜色
+          strokeOpacity: 1, //线透明度
+          strokeWeight: 2, //线宽
+          fillColor: fillColor, //填充色
+          fillOpacity: 1, //填充透明度
+        };
+      });
+
+      //绘制父区域
+      this.districtExplorer.renderParentFeature(areaNode, {
+        cursor: 'default',
+        bubble: true,
+        strokeColor: '#fab98e', //线颜色
+        strokeOpacity: 1, //线透明度
+        strokeWeight: 2, //线宽
+        fillColor: areaNode.getSubFeatures().length ? null : colors[0], //填充色
+        fillOpacity: 1, //填充透明度
+      });
+    },
+
     selectColor (adcode) {
       // 信阳，三门峡市，平顶山市，焦作市，开封市，"鹤壁市"
       let arr1 = [411500,411200,410400,410800,410200,410600]
@@ -100,62 +234,7 @@ export default {
         color = '#ffbe75'
       }
       return color
-
-    },
-    aa () {
-      let that = this
-      this.district.search('999',(status,result)=>{
-        that.setMaskOut(that.map,status,result,true);
-      })
-    },
-    setMaskOut(map,status,result,isAll){
-      // 外多边形坐标数组和内多边形坐标数组
-      var outer = [
-        new AMap.LngLat(-360,90,true),
-        new AMap.LngLat(-360,-90,true),
-        new AMap.LngLat(360,-90,true),
-        new AMap.LngLat(360,90,true),
-      ];
-      var holes = result.districtList[0].boundaries;
-
-      var pathArray = [outer];
-      pathArray.push.apply(pathArray,holes);
-      new AMap.Polygon({
-        map:map,
-        path:pathArray,
-        zIndex:5,
-        bubble:true,
-        strokeColor: 'rgb(20,164,173)',
-        strokeWeight: 2,
-        strokeOpacity:0,
-        fillColor: '#292452',//'#000',
-        fillOpacity: 0.7,
-        strokeStyle:'dashed',//轮廓线样式，实线:solid，虚线:dashed
-        strokeDasharray:[10,2,10]
-        /*勾勒形状轮廓的虚线和间隙的样式，此属性在strokeStyle 为dashed 时有效， 此属性在
-          ie9+浏览器有效 取值：
-          实线：[0,0,0]
-          虚线：[10,10] ，[10,10] 表示10个像素的实线和10个像素的空白（如此反复）组成的虚线
-          点画线：[10,2,10]， [10,2,10] 表示10个像素的实线和2个像素的空白 + 10个像素的实
-          线和10个像素的空白 （如此反复）组成的虚线*/
-      });
-      if(!isAll)return;
-      new AMap.Polygon({
-        map:map,
-        path:holes,
-        zIndex:5,
-        bubble:true,
-        strokeColor: 'rgb(20,164,173)',
-        strokeWeight: 2,
-        strokeOpacity:0,
-        fillColor: '#292452',//'#000',
-        fillOpacity: 0.7,
-        strokeStyle:'solid',
-        strokeDasharray:[10,2,10]
-      });
-
-      // this.regionGroup.add(poly);
-    },
+    }
   }
 }
 </script>
