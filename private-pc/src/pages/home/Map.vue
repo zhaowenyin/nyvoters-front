@@ -11,7 +11,8 @@ export default {
       district: null,
       regionMask: null,
       currentAreaNode: null,
-      districtExplorer:null
+      districtExplorer:null,
+      out_adcode: null
 
     }
   },
@@ -104,49 +105,6 @@ export default {
         that.switch2AreaNode(code)
       })
     },
-    initPage(DistrictExplorer,code) {
-      let that = this
-      //创建一个实例
-      var adcode = code; //全国的区划编码
-      DistrictExplorer.loadAreaNode(adcode, function(error, areaNode) {
-        if (error) {
-          console.error(error);
-          return;
-        }
-        //绘制载入的区划节点
-        that.renderAreaNode(DistrictExplorer, areaNode);
-      });
-    },
-    renderAreaNode(districtExplorer, areaNode) {
-      let that = this
-      //清除已有的绘制内容
-      districtExplorer.clearFeaturePolygons();
-      //绘制子级区划
-      districtExplorer.renderSubFeatures(areaNode, function(feature) {
-        let fillColor = that.selectColor(feature.properties.adcode)
-        that.setText(feature.properties.center,feature.properties.name)
-        return {
-          cursor: 'default',
-          bubble: true,
-          strokeColor: '#fd9860', //线颜色
-          strokeOpacity: 1, //线透明度
-          strokeWeight: 2, //线宽
-          fillColor: fillColor, //填充色
-          fillOpacity: 1, //填充透明度
-        };
-      });
-
-      //绘制父级区划，仅用黑色描边
-      districtExplorer.renderParentFeature(areaNode, {
-        cursor: 'default',
-        bubble: true,
-        strokeColor: '#fd9860', //线颜色
-        fillColor: null,
-        strokeWeight: 3, //线宽
-      });
-      //更新地图视野以适合区划面
-      that.map.setFitView(districtExplorer.getAllFeaturePolygons());
-    },
     setText (center,name) {
       var text = new AMap.Text({
         text:name,
@@ -171,6 +129,7 @@ export default {
       text.setMap(this.map);
     },
     switch2AreaNode(adcode, callback) {
+      this.out_adcode = adcode
       let that = this
       if (this.currentAreaNode && ('' + this.currentAreaNode.getAdcode() === '' + adcode)) {
         return;
@@ -233,13 +192,17 @@ export default {
 
         var fillColor = colors[i % colors.length];
         var strokeColor = colors[colors.length - 1 - i % colors.length];
+        if(this.out_adcode === 410000) {
+          fillColor = that.selectColor(feature.properties.adcode)
+          strokeColor = '#fab98e'
+        }
 
         return {
           cursor: 'default',
           bubble: true,
           strokeColor: strokeColor, //线颜色
           strokeOpacity: 1, //线透明度
-          strokeWeight: 1, //线宽
+          strokeWeight: 2, //线宽
           fillColor: fillColor, //填充色
           fillOpacity: 1, //填充透明度
         };
@@ -249,11 +212,11 @@ export default {
       this.districtExplorer.renderParentFeature(areaNode, {
         cursor: 'default',
         bubble: true,
-        strokeColor: 'black', //线颜色
+        strokeColor: '#fab98e', //线颜色
         strokeOpacity: 1, //线透明度
-        strokeWeight: 1, //线宽
+        strokeWeight: 2, //线宽
         fillColor: areaNode.getSubFeatures().length ? null : colors[0], //填充色
-        fillOpacity: 0.35, //填充透明度
+        fillOpacity: 1, //填充透明度
       });
     },
 
