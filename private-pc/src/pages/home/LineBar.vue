@@ -67,7 +67,7 @@ export default {
         tooltip: {},
         dataset: {
           dimensions: this.nameList,
-          source: this.handerLis
+          source: this.handerList
         },
         xAxis: {
           type: 'category',
@@ -150,7 +150,7 @@ export default {
       this.myChart.setOption(option)
     },
     handerData () {
-      this.handerLis = []
+      this.handerList = []
       this.nameList = ['product','总人口数','选民人数','登记成功人口数']
       let obj = {peopleNum:null,votersNum: null,regVotersNum: null}
       for(let i of this.list) {
@@ -159,8 +159,8 @@ export default {
         for(let el in obj) {
           item.push(i[el])
         }
-        this.handerLis.push(item)
-        console.log(122,this.handerList)
+        this.handerList.push(item)
+        console.log(122,this.handerList,i.precinctName)
       }
 
     }
