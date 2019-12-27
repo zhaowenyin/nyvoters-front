@@ -231,7 +231,7 @@ export default {
     display: flex;
   & .common1 {
       z-index: 10;
-      flex:4;
+      flex:1;
       display: flex;
       flex-direction: column;
       & .item {
