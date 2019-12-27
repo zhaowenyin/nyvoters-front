@@ -12,7 +12,8 @@ export default {
       regionMask: null,
       currentAreaNode: null,
       districtExplorer:null,
-      out_adcode: null
+      out_adcode: null,
+      text: null
 
     }
   },
@@ -31,7 +32,7 @@ export default {
         bubble: true,
         zoomEnable: true,
         zoom:6.5,
-        center: [113.473719, 33.723493-0.6],
+        center: [113.473719, 33.723493-0.7],
         mapStyle:'amap://styles/light',//
       });
       this.map = map;
@@ -89,6 +90,7 @@ export default {
           that.$emit('Searchlist',feature.properties.adcode)
         })
         that.districtExplorer.on('outsideClick', function(e) {
+          that.map.remove()
           that.districtExplorer.locatePosition(e.originalEvent.lnglat, function(error, routeFeatures) {
             if (routeFeatures && routeFeatures.length > 1) {
               //切换到省级区域
@@ -124,7 +126,7 @@ export default {
       }
     },
     setText (center,name) {
-      var text = new AMap.Text({
+      this.text = new AMap.Text({
         text:name,
         anchor:'center', // 设置文本标记锚点
         draggable:false,
@@ -144,7 +146,7 @@ export default {
         position: center
       });
 
-      text.setMap(this.map);
+      this.text.setMap(this.map);
     },
     switch2AreaNode(adcode, callback) {
       this.out_adcode = adcode

@@ -58,7 +58,7 @@ export default {
           itemWidth: 20,
           itemHeight: 10,
           color: '#545454',
-          fontSize: 16,
+          fontSize: '16',
           textStyle: {
             fontSize: '16',
             color:'#545454'

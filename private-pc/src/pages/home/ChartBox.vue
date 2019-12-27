@@ -11,7 +11,7 @@
       </div>
     </div>
       <!-- <Pie style="flex: 1;background: rgba(255,255,255,0.7)" :list="regVotersList"/> -->
-      <div style="flex: 1;background: rgba(255,255,255,0.7)">
+      <div style="flex: 1;background: rgba(255,255,255,0.7)" class="center">
         <slot name="right" />
       </div>
       <div class="a a11">
@@ -120,6 +120,11 @@ export default {
        border-bottom:none;
      }
   }
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 </style>
