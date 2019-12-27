@@ -55,7 +55,7 @@ export default {
           bottom: 10,
           left: "center",
           itemGap: 40,
-          itemWidth: 19,
+          itemWidth: 20,
           itemHeight: 10,
           color: '#545454',
           fontSize: 16,

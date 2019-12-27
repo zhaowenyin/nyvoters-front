@@ -197,6 +197,7 @@ export default {
           top: 'middle',
           align: 'left',
           itemGap: 16,
+          itemWidth: 20,
           itemHeight: 10,
           textStyle: {
             color: '#666',
