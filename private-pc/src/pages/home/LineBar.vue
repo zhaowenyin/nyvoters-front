@@ -6,7 +6,7 @@
 export default {
   data() {
     return {
-      handerLis: [],
+      handerList: [],
       nameList: []
     }
   },
@@ -160,6 +160,7 @@ export default {
           item.push(i[el])
         }
         this.handerLis.push(item)
+        console.log(122,this.handerList)
       }
 
     }
