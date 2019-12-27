@@ -2,7 +2,7 @@
   <div class="home122">
     <Map class="map" @Searchlist="Searchlist"/>
     <div class="header">
-      河南省县乡人大选民登记情况
+      <div class="header-name">河南省县乡人大选民登记情况</div>
     </div>
     <div class="middel-content">
       <div class="common1">
@@ -218,8 +218,8 @@ export default {
     background-size: 100% 100%;
     z-index: 10;
     text-align: center;
-    line-height: 120px;
     font-size: 36px;
+    line-height: 36px;
     color: #fe8f47;
     font-weight: bold;
 
@@ -255,6 +255,9 @@ export default {
     flex-direction: column;
     margin-bottom: 15px;
   }
+}
+.header-name {
+  padding-top: 40px;
 }
 .middle {
   flex: 1.5;
