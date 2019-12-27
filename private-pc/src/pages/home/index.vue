@@ -8,10 +8,11 @@
       <div class="common1">
         <div class="item" style="margin-bottom:10px;">
           <div style="background: rgba(255,255,255,0.7)">
-            <div class="img">登记率75%</div>
+            <div class="img">登记率{{rate}}</div>
           </div>
           <ChartBox>
             <template slot="right" class="center">
+
               <Pie1 v-if="data1.length>0" :data="data1"/>
             </template>
           </ChartBox>
@@ -114,7 +115,8 @@ export default {
       data1: [],
       data2: [],
       data3: [],
-      data4: []
+      data4: [],
+      rate: null
     }
   },
   components: {
@@ -184,6 +186,7 @@ export default {
       this.data2 = data2
       this.data3 = data3
       this.data4 = data4
+      this.rate = ((+this.data.regVotersNum / +this.data.peopleNum)*100).toFixed(2)
       this.data1 = [{name: '已登记人数',value:+this.data.regVotersNum},{name: '未登记人数',value:  +this.data.peopleNum - +this.data.regVotersNum}]
     },
     async bindPhone(val) {

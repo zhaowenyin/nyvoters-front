@@ -13,7 +13,8 @@ export default {
       currentAreaNode: null,
       districtExplorer:null,
       out_adcode: null,
-      text: null
+      text: null,
+      textList: []
 
     }
   },
@@ -48,10 +49,10 @@ export default {
       this.district =  new AMap.DistrictSearch({
         subdistrict: 2,   ////返回下一级行政区。取值2，可以获取到上海的所有区
         extensions: 'all',  //返回行政区边界坐标组等具体信息
-        level: 'city'  //查询行政级别为 市
+        level: 'district'  //查询行政级别为 市
       })
       let that = this
-      this.district.search(code,function(){
+      this.district.search(code,function(status,result){
         // 外多边形坐标数组和内多边形坐标数组
         var outer = [
           new AMap.LngLat(-360,90,true),
@@ -59,8 +60,7 @@ export default {
           new AMap.LngLat(360,-90,true),
           new AMap.LngLat(360,90,true),
         ];
-        // var holes = result.districtList[0].boundaries
-        var holes = []
+        var holes = result.districtList[0].boundaries
         var pathArray = [
           outer
         ];
@@ -86,11 +86,14 @@ export default {
           eventSupport: true,
         });
         that.districtExplorer.on('featureClick', function(e, feature) {
+          // that.locationSearch(feature.properties.adcode)
+          console.log(feature)
+          that.map.remove(that.textList)
+          that.textList = []
           that.switch2AreaNode(feature.properties.adcode);
           that.$emit('Searchlist',feature.properties.adcode)
         })
         that.districtExplorer.on('outsideClick', function(e) {
-          that.map.remove()
           that.districtExplorer.locatePosition(e.originalEvent.lnglat, function(error, routeFeatures) {
             if (routeFeatures && routeFeatures.length > 1) {
               //切换到省级区域
@@ -145,6 +148,7 @@ export default {
         },
         position: center
       });
+      this.textList.push(this.text)
 
       this.text.setMap(this.map);
     },
@@ -238,7 +242,7 @@ export default {
         strokeOpacity: 1, //线透明度
         strokeWeight: 3, //线宽
         fillColor: areaNode.getSubFeatures().length ? null : colors[0], //填充色
-        fillOpacity: 1, //填充透明度
+        fillOpacity: 0.1, //填充透明度
       });
     },
 
