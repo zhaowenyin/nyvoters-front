@@ -1,5 +1,5 @@
 <template>
-  <div style="height:100%;" ref="myChart"></div>
+  <div style="height:100%; width: 100%;" ref="myChart"></div>
 </template>
 
 <script>
@@ -45,24 +45,25 @@ export default {
     echarts () {
       let option ={
         grid: {
-          top: '20',
+          top: '30',
           containLabel: true,
-          bottom: '30',
+          bottom: '50',
           left: '20',
           right:'20'
         },
         legend: {
           bottom: 10,
           left: "center",
-          itemGap: 40,
+          itemGap: 80,
           itemWidth: 20,
           itemHeight: 10,
           color: '#545454',
           fontSize: '16',
           textStyle: {
-            fontSize: '16',
-            color:'#545454'
-          }
+            color: '#666',
+            fontSize: 16,
+            padding: [0, 0, 0, 14]
+          },
         },
         tooltip: {},
         dataset: {

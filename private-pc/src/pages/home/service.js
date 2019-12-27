@@ -9,51 +9,44 @@ export async function getList (payload) {
         data: {
           "code": "string",
           "content": {
-            "ageGraphs": [
-              {
-                "item": 0,
-                "label": "20-20岁",
-                "value": 100
-              },
-              {
-                "item": 0,
-                "label": "40-50岁",
-                "value": 200
-              },
-              {
-                "item": 0,
-                "label": "50岁以上",
-                "value": 400
-              }
-            ],
+            "ageGraphs": [{
+              value: 300,
+              label: '35岁以下'
+            },{
+              value: 200,
+              label: '36-55岁'
+            },{
+              value: 100,
+              label: '56岁以上'
+            }],
             "sexGraphs": [
               {
                 "item": 0,
                 "label": "男",
-                "value": 20
+                "value": 200
               },
               {
                 "item": 0,
                 "label": "女",
-                "value": 30
+                "value": 300
               }
             ],
-            "candidateTypeGraphs": [
-
-              {
-                "label": "二代证",
-                "value": 1210
-              },
-              {
-                "label": "社保卡",
-                "value": 5600
-              },
-              {
-                "label": "其他",
-                "value": 5600
-              }
-
-            ],
+            "candidateTypeGraphs": [{
+              value: 300,
+              label: '户籍地'
+            },{
+              value: 300,
+              label: '现居地'
+            },{
+              value: 100,
+              label: '单位'
+            },{
+              value: 100,
+              label: '学校'
+            },{
+              value: 100,
+              label: '其他'
+            }],
             "idTypeGraphs": [
               {
                 "label": "string",
@@ -64,26 +57,24 @@ export async function getList (payload) {
                 "value": 12
               }
             ],
-            "peopleNum": 60,
-            "regVotersNum": 23,
-            "registerTypeGraphs": [
-              {
-                "label": "单位",
-                "value": 1210
-              },
-              {
-                "label": "学校",
-                "value": 5600
-              },
-              {
-                "label": "登记站",
-                "value": 5600
-              },
-              {
-                "label": "其他",
-                "value": 5600
-              }
-            ],
+            "peopleNum": 200,
+            "regVotersNum": 150,
+            "registerTypeGraphs": [{
+              label: 300,
+              name: '户籍地'
+            },{
+              label: 300,
+              name: '现居地'
+            },{
+              label: 100,
+              name: '单位'
+            },{
+              label: 100,
+              name: '学校'
+            },{
+              label: 100,
+              name: '其他'
+            }],
             "reviewFailGraphs": [
               {
                 "label": "string",
@@ -99,7 +90,7 @@ export async function getList (payload) {
             "votersCounts": [
               {
                 "districtId": 0,
-                "precinctName": "选区一",
+                "precinctName": "郑州",
                 "peopleNum": 3000,
                 "regRate": 0.5,
                 "regVotersNum": 500,
@@ -107,7 +98,23 @@ export async function getList (payload) {
               },
               {
                 "districtId": 0,
-                "precinctName": "选区二",
+                "precinctName": "开封",
+                "peopleNum": 900,
+                "regRate": 0.9,
+                "regVotersNum": 100,
+                "votersNum": 500
+              },
+              {
+                "districtId": 0,
+                "precinctName": "洛阳",
+                "peopleNum": 3000,
+                "regRate": 0.5,
+                "regVotersNum": 500,
+                "votersNum": 1500
+              },
+              {
+                "districtId": 0,
+                "precinctName": "平顶山",
                 "peopleNum": 900,
                 "regRate": 0.9,
                 "regVotersNum": 100,

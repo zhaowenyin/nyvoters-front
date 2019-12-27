@@ -138,8 +138,8 @@ export default {
               return {
                 type: 'arc',
                 shape: {
-                  cx: 180,
-                  cy: 94,
+                  cx: 178,
+                  cy: 95,
                   r: 60,
                   r0: 0,
                   startAngle,
@@ -176,8 +176,8 @@ export default {
               return {
                 type: 'arc',
                 shape: {
-                  cx: 180,
-                  cy: 94,
+                  cx: 178,
+                  cy: 95,
                   r: 45,
                   r0: 0,
                   startAngle,
@@ -219,7 +219,7 @@ export default {
                 },
                 origin: [1, 75],
                 rotation: api.value(0),
-                position: [179, 19],
+                position: [177, 20],
                 style: api.style({
                   fill: '#3c4dab'
                 })
@@ -244,7 +244,7 @@ export default {
                 },
                 origin: [1, 75],
                 rotation: api.value(0) + Math.PI * 2 * percent1,
-                position: [179, 19],
+                position: [177, 20],
                 style: api.style({
                   fill: '#f14294'
                 }),
@@ -284,8 +284,9 @@ export default {
   background: url("../../assets/img/8.png") center center no-repeat;
 }
 .man, .woman{
-  padding: 15px 14px 0px;
-  height: 100px;
+  padding: 15px 0px 15px 14px;
+  width: 68px;
+  flex: 1;
   border-radius: 6px;
   border: 1px solid rgba(60,77,171,0.5);
   color: #7e7e7e;

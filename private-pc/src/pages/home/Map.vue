@@ -265,11 +265,11 @@ export default {
 }
 </script>
 <style scoped>
-  #container {
+  /* #container {
     margin:0;
     height: 100%;
     opacity: 1;
     background: transparent
-  }
+  } */
 
 </style>

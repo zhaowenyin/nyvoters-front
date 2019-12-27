@@ -1,100 +1,48 @@
 <template>
-  <div class="home122">
-    <Map class="map" @Searchlist="Searchlist"/>
-    <div class="header">
-      <div class="header-name">河南省县乡人大选民登记情况</div>
-    </div>
-    <div class="middel-content">
-      <div class="common1">
-        <div class="item" style="margin-bottom:10px;">
-          <div style="background: rgba(255,255,255,0.7)">
-            <div class="img">登记率{{rate}}</div>
-          </div>
-          <ChartBox>
-            <template slot="right">
-              <div class="center">
-                <Pie1 v-if="data1.length>0" :data="data1"/>
-              </div>
-            </template>
-          </ChartBox>
-          <div class="out-bottom">
-            <div class="out-bottom-1"></div>
-            <div></div>
-            <div class="out-bottom-2"></div>
-          </div>
-        </div>
-        <div class="item">
-           <div style="background: rgba(255,255,255,0.7)">
-             <div class="img">参选地</div>
+  <div style="overflow-x: hidden;">
+    <div class="home-content">
+      <Map class="map" @Searchlist="Searchlist"/>
+      <div class="header">
+        <div class="header-name">河南省县乡人大选民登记情况</div>
+      </div>
+      <div class="middel-content">
+        <div class="common1">
+          <div class="item">
+            <div class="name">登记率{{rate}}</div>
+            <div class="center">
+              <Pie1 v-if="data1.length>0" :data="data1"/>
             </div>
-            <ChartBox>
-              <template slot="right">
-                <div class="center">
-                  <Pie2 v-if="data2.length>0" :data="data2" name="right"/>
-                </div>
-              </template>
-            </ChartBox>
-           <div class="out-bottom">
-            <div class="out-bottom-1"></div>
-            <div></div>
-            <div class="out-bottom-2"></div>
+          </div>
+          <div class="item">
+            <div class="name">参选地</div>
+            <div class="center" style="margin-top: -14px;">
+              <Pie2 v-if="data2.length>0" :data="data2"/>
+            </div>
+          </div>
+        </div>
+        <div class="common1">
+          <div class="item">
+            <div class="name">选民性别分析</div>
+            <div class="center" style="margin-left: -5px;">
+              <Pie3 v-if="data1.length>0" :data="data3"/>
+            </div>
+          </div>
+          <div class="item">
+            <div class="name">选民年龄分析</div>
+            <div class="center" style="margin-top: -14px;">
+              <Pie4 v-if="data4.length>0" :data="data4"/>
+            </div>
           </div>
         </div>
       </div>
-      <div class="middle"></div>
-      <div class="common1">
-        <div class="item"  style="margin-bottom:10px;">
-          <div style="background: rgba(255,255,255,0.7)">
-            <div class="img">民性别分析</div>
-          </div>
-            <ChartBox>
-              <template slot="right" >
-                <div class="center">
-                   <Pie3 v-if="data3.length>0" :data="data3" name="right"/>
-                </div>
-              </template>
-            </ChartBox>
-             <div class="out-bottom">
-            <div class="out-bottom-1"></div>
-            <div></div>
-            <div class="out-bottom-2"></div>
-          </div>
-        </div>
-        <div class="item" >
-          <div style="background: rgba(255,255,255,0.7)">
-            <div class="img">民年龄分析</div>
-          </div>
-          <ChartBox>
-            <template slot="right">
-              <div class="center">
-                <Pie4 v-if="data4.length>0" :data="data4" name="right"/>
-              </div>
-            </template>
-          </ChartBox>
-           <div class="out-bottom">
-            <div class="out-bottom-1"></div>
-            <div></div>
-            <div class="out-bottom-2"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="foot">
-      <div style="background: rgba(255,255,255,0.7)">
-        <div class="img2">河南省各市登记情况</div>
-      </div>
-      <ChartBox>
-        <template slot="right">
+      <div class="item foot">
+        <div class="name">河南省各市登记情况</div>
+        <div class="center">
           <LineBar
           name="实际筛查人数&比例"
           :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
           :list='data.votersCounts'/>
-        </template>
-      </ChartBox>
-       <div class="out-bottom">
-        <div class="out-bottom-1"></div>
-        <div></div>
-        <div class="out-bottom-2"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -105,7 +53,6 @@ import { mapMutations } from 'vuex'
 import LineBar from './LineBar'
 import {getList,bindPhone} from './service.js'
 import { getSession } from '../../utils/session'
-import ChartBox from './ChartBox'
 import Pie1 from '../../components/chart/Pie1'
 import Pie2 from '../../components/chart/Pie2'
 import Pie3 from '../../components/chart/Pie3'
@@ -129,7 +76,6 @@ export default {
   components: {
     Map,
     LineBar,
-    ChartBox,
     Pie1,
     Pie2,
     Pie3,
@@ -179,7 +125,7 @@ export default {
       const {data} = await getList('')
       this.data = data.content
       let data2 = this.data.candidateTypeGraphs
-      let data3 = this.data.ageGraphs
+      let data3 = this.data.sexGraphs
       let data4 = this.data.ageGraphs
       for (let i of data2) {
         i.name = i.label
@@ -205,124 +151,74 @@ export default {
 }
 </script>
 <style scoped>
-.home122 {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+.home-content {
   position:relative;
-  overflow: auto;
+  padding-bottom: 8px;
   & .header {
     width: 100%;
     height: 120px;
     background: url("../../assets/img/home-top.png") center center no-repeat;
-    background-size: 100% 100%;
+    background-size: cover;
     z-index: 10;
     text-align: center;
     font-size: 36px;
-    line-height: 36px;
+    line-height: 120px;
     color: #fe8f47;
     font-weight: bold;
+    position: relative;
 
   }
   & .middel-content {
-    padding: 10px 24px;
-    overflow: auto;
-    flex: 2.2;
+    padding: 3px 48px 0px;
+    width: 100%;
     display: flex;
+    justify-content: space-between;
   & .common1 {
       z-index: 10;
-      flex:1;
-      display: flex;
-      flex-direction: column;
-      & .item {
-        width: 100%;
-        flex: 1;
-        display: flex;
-        /* background: rgba(255,255,255,0.7); */
-        flex-direction: column;
-        /* border: 1px solid #fdaf51; */
-      }
     }
   }
-  & .foot {
-    overflow: auto;
-    margin: 0px 24px;
-    z-index: 10;
-    height: 200px;
+}
+.item {
+  height: 282px;
+  width: 535px;
+  background: url("../../assets/img/bg1.png") center center no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 0px 12px;
+  & .name{
+    font-size: 18px;
+    color: #fffcf9;
+    text-align: center;
+    line-height: 32px;
+  }
+  & .center {
     flex: 1;
-    background-size: 100% 100%;
     display: flex;
-    flex-direction: column;
-    margin-bottom: 15px;
+    justify-content: center;
+    align-items: center;
   }
 }
-.header-name {
-  padding-top: 40px;
-}
-.middle {
-  flex: 1.5;
-  background: rgba(255,255,255,0.7);
-}
-.img {
-  border: 1px solid #fdaf51;
-  border-bottom: none;
-  width: 100%;
-  height:33px;
-  background: url("../../assets/img/99.png") center center no-repeat;
-  background-size: 100% 100%;
-  font-size: 18px;
-  color: #fffcf9;
-  text-align: center;
-  line-height: 33px;
-}
-.img2{
-  border: 1px solid #fdaf51;
-  border-bottom: none;
-  width: 100%;
-  height:38px;
-  background: url("../../assets/img/home-bottom.png") center center no-repeat;
-  background-size: 100% 100%;
-  font-size: 20px;
-  color: #fffcf9;
-  text-align: center;
-  line-height: 38px;
-}
+
 .map {
-  width: 100%;
-  height: 100%;
   position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
   z-index: 0
 }
-.out-bottom {
-  display: flex;
-  margin-left: 4px;
-  margin-right: 4px;
-  & div {
-    flex: 1;
-    background: rgba(255,255,255,0.7);
-    border-bottom: 1px solid #fdaf51;
-    &.out-bottom-1 {
-      height: 10px;
-      border-left: 1px solid #fdaf51;
-      background: rgba(255,255,255,0.7);
-      transform:skewX(40deg)
-    }
-    &.out-bottom-2 {
-      height: 10px;
-      background: rgba(255,255,255,0.7);
-      border-left: none;
-      border-right: 1px solid #fdaf51;
-      transform:skewX(-40deg);
-    }
+.foot {
+  position: relative;
+  margin: 0px 48px 0px;
+  z-index: 10;
+  width: inherit;
+  height: 324px;
+  background: url("../../assets/img/bg2.png") center center no-repeat;
+  background-size: 100% 100%;
+  & .cneter{
+    display: block;
   }
-
-}
-.center {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 </style>
