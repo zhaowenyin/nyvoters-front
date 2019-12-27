@@ -11,7 +11,7 @@
             <div class="img">登记率75%</div>
           </div>
           <ChartBox>
-            <template slot="right">
+            <template slot="right" class="center">
               <Pie1 v-if="data1.length>0" :data="data1"/>
             </template>
           </ChartBox>
@@ -26,7 +26,7 @@
              <div class="img">参选地</div>
             </div>
             <ChartBox>
-              <template slot="right">
+              <template slot="right" class="center">
                 <Pie2 v-if="data2.length>0" :data="data2" name="right"/>
               </template>
             </ChartBox>
@@ -44,7 +44,7 @@
             <div class="img">民性别分析</div>
           </div>
             <ChartBox>
-              <template slot="right">
+              <template slot="right" class="center">
                 <Pie3 v-if="data3.length>0" :data="data3" name="right"/>
               </template>
             </ChartBox>
@@ -59,7 +59,7 @@
             <div class="img">民年龄分析</div>
           </div>
           <ChartBox>
-            <template slot="right">
+            <template slot="right" class="center">
              <Pie4 v-if="data4.length>0" :data="data4" name="right"/>
             </template>
           </ChartBox>
@@ -303,6 +303,13 @@ export default {
     }
   }
 
+}
+.center {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 </style>

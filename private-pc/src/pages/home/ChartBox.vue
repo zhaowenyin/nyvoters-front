@@ -11,7 +11,7 @@
       </div>
     </div>
       <!-- <Pie style="flex: 1;background: rgba(255,255,255,0.7)" :list="regVotersList"/> -->
-      <div style="flex: 1;background: rgba(255,255,255,0.7)" class="center">
+      <div style="flex: 1;background: rgba(255,255,255,0.7)">
         <slot name="right" />
       </div>
       <div class="a a11">
@@ -121,8 +121,6 @@ export default {
      }
   }
 }
-.center {
 
-}
 
 </style>
