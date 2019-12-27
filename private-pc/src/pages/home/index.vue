@@ -203,13 +203,13 @@ export default {
   overflow: auto;
   & .header {
     width: 100%;
-    height: 60px;
+    height: 120px;
     background: url("../../assets/img/home-top.png") center center no-repeat;
     background-size: 100% 100%;
     z-index: 10;
     text-align: center;
-    line-height: 60px;
-    font-size: 18px;
+    line-height: 120px;
+    font-size: 36px;
     color: #fe8f47;
     font-weight: bold;
 
@@ -254,25 +254,25 @@ export default {
   border: 1px solid #fdaf51;
   border-bottom: none;
   width: 100%;
-  height:18px;
+  height:33px;
   background: url("../../assets/img/99.png") center center no-repeat;
   background-size: 100% 100%;
-  font-size: 10px;
+  font-size: 18px;
   color: #fffcf9;
   text-align: center;
-  line-height: 18px;
+  line-height: 33px;
 }
 .img2{
   border: 1px solid #fdaf51;
   border-bottom: none;
   width: 100%;
-  height:24px;
+  height:38px;
   background: url("../../assets/img/home-bottom.png") center center no-repeat;
   background-size: 100% 100%;
-  font-size: 10px;
+  font-size: 20px;
   color: #fffcf9;
   text-align: center;
-  line-height: 24px;
+  line-height: 38px;
 }
 .map {
   width: 100%;
