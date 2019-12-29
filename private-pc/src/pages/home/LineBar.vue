@@ -148,7 +148,10 @@ export default {
             itemStyle:{
               barBorderRadius: 4,
               emphasis: {
-                borderColor: '#24108b',
+                borderColor: new echarts.graphic.LinearGradient(
+                  0, 0, 0, 1,
+                  [{offset: 1, color: '#24108b'},{offset: 0.5, color: '#302f9b'},{offset: 0, color: '#3c4dab'}]
+                ),
                 borderWidth: 6,
                 borderType: 'solid',
               }
@@ -167,7 +170,10 @@ export default {
             itemStyle:{
               barBorderRadius: 4,
               emphasis: {
-                borderColor: '#f14294',
+                borderColor: new echarts.graphic.LinearGradient(
+                  0, 0, 0, 1,
+                  [{offset: 1, color: '#f14294'},{offset: 0.5, color: '#ed7398'},{offset: 0, color: '#e8a39b'}]
+                ),
                 borderWidth: 6,
                 borderType: 'solid',
               }
@@ -186,7 +192,10 @@ export default {
             itemStyle:{
               barBorderRadius: 4,
               emphasis: {
-                borderColor: '#fbc34b',
+                borderColor: new echarts.graphic.LinearGradient(
+                  0, 0, 0, 1,
+                  [{offset: 1, color: '#fbc34b'},{offset: 0, color: '#ff7b18'}]
+                ),
                 borderWidth: 6,
                 borderType: 'solid',
               }
