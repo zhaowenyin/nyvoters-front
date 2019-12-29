@@ -129,7 +129,7 @@ export default {
       var polys = this.districtExplorer.findFeaturePolygonsByAdcode(props.adcode);
       for (var i = 0, len = polys.length; i < len; i++) {
         polys[i].setOptions({
-          fillOpacity: isHover ? 0.9 : 1
+          fillOpacity: isHover ? 0.6 : 1
         })
       }
     },
@@ -218,12 +218,14 @@ export default {
 
       //绘制子区域
       this.districtExplorer.renderSubFeatures(areaNode, function(feature, i) {
-        that.setText(feature.properties.center,feature.properties.name)
-
+        let center = feature.properties.center
+        if(feature.properties.name==='卧龙区') {
+          center = [center[0]-0.1,center[1]+0.1]
+        }
+        that.setText(center,feature.properties.name)
         var fillColor = colors[i % colors.length];
         var strokeColor = colors[colors.length - 1 - i % colors.length];
         if(that.out_adcode === 410000) {
-
           fillColor = that.selectColor(feature.properties.adcode)
           strokeColor = '#fab98e'
         }
