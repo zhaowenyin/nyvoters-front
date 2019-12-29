@@ -1,7 +1,7 @@
 <template>
   <div style="overflow-x: hidden;">
     <div class="home-content">
-      <Map class="map" @Searchlist="clickMap" :code="code" v-if="authToken.district.level!==2"/>
+      <Map class="map" @Searchlist="clickMap" :code="code" v-if="authToken.district.level!==3"/>
       <div class="header">
         <div class="header-name">河南省县乡人大选民登记情况</div>
       </div>
@@ -35,7 +35,7 @@
           </div>
         </div>
       </div>
-      <div class="item foot" v-if="authToken.district.level!==2">
+      <div class="item foot" v-if="authToken.district.level!==3">
         <div class="name">河南省各市登记情况</div>
         <div class="center">
           <LineBar
@@ -45,7 +45,7 @@
           :list='data.votersCounts'/>
         </div>
       </div>
-      <div class="tabel" v-if="authToken.district.level===2">
+      <div class="tabel" v-if="authToken.district.level===3">
         <Table v-if="data5" :obj="data5"/>
       </div>
     </div>
