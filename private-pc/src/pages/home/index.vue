@@ -151,8 +151,8 @@ export default {
       }
       let hander_data5 = [
         {label: '选民总数',value:+this.data.peopleNum},
-        {label: '已登记人数',value:+this.data.regVotersNum},
-        {label: '未登记人数',value:  +this.data.peopleNum - +this.data.regVotersNum},
+        {label: '已登记选民人数',value:+this.data.regVotersNum},
+        {label: '未登记选民人数',value:  +this.data.peopleNum - +this.data.regVotersNum},
       ]
       this.data5 = {
         registerTypeGraphs: this.data.registerTypeGraphs,
