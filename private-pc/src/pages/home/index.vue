@@ -1,7 +1,7 @@
 <template>
   <div style="overflow-x: hidden;">
     <div class="home-content">
-      <Map class="map" @Searchlist="Searchlist"/>
+      <Map class="map" @Searchlist="clickMap"/>
       <div class="header">
         <div class="header-name">河南省县乡人大选民登记情况</div>
       </div>
@@ -40,6 +40,7 @@
         <div class="center">
           <LineBar
           name="实际筛查人数&比例"
+          :obj = 'obj'
           :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
           :list='data.votersCounts'/>
         </div>
@@ -70,7 +71,8 @@ export default {
       data2: [],
       data3: [],
       data4: [],
-      rate: null
+      rate: null,
+      obj: {}
     }
   },
   components: {
@@ -120,9 +122,11 @@ export default {
 
       })
     },
-    async Searchlist(code) {
-      console.log(code)
-      const {data} = await getList('')
+    clickMap(obj) {
+      this.obj = obj
+    },
+    async Searchlist(obj) {
+      const {data} = await getList(obj.adcode)
       this.data = data.content
       let data2 = this.data.candidateTypeGraphs
       let data3 = this.data.sexGraphs

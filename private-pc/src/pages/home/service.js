@@ -89,32 +89,36 @@ export async function getList (payload) {
             ],
             "votersCounts": [
               {
-                "districtId": 0,
+                "precinctId": 1,
                 "precinctName": "郑州",
+                code: '410100000000',
                 "peopleNum": 3000,
                 "regRate": 0.5,
                 "regVotersNum": 500,
                 "votersNum": 1500
               },
               {
-                "districtId": 0,
+                "precinctId": 2,
                 "precinctName": "开封",
+                code: '410200000000',
                 "peopleNum": 900,
                 "regRate": 0.9,
                 "regVotersNum": 100,
                 "votersNum": 500
               },
               {
-                "districtId": 0,
+                "precinctId": 3,
                 "precinctName": "洛阳",
+                code: '410300000000',
                 "peopleNum": 3000,
                 "regRate": 0.5,
                 "regVotersNum": 500,
                 "votersNum": 1500
               },
               {
-                "districtId": 0,
+                "precinctId": 4,
                 "precinctName": "平顶山",
+                code: '410400000000',
                 "peopleNum": 900,
                 "regRate": 0.9,
                 "regVotersNum": 100,

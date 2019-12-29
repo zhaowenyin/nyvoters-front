@@ -87,11 +87,10 @@ export default {
         });
         that.districtExplorer.on('featureClick', function(e, feature) {
           // that.locationSearch(feature.properties.adcode)
-          console.log(feature)
-          that.map.remove(that.textList)
-          that.textList = []
-          that.switch2AreaNode(feature.properties.adcode);
-          that.$emit('Searchlist',feature.properties.adcode)
+          // that.map.remove(that.textList)
+          // that.textList = []
+          // that.switch2AreaNode(feature.properties.adcode);
+          that.$emit('Searchlist',feature.properties)
         })
         that.districtExplorer.on('outsideClick', function(e) {
           that.districtExplorer.locatePosition(e.originalEvent.lnglat, function(error, routeFeatures) {

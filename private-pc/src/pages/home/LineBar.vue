@@ -7,13 +7,18 @@ export default {
   data() {
     return {
       handerList: [],
-      nameList: []
+      nameList: [],
+      adcode_index: null
     }
   },
   props: {
     list: {
       default: ()=>[],
       type: Array
+    },
+    obj: {
+      default: null,
+      type: null
     }
   },
 
@@ -22,6 +27,28 @@ export default {
       if(this.list.length>0) {
         this.handerData()
         this.echarts()
+      }
+
+    },
+    obj() {
+      let index = 0
+      let code = this.obj.adcode + '000000'
+      this.myChart.dispatchAction({
+        type: 'downplay',
+        seriesIndex: [0,1,2],
+        dataIndex:  this.adcode_index
+      })
+      for(let i of this.list) {
+        if(i.code === code) {
+          this.adcode_index = index
+          this.myChart.dispatchAction({
+            type: 'highlight',
+            seriesIndex: [0,1,2],
+            dataIndex:  this.adcode_index
+          })
+          break
+        }
+        index ++
       }
 
     }
@@ -112,37 +139,55 @@ export default {
         series: [
           {
             type: 'bar',
+            focusNodeAdjacency: true,
             barWidth: 10,
             color: new echarts.graphic.LinearGradient(
               0, 0, 0, 1,
               [{offset: 1, color: '#24108b'},{offset: 0.5, color: '#302f9b'},{offset: 0, color: '#3c4dab'}]
             ),
             itemStyle:{
-              barBorderRadius: 4
+              barBorderRadius: 4,
+              emphasis: {
+                borderColor: '#24108b',
+                borderWidth: 4,
+                borderType: 'solid',
+              }
             },
             barGap: 1
           },
           {
             type: 'bar',
+            focusNodeAdjacency: true,
             barWidth: 10,
             color: new echarts.graphic.LinearGradient(
               0, 0, 0, 1,
               [{offset: 1, color: '#f14294'},{offset: 0.5, color: '#ed7398'},{offset: 0, color: '#e8a39b'}]
             ),
             itemStyle:{
-              barBorderRadius: 4
+              barBorderRadius: 4,
+              emphasis: {
+                borderColor: '#f14294',
+                borderWidth: 4,
+                borderType: 'solid',
+              }
             },
             barGap: 1
           },
           {
             type: 'bar',
+            focusNodeAdjacency: true,
             barWidth: 10,
             color: new echarts.graphic.LinearGradient(
               0, 0, 0, 1,
               [{offset: 1, color: '#fbc34b'},{offset: 0, color: '#ff7b18'}]
             ),
             itemStyle:{
-              barBorderRadius: 4
+              barBorderRadius: 4,
+              emphasis: {
+                borderColor: '#fbc34b',
+                borderWidth: 4,
+                borderType: 'solid',
+              }
             },
             barGap: 1
           }
@@ -161,7 +206,6 @@ export default {
           item.push(i[el])
         }
         this.handerList.push(item)
-        console.log(122,this.handerList,i.precinctName)
       }
 
     }
