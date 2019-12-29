@@ -153,7 +153,8 @@ export default {
                 borderType: 'solid',
               }
             },
-            barGap: 1
+            barGap: 1,
+            barMinHeight: 8
           },
           {
             type: 'bar',
@@ -171,7 +172,8 @@ export default {
                 borderType: 'solid',
               }
             },
-            barGap: 1
+            barGap: 1,
+            barMinHeight: 8
           },
           {
             type: 'bar',
@@ -189,7 +191,8 @@ export default {
                 borderType: 'solid',
               }
             },
-            barGap: 1
+            barGap: 1,
+            barMinHeight: 8
           }
         ]
       };
