@@ -149,7 +149,7 @@ export default {
               barBorderRadius: 4,
               emphasis: {
                 borderColor: '#24108b',
-                borderWidth: 4,
+                borderWidth: 6,
                 borderType: 'solid',
               }
             },
@@ -168,7 +168,7 @@ export default {
               barBorderRadius: 4,
               emphasis: {
                 borderColor: '#f14294',
-                borderWidth: 4,
+                borderWidth: 6,
                 borderType: 'solid',
               }
             },
@@ -187,7 +187,7 @@ export default {
               barBorderRadius: 4,
               emphasis: {
                 borderColor: '#fbc34b',
-                borderWidth: 4,
+                borderWidth: 6,
                 borderType: 'solid',
               }
             },
