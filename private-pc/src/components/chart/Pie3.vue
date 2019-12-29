@@ -59,8 +59,8 @@ export default {
     },
     echarts() {
       const sumValues = this.data[0].value + this.data[1].value
-      const percent1 = this.data[0].value / sumValues
-      const percent2 = this.data[1].value / sumValues
+      const percent1 = sumValues ? this.data[0].value / sumValues : 0
+      const percent2 = sumValues ? this.data[1].value / sumValues : 0
       this.percent1 = percent1
       this.percent2 = percent2
       const colorArr = [
