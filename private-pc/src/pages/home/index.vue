@@ -1,7 +1,7 @@
 <template>
   <div style="overflow-x: hidden;">
     <div class="home-content">
-      <Map class="map" @Searchlist="clickMap" :code="code"/>
+      <Map class="map" @Searchlist="clickMap" :code="code" v-if="authToken.district.level!==2"/>
       <div class="header">
         <div class="header-name">河南省县乡人大选民登记情况</div>
       </div>
@@ -35,7 +35,7 @@
           </div>
         </div>
       </div>
-      <div class="item foot">
+      <div class="item foot" v-if="authToken.district.level!==2">
         <div class="name">河南省各市登记情况</div>
         <div class="center">
           <LineBar
@@ -44,6 +44,9 @@
           :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
           :list='data.votersCounts'/>
         </div>
+      </div>
+      <div class="tabel" v-if="authToken.district.level===2">
+        <Table v-if="data5" :obj="data5"/>
       </div>
     </div>
   </div>
@@ -58,9 +61,12 @@ import Pie1 from '../../components/chart/Pie1'
 import Pie2 from '../../components/chart/Pie2'
 import Pie3 from '../../components/chart/Pie3'
 import Pie4 from '../../components/chart/Pie4'
+import Table from './Table'
 export default {
   data () {
     const authToken = getSession()
+    let code = authToken.district.code
+    code = code.substring(0,code.length-6)
     return {
       screen: [],
       data: {},
@@ -73,7 +79,8 @@ export default {
       data4: [],
       rate: null,
       obj: {},
-      code: 411300
+      code: +code,
+      data5: null
     }
   },
   components: {
@@ -82,7 +89,8 @@ export default {
     Pie1,
     Pie2,
     Pie3,
-    Pie4
+    Pie4,
+    Table
   },
   created () {
     // 初始化清除数据
@@ -140,6 +148,16 @@ export default {
       }
       for (let i of data4) {
         i.name = i.label
+      }
+      let hander_data5 = [
+        {label: '选民总数',value:+this.data.peopleNum},
+        {label: '已登记人数',value:+this.data.regVotersNum},
+        {label: '未登记人数',value:  +this.data.peopleNum - +this.data.regVotersNum},
+      ]
+      this.data5 = {
+        registerTypeGraphs: this.data.registerTypeGraphs,
+        hander_data5: hander_data5,
+        verifyFailGraphs: this.data.verifyFailGraphs
       }
       this.data2 = data2
       this.data3 = data3
@@ -225,5 +243,7 @@ export default {
     display: block;
   }
 }
-
+.tabel {
+  padding:0 48px;
+}
 </style>
