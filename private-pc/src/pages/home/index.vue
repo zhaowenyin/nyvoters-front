@@ -89,7 +89,7 @@ export default {
       this.isfirstLogin()
     }
     this.clearState()
-    this.Searchlist(410000)
+    this.Searchlist({adcode: 410000})
   },
   methods: {
     ...mapMutations('home', [
