@@ -1,7 +1,7 @@
 <template>
   <div style="overflow-x: hidden;">
     <div class="home-content">
-      <Map class="map" @Searchlist="clickMap"/>
+      <Map class="map" @Searchlist="clickMap" :code="code"/>
       <div class="header">
         <div class="header-name">河南省县乡人大选民登记情况</div>
       </div>
@@ -72,7 +72,8 @@ export default {
       data3: [],
       data4: [],
       rate: null,
-      obj: {}
+      obj: {},
+      code: 411300
     }
   },
   components: {
@@ -89,7 +90,7 @@ export default {
       this.isfirstLogin()
     }
     this.clearState()
-    this.Searchlist({adcode: 410000})
+    this.Searchlist({adcode: this.code})
   },
   methods: {
     ...mapMutations('home', [

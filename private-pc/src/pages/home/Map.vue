@@ -21,6 +21,12 @@ export default {
   created () {
 
   },
+  props: {
+    code: {
+      default: null,
+      type: null
+    }
+  },
   mounted() {
     this.initMap()
   },
@@ -42,8 +48,8 @@ export default {
         zIndex: 2, // 在默认层级之上
         opacity: 0.1
       })
-      this.locationSearch("410000")
-      this.initPointSimplifier(410000);
+      this.locationSearch(`${this.code}`)
+      this.initPointSimplifier(this.code);
     },
     locationSearch (code) {
       this.district =  new AMap.DistrictSearch({

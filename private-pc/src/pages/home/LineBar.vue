@@ -39,7 +39,7 @@ export default {
         dataIndex:  this.adcode_index
       })
       for(let i of this.list) {
-        if(i.code === code) {
+        if(i.precinctCode === code) {
           this.adcode_index = index
           this.myChart.dispatchAction({
             type: 'highlight',
