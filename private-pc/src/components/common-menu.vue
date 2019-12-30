@@ -5,7 +5,7 @@
       class="add-menu"
       background-color="#f4f4f4"
       @select="change">
-      <el-menu-item  class="item" index="/"> <i class="icon-home icon"/>系统首页</el-menu-item>
+      <el-menu-item  class="item" index="/"> <i class="icon-home icon"/>系统主页</el-menu-item>
       <el-submenu index="" v-if="isSimilar(['1','2','3'])">
         <template slot="title">
           <img src="../assets/img/11.png" class="icon"/>
@@ -117,6 +117,12 @@ export default {
 }
 </script>
 
+<style>
+  .item.is-active .icon-home{
+    background: url("../assets/img/home2-hover.png") center center no-repeat;
+  }
+</style>
+
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .icon {
@@ -136,7 +142,7 @@ export default {
     line-height: 35px;
   }
   .icon-home {
-    background: url("../assets/img/home.png") center center no-repeat;
+    background: url("../assets/img/home2.png") center center no-repeat;
     background-size: 100% 100%;
     width: 18px;
     height: 19px;
