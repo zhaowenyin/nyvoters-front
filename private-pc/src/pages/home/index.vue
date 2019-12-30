@@ -42,7 +42,7 @@
           name="实际筛查人数&比例"
           :obj = 'obj'
           :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
-          :list='data.votersCounts'/>
+          :list='data.votersCounts || []'/>
         </div>
       </div>
       <div class="tabel" v-if="authToken.district.level===3">
@@ -136,34 +136,36 @@ export default {
     },
     async Searchlist(obj) {
       const {data} = await getList(obj.adcode)
-      this.data = data.content
-      let data2 = this.data.candidateTypeGraphs
-      let data3 = this.data.sexGraphs
-      let data4 = this.data.ageGraphs
-      for (let i of data2) {
-        i.name = i.label
+      if(data) {
+        this.data = data.content
+        let data2 = this.data.candidateTypeGraphs
+        let data3 = this.data.sexGraphs
+        let data4 = this.data.ageGraphs
+        for (let i of data2) {
+          i.name = i.label
+        }
+        for (let i of data3) {
+          i.name = i.label
+        }
+        for (let i of data4) {
+          i.name = i.label
+        }
+        let hander_data5 = [
+          {label: '选民总数',value:+this.data.peopleNum},
+          {label: '已登记选民人数',value:+this.data.regVotersNum},
+          {label: '未登记选民人数',value:  +this.data.peopleNum - +this.data.regVotersNum},
+        ]
+        this.data5 = {
+          registerTypeGraphs: this.data.registerTypeGraphs,
+          hander_data5: hander_data5,
+          verifyFailGraphs: this.data.verifyFailGraphs
+        }
+        this.data2 = data2
+        this.data3 = data3
+        this.data4 = data4
+        this.rate = ((+this.data.regVotersNum / +this.data.peopleNum)*100).toFixed(0) + '%'
+        this.data1 = [{name: '已登记人数',value:+this.data.regVotersNum},{name: '未登记人数',value:  +this.data.peopleNum - +this.data.regVotersNum}]
       }
-      for (let i of data3) {
-        i.name = i.label
-      }
-      for (let i of data4) {
-        i.name = i.label
-      }
-      let hander_data5 = [
-        {label: '选民总数',value:+this.data.peopleNum},
-        {label: '已登记选民人数',value:+this.data.regVotersNum},
-        {label: '未登记选民人数',value:  +this.data.peopleNum - +this.data.regVotersNum},
-      ]
-      this.data5 = {
-        registerTypeGraphs: this.data.registerTypeGraphs,
-        hander_data5: hander_data5,
-        verifyFailGraphs: this.data.verifyFailGraphs
-      }
-      this.data2 = data2
-      this.data3 = data3
-      this.data4 = data4
-      this.rate = ((+this.data.regVotersNum / +this.data.peopleNum)*100).toFixed(0) + '%'
-      this.data1 = [{name: '已登记人数',value:+this.data.regVotersNum},{name: '未登记人数',value:  +this.data.peopleNum - +this.data.regVotersNum}]
     },
     async bindPhone(val) {
       this.bindLoading = true
