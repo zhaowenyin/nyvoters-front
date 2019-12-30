@@ -141,9 +141,9 @@ export default {
       const {data} = await getList(obj.adcode)
       if(data) {
         this.data = data.content
-        let data2 = this.data.candidateTypeGraphs
-        let data3 = this.data.sexGraphs
-        let data4 = this.data.ageGraphs
+        let data2 = this.data.candidateTypeGraphs || []
+        let data3 = this.data.sexGraphs || []
+        let data4 = this.data.ageGraphs || []
         for (let i of data2) {
           i.name = i.label
         }
@@ -153,21 +153,27 @@ export default {
         for (let i of data4) {
           i.name = i.label
         }
-        let hander_data5 = [
-          {label: '选民总数',value:+this.data.peopleNum},
-          {label: '已登记选民人数',value:+this.data.regVotersNum},
-          {label: '未登记选民人数',value:  +this.data.peopleNum - +this.data.regVotersNum},
-        ]
+        let hander_data5 = []
+        let registerTypeGraphs = this.data.registerTypeGraphs || []
+        let verifyFailGraphs = this.data.verifyFailGraphs || []
+        if(this.data.peopleNum&&this.data.regVotersNum) {
+          hander_data5 = [
+            {label: '选民总数',value:+this.data.peopleNum},
+            {label: '已登记选民人数',value:+this.data.regVotersNum},
+            {label: '未登记选民人数',value:  +this.data.peopleNum - +this.data.regVotersNum},
+          ]
+          this.rate = ((+this.data.regVotersNum / +this.data.peopleNum)*100).toFixed(0) + '%'
+          this.data1 = [{name: '已登记人数',value:+this.data.regVotersNum},{name: '未登记人数',value:  +this.data.peopleNum - +this.data.regVotersNum}]
+        }
         this.data5 = {
-          registerTypeGraphs: this.data.registerTypeGraphs,
+          registerTypeGraphs: registerTypeGraphs,
           hander_data5: hander_data5,
-          verifyFailGraphs: this.data.verifyFailGraphs
+          verifyFailGraphs: verifyFailGraphs
         }
         this.data2 = data2
         this.data3 = data3
         this.data4 = data4
-        this.rate = ((+this.data.regVotersNum / +this.data.peopleNum)*100).toFixed(0) + '%'
-        this.data1 = [{name: '已登记人数',value:+this.data.regVotersNum},{name: '未登记人数',value:  +this.data.peopleNum - +this.data.regVotersNum}]
+
       }
     },
     async bindPhone(val) {
