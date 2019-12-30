@@ -15,7 +15,6 @@ export default {
       out_adcode: null,
       text: null,
       textList: []
-
     }
   },
   created () {
@@ -71,7 +70,7 @@ export default {
           new AMap.LngLat(360,90,true),
         ];
         var holes = []
-        if(this.level>=2){
+        if(that.level&&that.level>=2){
           holes = result.districtList[0].boundaries
         }
         var pathArray = [
@@ -137,7 +136,7 @@ export default {
       var polys = this.districtExplorer.findFeaturePolygonsByAdcode(props.adcode);
       for (var i = 0, len = polys.length; i < len; i++) {
         polys[i].setOptions({
-          fillOpacity: isHover ? 0.6 : 1
+          fillOpacity: isHover ? 0.7 : 1
         })
       }
     },
