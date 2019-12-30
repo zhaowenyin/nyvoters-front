@@ -1,7 +1,7 @@
 <template>
   <div style="overflow-x: hidden;">
     <div class="home-content">
-      <Map class="map" @Searchlist="clickMap" :code="code" v-if="authToken.district.level!==3"/>
+      <Map class="map" @Searchlist="clickMap" :code="code" v-if="authToken.district.level!==3" :level = "authToken.district.level"/>
       <div class="header">
         <div class="header-name">河南省县乡人大选民登记情况</div>
       </div>

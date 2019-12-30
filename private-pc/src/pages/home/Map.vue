@@ -25,6 +25,10 @@ export default {
     code: {
       default: null,
       type: null
+    },
+    level: {
+      default: null,
+      type: null
     }
   },
   mounted() {
@@ -66,7 +70,10 @@ export default {
           new AMap.LngLat(360,-90,true),
           new AMap.LngLat(360,90,true),
         ];
-        var holes = result.districtList[0].boundaries
+        var holes = []
+        if(this.level>=2){
+          holes = result.districtList[0].boundaries
+        }
         var pathArray = [
           outer
         ];
@@ -91,14 +98,14 @@ export default {
           map: that.map,//关联的地图实例
           eventSupport: true,
         });
-        that.districtExplorer.on('featureClick', function(e, feature) {
-          console.log(e,feature)
-          // that.locationSearch(feature.properties.adcode)
-          // that.map.remove(that.textList)
-          // that.textList = []
-          // that.switch2AreaNode(feature.properties.adcode);
+        // that.districtExplorer.on('featureClick', function(e, feature) {
+        //   console.log(e,feature)
+        // that.locationSearch(feature.properties.adcode)
+        // that.map.remove(that.textList)
+        // that.textList = []
+        // that.switch2AreaNode(feature.properties.adcode);
 
-        })
+        // })
         // that.districtExplorer.on('outsideClick', function(e) {
         //   that.districtExplorer.locatePosition(e.originalEvent.lnglat, function(error, routeFeatures) {
         //     if (routeFeatures && routeFeatures.length > 1) {
