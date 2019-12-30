@@ -146,7 +146,7 @@ export default {
       var polys = this.districtExplorer.findFeaturePolygonsByAdcode(props.adcode);
       for (var i = 0, len = polys.length; i < len; i++) {
         polys[i].setOptions({
-          fillOpacity: isHover ? 0.7 : 1
+          fillOpacity: isHover ? 0.5 : 1
         })
       }
     },

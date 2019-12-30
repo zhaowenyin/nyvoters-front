@@ -249,6 +249,7 @@ export default {
   }
 }
 .tabel {
-  padding:0 48px;
+  padding-left:53px;
+  padding-right: 60px;
 }
 </style>
