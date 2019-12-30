@@ -5,6 +5,7 @@
       class="add-menu"
       background-color="#f4f4f4"
       @select="change">
+      <el-menu-item  class="item" index="/"> <i class="icon-home icon"/>首页</el-menu-item>
       <el-submenu index="" v-if="isSimilar(['1','2','3'])">
         <template slot="title">
           <img src="../assets/img/11.png" class="icon"/>
@@ -133,5 +134,12 @@ export default {
   .item {
     height: 35px;
     line-height: 35px;
+  }
+  .icon-home {
+    background: url("../assets/img/home.png") center center no-repeat;
+    background-size: 100% 100%;
+    width: 18px;
+    height: 19px;
+    display: inline-block;
   }
 </style>
