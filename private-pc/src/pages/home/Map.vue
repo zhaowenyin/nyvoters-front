@@ -70,9 +70,9 @@ export default {
           new AMap.LngLat(360,90,true),
         ];
         var holes = []
-        if(that.level&&that.level>=2){
-          holes = result.districtList[0].boundaries
-        }
+
+        holes = result.districtList[0].boundaries
+        // }
         var pathArray = [
           outer
         ];
@@ -84,9 +84,19 @@ export default {
           fillColor: 'rgba(255,255,255,1)',
           fillOpacity: 0.5
         });
+        if(that.level&&that.level<2){
+          new AMap.Polygon({
+            map: that.map,
+            path: holes,//设置多边形边界路径
+            strokeColor: "#fd9860", //线颜色
+            strokeOpacity: 0.2, //线透明度
+            strokeWeight: 3,    //线宽
+            fillColor: "rgb(255, 255, 255)", //填充色
+            fillOpacity: 1//填充透明度
+          })
+        }
         polygon.setPath(pathArray);
         that.map.add(polygon)
-
       })
     },
     initPointSimplifier (code) {
