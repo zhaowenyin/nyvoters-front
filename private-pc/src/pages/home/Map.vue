@@ -92,31 +92,31 @@ export default {
           eventSupport: true,
         });
         that.districtExplorer.on('featureClick', function(e, feature) {
+          console.log(e,feature)
           // that.locationSearch(feature.properties.adcode)
           // that.map.remove(that.textList)
           // that.textList = []
           // that.switch2AreaNode(feature.properties.adcode);
-          that.$emit('Searchlist',feature.properties)
-        })
-        that.districtExplorer.on('outsideClick', function(e) {
-          that.districtExplorer.locatePosition(e.originalEvent.lnglat, function(error, routeFeatures) {
-            if (routeFeatures && routeFeatures.length > 1) {
-              //切换到省级区域
-              that.switch2AreaNode(routeFeatures[1].properties.adcode);
-            } else {
-              //切换到全国
-              that.switch2AreaNode(410000);
-            }
 
-          }, {
-            levelLimit: 2
-          });
-        });
+        })
+        // that.districtExplorer.on('outsideClick', function(e) {
+        //   that.districtExplorer.locatePosition(e.originalEvent.lnglat, function(error, routeFeatures) {
+        //     if (routeFeatures && routeFeatures.length > 1) {
+        //       //切换到省级区域
+        //       that.switch2AreaNode(routeFeatures[1].properties.adcode);
+        //     } else {
+        //       //切换到全国
+        //       that.switch2AreaNode(410000);
+        //     }
+
+        //   }, {
+        //     levelLimit: 2
+        //   });
+        // });
         that.districtExplorer.on('featureMouseout featureMouseover', function(e, feature) {
           that.toggleHoverFeature(feature, e.type === 'featureMouseover',
             e.originalEvent ? e.originalEvent.lnglat : null);
         });
-
         that.switch2AreaNode(code)
       })
     },
@@ -125,6 +125,7 @@ export default {
         return;
       }
       var props = feature.properties;
+      this.$emit('Searchlist',feature.properties,isHover)
       //更新相关多边形的样式
       var polys = this.districtExplorer.findFeaturePolygonsByAdcode(props.adcode);
       for (var i = 0, len = polys.length; i < len; i++) {

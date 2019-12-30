@@ -16,9 +16,13 @@ export default {
       default: ()=>[],
       type: Array
     },
-    obj: {
+    mapInfo: {
       default: null,
       type: null
+    },
+    isHover: {
+      default: false,
+      type: Boolean
     }
   },
 
@@ -28,29 +32,12 @@ export default {
         this.handerData()
         this.echarts()
       }
-
     },
-    obj() {
-      let index = 0
-      let code = this.obj.adcode + '000000'
-      this.myChart.dispatchAction({
-        type: 'downplay',
-        seriesIndex: [0,1,2],
-        dataIndex:  this.adcode_index
-      })
-      for(let i of this.list) {
-        if(i.precinctCode === code) {
-          this.adcode_index = index
-          this.myChart.dispatchAction({
-            type: 'highlight',
-            seriesIndex: [0,1,2],
-            dataIndex:  this.adcode_index
-          })
-          break
-        }
-        index ++
-      }
-
+    isHover() {
+      this.handerMapInfo()
+    },
+    mapInfo() {
+      this.handerMapInfo()
     }
   },
   created(){
@@ -64,8 +51,6 @@ export default {
       this.handerData()
       this.echarts()
     }
-
-
   },
   methods:{
 
@@ -211,6 +196,29 @@ export default {
         this.handerList.push(item)
       }
 
+    },
+    handerMapInfo() {
+      let index = 0
+      let code = this.mapInfo.adcode + '000000'
+      this.myChart.dispatchAction({
+        type: 'downplay',
+        seriesIndex: [0,1,2],
+        dataIndex: this.adcode_index
+      })
+      if(this.isHover) {
+        for(let i of this.list) {
+          if(i.precinctCode === code) {
+            this.adcode_index = index
+            this.myChart.dispatchAction({
+              type: 'highlight',
+              seriesIndex: [0,1,2],
+              dataIndex: this.adcode_index
+            })
+            break
+          }
+          index ++
+        }
+      }
     }
   }
 }

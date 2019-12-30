@@ -40,7 +40,8 @@
         <div class="center">
           <LineBar
           name="实际筛查人数&比例"
-          :obj = 'obj'
+          :mapInfo = 'mapInfo'
+          :isHover="isHover"
           :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
           :list='data.votersCounts || []'/>
         </div>
@@ -78,7 +79,8 @@ export default {
       data3: [],
       data4: [],
       rate: null,
-      obj: {},
+      mapInfo: {},
+      isHover: false,
       code: +code,
       data5: null
     }
@@ -131,8 +133,9 @@ export default {
 
       })
     },
-    clickMap(obj) {
-      this.obj = obj
+    clickMap(obj,isHover) {
+      this.mapInfo = obj
+      this.isHover = isHover
     },
     async Searchlist(obj) {
       const {data} = await getList(obj.adcode)
