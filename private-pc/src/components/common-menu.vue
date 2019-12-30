@@ -5,7 +5,7 @@
       class="add-menu"
       background-color="#f4f4f4"
       @select="change">
-      <el-menu-item  class="item" index="/"> <i class="icon-home icon"/>首页</el-menu-item>
+      <el-menu-item  class="item" index="/"> <i class="icon-home icon"/>系统首页</el-menu-item>
       <el-submenu index="" v-if="isSimilar(['1','2','3'])">
         <template slot="title">
           <img src="../assets/img/11.png" class="icon"/>
