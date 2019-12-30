@@ -36,14 +36,10 @@ export default {
   methods: {
     initMap(){
       let map = new AMap.Map('container', {
-        pitch: 0,//50
-        viewMode: '3D',//海量点不支持3D
-        dragEnable: true,
-        bubble: true,
-        zoomEnable: true,
-        zoom:6.5,
+        resizeEnable: true,
+        zoom: 6.5,
         center: [113.473719, 33.723493-0.7],
-        mapStyle:'amap://styles/light',//
+        mapStyle:'amap://styles/light'
       });
       this.map = map;
       new AMap.TileLayer({
@@ -62,39 +58,37 @@ export default {
       })
       let that = this
       this.district.search(code,function(status,result){
-        // 外多边形坐标数组和内多边形坐标数组
+      // 外多边形坐标数组和内多边形坐标数组
         var outer = [
           new AMap.LngLat(-360,90,true),
           new AMap.LngLat(-360,-90,true),
           new AMap.LngLat(360,-90,true),
           new AMap.LngLat(360,90,true),
         ];
-        var holes = []
+        var holes = result.districtList[0].boundaries
 
-        holes = result.districtList[0].boundaries
-        // }
         var pathArray = [
           outer
         ];
         pathArray.push.apply(pathArray,holes)
-        var polygon = new AMap.Polygon({
+        if(that.level<2){
+          new AMap.Polygon({
+            map: that.map,
+            path: holes,//设置多边形边界路径
+            strokeColor: "#FF33FF", //线颜色
+            strokeOpacity: 0.2, //线透明度
+            strokeWeight: 3,    //线宽
+            fillColor: "rgb(255, 255, 255)", //填充色
+            fillOpacity: 1//填充透明度
+          });
+        }
+        var polygon = new AMap.Polygon( {
           pathL:pathArray,
           strokeColor: '#fd9860',
           strokeWeight: 1,
           fillColor: 'rgba(255,255,255,1)',
           fillOpacity: 0.5
         });
-        if(that.level&&that.level<2){
-          new AMap.Polygon({
-            map: that.map,
-            path: holes,//设置多边形边界路径
-            strokeColor: "#fd9860", //线颜色
-            strokeOpacity: 0.2, //线透明度
-            strokeWeight: 3,    //线宽
-            fillColor: "rgb(255, 255, 255)", //填充色
-            fillOpacity: 1//填充透明度
-          })
-        }
         polygon.setPath(pathArray);
         that.map.add(polygon)
       })
