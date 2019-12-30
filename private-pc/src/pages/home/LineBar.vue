@@ -46,6 +46,9 @@ export default {
   mounted () {
     // 基于准备好的dom，初始化echarts实例
     this.myChart = echarts.init(this.$refs.myChart);
+    this.myChart.on('click', function (params) {
+      console.log(params);
+    });
     window.onresize = this.myChart.resize;
     if(this.list.length>0) {
       this.handerData()
@@ -84,6 +87,7 @@ export default {
         },
         xAxis: {
           type: 'category',
+          triggerEvent: true,
           axisLine: {
             lineStyle: {
               color: '#ff9c5a',
