@@ -50,7 +50,6 @@ export default {
         opacity: 0.1
       })
       this.locationSearch(`${this.code}`,this.level)
-      this.initPointSimplifier(this.code);
     },
     locationSearch (code,level,from) {
       this.district =  new AMap.DistrictSearch({
@@ -103,6 +102,8 @@ export default {
         that.map.add(that.Polygon_out)
         if(from) {
           that.switch2AreaNode(code)
+        } else {
+          that.initPointSimplifier(that.code);
         }
 
       })
@@ -129,24 +130,24 @@ export default {
           let from = 'click'
           that.locationSearch(feature.properties.adcode,level,from)
         })
-        that.districtExplorer.on('outsideClick', function(e) {
-          that.districtExplorer.locatePosition(e.originalEvent.lnglat, function(error, routeFeatures) {
-            console.log(error, routeFeatures)
-            // if (routeFeatures && routeFeatures.length > 1) {
-            //   //切换到省级区域
-            //   that.switch2AreaNode(routeFeatures[1].properties.adcode);
-            // } else {
-            //   //切换到全国
-            that.$emit('Searchlist',that.code)
-            let from = 'click'
-            that.locationSearch(that.code,that.level,from)
+        // that.districtExplorer.on('outsideClick', function(e) {
+        //   that.districtExplorer.locatePosition(e.originalEvent.lnglat, function(error, routeFeatures) {
+        //     console.log(error, routeFeatures)
+        //     // if (routeFeatures && routeFeatures.length > 1) {
+        //     //   //切换到省级区域
+        //     //   that.switch2AreaNode(routeFeatures[1].properties.adcode);
+        //     // } else {
+        //     //   //切换到全国
+        //     that.$emit('Searchlist',that.code)
+        //     let from = 'click'
+        //     that.locationSearch(that.code,that.level,from)
 
-            // }
+        //     // }
 
-          }, {
-            levelLimit: 2
-          });
-        });
+        //   }, {
+        //     levelLimit: 2
+        //   });
+        // });
         that.districtExplorer.on('featureMouseout featureMouseover', function(e, feature) {
           that.toggleHoverFeature(feature, e.type === 'featureMouseover',
             e.originalEvent ? e.originalEvent.lnglat : null);
