@@ -1,7 +1,12 @@
 <template>
   <div style="overflow-x: hidden;">
     <div class="home-content">
-      <Map class="map" @Searchlist="clickMap" :code="code" v-if="authToken.district.level!==3" :level="authToken.district&&authToken.district.level"/>
+      <Map class="map"
+        @Searchlist="Searchlist"
+        @hoverEvent="clickMap"
+        :code="code"
+        v-if="authToken.district.level!==3"
+        :level="authToken.district&&authToken.district.level"/>
       <div class="header">
         <div class="header-name">河南省县乡人大选民登记情况</div>
       </div>
@@ -100,7 +105,7 @@ export default {
       this.isfirstLogin()
     }
     this.clearState()
-    this.Searchlist({adcode: this.code})
+    this.Searchlist(this.code)
   },
   methods: {
     ...mapMutations('home', [
@@ -137,8 +142,8 @@ export default {
       this.mapInfo = obj
       this.isHover = isHover
     },
-    async Searchlist(obj) {
-      const {data} = await getList(obj.adcode)
+    async Searchlist(code) {
+      const {data} = await getList(code)
       if(data) {
         this.data = data.content
         let data2 = this.data.candidateTypeGraphs || []

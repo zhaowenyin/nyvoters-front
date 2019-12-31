@@ -14,7 +14,9 @@ export default {
       districtExplorer:null,
       out_adcode: null,
       text: null,
-      textList: []
+      textList: [],
+      Polygon_inner: null,
+      Polygon_out: null
     }
   },
   created () {
@@ -47,18 +49,26 @@ export default {
         zIndex: 2, // 在默认层级之上
         opacity: 0.1
       })
-      this.locationSearch(`${this.code}`)
+      this.locationSearch(`${this.code}`,this.level)
       this.initPointSimplifier(this.code);
     },
-    locationSearch (code) {
+    locationSearch (code,level,from) {
       this.district =  new AMap.DistrictSearch({
         subdistrict: 2,   ////返回下一级行政区。取值2，可以获取到上海的所有区
         extensions: 'all',  //返回行政区边界坐标组等具体信息
         level: 'district'  //查询行政级别为 市
       })
       let that = this
+      if(that.Polygon_inner) {
+        that.map.remove(that.Polygon_inner);
+      }
+      if(that.Polygon_out) {
+        that.map.remove(that.Polygon_out);
+      }
+
       this.district.search(code,function(status,result){
-      // 外多边形坐标数组和内多边形坐标数组
+
+        // 外多边形坐标数组和内多边形坐标数组
         var outer = [
           new AMap.LngLat(-360,90,true),
           new AMap.LngLat(-360,-90,true),
@@ -71,8 +81,8 @@ export default {
           outer
         ];
         pathArray.push.apply(pathArray,holes)
-        if(that.level<2){
-          new AMap.Polygon({
+        if(level<2){
+          that.Polygon_inner = new AMap.Polygon({
             map: that.map,
             path: holes,//设置多边形边界路径
             strokeColor: "#FF33FF", //线颜色
@@ -82,15 +92,19 @@ export default {
             fillOpacity: 1//填充透明度
           });
         }
-        var polygon = new AMap.Polygon( {
+        that.Polygon_out = new AMap.Polygon( {
           pathL:pathArray,
           strokeColor: '#fd9860',
           strokeWeight: 1,
           fillColor: 'rgba(255,255,255,1)',
           fillOpacity: 0.5
         });
-        polygon.setPath(pathArray);
-        that.map.add(polygon)
+        that.Polygon_out.setPath(pathArray);
+        that.map.add(that.Polygon_out)
+        if(from) {
+          that.switch2AreaNode(code)
+        }
+
       })
     },
     initPointSimplifier (code) {
@@ -101,28 +115,38 @@ export default {
           map: that.map,//关联的地图实例
           eventSupport: true,
         });
-        // that.districtExplorer.on('featureClick', function(e, feature) {
-        //   console.log(e,feature)
-        // that.locationSearch(feature.properties.adcode)
-        // that.map.remove(that.textList)
-        // that.textList = []
-        // that.switch2AreaNode(feature.properties.adcode);
+        that.districtExplorer.on('featureClick', function(e, feature) {
+          that.$emit('Searchlist',feature.properties.adcode)
+          that.map.remove(that.textList)
+          that.textList = []
+          let map_level = feature.properties.level
+          let level = 0
+          if(map_level==='district') {
+            level = 2
+          } else if (map_level==='city') {
+            level = 1
+          }
+          let from = 'click'
+          that.locationSearch(feature.properties.adcode,level,from)
+        })
+        that.districtExplorer.on('outsideClick', function(e) {
+          that.districtExplorer.locatePosition(e.originalEvent.lnglat, function(error, routeFeatures) {
+            console.log(error, routeFeatures)
+            // if (routeFeatures && routeFeatures.length > 1) {
+            //   //切换到省级区域
+            //   that.switch2AreaNode(routeFeatures[1].properties.adcode);
+            // } else {
+            //   //切换到全国
+            that.$emit('Searchlist',that.code)
+            let from = 'click'
+            that.locationSearch(that.code,that.level,from)
 
-        // })
-        // that.districtExplorer.on('outsideClick', function(e) {
-        //   that.districtExplorer.locatePosition(e.originalEvent.lnglat, function(error, routeFeatures) {
-        //     if (routeFeatures && routeFeatures.length > 1) {
-        //       //切换到省级区域
-        //       that.switch2AreaNode(routeFeatures[1].properties.adcode);
-        //     } else {
-        //       //切换到全国
-        //       that.switch2AreaNode(410000);
-        //     }
+            // }
 
-        //   }, {
-        //     levelLimit: 2
-        //   });
-        // });
+          }, {
+            levelLimit: 2
+          });
+        });
         that.districtExplorer.on('featureMouseout featureMouseover', function(e, feature) {
           that.toggleHoverFeature(feature, e.type === 'featureMouseover',
             e.originalEvent ? e.originalEvent.lnglat : null);
@@ -135,7 +159,7 @@ export default {
         return;
       }
       var props = feature.properties;
-      this.$emit('Searchlist',feature.properties,isHover)
+      this.$emit('hoverEvent',feature.properties,isHover)
       //更新相关多边形的样式
       var polys = this.districtExplorer.findFeaturePolygonsByAdcode(props.adcode);
       for (var i = 0, len = polys.length; i < len; i++) {
