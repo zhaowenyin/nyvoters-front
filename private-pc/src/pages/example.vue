@@ -41,10 +41,10 @@ export default {
         name: '其他'
       }],
       data3: [{
-        value: 300,
+        value: 30,
         name: '男'
       },{
-        value: 200,
+        value: 20,
         name: '女'
       }],
       data4: [{

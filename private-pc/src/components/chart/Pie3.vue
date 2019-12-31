@@ -132,6 +132,7 @@ export default {
             name: this.data[0].name,
             coordinateSystem: 'none',
             renderItem: function (params, api) {
+              if (!api.value(0)) return null
               const percent = api.value(1)
               let startAngle =  Math.PI - Math.PI * percent
               let endAngle = Math.PI * 2 * percent + startAngle
@@ -170,6 +171,7 @@ export default {
             name: this.data[1].name,
             coordinateSystem: 'none',
             renderItem: function (params, api) {
+              if (!api.value(0)) return null
               const percent = api.value(1)
               let startAngle =  Math.PI *  2 - Math.PI * percent
               let endAngle = Math.PI * 2 * percent + startAngle
@@ -212,6 +214,7 @@ export default {
               trigger: 'none'
             },
             renderItem: function (params, api) {
+              if (!api.value(0)) return null
               return {
                 type: 'polygon',
                 shape: {
@@ -237,6 +240,7 @@ export default {
               trigger: 'none'
             },
             renderItem: function (params, api) {
+              if (!api.value(0)) return null
               return {
                 type: 'polygon',
                 shape: {
