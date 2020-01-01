@@ -90,6 +90,7 @@ export default {
         that.map.remove(that.tipMarker)
       }
       that.map.remove(that.textList)
+      that.textList = []
       this.district.search(code,function(status,result){
         if(level === '') {
           level = 0
@@ -151,8 +152,6 @@ export default {
         });
         that.districtExplorer.on('featureClick', function(e, feature) {
           that.$emit('Searchlist',feature.properties.adcode)
-          that.map.remove(that.textList)
-          that.textList = []
           let map_level = feature.properties.level
           let level = 0
           if(map_level==='district') {
