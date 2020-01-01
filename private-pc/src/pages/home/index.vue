@@ -146,10 +146,15 @@ export default {
       this.isHover = isHover
     },
     barClick (val) {
-      let dataIndex = val.dataIndex
+      let name = ''
+      if(val.componentType === "xAxis"){
+        name = val.value
+      } else {
+        name = val.name
+      }
       let list = this.votersCounts
-      list.forEach((i,index)=>{
-        if(index === dataIndex) {
+      list.forEach(i=>{
+        if(i.precinctName === name) {
           this.code = i.precinctCode.substring(0,i.precinctCode.length-6)
           this.Searchlist(this.code)
         }
