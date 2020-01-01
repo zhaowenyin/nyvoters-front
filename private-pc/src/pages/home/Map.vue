@@ -16,7 +16,10 @@ export default {
       text: null,
       textList: [],
       Polygon_inner: null,
-      Polygon_out: null
+      Polygon_out: null,
+      tipMarker: null,
+      tipMarkerContent: null,
+      div: null
     }
   },
   created () {
@@ -30,6 +33,17 @@ export default {
     level: {
       default: null,
       type: null
+    },
+    votersCounts: {
+      default: ()=>[],
+      type: Array
+    }
+  },
+  watch: {
+    code () {
+      let level = ''
+      let from = 'click'
+      this.locationSearch(`${this.code}`,level,from)
     }
   },
   mounted() {
@@ -49,14 +63,22 @@ export default {
         zIndex: 2, // 在默认层级之上
         opacity: 0.1
       })
-      this.locationSearch(`${this.code}`,this.level)
-    },
-    locationSearch (code,level,from) {
       this.district =  new AMap.DistrictSearch({
         subdistrict: 2,   ////返回下一级行政区。取值2，可以获取到上海的所有区
         extensions: 'all',  //返回行政区边界坐标组等具体信息
         level: 'district'  //查询行政级别为 市
       })
+      this.tipMarkerContent  = document.createElement('div')
+      this.tipMarkerContent .classList.add('tipMarker', 'top')
+      this.tipMarker = new AMap.Marker({
+        content: this.tipMarkerContent,
+        offset: new AMap.Pixel(0, 0),
+        bubble: true
+      })
+      this.div = document.createElement('div')
+      this.locationSearch(`${this.code}`,this.level)
+    },
+    locationSearch (code,level,from) {
       let that = this
       if(that.Polygon_inner) {
         that.map.remove(that.Polygon_inner);
@@ -64,9 +86,20 @@ export default {
       if(that.Polygon_out) {
         that.map.remove(that.Polygon_out);
       }
-
+      if(that.tipMarker) {
+        that.map.remove(that.tipMarker)
+      }
+      that.map.remove(that.textList)
       this.district.search(code,function(status,result){
-
+        if(level === '') {
+          level = 0
+          let map_level = result.districtList[0].level
+          if(map_level==='district') {
+            level = 2
+          } else if (map_level==='city') {
+            level = 1
+          }
+        }
         // 外多边形坐标数组和内多边形坐标数组
         var outer = [
           new AMap.LngLat(-360,90,true),
@@ -80,7 +113,7 @@ export default {
           outer
         ];
         pathArray.push.apply(pathArray,holes)
-        if(level<2){
+        if(level!==''&&level<2){
           that.Polygon_inner = new AMap.Polygon({
             map: that.map,
             path: holes,//设置多边形边界路径
@@ -103,7 +136,7 @@ export default {
         if(from) {
           that.switch2AreaNode(code)
         } else {
-          that.initPointSimplifier(that.code);
+          that.initPointSimplifier(code);
         }
 
       })
@@ -155,11 +188,35 @@ export default {
         that.switch2AreaNode(code)
       })
     },
-    toggleHoverFeature(feature, isHover) {
+    toggleHoverFeature(feature, isHover,position) {
       if (!feature) {
         return;
       }
+
+      this.tipMarker.setMap(isHover ? this.map : null);
       var props = feature.properties;
+      if (isHover) {
+        //更新提示内容
+        this.div.innerHTML = props.name
+        for(let i of this.votersCounts) {
+          let precinctCode = i.precinctCode.substring(0,i.precinctCode.length-6)
+          if(+precinctCode===+props.adcode) {
+            let div1 = document.createElement('div')
+            div1.innerHTML = `总人口数：${i.peopleNum}`
+            let div2 = document.createElement('div')
+            div2.innerHTML = `选民人数：${i.votersNum}`
+            let div3 = document.createElement('div')
+            div3.innerHTML = `登记成功人口数：${i.regVotersNum}`
+            this.div.append(div1)
+            this.div.append(div2)
+            this.div.append(div3)
+            break
+          }
+        }
+        this.tipMarkerContent.append(this.div)
+        //更新位置
+        this.tipMarker.setPosition(position || props.center);
+      }
       this.$emit('hoverEvent',feature.properties,isHover)
       //更新相关多边形的样式
       var polys = this.districtExplorer.findFeaturePolygonsByAdcode(props.adcode);
@@ -248,7 +305,6 @@ export default {
       ];
       //更新地图视野
       this.map.setBounds(areaNode.getBounds(), null, null, true);
-
       //清除已有的绘制内容
       this.districtExplorer.clearFeaturePolygons();
 
@@ -307,12 +363,54 @@ export default {
   }
 }
 </script>
-<style scoped>
-  /* #container {
-    margin:0;
-    height: 100%;
-    opacity: 1;
-    background: transparent
-  } */
+<style>
+.tipMarker.top {
+  transform: translate(-50%,-110%);
+}
+.tipMarker {
+  color: #555;
+  background-color: rgba(255,254,239,0.9);
+  border: 1px solid #7E7E7E;
+  padding: 2px 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  display: inline-block;
+}
+.tipMarker.top:before {
+    bottom: -10px;
+    border-top-color: #7E7E7E;
+}
 
+.tipMarker.top:before, .tipMarker.top:after {
+    bottom: -9px;
+    left: 0;
+    right: 0;
+    border-top-color: rgba(255,254,239,0.8);
+}
+.tipMarker:before, .tipMarker:after {
+    content: '';
+    display: block;
+    position: absolute;
+    margin: auto;
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    border-width: 5px 5px;
+}
+.tipMarker.top:before, .tipMarker.top:after {
+    bottom: -9px;
+    left: 0;
+    right: 0;
+    border-top-color: rgba(255,254,239,0.8);
+}
+.tipMarker:before, .tipMarker:after {
+    content: '';
+    display: block;
+    position: absolute;
+    margin: auto;
+    width: 0;
+    height: 0;
+    border: solid transparent;
+    border-width: 5px 5px;
+}
 </style>

@@ -28,10 +28,8 @@ export default {
 
   watch:{
     list(){
-      if(this.list.length>0) {
-        this.handerData()
-        this.echarts()
-      }
+      this.handerData()
+      this.echarts()
     },
     isHover() {
       this.handerMapInfo()
@@ -46,8 +44,12 @@ export default {
   mounted () {
     // 基于准备好的dom，初始化echarts实例
     this.myChart = echarts.init(this.$refs.myChart);
+    let that = this
     this.myChart.on('click', function (params) {
-      console.log(params);
+      that.$nextTick(function () {
+        that.$emit('barClick',params)
+      })
+
     });
     window.onresize = this.myChart.resize;
     if(this.list.length>0) {

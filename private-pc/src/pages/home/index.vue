@@ -4,6 +4,7 @@
       <Map class="map"
         @Searchlist="Searchlist"
         @hoverEvent="clickMap"
+        :votersCounts="votersCounts"
         :code="code"
         v-if="authToken.district.level!==3"
         :level="authToken.district&&authToken.district.level"/>
@@ -29,7 +30,7 @@
           <div class="item">
             <div class="name">选民性别分析</div>
             <div class="center" style="margin-left: -5px;">
-              <Pie3 v-if="data1.length>0" :data="data3"/>
+              <Pie3 v-if="data3.length>0" :data="data3"/>
             </div>
           </div>
           <div class="item">
@@ -47,8 +48,9 @@
           name="实际筛查人数&比例"
           :mapInfo = 'mapInfo'
           :isHover="isHover"
+          @barClick="barClick"
           :colors="['rgba(117,143,247,1)','rgba(67,58,243,1)']"
-          :list='data.votersCounts || []'/>
+          :list='votersCounts'/>
         </div>
       </div>
       <div class="tabel" v-if="authToken.district.level===3">
@@ -83,6 +85,7 @@ export default {
       data2: [],
       data3: [],
       data4: [],
+      votersCounts: [],
       rate: null,
       mapInfo: {},
       isHover: false,
@@ -142,6 +145,16 @@ export default {
       this.mapInfo = obj
       this.isHover = isHover
     },
+    barClick (val) {
+      let dataIndex = val.dataIndex
+      let list = this.votersCounts
+      list.forEach((i,index)=>{
+        if(index === dataIndex) {
+          this.code = i.precinctCode.substring(0,i.precinctCode.length-6)
+          this.Searchlist(this.code)
+        }
+      })
+    },
     async Searchlist(code) {
       const {data} = await getList(code)
       if(data) {
@@ -178,7 +191,7 @@ export default {
         this.data2 = data2
         this.data3 = data3
         this.data4 = data4
-
+        this.votersCounts = this.data.votersCounts || []
       }
     },
     async bindPhone(val) {
