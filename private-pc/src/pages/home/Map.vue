@@ -205,7 +205,7 @@ export default {
             let div2 = document.createElement('div')
             div2.innerHTML = `登记选民数：${i.regVotersNum}`
             let div3 = document.createElement('div')
-            div3.innerHTML = `登记率：${i.regRate}`
+            div3.innerHTML = `登记率：${((+i.regVotersNum / + i.peopleNum)*100).toFixed(2)}%`
             this.div.append(div1)
             this.div.append(div2)
             this.div.append(div3)
