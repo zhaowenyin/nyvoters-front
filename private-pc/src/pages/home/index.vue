@@ -54,7 +54,7 @@
         </div>
       </div>
       <div class="tabel" v-if="this.level>=3">
-        <Table v-if="data5" :obj="data5"/>
+        <Table v-if="data5" :obj="data5" :name="name"/>
       </div>
     </div>
   </div>
@@ -75,6 +75,7 @@ export default {
     const authToken = getSession()
     let code = authToken.district.code
     let level = authToken.district.level
+    let name = authToken.district.name
     code = code.substring(0,code.length-6)
     return {
       screen: [],
@@ -92,7 +93,8 @@ export default {
       isHover: false,
       code: +code,
       data5: null,
-      level:level
+      level:level,
+      name: name
     }
   },
   components: {
@@ -148,15 +150,14 @@ export default {
       this.isHover = isHover
     },
     barClick (val) {
-      let name = ''
       if(val.componentType === "xAxis"){
-        name = val.value
+        this.name = val.value
       } else {
-        name = val.name
+        this.name = val.name
       }
       let list = this.votersCounts
       list.forEach(i=>{
-        if(i.precinctName === name) {
+        if(i.precinctName === this.name) {
           this.level = i.precinctLevel
           if(i.precinctLevel<3) {
             this.code = i.precinctCode.substring(0,i.precinctCode.length-6)
