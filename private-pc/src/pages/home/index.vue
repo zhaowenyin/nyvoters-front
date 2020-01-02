@@ -112,7 +112,8 @@ export default {
       this.isfirstLogin()
     }
     this.clearState()
-    this.Searchlist(this.code)
+    let from = 'login'
+    this.Searchlist(this.authToken.precinctId,from)
   },
   methods: {
     ...mapMutations('home', [
@@ -166,8 +167,8 @@ export default {
         }
       })
     },
-    async Searchlist(code) {
-      const {data} = await getList(code)
+    async Searchlist(code,from) {
+      const {data} = await getList({code,from})
       if(data) {
         this.data = data.content
         let data2 = this.data.candidateTypeGraphs || []

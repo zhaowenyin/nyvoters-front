@@ -133,8 +133,12 @@ export async function getList (payload) {
   //     })
   //   }, 500)
   // })
+  if(payload.from&&payload.from==='login') {
+    return api.get(`/index/count/${payload.code}`)
+  } else {
+    return api.get(`/index/count/code/${payload.code}`)
+  }
 
-  return api.get(`/index/count/code/${payload}`)
 }
 export async function bindPhone (payload) {
   // console.log(payload)
