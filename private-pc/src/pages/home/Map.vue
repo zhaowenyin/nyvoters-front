@@ -69,7 +69,7 @@ export default {
         level: 'district'  //查询行政级别为 市
       })
       this.tipMarkerContent  = document.createElement('div')
-      this.tipMarkerContent .classList.add('tipMarker', 'top')
+      this.tipMarkerContent.classList.add('tipMarker', 'top')
       this.tipMarker = new AMap.Marker({
         content: this.tipMarkerContent,
         offset: new AMap.Pixel(0, 0),
