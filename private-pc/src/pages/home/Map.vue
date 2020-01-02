@@ -201,11 +201,11 @@ export default {
           let precinctCode = i.precinctCode.substring(0,i.precinctCode.length-6)
           if(+precinctCode===+props.adcode) {
             let div1 = document.createElement('div')
-            div1.innerHTML = `总人口数：${i.peopleNum}`
+            div1.innerHTML = `选民总数：${i.peopleNum}`
             let div2 = document.createElement('div')
-            div2.innerHTML = `选民人数：${i.votersNum}`
+            div2.innerHTML = `登记选民数：${i.regVotersNum}`
             let div3 = document.createElement('div')
-            div3.innerHTML = `登记成功人口数：${i.regVotersNum}`
+            div3.innerHTML = `登记率：${i.regRate}`
             this.div.append(div1)
             this.div.append(div2)
             this.div.append(div3)

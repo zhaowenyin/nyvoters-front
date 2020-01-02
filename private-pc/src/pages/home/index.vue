@@ -6,8 +6,8 @@
         @hoverEvent="clickMap"
         :votersCounts="votersCounts"
         :code="code"
-        v-if="authToken.district.level!==3"
-        :level="authToken.district&&authToken.district.level"/>
+        v-if="level<3"
+        :level="level"/>
       <div class="header">
         <div class="header-name">河南省县乡人大选民登记情况</div>
       </div>
@@ -41,7 +41,7 @@
           </div>
         </div>
       </div>
-      <div class="item foot" v-if="authToken.district.level!==3">
+      <div class="item foot" v-if="this.level<3">
         <div class="name">河南省各市登记情况</div>
         <div class="center">
           <LineBar
@@ -53,7 +53,7 @@
           :list='votersCounts'/>
         </div>
       </div>
-      <div class="tabel" v-if="authToken.district.level===3">
+      <div class="tabel" v-if="this.level>=3">
         <Table v-if="data5" :obj="data5"/>
       </div>
     </div>
@@ -74,6 +74,7 @@ export default {
   data () {
     const authToken = getSession()
     let code = authToken.district.code
+    let level = authToken.district.level
     code = code.substring(0,code.length-6)
     return {
       screen: [],
@@ -90,7 +91,8 @@ export default {
       mapInfo: {},
       isHover: false,
       code: +code,
-      data5: null
+      data5: null,
+      level:level
     }
   },
   components: {
@@ -155,7 +157,10 @@ export default {
       let list = this.votersCounts
       list.forEach(i=>{
         if(i.precinctName === name) {
-          this.code = i.precinctCode.substring(0,i.precinctCode.length-6)
+          this.level = i.precinctLevel
+          if(i.precinctLevel<3) {
+            this.code = i.precinctCode.substring(0,i.precinctCode.length-6)
+          }
           this.Searchlist(this.code)
         }
       })
@@ -179,7 +184,7 @@ export default {
         let hander_data5 = []
         let registerTypeGraphs = this.data.registerTypeGraphs || []
         let verifyFailGraphs = this.data.verifyFailGraphs || []
-        if(this.data.peopleNum&&this.data.regVotersNum) {
+        if(this.data.peopleNum) {
           hander_data5 = [
             {label: '选民总数',value:+this.data.peopleNum},
             {label: '已登记选民人数',value:+this.data.regVotersNum},
