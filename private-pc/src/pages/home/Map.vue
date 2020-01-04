@@ -53,6 +53,7 @@ export default {
     initMap(){
       let map = new AMap.Map('container', {
         resizeEnable: true,
+        zoomEnable: false,
         zoom: 6.5,
         center: [113.473719, 33.723493-0.7],
         mapStyle:'amap://styles/light'

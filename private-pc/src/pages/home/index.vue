@@ -53,7 +53,7 @@
           :list='votersCounts'/>
         </div>
       </div>
-      <div class="tabel" v-if="this.level>=3">
+      <div class="tabel" v-else>
         <Table v-if="data5" :obj="data5" :name="name"/>
       </div>
     </div>
@@ -162,6 +162,8 @@ export default {
           this.level = i.precinctLevel
           if(i.precinctLevel<3) {
             this.code = i.precinctCode.substring(0,i.precinctCode.length-6)
+          } else {
+            this.code = i.precinctCode
           }
           this.Searchlist(this.code)
         }
@@ -192,7 +194,7 @@ export default {
             {label: '已登记选民人数',value:+this.data.regVotersNum},
             {label: '未登记选民人数',value:  +this.data.peopleNum - +this.data.regVotersNum},
           ]
-          this.rate = ((+this.data.regVotersNum / +this.data.peopleNum)*100).toFixed(0) + '%'
+          this.rate = +((+this.data.regVotersNum / +this.data.peopleNum)*100).toFixed(2) + '%'
           this.data1 = [{name: '已登记人数',value:+this.data.regVotersNum},{name: '未登记人数',value:  +this.data.peopleNum - +this.data.regVotersNum}]
         }
         this.data5 = {
