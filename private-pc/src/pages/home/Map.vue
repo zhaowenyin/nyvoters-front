@@ -164,7 +164,7 @@ export default {
           }else if (map_level==='provice') {
             level = 0
           }
-          that.$emit('Searchlist',{adcode_obj:feature.properties,level})
+          that.$emit('Searchlist',feature.properties)
           let from = 'click'
           that.locationSearch(feature.properties.adcode,level,from)
         })

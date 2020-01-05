@@ -2,11 +2,11 @@
   <div style="overflow-x: hidden;">
     <div class="home-content">
       <Map class="map"
-        @Searchlist="Searchlist"
+        @Searchlist="handerSearchlist"
         @hoverEvent="clickMap"
         :votersCounts="votersCounts"
         :code="code"
-        v-if="level<3&&authToken.accountRole<4"
+        v-if="level<3&&committee"
         :level="level"/>
       <div class="header">
         <div class="header-name">河南省县乡人大选民登记情况</div>
@@ -41,7 +41,7 @@
           </div>
         </div>
       </div>
-       <div class="tabel" v-if="(level>2 || next_level_district===2)&&authToken.accountRole>3">
+       <div class="tabel" v-if="(level>2 || next_level_district===2)&&!committee">
         <Table v-if="data5" :obj="data5" :name="name"/>
       </div>
       <div class="item foot" v-else>
@@ -79,6 +79,7 @@ export default {
     let level = authToken.district.level
     let name = authToken.district.name
     code = code.substring(0,code.length-6)
+    let committee = authToken.accountRole
     return {
       screen: [],
       data: {},
@@ -97,7 +98,8 @@ export default {
       data5: null,
       level:level,
       name: name,
-      next_level_district: null
+      next_level_district: null,
+      committee:committee<4 ? true : false
     }
   },
   components: {
@@ -111,12 +113,11 @@ export default {
   },
   created () {
     // 初始化清除数据
+    this.clearState()
     if(!this.authToken.phoneNum) {
       this.isfirstLogin()
     }
-    this.clearState()
-    let from = 'login'
-    this.Searchlist({adcode_obj:{adcode:this.authToken.precinctId},from})
+    this.Searchlist({precinctId:this.authToken.precinctId,name: this.name,level:this.level})
   },
   methods: {
     ...mapMutations('home', [
@@ -163,29 +164,16 @@ export default {
       let list = this.votersCounts
       list.forEach(i=>{
         if(i.precinctName === name) {
-          let code = ''
-          if(this.authToken.accountRole<4) {
-            if(i.precinctLevel>3) {
-              return
-            }
-            if(i.precinctLevel<3) {
-              this.code = i.precinctCode.substring(0,i.precinctCode.length-6)
-              code = this.code
-            } else {
-              code = i.precinctId
-            }
-            this.level = i.precinctLevel
-          } else {
-            code = i.precinctId
-            this.next_level_district = i.precinctLevel
-          }
-          this.Searchlist({adcode_obj:{adcode: code,name}})
+          let precinctId = i.precinctId
+          let level = i.precinctLevel
+          let code = i.precinctCode
+          this.Searchlist({precinctId,name,level,code})
         }
       })
     },
     handername () {
       let text = this.name
-      if(this.authToken.accountRole<4) {
+      if(this.committee) {
         switch(this.level) {
         case 0:
           text += '各市'
@@ -214,14 +202,20 @@ export default {
       return text
 
     },
+    handerSearchlist(obj) {
+      let list = this.votersCounts
+      list.forEach(i=>{
+        let code = i.precinctCode.substring(0,i.precinctCode.length-6)
+        if(+code === +obj.adcode) {
+          let precinctId = i.precinctId
+          let name = i.precinctName
+          let level = i.precinctLevel
+          this.Searchlist({precinctId,name,level})
+        }
+      })
+    },
     async Searchlist(obj) {
-      if(obj.level) {
-        this.level = obj.level
-      }
-      if(obj.adcode_obj.name) {
-        this.name = obj.adcode_obj.name
-      }
-      const {data} = await getList({code:obj.adcode_obj.adcode,from:obj.from || '',accountRole: this.authToken.accountRole,level:this.level})
+      const {data} = await getList(obj.precinctId)
       this.data1 = []
       this.data2 = []
       this.data3 = []
@@ -229,7 +223,22 @@ export default {
       this.votersCounts = []
       this.rate = null
       if(data) {
-        this.data = data.content
+        let content = data.content
+        this.data = content
+        if(obj.name) {
+          this.name = obj.name
+        }
+        // if(typeof content.committee  === 'boolean'){
+        this.committee = content.committee
+        if(content.committee) {
+          this.level = obj.level
+          if(obj.code) {
+            this.code = obj.code.substring(0,obj.code.length-6)
+          }
+        } else {
+          this.next_level_district = obj.level
+        }
+        // }
         let data2 = this.data.candidateTypeGraphs || []
         let data3 = this.data.sexGraphs || []
         let data4 = this.data.ageGraphs || []
