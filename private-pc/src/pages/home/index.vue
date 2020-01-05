@@ -41,7 +41,7 @@
           </div>
         </div>
       </div>
-       <div class="tabel" v-if="(level>2 || next_level_district===2)&&!committee">
+       <div class="tabel" v-if="next_level_district===2&&!committee">
         <Table v-if="data5" :obj="data5" :name="name"/>
       </div>
       <div class="item foot" v-else>
@@ -231,12 +231,12 @@ export default {
         // if(typeof content.committee  === 'boolean'){
         this.committee = content.committee
         if(content.committee) {
-          this.level = obj.level
+          this.level = content.level
           if(obj.code) {
             this.code = obj.code.substring(0,obj.code.length-6)
           }
         } else {
-          this.next_level_district = obj.level
+          this.next_level_district = content.level
         }
         // }
         let data2 = this.data.candidateTypeGraphs || []
