@@ -133,7 +133,7 @@ export async function getList (payload) {
   //     })
   //   }, 500)
   // })
-  if(payload.from&&payload.from==='login' || payload.accountRole>3) {
+  if(payload.from&&payload.from==='login' || payload.accountRole>3 || payload.level>2) {
     return api.get(`/index/count/${payload.code}`)
   } else {
     return api.get(`/index/count/code/${payload.code}`)

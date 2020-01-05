@@ -165,8 +165,15 @@ export default {
         if(i.precinctName === name) {
           let code = ''
           if(this.authToken.accountRole<4) {
-            this.code = i.precinctCode.substring(0,i.precinctCode.length-6)
-            code = this.code
+            if(i.precinctLevel>3) {
+              return
+            }
+            if(i.precinctLevel<3) {
+              this.code = i.precinctCode.substring(0,i.precinctCode.length-6)
+              code = this.code
+            } else {
+              code = i.precinctId
+            }
             this.level = i.precinctLevel
           } else {
             code = i.precinctId
@@ -208,14 +215,13 @@ export default {
 
     },
     async Searchlist(obj) {
-      console.log(obj)
       if(obj.level) {
         this.level = obj.level
       }
       if(obj.adcode_obj.name) {
         this.name = obj.adcode_obj.name
       }
-      const {data} = await getList({code:obj.adcode_obj.adcode,from:obj.from || '',accountRole: this.authToken.accountRole})
+      const {data} = await getList({code:obj.adcode_obj.adcode,from:obj.from || '',accountRole: this.authToken.accountRole,level:this.level})
       this.data1 = []
       this.data2 = []
       this.data3 = []
