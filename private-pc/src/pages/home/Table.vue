@@ -23,7 +23,7 @@
       <li class="title">
        登记异常统计
       </li>
-      <li v-for="(i,key) of obj.verifyFailGraphs" :key="key" class="common content">
+      <li v-for="(i,key) of obj.reviewFailGraphs" :key="key" class="common content">
         <div>{{i.label}}</div>
         <div>{{i.value}}</div>
       </li>

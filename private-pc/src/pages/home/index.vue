@@ -208,13 +208,13 @@ export default {
 
     },
     async Searchlist(obj) {
+      console.log(obj)
       if(obj.level) {
         this.level = obj.level
       }
       if(obj.adcode_obj.name) {
         this.name = obj.adcode_obj.name
       }
-      console.log(obj)
       const {data} = await getList({code:obj.adcode_obj.adcode,from:obj.from || '',accountRole: this.authToken.accountRole})
       this.data1 = []
       this.data2 = []
@@ -238,7 +238,7 @@ export default {
         }
         let hander_data5 = []
         let registerTypeGraphs = this.data.registerTypeGraphs || []
-        let verifyFailGraphs = this.data.verifyFailGraphs || []
+        let reviewFailGraphs = this.data.reviewFailGraphs || []
         if(this.data.peopleNum || this.data.peopleNum===0) {
           hander_data5 = [
             {label: '选民总数',value:+this.data.peopleNum},
@@ -252,7 +252,7 @@ export default {
         this.data5 = {
           registerTypeGraphs: registerTypeGraphs,
           hander_data5: hander_data5,
-          verifyFailGraphs: verifyFailGraphs
+          reviewFailGraphs: reviewFailGraphs
         }
         this.data2 = data2
         this.data3 = data3

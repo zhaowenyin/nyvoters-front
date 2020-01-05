@@ -158,11 +158,11 @@ export default {
           let map_level = feature.properties.level
           let level = null
           if(map_level==='district') {
-            this.level = 2
+            level = 2
           } else if (map_level==='city') {
-            this.level = 1
+            level = 1
           }else if (map_level==='provice') {
-            this.level = 0
+            level = 0
           }
           that.$emit('Searchlist',{adcode_obj:feature.properties,level})
           let from = 'click'
