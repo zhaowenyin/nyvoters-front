@@ -37,7 +37,7 @@ export default {
       const legendData = this.data.map(obj => obj.name)
       const oneValue = this.data[0].value
       const twoValue = this.data[1].value
-      const percent = oneValue / (oneValue + twoValue)
+      const percent =(oneValue + twoValue) ? oneValue / (oneValue + twoValue) : 0
       this.percent = +(percent * 100).toFixed(2)
       const startAngle = 270 - (1 - percent) * 180
       const startAnglePI = percent * Math.PI

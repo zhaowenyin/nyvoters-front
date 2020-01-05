@@ -54,6 +54,7 @@ export default {
       let map = new AMap.Map('container', {
         resizeEnable: true,
         zoomEnable: false,
+        draggable:false,
         zoom: 6.5,
         center: [113.473719, 33.723493-0.7],
         mapStyle:'amap://styles/light'
@@ -150,16 +151,20 @@ export default {
         that.districtExplorer = new DistrictExplorer({
           map: that.map,//关联的地图实例
           eventSupport: true,
+          draggable:false,
         });
         that.districtExplorer.on('featureClick', function(e, feature) {
-          that.$emit('Searchlist',feature.properties.adcode)
+
           let map_level = feature.properties.level
-          let level = 0
+          let level = null
           if(map_level==='district') {
-            level = 2
+            this.level = 2
           } else if (map_level==='city') {
-            level = 1
+            this.level = 1
+          }else if (map_level==='provice') {
+            this.level = 0
           }
+          that.$emit('Searchlist',{adcode_obj:feature.properties,level})
           let from = 'click'
           that.locationSearch(feature.properties.adcode,level,from)
         })

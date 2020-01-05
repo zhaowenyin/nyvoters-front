@@ -6,7 +6,7 @@
         @hoverEvent="clickMap"
         :votersCounts="votersCounts"
         :code="code"
-        v-if="level<3"
+        v-if="level<3&&authToken.accountRole<4"
         :level="level"/>
       <div class="header">
         <div class="header-name">河南省县乡人大选民登记情况</div>
@@ -41,8 +41,11 @@
           </div>
         </div>
       </div>
-      <div class="item foot" v-if="this.level<3">
-        <div class="name">河南省各市登记情况</div>
+       <div class="tabel" v-if="(level>2 || next_level_district===2)&&authToken.accountRole>3">
+        <Table v-if="data5" :obj="data5" :name="name"/>
+      </div>
+      <div class="item foot" v-else>
+        <div class="name">{{handername()}}登记情况</div>
         <div class="center">
           <LineBar
           name="实际筛查人数&比例"
@@ -53,9 +56,7 @@
           :list='votersCounts'/>
         </div>
       </div>
-      <div class="tabel" v-else>
-        <Table v-if="data5" :obj="data5" :name="name"/>
-      </div>
+
     </div>
   </div>
 </template>
@@ -64,12 +65,13 @@ import Map from './Map'
 import { mapMutations } from 'vuex'
 import LineBar from './LineBar'
 import {getList,bindPhone} from './service.js'
-import { getSession } from '../../utils/session'
+import { getSession,setSession } from '../../utils/session'
 import Pie1 from '../../components/chart/Pie1'
 import Pie2 from '../../components/chart/Pie2'
 import Pie3 from '../../components/chart/Pie3'
 import Pie4 from '../../components/chart/Pie4'
 import Table from './Table'
+
 export default {
   data () {
     const authToken = getSession()
@@ -94,7 +96,8 @@ export default {
       code: +code,
       data5: null,
       level:level,
-      name: name
+      name: name,
+      next_level_district: null
     }
   },
   components: {
@@ -113,7 +116,7 @@ export default {
     }
     this.clearState()
     let from = 'login'
-    this.Searchlist(this.authToken.precinctId,from)
+    this.Searchlist({adcode_obj:{adcode:this.authToken.precinctId},from})
   },
   methods: {
     ...mapMutations('home', [
@@ -151,26 +154,74 @@ export default {
       this.isHover = isHover
     },
     barClick (val) {
+      let name = ''
       if(val.componentType === "xAxis"){
-        this.name = val.value
+        name = val.value
       } else {
-        this.name = val.name
+        name = val.name
       }
       let list = this.votersCounts
       list.forEach(i=>{
-        if(i.precinctName === this.name) {
-          this.level = i.precinctLevel
-          if(i.precinctLevel<3) {
+        if(i.precinctName === name) {
+          let code = ''
+          if(this.authToken.accountRole<4) {
             this.code = i.precinctCode.substring(0,i.precinctCode.length-6)
+            code = this.code
+            this.level = i.precinctLevel
           } else {
-            this.code = i.precinctCode
+            code = i.precinctId
+            this.next_level_district = i.precinctLevel
           }
-          this.Searchlist(this.code)
+          this.Searchlist({adcode_obj:{adcode: code,name}})
         }
       })
     },
-    async Searchlist(code,from) {
-      const {data} = await getList({code,from})
+    handername () {
+      let text = this.name
+      if(this.authToken.accountRole<4) {
+        switch(this.level) {
+        case 0:
+          text += '各市'
+          break
+        case 1:
+          text += '各区县'
+          break
+        case 2:
+          text += '区县各乡镇'
+          break
+        case 3:
+          text += '区县各乡镇'
+          break
+        default:
+          text += ''
+        }
+      } else {
+        switch(this.next_level_district) {
+        case 1:
+          text += '区县各乡镇选区'
+          break
+        default:
+          text += ''
+        }
+      }
+      return text
+
+    },
+    async Searchlist(obj) {
+      if(obj.level) {
+        this.level = obj.level
+      }
+      if(obj.adcode_obj.name) {
+        this.name = obj.adcode_obj.name
+      }
+      console.log(obj)
+      const {data} = await getList({code:obj.adcode_obj.adcode,from:obj.from || '',accountRole: this.authToken.accountRole})
+      this.data1 = []
+      this.data2 = []
+      this.data3 = []
+      this.data4 = []
+      this.votersCounts = []
+      this.rate = null
       if(data) {
         this.data = data.content
         let data2 = this.data.candidateTypeGraphs || []
@@ -188,14 +239,15 @@ export default {
         let hander_data5 = []
         let registerTypeGraphs = this.data.registerTypeGraphs || []
         let verifyFailGraphs = this.data.verifyFailGraphs || []
-        if(this.data.peopleNum) {
+        if(this.data.peopleNum || this.data.peopleNum===0) {
           hander_data5 = [
             {label: '选民总数',value:+this.data.peopleNum},
             {label: '已登记选民人数',value:+this.data.regVotersNum},
             {label: '未登记选民人数',value:  +this.data.peopleNum - +this.data.regVotersNum},
           ]
-          this.rate = +((+this.data.regVotersNum / +this.data.peopleNum)*100).toFixed(2) + '%'
+          this.rate =this.data.peopleNum ? +((+this.data.regVotersNum / +this.data.peopleNum)*100).toFixed(2) + '%' : '0%'
           this.data1 = [{name: '已登记人数',value:+this.data.regVotersNum},{name: '未登记人数',value:  +this.data.peopleNum - +this.data.regVotersNum}]
+
         }
         this.data5 = {
           registerTypeGraphs: registerTypeGraphs,
@@ -208,9 +260,12 @@ export default {
         this.votersCounts = this.data.votersCounts || []
       }
     },
+    setSession,
     async bindPhone(val) {
       this.bindLoading = true
       await bindPhone({phoneNum: val})
+      this.authToken.phoneNum = val
+      this.setSession(this.authToken)
       this.bindLoading = false
     },
   }
