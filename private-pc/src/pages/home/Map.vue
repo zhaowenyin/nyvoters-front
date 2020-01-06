@@ -154,6 +154,16 @@ export default {
           draggable:false,
         });
         that.districtExplorer.on('featureClick', function(e, feature) {
+          // 列表中没有数据禁止下钻
+          let flag = false
+          for(let i of that.votersCounts) {
+            let code = i.precinctCode.substring(0,i.precinctCode.length-6)
+            if(+code === +feature.properties.adcode) {
+              flag = true
+              break
+            }
+          }
+          if (!flag) return
 
           let map_level = feature.properties.level
           let level = null
