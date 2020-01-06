@@ -28,23 +28,23 @@ export default {
         value: 300,
         name: '户籍地'
       },{
-        value: 300,
+        value: 301,
         name: '现居地'
       },{
-        value: 100,
+        value: 99,
         name: '单位'
       },{
-        value: 100,
+        value: 200,
         name: '学校'
       },{
         value: 100,
         name: '其他'
       }],
       data3: [{
-        value: 30,
+        value: 601,
         name: '男'
       },{
-        value: 20,
+        value: 399,
         name: '女'
       }],
       data4: [{

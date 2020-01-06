@@ -5,6 +5,13 @@
       <span class="s2">%</span>
     </div>
     <div ref="myChart" class="chart"></div>
+    <ul class="legend-ul">
+      <li
+        v-for="(item, index) in data"
+        :key="index"
+        @mouseenter="hover(item.name)"
+        @mouseleave="clearHover(item.name)"></li>
+    </ul>
   </div>
 </template>
 
@@ -33,6 +40,18 @@ export default {
     this.echarts();
   },
   methods: {
+    hover(name) {
+      this.myChart.dispatchAction({
+        type: 'highlight',
+        name
+      })
+    },
+    clearHover(name) {
+      this.myChart.dispatchAction({
+        type: 'downplay',
+        name
+      })
+    },
     echarts() {
       const legendData = this.data.map(obj => obj.name)
       const oneValue = this.data[0].value
@@ -72,7 +91,7 @@ export default {
             padding: [0, 0, 0, 14]
           },
           data: legendData,
-          // selectedMode: false
+          selectedMode: false
         },
         series: [
           {
@@ -193,6 +212,18 @@ export default {
     background: linear-gradient(#fb5c02, #ff8802);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+}
+.legend-ul{
+  position: absolute;
+  top: 50%;
+  right: 0px;
+  transform: translate(0, -50%);
+  cursor: pointer;
+  & li{
+    width: 130px;
+    height: 20px;
+    margin: 12px 0px;
   }
 }
 </style>

@@ -3,7 +3,7 @@
     <div class="man" @mouseenter="hover(data[0].name)" @mouseleave="clearHover(data[0].name)">
       <p>{{data[0].name}}</p>
       <p>{{data[0].value}}人</p>
-      <p>{{(percent1 * 100).toFixed(0)}}%</p>
+      <p>{{+(percent1 * 100).toFixed(2)}}%</p>
       <img src="../../assets/img/3.png">
     </div>
     <div class="chart-box">
@@ -13,7 +13,7 @@
     <div class="woman" @mouseenter="hover(data[1].name)" @mouseleave="clearHover(data[1].name)">
       <p>{{data[1].name}}</p>
       <p>{{data[1].value}}人</p>
-      <p>{{(percent2 * 100).toFixed(0)}}%</p>
+      <p>{{+(percent2 * 100).toFixed(2)}}%</p>
       <img src="../../assets/img/4.png">
     </div>
   </div>
@@ -108,7 +108,7 @@ export default {
       let option = {
         tooltip: {
           formatter: function (params) {
-            return `${params.value[2]}: ${params.value[0]} (${(params.value[1] * 100).toFixed(0)}%)`
+            return `${params.value[2]}: ${params.value[0]} (${+(params.value[1] * 100).toFixed(2)}%)`
           }
         },
         // legend: {
