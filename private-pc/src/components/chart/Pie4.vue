@@ -228,27 +228,27 @@ export default {
               borderColor: colorArr[2]
             }
           },
-          {
-            type: 'custom',
-            // name: this.data[0].name,
-            blendMode: 'destination-out',
-            z: 9,
-            coordinateSystem: 'none',
-            tooltip: {
-              show: false,
-              trigger: 'none'
-            },
-            renderItem: function (params, api) {
-              return {
-                type: 'polygon',
-                shape: {
-                  points: [[126, 0], [133, 0], [133, 134], [126, 134]]
-                },
-                style: api.style(),
-              };
-            },
-            data: [0]
-          }
+          // {
+          //   type: 'custom',
+          //   // name: this.data[0].name,
+          //   blendMode: 'destination-out',
+          //   z: 9,
+          //   coordinateSystem: 'none',
+          //   tooltip: {
+          //     show: false,
+          //     trigger: 'none'
+          //   },
+          //   renderItem: function (params, api) {
+          //     return {
+          //       type: 'polygon',
+          //       shape: {
+          //         points: [[126, 0], [133, 0], [133, 134], [126, 134]]
+          //       },
+          //       style: api.style(),
+          //     };
+          //   },
+          //   data: [0]
+          // }
         ]
       }
       this.myChart.setOption(option)
