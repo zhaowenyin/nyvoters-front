@@ -4,7 +4,7 @@
       <i class="logo"></i>
       <span class="header-home">河南省南阳市县乡人大选民登记系统</span>
       <i class="line" />
-      <i class="icon-home" @click="$router.push('/')"></i>
+      <i class="icon-home" @click="home"></i>
     </div>
     <div class="user">
       <span class="time">{{ currentTime }}</span>
@@ -96,6 +96,14 @@ export default {
     },
     jupNews () {
       this.$router.push({path: '/news'})
+    },
+    home(){
+      console.log(this.$router)
+      if(this.$router.currentRoute.path === '/'){
+        this.$router.go(0)
+      }else{
+        this.$router.push({path: '/'})
+      }
     },
     formatDateTimeZn,
     formatDate

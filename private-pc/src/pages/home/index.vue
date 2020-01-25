@@ -258,7 +258,7 @@ export default {
           hander_data5 = [
             {label: '选民总数',value:+this.data.peopleNum},
             {label: '已登记选民人数',value:+this.data.regVotersNum},
-            {label: '未登记选民人数',value:  +this.data.peopleNum - +this.data.regVotersNum},
+            {label: '登记成功选民数',value:  +this.data.votersNum},
           ]
           this.rate =this.data.peopleNum ? +((+this.data.regVotersNum / +this.data.peopleNum)*100).toFixed(2) + '%' : '0%'
           this.data1 = [{name: '已登记人数',value:+this.data.regVotersNum},{name: '未登记人数',value:  +this.data.peopleNum - +this.data.regVotersNum}]

@@ -288,7 +288,7 @@ export default {
   background: url("../../assets/img/8.png") center center no-repeat;
 }
 .man, .woman{
-  padding: 15px 0px 15px 14px;
+  padding: 15px 0px 0px 0px;
   width: 68px;
   flex: 1;
   border-radius: 6px;

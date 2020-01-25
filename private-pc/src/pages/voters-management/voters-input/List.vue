@@ -40,7 +40,9 @@
       <el-table-column
         label="选民状态"
         prop="type">
-          待划入选区
+          <template slot-scope="scope">
+            {{ scope.row.type === 0 ? '待划入选区' : '待划入选区'}}
+          </template>
       </el-table-column>
        <el-table-column
         width="120"
