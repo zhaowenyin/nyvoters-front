@@ -14,7 +14,7 @@
     <div class="content">
       <div v-if="+type===1" class="announcement1">{{data.districtName}}选举委员会公告</div>
       <div v-if="+type===1" class="announcement2">(第xx号)</div>
-      <div v-if="+type === 1">
+      <div v-if="+type === 1" style="width: 100%;">
         &nbsp;&nbsp;根据《选举法》的规定，现将{{data.precinctName}}选区选民名单列表公告如下，如有不同意见，可依照选举法第二十八条规定，向县选举委员会提出申诉。
         <div v-if="+type===1" class="announcement1">{{data.precinctName}}选区选民名单</div>
         <ul class="message">

@@ -203,15 +203,9 @@ export default {
   color: #fb5c02;
   & .s1{
     font-size: 46px;
-    background: linear-gradient(#fb5c02, #ff8802);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
   & .s2{
     font-size: 26px;
-    background: linear-gradient(#fb5c02, #ff8802);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 }
 .legend-ul{
