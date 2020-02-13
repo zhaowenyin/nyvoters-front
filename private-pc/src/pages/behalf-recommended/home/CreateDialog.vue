@@ -483,6 +483,9 @@ export default {
       type: Boolean
     }
   },
+  watch: {
+
+  },
   created () {
     this.ref1 = this.belongAreaItem.level === 3 && this.belongAreaItem.committee
     this.ref2 = this.belongAreaItem.level === 2 && !this.belongAreaItem.committee
@@ -586,6 +589,9 @@ export default {
 
     },
     personChange (val) {
+      if(!val) {
+        this.searchPeople({statusList: [7],precinctId: this.belongAreaId,name: val})
+      }
       for(let i of this.recommendedPersonList) {
         if(val === i.id) {
           this.form.phoneNum = i.phoneNum
