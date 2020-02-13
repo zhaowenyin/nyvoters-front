@@ -11,7 +11,7 @@
       <div v-if="+type === 3" class="announcement-title">公告</div>
       <div v-if="+type===4" class="announcement1">{{data.countyName}}选举委员会公告</div>
       <div v-if="+type===4" class="announcement2">第xx号</div>
-      <div>
+      <div style="width: 100%">
         &nbsp;&nbsp;根据《选举法》的规定，经{{data.countyName}}{{data.belongAreaName}}选民酝酿协商，根据较多数选民意见，确定下列人员为{{data.belongAreaName}}{{data.countyName}}第{{data.sessionNum}}届人民代表大会正式代表候选人。
         现以姓名笔画排序公告如下：
         <ul v-if="+type === 3" class="message">
@@ -31,7 +31,7 @@
       <div v-if="+type===4" style="margin: 20px 0;" >
         <Tabel :isoffice="true" :list="data.list"/>
       </div>
-       <div>
+       <div style="width: 100%">
         &nbsp;&nbsp;{{data.belongAreaName}}的选举大会定于xxxx年x月x日x时，在xx召开，请全体
         请全体选民提前做好准备，按时参加选举大会，并到制定地点参加投票。
       </div>
