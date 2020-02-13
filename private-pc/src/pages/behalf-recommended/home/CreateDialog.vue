@@ -66,6 +66,7 @@
                 style="width: 100%;"
                 class="item"
                 @change="personChange"
+                @visible-change="visibleChange"
                 v-model="form.recommendedPerson"
                 clearable placeholder="请选择">
                 <el-option
@@ -589,9 +590,6 @@ export default {
 
     },
     personChange (val) {
-      if(!val) {
-        this.searchPeople({statusList: [7],precinctId: this.belongAreaId,name: val})
-      }
       for(let i of this.recommendedPersonList) {
         if(val === i.id) {
           this.form.phoneNum = i.phoneNum
@@ -697,8 +695,13 @@ export default {
     remoteMethod (val) {
       setTimeout(() => {
         this.searchPeople({statusList: [7],precinctId: this.belongAreaId,name: val})
-      }, 1000)
+      }, 500)
 
+    },
+    visibleChange (val) {
+      if(val&&!this.form.recommendedPerson) {
+        this.searchPeople({statusList: [7],precinctId: this.belongAreaId})
+      }
     }
   }
 
