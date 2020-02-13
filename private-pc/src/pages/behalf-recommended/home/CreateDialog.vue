@@ -66,6 +66,7 @@
                 style="width: 100%;"
                 class="item"
                 @change="personChange"
+                @visible-change="visibleChange"
                 v-model="form.recommendedPerson"
                 clearable placeholder="请选择">
                 <el-option
@@ -483,6 +484,9 @@ export default {
       type: Boolean
     }
   },
+  watch: {
+
+  },
   created () {
     this.ref1 = this.belongAreaItem.level === 3 && this.belongAreaItem.committee
     this.ref2 = this.belongAreaItem.level === 2 && !this.belongAreaItem.committee
@@ -691,8 +695,13 @@ export default {
     remoteMethod (val) {
       setTimeout(() => {
         this.searchPeople({statusList: [7],precinctId: this.belongAreaId,name: val})
-      }, 1000)
+      }, 500)
 
+    },
+    visibleChange (val) {
+      if(val&&!this.form.recommendedPerson) {
+        this.searchPeople({statusList: [7],precinctId: this.belongAreaId})
+      }
     }
   }
 
