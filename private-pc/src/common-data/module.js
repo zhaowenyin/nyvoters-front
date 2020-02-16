@@ -13,6 +13,7 @@ export default {
     news: [],
     // saveItem: {},
     belongAreaItem: {},
+    totalNews: 0,
     // type: null
   },
   mutations: {
@@ -43,6 +44,7 @@ export default {
     updateNews(state, payload) {
       const list =  payload.data.content.data
       state.news = list
+      state.totalNews = payload.data.content.total
     }
   },
   actions: {

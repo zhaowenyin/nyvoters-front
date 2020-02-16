@@ -16,7 +16,7 @@
           <CommonNew :news="list" class="maxH"/>
           <li class="news-center" @click="jupNews">通知中心</li>
         </ul>
-      <el-badge :value="news.length" slot="reference" class="item">
+      <el-badge :value="+totalNews" slot="reference" class="item">
         <i class='el-icon-bell icon-news'></i>
       </el-badge>
     </el-popover>
@@ -47,7 +47,8 @@ export default {
   },
   computed: {
     ...mapState('commonData', {
-      news:state => state.news
+      news:state => state.news,
+      totalNews: state => state.totalNews
     }),
     list () {
       let arr = []
