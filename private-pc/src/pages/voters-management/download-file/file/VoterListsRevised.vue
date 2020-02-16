@@ -12,7 +12,7 @@
       <div v-if="+type===3" class="announcement-title">公告</div>
       <div v-if="+type===4" class="announcement1">{{data.districtName}}选举委员会公告</div>
       <div v-if="+type===4" class="announcement2">(第xx号)</div>
-      <div>
+      <div style="width: 100%">
         &nbsp;&nbsp;根据《选举法》和《河南省县、乡两级人民代表大会代表选举工作实施细则》的规定，现将{{data.precinctName}}选区选民名单公告后的选民增减情况做如下补正：
       </div>
       <div class="message">
