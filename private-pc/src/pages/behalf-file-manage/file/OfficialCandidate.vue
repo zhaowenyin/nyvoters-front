@@ -32,8 +32,8 @@
         <Tabel :isoffice="true" :list="data.list"/>
       </div>
        <div style="width: 100%">
-        &nbsp;&nbsp;{{data.belongAreaName}}的选举大会定于xxxx年x月x日x时，在xx召开，请全体
-        请全体选民提前做好准备，按时参加选举大会，并到制定地点参加投票。
+        &nbsp;&nbsp;{{data.belongAreaName}}的选举大会定于xxxx年x月x日x时，在xx召开，
+        请全体选民提前做好准备，按时参加选举大会，并到指定地点参加投票。
       </div>
       <div class="mark mark1">{{data.countyName}}选举委员会</div>
       <div  v-if="+type===4" class="mark">{{`${data.year}年${data.month}月${data.day}日`}}</div>
