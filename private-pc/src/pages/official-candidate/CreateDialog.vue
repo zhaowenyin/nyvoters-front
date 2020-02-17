@@ -145,16 +145,21 @@ export default {
         .catch(() => {})
     },
     async sumitData () {
-      this.loading = true
-      let idList = []
-      for (let i of this.selectedList) {
-        idList.push(i.id)
+      try{
+        this.loading = true
+        let idList = []
+        for (let i of this.selectedList) {
+          idList.push(i.id)
+        }
+        let params = {idList}
+        await setSubmit(params)
+        this.getListData()
+        this.close()
+        this.loading = false
       }
-      let params = {idList}
-      await setSubmit(params)
-      this.getListData()
-      this.close()
-      this.loading = false
+      finally{
+        this.loading = false
+      }
     },
     comfirmClose () {
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')

@@ -108,8 +108,8 @@ export default {
     }
   }
   .out {
-    padding-top: 22px;
-    padding-bottom: 80px;
+    padding-top: 10px;
+    padding-bottom: 20px;
     width: 960px;
     margin:0 auto;
     display:flex;

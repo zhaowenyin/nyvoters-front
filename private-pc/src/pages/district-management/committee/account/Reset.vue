@@ -27,7 +27,7 @@
             v-model.trim="form.password" />
         </el-form-item>
         <el-form-item
-          label="登录密码"
+          label="确认密码"
           prop="checkPass">
           <el-input
             size="medium"
