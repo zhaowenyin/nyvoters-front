@@ -5,7 +5,7 @@
       class="add-menu"
       background-color="#f4f4f4"
       @select="change">
-      <el-menu-item index="1" class="item" @click="home"> <i class="icon-home icon"/>系统主页</el-menu-item>
+      <el-menu-item index="/" class="item"> <i class="icon-home icon"/>系统主页</el-menu-item>
       <el-submenu index="2" v-if="isSimilar(['1','2','3'])">
         <template slot="title">
           <img src="../assets/img/11.png" class="icon"/>
@@ -101,7 +101,11 @@ export default {
   },
   methods: {
     change (index) {
-      this.$router.push({ path: index })
+      if (index === '/' && this.$router.currentRoute.path === '/') {
+        location.reload()
+      } else {
+        this.$router.push({ path: index })
+      }
     },
     isSimilar (val) {
       let isisSimilar = false
@@ -112,15 +116,7 @@ export default {
         }
       }
       return isisSimilar
-    },
-    home(){
-      console.log(this.$router)
-      if(this.$router.currentRoute.path === '/'){
-        this.$router.go(0)
-      }else{
-        this.$router.push({path: '/'})
-      }
-    },
+    }
   }
 }
 </script>
