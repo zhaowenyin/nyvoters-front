@@ -1,6 +1,6 @@
 <template>
   <div class="all">
-    <div class="common all-title">{{name}}选区选民登记情况表</div>
+    <div class="common all-title">{{name}}选民登记情况表</div>
     <ul class="register">
       <li class="title">
         登记总览

@@ -42,7 +42,8 @@
         </div>
       </div>
        <div class="tabel" v-if="next_level_district===2&&!committee">
-        <Table v-if="data5" :obj="data5" :name="name"/>
+        <Table v-if="data5&&precinctName" :obj="data5" :name="precinctName"/>
+        <Table v-if="data5&&!precinctName" :obj="data5" :name="name"/>
       </div>
       <div class="item foot" v-else>
         <div class="name">{{handername()}}登记情况</div>
@@ -78,6 +79,7 @@ export default {
     let code = authToken.district.code
     let level = authToken.district.level
     let name = authToken.district.name
+    let precinctName = authToken.precinctName
     code = code.substring(0,code.length-6)
     let committee = authToken.accountRole
     return {
@@ -98,6 +100,7 @@ export default {
       data5: null,
       level:level,
       name: name,
+      precinctName: precinctName,
       next_level_district: null,
       committee:committee<4 ? true : false
     }
@@ -172,7 +175,11 @@ export default {
       })
     },
     handername () {
+      console.log(this)
       let text = this.name
+      if(this.precinctName){
+        text = this.precinctName
+      }
       if(this.committee) {
         switch(this.level) {
         case 0:
