@@ -10,16 +10,16 @@ export default {
   data () {
     let sel = this
     this.chartSettings = {
-      radius: 80,
+      radius: 70,
       offsetY: '40%'
     }
     this.chartExtend = {
       grid: {
-        top: 10,
+        top: 1,
         left: 10,
       },
       legend: {
-        bottom: 30,
+        bottom: 1,
         left: 'center',
       },
       series: {
