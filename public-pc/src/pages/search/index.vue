@@ -9,11 +9,11 @@
         class="login-form">
         <el-form-item
           class="padding"
-          label="用户名："
+          label="姓名："
           prop="userName">
           <el-input
            size="medium"
-            placeholder="请输入用户名"
+            placeholder="请输入姓名"
             :maxlength="20"
             class="item"
             v-model.trim="userLogin.userName" />
@@ -71,7 +71,7 @@ export default {
       },
       rules: {
         userName: [
-          { required: true, message: '请输入用户名', trigger: 'blur' }
+          { required: true, message: '请输入姓名', trigger: 'blur' }
         ],
         idNum: [
           { required: true, message: '请输入身份证号码', trigger: 'blur' }

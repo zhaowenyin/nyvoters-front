@@ -36,7 +36,7 @@
         </template>
           <el-menu-item v-if="power.indexOf('10')>-1" class="item" index="/committee/manage">选委会管理</el-menu-item>
           <el-menu-item v-if="power.indexOf('11')>-1" class="item" index="/district/manage">选区管理</el-menu-item>
-          <el-menu-item v-if="power.indexOf('12')>-1" class="item" index="/voter-group">选民小组</el-menu-item>
+          <el-menu-item v-if="power.indexOf('12')>-1" class="item" index="/voter-group">选民小组管理</el-menu-item>
           <el-menu-item v-if="power.indexOf('13')>-1"  class="item" index="/cut-power">剥权人管理</el-menu-item>
           <el-menu-item v-if="power.indexOf('14')>-1" class="item" index="/down-file">文件资料</el-menu-item>
       </el-submenu>

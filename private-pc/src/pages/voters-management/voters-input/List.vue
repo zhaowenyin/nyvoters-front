@@ -19,7 +19,7 @@
         label="身份证号码"
         prop="idNum" />
        <el-table-column
-        width="100"
+        width="120"
         label="性别"
         prop="gender">
         <template slot-scope="scope">
@@ -31,7 +31,7 @@
         prop="phoneNum" />
       <el-table-column
         label="参选地类型"
-        width="100"
+        width="200"
         prop="candidateType">
          <template slot-scope="scope">
           {{ scope.row.candidateType === 0 ? '户籍地' : '现居地'}}
