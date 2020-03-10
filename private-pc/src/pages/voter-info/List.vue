@@ -19,7 +19,7 @@
         label="身份证号码"
         prop="idNum" />
        <el-table-column
-        width="100"
+        width="50"
         label="性别"
         prop="gender">
         <template slot-scope="scope">
@@ -28,6 +28,7 @@
       </el-table-column>
       <el-table-column
         label="手机号"
+        width="150"
         prop="phoneNum" />
       <el-table-column
         label="参选地类型"
@@ -51,6 +52,7 @@
       </el-table-column>
       <el-table-column
         label="比对结果"
+        width="150"
         prop="compareResult">
          <template slot-scope="scope">
           {{handerResultStatus(scope.row.compareResult)}}

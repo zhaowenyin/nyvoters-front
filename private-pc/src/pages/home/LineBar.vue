@@ -105,7 +105,11 @@ export default {
           },
           axisLabel: {
             color: ' #8b8b8b',
-            fontSize: '16'
+            fontSize: '16',
+            formatter:function(value)
+            {
+              return value.split('').join('\n');
+            }
           }
         },
         yAxis: {

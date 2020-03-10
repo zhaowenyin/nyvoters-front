@@ -90,6 +90,7 @@ export default {
         id.push(i.id)
       }
       let params={
+        belongAreaId: this.belongAreaId,
         status: this.status,
         id
       }

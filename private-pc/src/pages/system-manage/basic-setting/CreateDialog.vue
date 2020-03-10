@@ -60,6 +60,7 @@
           placeholder="请选择">
         </el-date-picker>
       </el-form-item>
+      <!--
        <el-form-item
         label="登录背景地址"
         class="complait-content"
@@ -88,6 +89,7 @@
             </div>
           </el-upload>
       </el-form-item>
+      -->
     </el-form>
     <div
       slot="footer"
