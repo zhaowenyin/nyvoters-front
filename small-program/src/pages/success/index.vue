@@ -11,7 +11,7 @@
       <div v-if="type===3" class="text">申诉提交成功！</div>
       <div v-if="type===3" class="complain">{{$route.query.info}}</div>
       <div v-if="type===1" class="text">提交成功！</div>
-      <div v-if="type===1" class="register">{{$route.query.info}}后续可通过<span class="search" @click="search"> [在线查询]</span>及时了解进度</div>
+      <div v-if="type===1" class="register">{{$route.query.info}}您的选民信息已成功提交，待系统审核！后续可通过<span class="search" @click="search"> [在线查询]</span>及时了解进度</div>
        <span
         v-if="type===2"
         class="quit"

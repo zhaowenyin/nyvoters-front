@@ -7,14 +7,14 @@
       v-for="(i, index) in news">
       <div class="top">
         <div class="text">{{i.messageType}}</div>
-        <div class="time">{{formatDate(i.createTime)}}</div>
+        <div class="time">{{formatDateMinute(i.createTime)}}</div>
       </div>
       <div>{{i.messageContent}}</div>
     </li>
   </ul>
 </template>
 <script>
-import { formatDate } from '../utils/format.js'
+import { formatDateMinute } from '../utils/format.js'
 import {setRead} from '../common-data/service.js'
 export default {
   data() {
@@ -37,7 +37,7 @@ export default {
 
   },
   methods: {
-    formatDate,
+    formatDateMinute,
     async look(i) {
       if (i.isRead === 0) {
         await setRead({id: i.id})
