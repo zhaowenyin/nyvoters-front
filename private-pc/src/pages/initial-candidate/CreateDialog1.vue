@@ -89,7 +89,7 @@
               prop="nativePlace">
               <el-input
                 :disabled="isDisabled"
-                :maxlength="500"
+                :maxlength="80"
                 size="medium"
                 placeholder="请输入籍贯"
                 class="item"
@@ -101,7 +101,7 @@
               label="出生地"
               prop="birthPlace">
               <el-input
-                :maxlength="500"
+                :maxlength="80"
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入出生地"
@@ -371,7 +371,7 @@
           label="工作简历"
           prop="resume">
           <el-input
-            :disabled="isDisabled"
+            :readonly="isDisabled"
             type="textarea"
             :rows="2"
             :maxlength="500"
@@ -383,7 +383,7 @@
           label="主要表现"
           prop="mainPerformance">
           <el-input
-            :disabled="isDisabled"
+            :readonly="isDisabled"
             type="textarea"
             :rows="2"
             :maxlength="500"
@@ -395,7 +395,7 @@
           label="获奖励及荣誉称号情况"
           prop="awardsHonors">
           <el-input
-            :disabled="isDisabled"
+            :readonly="isDisabled"
             type="textarea"
             :rows="2"
             :maxlength="500"
@@ -408,7 +408,7 @@
           label="历任代表情况"
           prop="succession">
           <el-input
-            :disabled="isDisabled"
+            :readonly="isDisabled"
             type="textarea"
             :rows="2"
             :maxlength="500"
@@ -421,7 +421,7 @@
           label="推荐理由"
           prop="recommendReason">
           <el-input
-            :disabled="isDisabled"
+            :readonly="isDisabled"
             type="textarea"
             :rows="2"
             :maxlength="500"
@@ -433,7 +433,7 @@
           label="提名推荐人签名"
           prop="nominateRecommenderSignature">
            <el-input
-            :disabled="isDisabled"
+            :readonly="isDisabled"
             type="textarea"
             :rows="2"
             :maxlength="500"
@@ -445,7 +445,7 @@
           label="审查意见"
           prop="reviewOpinion">
           <el-input
-            :disabled="isDisabled"
+            :readonly="isDisabled"
             type="textarea"
             :maxlength="500"
             :rows="2"
@@ -475,6 +475,7 @@
               <el-input
                 :disabled="isDisabled"
                 placeholder="请输入"
+                :maxlength="80"
                 class="item"
                 v-model="form.contactInformation" />
             </el-form-item>
@@ -485,7 +486,7 @@
           label="备注"
           prop="remarks">
           <el-input
-          :disabled="isDisabled"
+          :readonly="isDisabled"
           type="textarea"
           :rows="2"
           :maxlength="200"
@@ -498,7 +499,7 @@
           v-if="+form.recommendType === 1"
           prop="recommendUnit">
           <el-input
-          :disabled="isDisabled"
+          :readonly="isDisabled"
           type="textarea"
           :rows="2"
           :maxlength="200"

@@ -88,6 +88,7 @@
             prop="contactInformation">
             <el-input
               :disabled="isDisabled"
+              :maxlength="80"
               size="medium"
               :placeholder="isDisabled?'':'请输入联系方式'"
               class="item"

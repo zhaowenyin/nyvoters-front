@@ -45,6 +45,9 @@
         </el-form-item>
       </el-form>
     </div>
+    <a href="http://www.beian.miit.gov.cn" target="_blank">
+      <div>蜀ICP备19031396号</div>
+    </a>
   </div>
 </template>
 

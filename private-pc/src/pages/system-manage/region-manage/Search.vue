@@ -34,7 +34,7 @@
       <el-form-item
         v-if="type === 2"
         prop="code">
-        <el-input
+        <el-input-number
           class="item"
           type="number"
           size="medium"

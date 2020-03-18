@@ -93,6 +93,14 @@ export default {
       this.$emit('lookDetail',{val: this.item, isDisabled: false})
     },
     deleteItem() {
+      if(this.multipleSelection.length === 0) {
+        this.$notify({
+          title: '',
+          message: '请选择数据后再删除！',
+          type: 'warning'
+        });
+        return
+      }
       this.$confirm('文件删除后将不可恢复，请确认是否删除？')
         .then(() => {
           this.deleteI()

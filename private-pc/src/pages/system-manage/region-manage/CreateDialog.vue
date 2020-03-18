@@ -40,7 +40,7 @@
        <el-form-item
         label="行政区代码"
         prop="code">
-        <el-input
+        <el-input-number
           size="medium"
           type="number"
           :disabled="isDisabled"

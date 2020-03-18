@@ -139,7 +139,7 @@ export default {
     },
     async sumitData () {
       this.loading = true
-      await modifySubmit({password: md5(this.form.password), id: this.item.id,...this.params})
+      await modifySubmit({password: md5(this.form.password), id: this.item.id})
       this.close()
       this.getListData1()
       this.loading = false
