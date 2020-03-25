@@ -33,7 +33,7 @@
               prop="belongAreaName">
               <el-input
                 :disabled="isDisabled"
-                :maxlength="500"
+                :maxlength="400"
                 size="medium"
                 class="item"
                 v-model="form.belongAreaName" />
@@ -89,7 +89,7 @@
               prop="nativePlace">
               <el-input
                 :disabled="isDisabled"
-                :maxlength="80"
+                :maxlength="20"
                 size="medium"
                 placeholder="请输入籍贯"
                 class="item"
@@ -101,7 +101,7 @@
               label="出生地"
               prop="birthPlace">
               <el-input
-                :maxlength="80"
+                :maxlength="20"
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入出生地"
@@ -162,7 +162,7 @@
                 </el-option>
               </el-select>
               <el-input
-              :maxlength="500"
+              :maxlength="400"
               :disabled="isDisabled"
               size="medium"
               placeholder="请输入担任党派职务"
@@ -193,7 +193,7 @@
               label="手机号码"
               prop="phoneNum">
                 <el-input
-                :maxlength="500"
+                :maxlength="400"
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入手机号码"
@@ -251,7 +251,7 @@
               label="毕业院校系及专业"
               prop="fteGraduatedInstitution">
               <el-input
-              :maxlength="500"
+              :maxlength="50"
               size="medium"
               placeholder="请输入"
               :disabled="isDisabled"
@@ -275,7 +275,7 @@
               label="毕业院校系及专业"
               prop="iseGraduatedInstitution">
               <el-input
-                :maxlength="500"
+                :maxlength="0"
                 size="medium"
                 :disabled="isDisabled"
                 placeholder="请输入"
@@ -288,8 +288,9 @@
               label="工作单位"
               prop="workUnit">
               <el-input
-              :maxlength="80"
-              :disabled="isDisabled"
+              :maxlength="50"
+              :readonly="isDisabled"
+              type="textarea"
               size="medium"
               placeholder="请输入"
               v-model="form.workUnit" />
@@ -320,8 +321,9 @@
               label="职称"
               prop="jobTitle">
               <el-input
-              :maxlength="80"
-              :disabled="isDisabled"
+              :maxlength="50"
+              :readonly="isDisabled"
+              type="textarea"
               size="medium"
               placeholder="请输入"
               v-model="form.jobTitle" />
@@ -333,7 +335,8 @@
               prop="repreClass">
               <el-input
               :maxlength="80"
-              :disabled="isDisabled"
+              :readonly="isDisabled"
+              type="textarea"
               size="medium"
               placeholder="请输入"
               v-model="form.repreClass" />
@@ -345,7 +348,8 @@
               prop="withRepreAnyLevel">
               <el-input
                 :maxlength="80"
-                :disabled="isDisabled"
+                :readonly="isDisabled"
+                type="textarea"
                 size="medium"
                 placeholder="请输入"
                 v-model="form.withRepreAnyLevel" />
@@ -374,7 +378,7 @@
             :readonly="isDisabled"
             type="textarea"
             :rows="2"
-            :maxlength="500"
+            :maxlength="200"
             placeholder="请输入"
             class="item"
             v-model="form.resume" />
@@ -386,7 +390,7 @@
             :readonly="isDisabled"
             type="textarea"
             :rows="2"
-            :maxlength="500"
+            :maxlength="200"
             placeholder="请输入"
             class="item"
             v-model="form.mainPerformance" />
@@ -398,7 +402,7 @@
             :readonly="isDisabled"
             type="textarea"
             :rows="2"
-            :maxlength="500"
+            :maxlength="200"
             placeholder="请输入"
             class="item"
             v-model="form.awardsHonors" />
@@ -411,7 +415,7 @@
             :readonly="isDisabled"
             type="textarea"
             :rows="2"
-            :maxlength="500"
+            :maxlength="80"
             placeholder="请输入"
             class="item"
             v-model="form.succession" />
@@ -424,7 +428,7 @@
             :readonly="isDisabled"
             type="textarea"
             :rows="2"
-            :maxlength="500"
+            :maxlength="50"
             placeholder="请输入"
             class="item"
             v-model="form.recommendReason" />
@@ -436,7 +440,7 @@
             :readonly="isDisabled"
             type="textarea"
             :rows="2"
-            :maxlength="500"
+            :maxlength="200"
             placeholder="请输入"
             class="item"
             v-model="form.nominateRecommenderSignature" />
@@ -447,7 +451,7 @@
           <el-input
             :readonly="isDisabled"
             type="textarea"
-            :maxlength="500"
+            :maxlength="80"
             :rows="2"
             placeholder="请输入"
             class="item"
@@ -461,7 +465,7 @@
               label="通信地址"
               prop="contactAddress">
               <el-input
-                 :maxlength="500"
+                 :maxlength="400"
                 :disabled="isDisabled"
                 placeholder="请输入"
                 class="item"

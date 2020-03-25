@@ -216,7 +216,8 @@
               prop="workUnit">
               <el-input
                 :maxlength="80"
-                :disabled="isDisabled"
+                :readonly="isDisabled"
+                type="textarea"
                 size="medium"
                 placeholder="请输入"
                 class="item"
@@ -229,7 +230,8 @@
               prop="jobTitle">
               <el-input
                 :maxlength="80"
-                :disabled="isDisabled"
+                :readonly="isDisabled"
+                type="textarea"
                 size="medium"
                 placeholder="请输入"
                 class="item"
@@ -241,7 +243,8 @@
           label="推荐理由"
           prop="recommendReason">
           <el-input
-            :disabled="isDisabled"
+            :readonly="isDisabled"
+            type="textarea"
             size="medium"
             :maxlength="500"
             placeholder="请输入"
@@ -254,7 +257,8 @@
           prop="recommendUnit">
           <el-input
             :maxlength="80"
-            :disabled="isDisabled"
+            :readonly="isDisabled"
+            type="textarea"
             placeholder="请输入"
             class="item"
             v-model.trim="form.recommendUnit" />
@@ -282,7 +286,7 @@
               width="55">
             </el-table-column>
             <el-table-column
-            label="推荐人姓名">
+            label="推荐人姓名" width="200">
               <template slot-scope="scope">
                 <el-form-item
                   :prop="!scope.row.recommendPersonName ? 'recommendPersonName' : ''">
@@ -291,7 +295,7 @@
                     v-if="!scope.row.recommendPersonName"
                     size="medium"
                     placeholder="请输入"
-                    :maxlength="20"
+                    :maxlength="10"
                     class="item"
                     v-model.trim="tableObj.recommendPersonName" />
                   <div v-else>{{scope.row.recommendPersonName}}</div>
@@ -299,7 +303,7 @@
               </template>
             </el-table-column>
             <el-table-column
-            label="推荐人手机">
+            label="推荐人手机" width="150">
               <template slot-scope="scope">
                 <el-form-item
                 :prop="!scope.row.recommendPersonPhone ? 'recommendPersonPhone' : ''">
@@ -308,6 +312,7 @@
                     v-if="!scope.row.recommendPersonPhone"
                     size="medium"
                     placeholder="请输入"
+                    :maxlength="11"
                     class="item"
                     v-model.trim="tableObj.recommendPersonPhone" />
                   <div v-else>{{scope.row.recommendPersonPhone}}</div>
@@ -324,6 +329,7 @@
                   v-if="!scope.row.recommendPersonWorkUnit"
                   size="medium"
                   placeholder="请输入"
+                  :maxlength="20"
                   class="item"
                   v-model.trim="tableObj.recommendPersonWorkUnit" />
                 <div v-else>{{scope.row.recommendPersonWorkUnit}}</div>
