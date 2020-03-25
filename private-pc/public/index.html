@@ -19,5 +19,46 @@
     <script src="./config.js"></script>
     <script src="./echarts.min.js"></script>
     <!-- built files will be auto injected -->
+    <script>
+      function getBrowser(n) {
+        var ua = navigator.userAgent.toLowerCase(),
+            s,
+            name = '',
+            ver = 0;
+        //探测浏览器
+        (s = ua.match(/msie ([\d.]+)/)) ? _set("ie", _toFixedVersion(s[1])):
+        (s = ua.match(/firefox\/([\d.]+)/)) ? _set("firefox", _toFixedVersion(s[1])) :
+        (s = ua.match(/chrome\/([\d.]+)/)) ? _set("chrome", _toFixedVersion(s[1])) :
+        (s = ua.match(/opera.([\d.]+)/)) ? _set("opera", _toFixedVersion(s[1])) :
+        (s = ua.match(/version\/([\d.]+).*safari/)) ? _set("safari", _toFixedVersion(s[1])) : 0;
+
+        function _toFixedVersion(ver, floatLength) {
+          ver = ('' + ver).replace(/_/g, '.');
+          floatLength = floatLength || 1;
+          ver = String(ver).split('.');
+          ver = ver[0] + '.' + (ver[1] || '0');
+          ver = Number(ver).toFixed(floatLength);
+          return ver;
+        }
+        function _set(bname, bver) {
+          name = bname;
+          ver = bver;
+        }
+        return (n == 'n' ? name : (n == 'v' ? ver : name + ver));
+      };
+
+      var neihe = getBrowser("n"); // 所获得的就是浏览器所用内核。
+      var banben = getBrowser("v");// 所获得的就是浏览器的版本号。
+
+      if (neihe === 'ie' && +banben < 10) {
+        if (confirm("您的ie版本过低，点击【确定】升级，如不升级您将不能正常浏览网页！")) {
+            location.href = "https://support.microsoft.com/zh-cn/help/17621/internet-explorer-downloads";
+        } else {
+            alert("您将退出网页！");
+            window.close();
+        }
+      }
+
+    </script>
   </body>
 </html>
