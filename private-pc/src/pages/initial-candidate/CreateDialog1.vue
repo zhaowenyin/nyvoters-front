@@ -378,7 +378,7 @@
             :readonly="isDisabled"
             type="textarea"
             :rows="2"
-            :maxlength="200"
+            :maxlength="400"
             placeholder="请输入"
             class="item"
             v-model="form.resume" />
@@ -428,7 +428,7 @@
             :readonly="isDisabled"
             type="textarea"
             :rows="2"
-            :maxlength="50"
+            :maxlength="200"
             placeholder="请输入"
             class="item"
             v-model="form.recommendReason" />

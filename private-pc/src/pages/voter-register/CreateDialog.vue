@@ -254,6 +254,7 @@
           type="textarea"
           :rows="4"
           placeholder="请填写申请转移原因"
+          :maxlength="500"
           v-model.trim="innerForm.reason">
         </el-input>
       </el-form-item>
@@ -356,7 +357,7 @@ export default {
           { required: true, message: '请选择民族！', trigger: 'change' }
         ],
         phoneNum: [
-          { validator: validate,required: true, message: '请输入正确手机号！', trigger: 'blur' }
+          { validator: validate,required: true, trigger: 'blur' }
         ],
         householdRegistration: [
           { required: true, message: '请输入户籍地！', trigger: 'blur' }
@@ -425,8 +426,10 @@ export default {
     if(this.item.id) {
       this.form = {...this.form, ...this.item,registrationTime: this.item.registrationTime ? new Date(this.item.registrationTime) : '',proveDocId:this.item.proveDocId ? +this.item.proveDocId : ''}
     }
-    this.form.registrationType = this.session.accountType
-    this.form.registrar = this.session.name
+    if(typeof this.form.registrationType !== 'number'){
+      this.form.registrationType = this.session.accountType
+      this.form.registrar = this.session.name
+    }
     this.searchnation()
   },
   methods: {

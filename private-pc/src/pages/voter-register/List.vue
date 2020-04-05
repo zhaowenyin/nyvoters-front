@@ -12,14 +12,14 @@
       </el-table-column>
       <el-table-column
         label="姓名"
-        width="120"
+        width="100"
         prop="name" />
       <el-table-column
         width="180"
         label="身份证号码"
         prop="idNum" />
        <el-table-column
-        width="100"
+        width="50"
         label="性别"
         prop="gender">
         <template slot-scope="scope">
@@ -27,6 +27,7 @@
         </template>
       </el-table-column>
       <el-table-column
+        width="120"
         label="手机号"
         prop="phoneNum" />
       <el-table-column
@@ -38,7 +39,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        width="180"
+        width="150"
         label="登记日期">
         <template slot-scope="scope">
           {{ formatDate(scope.row.registrationTime) }}

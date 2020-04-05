@@ -197,15 +197,21 @@ export default {
       })
     },
     async sumitData () {
-      this.loading = true
-      if(this.item.id || this.item.id===0) {
-        await modifySubmit({...this.handerParams(),id: this.item.id})
-      } else {
-        await setSubmit(this.handerParams())
+      try{
+        this.loading = true
+        if(this.item.id || this.item.id===0) {
+          await modifySubmit({...this.handerParams(),id: this.item.id})
+        } else {
+          await setSubmit(this.handerParams())
+        }
+        this.close()
+        this.getListData1()
+      }catch(e){
+        console.log(e)
+        this.loading = false
+      }finally{
+        this.loading = false
       }
-      this.close()
-      this.getListData1()
-      this.loading = false
     },
     async searchUser (val) {
       const {data} = await searchUser(val)

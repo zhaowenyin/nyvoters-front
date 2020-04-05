@@ -26,6 +26,7 @@
           type="textarea"
           :rows="4"
           placeholder="请填写处理意见"
+          :maxlength="500"
           v-model="form.reason">
         </el-input>
       </el-form-item>

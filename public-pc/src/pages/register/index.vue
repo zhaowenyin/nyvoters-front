@@ -92,6 +92,7 @@
               label="户籍地："
               prop="householdRegistration">
               <el-input
+                @change="housechange"
                 size="medium"
                 placeholder="请输入户籍地"
                 :maxlength="80"
@@ -119,6 +120,7 @@
               label="现居住地："
               prop="living">
               <el-input
+                @change="livingChange"
                 placeholder="请输入现居住地"
                 :maxlength="80"
                 class="item"
@@ -238,7 +240,9 @@ export default {
         userName: '',
         idNum: '',
         householdRegistration: '',
+        householdRegistrationDetail: '',
         living: '',
+        livingDetail: '',
         candidateType: '',
         nation: '',
         gender: '',
@@ -349,6 +353,23 @@ export default {
       const {data} = await getCode()
       this.captchaImg = 'data:imagepng;base64,'+ data.content.captcha
       this.form.captchaId = data.content.captchaId
+    },
+    housechange (val) {
+      if(!this.living) {
+        this.form.living = val
+      }
+    },
+    detailchange(val) {
+      if(!this.livingDetail) {
+        this.form.livingDetail = val
+      }
+
+    },
+    livingChange () {
+      this.living = true
+    },
+    livingDetailChange () {
+      this.livingDetail = true
     },
     cardVali
 

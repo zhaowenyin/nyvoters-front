@@ -18,6 +18,7 @@
           type="textarea"
           :rows="4"
           placeholder="请填写审核不通过原因"
+          :maxlength="500"
           v-model.trim="form.reason">
         </el-input>
       </el-form-item>

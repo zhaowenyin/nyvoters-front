@@ -215,7 +215,7 @@
               label="工作单位"
               prop="workUnit">
               <el-input
-                :maxlength="80"
+                :maxlength="50"
                 :readonly="isDisabled"
                 type="textarea"
                 size="medium"
@@ -229,7 +229,7 @@
               label="职称"
               prop="jobTitle">
               <el-input
-                :maxlength="80"
+                :maxlength="50"
                 :readonly="isDisabled"
                 type="textarea"
                 size="medium"
@@ -246,7 +246,7 @@
             :readonly="isDisabled"
             type="textarea"
             size="medium"
-            :maxlength="500"
+            :maxlength="200"
             placeholder="请输入"
             class="item"
             v-model.trim="form.recommendReason" />

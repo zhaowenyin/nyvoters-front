@@ -381,7 +381,7 @@
             :readonly="true"
             type="textarea"
             :rows="2"
-            :maxlength="50"
+            :maxlength="200"
             placeholder="请输入"
             class="item"
             v-model="form.recommendReason" />

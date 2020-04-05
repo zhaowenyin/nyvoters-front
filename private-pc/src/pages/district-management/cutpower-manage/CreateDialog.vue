@@ -372,6 +372,23 @@ export default {
       }
       return params
     },
+    housechange (val) {
+      if(!this.living) {
+        this.form.living = val
+      }
+    },
+    detailchange(val) {
+      if(!this.livingDetail) {
+        this.form.livingDetail = val
+      }
+
+    },
+    livingChange () {
+      this.living = true
+    },
+    livingDetailChange () {
+      this.livingDetail = true
+    },
     cardVali
   }
 }
