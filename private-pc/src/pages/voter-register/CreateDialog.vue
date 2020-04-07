@@ -527,11 +527,13 @@ export default {
       this.innerVisible = false
     },
     housechange (val) {
+      console.log(444)
       if(!this.living) {
         this.form.living = val
       }
     },
     detailchange(val) {
+      console.log(555)
       if(!this.livingDetail) {
         this.form.livingDetail = val
       }
