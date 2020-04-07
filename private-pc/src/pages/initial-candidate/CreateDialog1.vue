@@ -515,7 +515,6 @@
           @selection-change="handleSelectionChange"
           :data="form.recommendPersonList"
           v-if="+form.recommendType === 2"
-          :disabled="isDisabled"
           ref="multipleTable"
           class="add_table">
           <el-table-column
