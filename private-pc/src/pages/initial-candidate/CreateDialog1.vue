@@ -9,7 +9,7 @@
       :close-on-click-modal="false"
       :before-close="comfirmClose">
       <el-form
-        label-width="80px"
+        label-width="100px"
         :model="form"
         :rules="rules"
         ref="form"
@@ -722,14 +722,4 @@ export default {
   width: 100%;
 }
 
-</style>
-<style>
-  .qual .el-form-item__label {
-    line-height: 18px;
-    display: block;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    height: 40px;
-}
 </style>

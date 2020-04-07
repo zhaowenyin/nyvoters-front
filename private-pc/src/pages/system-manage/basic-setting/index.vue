@@ -56,7 +56,8 @@ export default {
     justify-content: center;
     align-items: center;
     & .text {
-      padding-top: 40px;
+      margin-top: 40px;
+      display: block;
        font-size: 18px;
       & .num {
         font-size: 24px;

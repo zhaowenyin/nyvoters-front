@@ -316,9 +316,8 @@ export default {
     width: 100%;
     display: flex;
     justify-content: space-between;
-  & .common1 {
-      z-index: 10;
-    }
+    position: relative;
+    z-index: 10;
   }
 }
 .item {

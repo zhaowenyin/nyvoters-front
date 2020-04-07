@@ -721,7 +721,7 @@ export default {
 </style>
 <style>
   .innerobj .el-form-item {
-    margin-bottom: 15px;
-    margin-top: 15px;
+    margin-bottom: 22px;
+    margin-top: 22px;
   }
 </style>

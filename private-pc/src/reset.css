@@ -98,3 +98,10 @@ textarea { resize: none; }
 .search-box .left .el-button{
   margin-bottom: 10px;
 }
+
+.qual .el-form-item__label {
+  line-height: 18px;
+  position: relative;
+  top: 20px;
+  transform: translate(0, -50%);
+}

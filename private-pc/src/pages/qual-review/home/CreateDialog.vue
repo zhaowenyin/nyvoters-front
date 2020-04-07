@@ -647,13 +647,3 @@ export default {
 }
 
 </style>
-<style>
-  .qual .el-form-item__label {
-    line-height: 18px;
-    display: block;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    height: 40px;
-}
-</style>
