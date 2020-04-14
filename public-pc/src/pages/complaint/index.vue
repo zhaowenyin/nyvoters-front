@@ -266,6 +266,7 @@ export default {
     align-items: center;
   }
   .form {
+    padding-top: 100px;
     display: flex;
     flex: 1;
     width: 960px;

@@ -363,7 +363,7 @@ export default {
           { required: true, message: '请输入户籍地！', trigger: 'blur' }
         ],
         living:[
-          { required: true, message: '请输入现居地！', trigger: 'blur' }
+          { required: true, message: '请输入居住地！', trigger: 'blur' }
         ],
         candidateType:[
           { required: true, message: '请选择参选地类型！', trigger: 'change' }

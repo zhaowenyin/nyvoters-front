@@ -137,6 +137,7 @@ export default {
 
   }
   .form {
+    padding-top: 100px;
     width: 960px;
     display: flex;
     flex: 1;

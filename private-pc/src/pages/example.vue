@@ -29,7 +29,7 @@ export default {
         name: '户籍地'
       },{
         value: 301,
-        name: '现居地'
+        name: '居住地'
       },{
         value: 99,
         name: '单位'

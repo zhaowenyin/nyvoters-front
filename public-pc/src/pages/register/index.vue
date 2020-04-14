@@ -390,6 +390,7 @@ export default {
     background-color: #f4f4f4;
   }
   .form {
+    padding-top: 100px;
     display: flex;
     flex: 1;
     align-items: center;
