@@ -57,7 +57,7 @@
       </el-form-item>
       <el-form-item
        label="参选地类型"
-        prop="status">
+        prop="candidateType">
         <el-select
         size="medium"
         placeholder="请选择"
@@ -96,7 +96,8 @@ export default {
         name: '',
         idNum: '',
         registrationType: '',
-        status: ''
+        status: '',
+        candidateType: ''
       },
       createDialogVisible: false,
       item: {},

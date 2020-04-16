@@ -199,6 +199,14 @@ export default {
         });
         return
       }
+      if(this.multipleSelection.length > 1) {
+        this.$notify({
+          title: '',
+          message: '请勾选一条数据进行操作！',
+          type: 'warning'
+        });
+        return
+      }
       this.$confirm('删除后将不可恢复，请确认是否删除？')
         .then(() => {
           this.deleteitem()
