@@ -62,7 +62,7 @@ import md5 from 'blueimp-md5'
 export default {
   data () {
     let validatePass = (rule, value, callback) => {
-      if (value === '') {
+      if (!value) {
         callback(new Error('请输入密码'));
       } else {
         if (value.length<6) {
@@ -75,7 +75,7 @@ export default {
       }
     };
     let validatePass2 = (rule, value, callback) => {
-      if (value === '') {
+      if (!value) {
         callback(new Error('请再次输入新密码'));
       } else if (value !== this.form.password) {
         callback(new Error('两次输入密码不一致!'));

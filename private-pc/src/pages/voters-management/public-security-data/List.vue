@@ -28,7 +28,7 @@
             v-if="+scope.row.status === 0"
             class="upload-demo"
             ref="upload"
-            :action="allUrl"
+            :action="allUrl(scope.row)"
             :on-remove="handleRemove"
             :on-change="changeFile"
             :on-success="successFn"
@@ -36,7 +36,7 @@
             :before-upload="beforeAvatarUpload"
             :file-list="scope.row.fileList || []"
             :auto-upload="true">
-            <el-button slot="trigger" size="small" type="primary" @click="submitUpload(scope.row)">上传</el-button>
+            <el-button slot="trigger" size="small" type="primary">上传</el-button>
           </el-upload>
           <el-button v-loading="contrastLoading&&(precinctId ===scope.row.precinctId)" v-else-if="+scope.row.status === 1" size="small" type="primary" @click="contrast(scope.row)">对比</el-button>
           <div v-else>-</div>
@@ -82,25 +82,7 @@ export default {
     }),
     ...mapState('commonData', {
       belongAreaId: state => state.belongAreaId
-    }),
-    allUrl () {
-      let param = {
-        precinctId: this.precinctId,
-        token: this.authToken.token
-      }
-      let paramStr = ''
-      for (const k in param) {
-        if (param[k] !== undefined &&
-            param[k] !== null &&
-            param[k] !== '') {
-          paramStr += `&${k}=${encodeURI(param[k])}`
-        }
-      }
-      paramStr = paramStr.substr(1)
-      let url = ''
-      url =`${baseURL}/police/upload?${paramStr}`
-      return url
-    }
+    })
   },
   components: {
   },
@@ -126,8 +108,24 @@ export default {
     handleCurrentChange (val) {
       this.getListData({ pageNum: val })
     },
-    submitUpload(val) {
+    allUrl (val) {
       this.precinctId = val.precinctId
+      let param = {
+        precinctId: val.precinctId,
+        token: this.authToken.token
+      }
+      let paramStr = ''
+      for (const k in param) {
+        if (param[k] !== undefined &&
+            param[k] !== null &&
+            param[k] !== '') {
+          paramStr += `&${k}=${encodeURI(param[k])}`
+        }
+      }
+      paramStr = paramStr.substr(1)
+      let url = ''
+      url =`${baseURL}/police/upload?${paramStr}`
+      return url
     },
     handleSelectionChange(val) {
       this.saveSelection(val)

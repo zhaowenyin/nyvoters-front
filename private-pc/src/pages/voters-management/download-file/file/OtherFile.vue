@@ -7,10 +7,10 @@
         type="primary"
         @click="fomatDownload"
         size="small">{{data1.button}}</el-button>
-      <el-button
-      type="primary"
-      @click="download"
-      size="small">下载</el-button>
+        <el-button
+        type="primary"
+        @click="download"
+        size="small">下载</el-button>
     </div>
     <div class="content">
       <div v-html="data"/>
@@ -98,7 +98,10 @@ export default {
 .top-title {
   padding: 15px;
   display: -webkit-box;
-  justify-content:space-between;
+  display: flex;
+  & .title {
+    flex: 1;
+  }
 }
 </style>
 
