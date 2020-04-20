@@ -268,10 +268,10 @@ export default {
           { validator: validate,required: true, trigger: 'blur' }
         ],
         householdRegistration: [
-          { required: true, message: '请输入户籍地！', trigger: 'blur' }
+          { required: true, message: '请输入户籍地！', trigger: 'change' }
         ],
         living:[
-          { required: true, message: '请输入现居地！', trigger: 'blur' }
+          { required: true, message: '请输入现居地！', trigger: 'change' }
         ],
         startTime:[
           { required: true, message: '请选择剥权时间！', trigger: 'change' }

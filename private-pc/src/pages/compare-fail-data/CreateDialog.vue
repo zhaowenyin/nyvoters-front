@@ -353,10 +353,10 @@ export default {
           { validator: validate,required: true, message: '请输入正确手机号！', trigger: 'blur' }
         ],
         householdRegistration: [
-          { required: true, message: '请输入户籍地！', trigger: 'blur' }
+          { required: true, message: '请输入户籍地！', trigger: 'change' }
         ],
         living:[
-          { required: true, message: '请输入现居地！', trigger: 'blur' }
+          { required: true, message: '请输入现居地！', trigger: 'change' }
         ],
         candidateType:[
           { required: true, message: '请选择参选地类型！', trigger: 'change' }

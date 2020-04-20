@@ -107,7 +107,6 @@
               prop="householdRegistrationDetail">
               <el-input
                 @change="detailchange"
-                :disabled="isDisabled"
                 size="medium"
                 placeholder="详细地址"
                 :maxlength="80"
@@ -134,7 +133,6 @@
               prop="livingDetail">
               <el-input
                 @change="livingDetailChange"
-                :disabled="isDisabled"
                 size="medium"
                 placeholder="详细地址"
                 :maxlength="80"
@@ -270,10 +268,10 @@ export default {
           { validator: validate,required: true, trigger: 'blur'  }
         ],
         householdRegistration: [
-          { required: true, message: '请输入户籍地', trigger: 'blur' }
+          { required: true, message: '请输入户籍地', trigger: 'change' }
         ],
         living: [
-          { required: true, message: '请输入现居住地', trigger: 'blur' }
+          { required: true, message: '请输入现居住地', trigger: 'change' }
         ],
         captcha: [
           { required: true, message: '请输入验证码', trigger: 'blur' }

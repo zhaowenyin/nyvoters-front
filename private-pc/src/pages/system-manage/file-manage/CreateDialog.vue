@@ -36,8 +36,8 @@
             class="but">
             <span style="color: #606266" v-if="item.fileName">{{item.fileName}}</span>
             <span v-else>选择文件</span>
+             <div class="error" v-if="!is_fist&&form.fileList.length===0">请选择文件！</div>
           </div>
-
           </el-upload>
 
       </el-form-item>
@@ -81,7 +81,6 @@
   </el-dialog>
 </template>
 <script>
-import { baseURL } from '../../../utils/api.js'
 import {moudel} from '../../../common-data/config.js'
 import { getSession } from '../../../utils/session.js'
 import { mapActions } from 'vuex'
@@ -104,14 +103,15 @@ export default {
         module: [
           { required: true,message: '请选择所属模块！', trigger: 'change' }
         ],
-        fileList: [
-          { required: !this.item.id,message: '请选择文件！', trigger: 'change' }
-        ]
+        // fileList: [
+        //   { required: !this.item.id,message: '请选择文件！', trigger: 'change' }
+        // ]
       },
       headers: {
         token: authToken.token,
       },
-      moudel
+      moudel,
+      is_fist: true
     }
 
   },
@@ -129,26 +129,6 @@ export default {
       type: Boolean
     }
   },
-  computed: {
-    allUrl () {
-      let param = {
-        module: this.form.module,
-        fileName: this.form.fileName
-      }
-      let paramStr = ''
-      for (const k in param) {
-        if (param[k] !== undefined &&
-            param[k] !== null &&
-            param[k] !== '') {
-          paramStr += `&${k}=${encodeURI(param[k])}`
-        }
-      }
-      paramStr = paramStr.substr(1)
-      let url = ''
-      url =`${baseURL}/doc/upload/?${paramStr}`
-      return url
-    }
-  },
   created () {
     if(this.item.id) {
       this.form = {...this.form, id:this.item.id, fileName: this.item.fileName,module: this.item.module}
@@ -163,6 +143,7 @@ export default {
       this.$emit('update:visible', false)
     },
     submitForm () {
+      this.is_fist = false
       this.$refs.form.validate((valid) => {
         if (valid) {
           if(this.form.fileList.length>0) {
@@ -256,7 +237,15 @@ export default {
     background: #fff;
   }
 
-
+.error {
+  color: #F56C6C;
+  font-size: 12px;
+  line-height: 1;
+  padding-top: 4px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
 </style>
 <style>
   .table-obj .el-form-item {
