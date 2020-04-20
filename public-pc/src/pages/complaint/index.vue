@@ -52,8 +52,8 @@
               v-if="fileList.length===0"
               class="but">请上传申请书</div>
             </el-upload>
+            <div class="error" v-if="!is_first&&!userLogin.appealDocumentId">请上传申诉书</div>
         </el-form-item>
-
         <el-form-item
         class="padding complait-content"
          label=""
@@ -142,7 +142,7 @@ export default {
         captcha: [
           { required: true, message: '请输入验证码', trigger: 'blur' }
         ],
-        appealDocumentId:[{ required: true, message: '请上传申诉书', trigger: 'change' }]
+        // appealDocumentId:[{ required: true, message: '请上传申诉书', trigger: 'change' }]
       },
       headers: {
 
@@ -150,7 +150,8 @@ export default {
       loading: false,
       captchaImg: '',
       fileList: [],
-      name: ''
+      name: '',
+      is_first: true
     }
 
   },
@@ -181,6 +182,7 @@ export default {
 
   methods: {
     submitForm () {
+      this.is_first = false
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           this.submitSearch()
@@ -220,6 +222,9 @@ export default {
     },
     changeFile (file, fileList) {
       this.fileList = fileList
+      if(fileList.length === 0) {
+        this.userLogin.appealDocumentId = ''
+      }
     },
     beforeAvatarUpload (file) {
       console.log(file)
@@ -233,6 +238,7 @@ export default {
     },
     successFn (response) {
       this.userLogin.appealDocumentId = response.content
+
     },
     errorFn (err) {
       const { message = `{}` } = err
@@ -374,7 +380,15 @@ export default {
     border:solid 1px #DCDFE6;
     background: #fff;
   }
-
+.error {
+  color: #F56C6C;
+  font-size: 12px;
+  line-height: 1;
+  padding-top: 4px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
 </style>
 <style>
 .commom .el-upload {
