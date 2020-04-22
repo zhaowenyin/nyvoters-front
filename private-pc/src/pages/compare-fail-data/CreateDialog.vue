@@ -529,12 +529,16 @@ export default {
     },
     housechange (val) {
       if(!this.living) {
-        this.form.living = val
+        this.$nextTick(() => {
+          this.form.living = val
+        })
       }
     },
     detailchange(val) {
       if(!this.livingDetail) {
-        this.form.livingDetail = val
+        this.$nextTick(() => {
+          this.form.livingDetail = val
+        })
       }
 
     },

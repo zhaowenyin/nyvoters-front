@@ -373,15 +373,17 @@ export default {
       return params
     },
     housechange (val) {
-      console.log(444)
       if(!this.living) {
-        this.form.living = val
+        this.$nextTick(() => {
+          this.form.living = val
+        })
       }
     },
     detailchange(val) {
-      console.log(555)
       if(!this.livingDetail) {
-        this.form.livingDetail = val
+        this.$nextTick(() => {
+          this.form.livingDetail = val
+        })
       }
 
     },
