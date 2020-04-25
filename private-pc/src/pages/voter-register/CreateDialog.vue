@@ -254,7 +254,7 @@
           type="textarea"
           :rows="4"
           placeholder="请填写申请转移原因"
-          :maxlength="500"
+          :maxlength="100"
           v-model.trim="innerForm.reason">
         </el-input>
       </el-form-item>

@@ -46,6 +46,7 @@
         prop="fileName">
         <el-input
           :disabled="isDisabled"
+          :maxlength="20"
           size="medium"
           placeholder="请输入"
           class="item"
