@@ -20,7 +20,7 @@ export const moudel = {
   '1': '选民管理',
   '2': '选区管理',
   '3': '代表事务管理',
-  '4': '在线申诉'
+//  '4': '在线申诉'
 }
 // 行政区级别
 export const levelList = {

@@ -13,7 +13,7 @@
         label="身份证号码"
         prop="idNum" />
        <el-table-column
-        width="100"
+        width="50"
         label="性别"
         prop="gender">
         <template slot-scope="scope">
@@ -21,6 +21,7 @@
         </template>
       </el-table-column>
       <el-table-column
+        width="120"
         label="手机号"
         prop="phoneNum" />
       <el-table-column
@@ -40,19 +41,19 @@
       <el-table-column
         label="转移原因"
         prop="transferReason" />
-       <el-table-column
+       <el-table-column width="150"
         label="申请时间">
         <template slot-scope="scope">
           {{formatDateMinute(scope.row.applyTime)}}
         </template>
       </el-table-column>
-        <el-table-column
+        <el-table-column width="50"
         label="类型">
         <template slot-scope="scope">
           {{+scope.row.type===1 ? '发起' : '处理'}}
         </template>
       </el-table-column>
-      <el-table-column
+      <el-table-column width="100"
         label="状态">
         <template slot-scope="scope">
           {{handerstatus(scope.row.status)}}
