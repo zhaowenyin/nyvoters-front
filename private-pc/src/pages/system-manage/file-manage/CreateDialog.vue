@@ -85,6 +85,7 @@ import {moudel} from '../../../common-data/config.js'
 import { getSession } from '../../../utils/session.js'
 import { mapActions } from 'vuex'
 import {modifyFile} from './service.js'
+import { baseURL } from '../../../utils/api.js'
 export default {
   data () {
     const authToken = getSession()
@@ -127,6 +128,26 @@ export default {
     isDisabled: {
       default: false,
       type: Boolean
+    }
+  },
+  computed: {
+    allUrl () {
+      let param = {
+        module: this.form.module,
+        fileName: this.form.fileName
+      }
+      let paramStr = ''
+      for (const k in param) {
+        if (param[k] !== undefined &&
+            param[k] !== null &&
+            param[k] !== '') {
+          paramStr += `&${k}=${encodeURI(param[k])}`
+        }
+      }
+      paramStr = paramStr.substr(1)
+      let url = ''
+      url =`${baseURL}/doc/upload/?${paramStr}`
+      return url
     }
   },
   created () {
