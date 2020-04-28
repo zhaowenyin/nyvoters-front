@@ -100,7 +100,10 @@ import output from '../../utils/output.js'
 import {complaitSubmit,getCode} from './service.js'
 import VueUploadComponent from 'vue-upload-component'
 import { baseURL } from '../../utils/api.js'
-import {resolveBug,cardVali} from '../../utils/format'
+import {resolveBug,cardVali,copyToClip} from '../../utils/format'
+import { isAndroid } from '../../utils/validate'
+import { MessageBox } from 'mint-ui';
+
 export default {
   data () {
     return {
@@ -225,6 +228,15 @@ export default {
       return true
     },
     async download () {
+      let android = isAndroid()
+      if (android) {
+        copyToClip(`${baseURL}/doc/download?fileName=%E5%85%AC%E6%B0%91%E7%94%B3%E8%AF%89%E4%B9%A6&module=4`)
+        MessageBox({
+          title: '提示',
+          message: '已自动为您复制下载地址，请前往手机浏览器粘贴下载《公民申诉书》模板',
+        })
+        return
+      }
       try {
         output({url: '/doc/download', param: {fileName: '公民申诉书', module: 4}})
       } catch (err) {

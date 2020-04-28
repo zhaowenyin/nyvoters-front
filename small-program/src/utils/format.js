@@ -112,3 +112,13 @@ export function cardVali(id) {
   }
   return {'status':1,'message':'校验通过'}
 }
+
+
+export function copyToClip(content) {
+  var aux = document.createElement("input");
+  aux.setAttribute("value", content);
+  document.body.appendChild(aux);
+  aux.select();
+  document.execCommand("copy");
+  document.body.removeChild(aux);
+}
