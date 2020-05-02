@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog
-      :title="(item.id || item.id===0) ? '修改' : '新建'"
+      :title="(item.id || item.id===0) ? (isDisabled ? '查看' : '修改') : '新建'"
       :visible="visible"
       width="60%"
       :close-on-click-modal="false"

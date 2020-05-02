@@ -446,7 +446,7 @@
           :readonly="isDisabled"
           type="textarea"
           :rows="2"
-          :maxlength="80"
+          :maxlength="500"
           placeholder="请输入"
           class="item"
           v-model="form.remarks" />

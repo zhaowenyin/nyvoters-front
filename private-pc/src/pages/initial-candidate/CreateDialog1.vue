@@ -193,7 +193,7 @@
               label="手机号码"
               prop="phoneNum">
                 <el-input
-                :maxlength="400"
+                :maxlength="11"
                 :disabled="isDisabled"
                 size="medium"
                 placeholder="请输入手机号码"

@@ -143,7 +143,7 @@ export default {
         });
         return
       }
-      this.$confirm('删除选举机构后，将影响该机构下的所有选民、账号信息不可用，且不可恢复，请确认？')
+      this.$confirm('选委会删除后将不可恢复，请确认是否删除？')
         .then(() => {
           this.delectItem()
         })

@@ -10,6 +10,7 @@
       @blur="blur"
       v-model.trim="form.userName"
       placeholder="请填写申诉人"
+      :maxlength="20"
       class="input"/>
     </div>
     <div class="out-input">

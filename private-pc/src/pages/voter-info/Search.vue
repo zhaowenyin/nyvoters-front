@@ -44,7 +44,7 @@
         prop="status">
         <el-select
         size="medium"
-        placeholder="请选择状态"
+        placeholder="请选择选民状态"
         style="width: 200px;"
         v-model.trim="searchForm.status">
           <el-option
@@ -60,7 +60,7 @@
         prop="candidateType">
         <el-select
         size="medium"
-        placeholder="请选择"
+        placeholder="请选择参选地类型"
         style="width: 200px;"
         v-model.trim="searchForm.candidateType">
           <el-option

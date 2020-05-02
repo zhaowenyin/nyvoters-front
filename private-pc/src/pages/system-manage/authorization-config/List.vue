@@ -10,7 +10,7 @@
         width="55">
       </el-table-column>
       <el-table-column
-        label="姓名"
+        label="用户名"
         prop="name" />
       <el-table-column
         label="登录账号"

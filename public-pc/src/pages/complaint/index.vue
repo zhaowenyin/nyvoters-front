@@ -14,6 +14,7 @@
           <el-input
             size="medium"
             placeholder="请输入申诉人"
+            :maxlength="20"
             class="item"
             v-model.trim="userLogin.userName" />
         </el-form-item>

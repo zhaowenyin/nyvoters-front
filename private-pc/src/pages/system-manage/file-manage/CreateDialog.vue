@@ -46,7 +46,8 @@
         prop="fileName">
         <el-input
           :disabled="isDisabled"
-          :maxlength="20"
+          type="textarea"
+          :maxlength="80"
           size="medium"
           placeholder="请输入"
           class="item"
@@ -241,7 +242,7 @@ export default {
   height: 40px;
   line-height: 40px;
   border-radius: 4px;
-
+  overflow:hidden;
   }
  .but:after {
     content: "";

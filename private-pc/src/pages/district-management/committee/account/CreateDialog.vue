@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-dialog
-      :title="(item.id || item.id===0) ? '修改' : '新建'"
+      :title="(item.id || item.id===0) ? (isDisabled ? '查看' : '修改') : '新建'"
       :visible="visible"
       width="600px"
       :close-on-click-modal="false"
@@ -58,12 +58,12 @@
             v-model="form.phoneNum" />
         </el-form-item><el-form-item
           label="联系电话"
-          :maxlength="20"
           prop="contactInformation">
           <el-input
             :disabled="isDisabled"
             size="medium"
             :placeholder="isDisabled?'':'请输入联系电话'"
+            :maxlength="11"
             class="item"
             v-model="form.contactInformation" />
         </el-form-item>

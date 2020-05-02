@@ -58,7 +58,7 @@
               style="width: 100%;"
               class="item"
               v-model="form.nation"
-              clearable placeholder="请选择">
+              clearable placeholder="请选择民族">
               <el-option
                 v-for="(item, key) in nationList"
                 :key="key"
@@ -75,7 +75,8 @@
             <el-input
               :disabled="isDisabled"
               size="medium"
-              placeholder="请输入"
+              placeholder="请输入手机号码"
+              :maxlength="11"
               class="item"
               v-model.trim="form.phoneNum" />
           </el-form-item>
@@ -88,7 +89,7 @@
               :disabled="isDisabled"
               :maxlength="80"
               size="medium"
-              :placeholder="isDisabled?'':'请输入'"
+              :placeholder="isDisabled?'':'请输入联系方式'"
               class="item"
               v-model.trim="form.contactInformation" />
           </el-form-item>
@@ -213,7 +214,7 @@
               class="item"
               v-model="form.registrationTime"
               type="date"
-              placeholder="请选择">
+              placeholder="请选择登记日期">
             </el-date-picker>
           </el-form-item>
         </el-col>
@@ -300,10 +301,10 @@ export default {
     const session = getSession()
     let validate = (rule, value, callback) => {
       if (value === '') {
-        callback(new Error('请输入手机号'))
+        callback(new Error('请输入手机号码'))
       } else {
         if (!/^1[34578]\d{9}$/.test(value)) {
-          callback(new Error('请输入正确手机号'))
+          callback(new Error('请输入正确手机号码'))
         }
         callback()
       }

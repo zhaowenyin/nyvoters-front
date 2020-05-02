@@ -76,6 +76,7 @@
               :disabled="isDisabled"
               size="medium"
               placeholder="请输入"
+              :maxlength="11"
               class="item"
               v-model.trim="form.phoneNum" />
           </el-form-item>

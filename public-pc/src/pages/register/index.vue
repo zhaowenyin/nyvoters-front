@@ -35,7 +35,7 @@
             </el-col>
             <el-col :span="12">
             <el-form-item
-              label="性别："
+              label="性别：" :disabled="true"
               prop="gender">
               <el-radio-group size="medium" v-model="form.gender">
                 <el-radio :label="1">男</el-radio>
@@ -69,6 +69,7 @@
               <el-input
                 size="medium"
                 placeholder="请输入手机号"
+                :maxlength="11"
                 class="item"
                 v-model.trim="form.phoneNum" />
               </el-form-item>

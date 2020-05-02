@@ -10,7 +10,7 @@
     <div class="content">
       <div class="announcement1">{{data.belongAreaName}}选举大会公告</div>
         <div style="width: 100%">&nbsp;&nbsp;根据{{data.countyName}}选举委员会的统一要求，本选区定于xxxx年x月x日x时在xx处召开选举大会选举{{data.countyName}}第{{data.sessionNum}}届人民代表大会代表。请选民互相转告，届时请携带选民证（身份证），准时到会参加投票选举。</div>
-        <div class="mark mark1">{{data.countyName}}选举委员会</div>
+        <div class="mark mark1">{{data.belongAreaName}}选举办事处</div>
         <div class="mark">{{`${data.year}年${data.month}月${data.day}日`}}</div>
     </div>
   </div>

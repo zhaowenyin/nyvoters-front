@@ -23,7 +23,7 @@
           size="medium"
           style="width: 120px;"
           placeholder="请选择">
-          <el-option label="选区名字" :value="1"></el-option>
+          <el-option label="选区名称" :value="1"></el-option>
           <el-option label="选区编码" :value="2"></el-option>
         </el-select>
       </el-form-item>
