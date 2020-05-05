@@ -78,7 +78,7 @@ export default {
       if (!value) {
         callback(new Error('请再次输入新密码'));
       } else if (value !== this.form.password) {
-        callback(new Error('两次输入密码不一致!'));
+        callback(new Error('两次密码不一致，请重新输入！'));
       } else {
         callback();
       }
