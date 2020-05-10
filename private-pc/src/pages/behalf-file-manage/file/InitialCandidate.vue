@@ -34,7 +34,7 @@
         <Tabel style="margin: 20px 0;"  :list="data.list"/>
       </div>
       <div class="mark mark1">{{data.countyName}}选举委员会</div>
-      <div  v-if="+type===2" class="mark">{{`${data.year}年${data.month}月${data.day}日`}}</div>
+      <div class="mark">{{`${data.year}年${data.month}月${data.day}日`}}</div>
     </div>
   </div>
 </template>

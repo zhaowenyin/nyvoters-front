@@ -65,11 +65,11 @@
            <el-col :span="12">
              <el-form-item
               label="组长联系电话"
-              :maxlength="11"
               prop="managerPhone">
               <el-input
                 :disabled="isDisabled"
                 size="medium"
+                :maxlength="11"
                 placeholder="请输入组长联系电话"
                 class="item"
                 v-model.trim="form.managerPhone" />
