@@ -59,6 +59,27 @@
       </div>
 
     </div>
+
+    <el-dialog
+      title="绑定手机号"
+      :show-close="false"
+      :visible="phone_visible">
+      <el-form
+        :model="phone_form"
+        ref="phone_rule_form"
+        :rules="phone_rules">
+        <el-form-item prop="phoneNum" label="手机号">
+          <el-input
+            size="medium"
+            placeholder="请输入手机号"
+            :maxlength="11"
+            v-model.trim="phone_form.phoneNum" />
+        </el-form-item>
+        <el-form-item style="text-align: right;">
+          <el-button type="primary" @click="bindPhone">确 定</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -72,6 +93,7 @@ import Pie2 from '../../components/chart/Pie2'
 import Pie3 from '../../components/chart/Pie3'
 import Pie4 from '../../components/chart/Pie4'
 import Table from './Table'
+import { phone_reg } from '../../utils/validate'
 
 export default {
   data () {
@@ -82,10 +104,21 @@ export default {
     let precinctName = authToken.precinctName
     code = code.substring(0,code.length-6)
     let committee = authToken.accountRole
+
+    let validate = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入手机号'))
+      } else {
+        if (!phone_reg.test(value)) {
+          callback(new Error('请输入正确手机号'))
+        }
+        callback()
+      }
+    }
+
     return {
       screen: [],
       data: {},
-      bindLoading: false,
       authToken,
       regVotersList: [],
       data1: [],
@@ -102,7 +135,16 @@ export default {
       name: name,
       precinctName: precinctName,
       next_level_district: null,
-      committee:committee<4 ? true : false
+      committee:committee<4 ? true : false,
+      phone_visible: false,
+      phone_form: {
+        phoneNum: ''
+      },
+      phone_rules: {
+        phoneNum: [
+          { validator: validate, required: true, trigger: 'blur' }
+        ]
+      }
     }
   },
   components: {
@@ -118,7 +160,7 @@ export default {
     // 初始化清除数据
     this.clearState()
     if(!this.authToken.phoneNum) {
-      this.isfirstLogin()
+      this.phone_visible = true
     }
     this.Searchlist({precinctId:this.authToken.precinctId,name: this.name,level:this.level})
   },
@@ -126,33 +168,6 @@ export default {
     ...mapMutations('home', [
       'clearState'
     ]),
-    isfirstLogin () {
-      this.$prompt('手机号','绑定手机号', {
-        confirmButtonText: '确定',
-        showClose: false,
-        showCancelButton: false,
-        closeOnClickModal: false,
-        inputPattern: /^1[34578]\d{9}$/,
-        inputErrorMessage: '手机号格式不正确',
-        beforeClose: (action,instance, done) => {
-          if (action === 'confirm') {
-            instance.confirmButtonLoading = true
-            instance.confirmButtonText = '执行中...'
-            if(!this.bindLoading) {
-              instance.confirmButtonLoading = false
-              done()
-            }
-          } else {
-            done()
-          }
-        }
-
-      }).then(({ value }) => {
-        this.bindPhone(value)
-      }).catch(() => {
-
-      })
-    },
     clickMap(obj,isHover) {
       this.mapInfo = obj
       this.isHover = isHover
@@ -283,13 +298,16 @@ export default {
       }
     },
     setSession,
-    async bindPhone(val) {
-      this.bindLoading = true
-      await bindPhone({phoneNum: val})
-      this.authToken.phoneNum = val
-      this.setSession(this.authToken)
-      this.bindLoading = false
-    },
+    async bindPhone () {
+      this.$refs['phone_rule_form'].validate(async (valid) => {
+        if (valid) {
+          await bindPhone(this.phone_form)
+          this.authToken.phoneNum = this.phone_form.phoneNum
+          this.setSession(this.authToken)
+          this.phone_visible = false
+        }
+      })
+    }
   }
 }
 </script>

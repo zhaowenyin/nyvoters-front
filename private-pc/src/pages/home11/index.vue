@@ -51,6 +51,8 @@ import Tabel from './Tabel'
 import Pie from './Pie'
 import {getList, bindPhone} from './service.js'
 import { getSession } from '../../utils/session'
+import {phone_reg} from '../../utils/validate'
+
 export default {
   data () {
     const authToken = getSession()
@@ -88,7 +90,7 @@ export default {
         showClose: false,
         showCancelButton: false,
         closeOnClickModal: false,
-        inputPattern: /^1[34578]\d{9}$/,
+        inputPattern: phone_reg,
         inputErrorMessage: '手机号格式不正确',
         beforeClose: (action,instance, done) => {
           if (action === 'confirm') {

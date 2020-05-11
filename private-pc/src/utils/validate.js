@@ -38,3 +38,8 @@ export function isEqual (a, b) {
     }
   }
 }
+
+// 手机验证正则
+export const phone_reg = /^1[345789]\d{9}$/
+
+

@@ -143,13 +143,15 @@
 import {setSubmit, modifySubmit,getTree,getNextSort} from './service.js'
 import DistrictSelect from '../../../components/DistrictSelect'
 import { mapActions,mapState } from 'vuex'
+import {phone_reg} from '../../../utils/validate'
+
 export default {
   data () {
     let validate = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入组长联系电话！'))
       } else {
-        if (!/^1[34578]\d{9}$/.test(value)) {
+        if (!phone_reg.test(value)) {
           callback(new Error('请输入正确组长联系电话！'))
         }
         callback()
@@ -159,7 +161,7 @@ export default {
       if (value === '') {
         callback(new Error('请输入召集人联系电话！'))
       } else {
-        if (!/^1[34578]\d{9}$/.test(value)) {
+        if (!phone_reg.test(value)) {
           callback(new Error('请输入正确召集人联系电话！'))
         }
         callback()

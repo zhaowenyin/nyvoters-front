@@ -296,6 +296,8 @@ import {registrationTypeList, candidateTypeList} from '../../common-data/config.
 import { mapActions,mapState } from 'vuex'
 import {getSession} from '../../utils/session'
 import {cardVali} from '../../utils/format'
+import {phone_reg} from '../../utils/validate'
+
 export default {
   data () {
     const session = getSession()
@@ -303,7 +305,7 @@ export default {
       if (value === '') {
         callback(new Error('请输入手机号码'))
       } else {
-        if (!/^1[34578]\d{9}$/.test(value)) {
+        if (!phone_reg.test(value)) {
           callback(new Error('请输入正确手机号码'))
         }
         callback()

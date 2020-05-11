@@ -109,13 +109,15 @@ import { mapActions,mapState } from 'vuex'
 import {districtAccountTypeList} from '../../../../common-data/config.js'
 import DistrictSelect from '../../../../components/DistrictSelect'
 import md5 from 'blueimp-md5'
+import {phone_reg} from '../../../../utils/validate'
+
 export default {
   data () {
     let validate = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入手机号'))
       } else {
-        if (!/^1[34578]\d{9}$/.test(value)) {
+        if (!phone_reg.test(value)) {
           callback(new Error('请输入正确手机号'))
         }
         callback()
