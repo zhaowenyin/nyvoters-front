@@ -102,7 +102,8 @@ export default {
       multipleSelection: state=>state.multipleSelection
     }),
     ...mapState('commonData', {
-      belongAreaId: state => state.belongAreaId
+      belongAreaId: state => state.belongAreaId,
+      belongAreaItem: state => state.belongAreaItem
     })
   },
   components: {
@@ -144,6 +145,14 @@ export default {
       })
     },
     create () {
+      if(this.belongAreaItem.committee){
+        this.$notify({
+          title: '',
+          message: '请选择选区！',
+          type: 'warning'
+        })
+        return
+      }
       this.createDialogVisible = true
       this.item = {}
     },
