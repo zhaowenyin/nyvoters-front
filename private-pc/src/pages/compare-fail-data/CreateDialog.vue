@@ -296,7 +296,7 @@ import {registrationTypeList, candidateTypeList} from '../../common-data/config.
 import { mapActions,mapState } from 'vuex'
 import {getSession} from '../../utils/session'
 import {cardVali} from '../../utils/format'
-import {phone_reg} from '../../../utils/validate'
+import {phone_reg} from '../../utils/validate'
 export default {
   data () {
     const session = getSession()

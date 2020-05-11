@@ -62,6 +62,7 @@ export default {
     ]),
     ...mapMutations('commonData', [
       'saveDistrictId',
+      'saveDistrictItem'
     ]),
     ...mapActions('commonData', [
       'searchTree',
@@ -71,6 +72,7 @@ export default {
         return
       }
       this.saveDistrictId(data.id)
+      this.saveDistrictItem(data)
     },
     lookDetail (val) {
       this.item = val.val
