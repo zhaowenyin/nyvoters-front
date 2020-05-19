@@ -273,7 +273,7 @@ export default {
           { required: true, message: '请输入户籍地！', trigger: 'change' }
         ],
         living:[
-          { required: true, message: '请输入现居地！', trigger: 'change' }
+          { required: true, message: '请输入居住地！', trigger: 'change' }
         ],
         startTime:[
           { required: true, message: '请选择剥权时间！', trigger: 'change' }

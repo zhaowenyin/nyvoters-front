@@ -18,7 +18,7 @@
         label="身份证号码"
         prop="idNum" />
        <el-table-column
-        width="100"
+        width="50"
         label="性别"
         prop="gender">
         <template slot-scope="scope">

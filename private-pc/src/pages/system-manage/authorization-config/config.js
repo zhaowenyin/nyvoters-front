@@ -65,7 +65,7 @@ export const dataList = [
         id: '11'
       },
       {
-        label: '选民小组',
+        label: '选民小组管理',
         id: '12'
       },
       {

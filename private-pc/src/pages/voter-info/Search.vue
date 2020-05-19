@@ -10,6 +10,7 @@
         prop="name">
         <el-input
           class="item"
+          :maxlength="20"
           size="medium"
           placeholder="请输入姓名"
           v-model.trim="searchForm.name" />

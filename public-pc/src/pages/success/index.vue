@@ -106,6 +106,7 @@ export default {
 .register {
   color: #333333;
   margin-top: 23px;
+  font-size: 20px;
   & .search {
     color: #d41c1a;
     cursor: pointer;

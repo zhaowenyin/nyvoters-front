@@ -93,10 +93,10 @@ export default {
       this.$emit('lookDetail',{val: this.item, isDisabled: false})
     },
     deleteItem() {
-      if(this.multipleSelection.length === 0) {
+      if(this.multipleSelection.length !== 1) {
         this.$notify({
           title: '',
-          message: '请选择数据后再删除！',
+          message: '请选择一条数据删除！',
           type: 'warning'
         });
         return

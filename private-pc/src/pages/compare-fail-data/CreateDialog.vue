@@ -255,7 +255,7 @@
           type="textarea"
           :rows="4"
           placeholder="请填写申请转移原因"
-          :maxlength="100"
+          :maxlength="500"
           v-model.trim="innerForm.reason">
         </el-input>
       </el-form-item>
@@ -358,7 +358,7 @@ export default {
           { required: true, message: '请输入户籍地！', trigger: 'change' }
         ],
         living:[
-          { required: true, message: '请输入现居地！', trigger: 'change' }
+          { required: true, message: '请输入居住地！', trigger: 'change' }
         ],
         candidateType:[
           { required: true, message: '请选择参选地类型！', trigger: 'change' }

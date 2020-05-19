@@ -188,7 +188,7 @@ export default {
           return
         }
       }
-      this.$confirm('确认撤销正式候选人 资格？ 撤销后，人员不显示在正式候选人列表中')
+      this.$confirm('确认撤销正式候选人资格？ 撤销后，人员不显示在正式候选人列表中')
         .then(() => {
           this.repealtem()
         })
