@@ -317,7 +317,14 @@ export default {
         callback(new Error(val.message))
       } else {
         callback()
-        if (value.substring(value.length-2, value.length-1) % 2 === 0) {
+        //17位身份证取倒数第二位，15位身份证取最后一位
+        let genderVal = 0;
+        if(value.length === 17){
+          genderVal = value.substring(value.length-2, value.length-1)
+        } else {
+          genderVal = value.substring(value.length-1, value.length)
+        }
+        if (genderVal % 2 === 0) {
           //女
           this.form.gender = 2
         }else{

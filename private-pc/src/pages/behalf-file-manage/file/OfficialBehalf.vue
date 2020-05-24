@@ -10,7 +10,7 @@
     <div class="content">
       <div class="announcement1">{{data.countyName}}选举委员会公告</div>
       <div class="announcement2">(第xx号)</div>
-        <div style="width: 100%">&nbsp;&nbsp;{{data.countyName}}{{data.belongAreaName}}于xxxx年x月x日按照{{data.countyName}}人大代表选举办法，并采用无记名投票的方式，选举产生{{data.countyName}}第{{data.sessionNum}}届人民代表大会代表{{data.list&&data.list.length || 0}}名，经县选举委员会审核，符合选举法和省选举实施细规有关规定，确定选举结果有效，现将各候选人名单以得票多少顺序公告如下：</div>
+        <div style="width: 100%">&nbsp;&nbsp;{{data.countyName}}{{data.belongAreaName}}于xxxx年x月x日按照{{data.countyName}}人大代表选举办法，并采用无记名投票的方式，选举产生{{data.countyName}}第{{data.sessionNum}}届人民代表大会代表{{data.list&&data.list.length || 0}}名，经县选举委员会审核，符合选举法和省选举实施细则有关规定，确定选举结果有效，现将各候选人名单以得票多少顺序公告如下：</div>
         <Tabel2 style="margin: 20px 0;" class="message" :list="data.list"/>
         <div style="width: 100%">
           &nbsp;&nbsp;根据有关法律规定及代表选举办法，确认<span :key="index" v-for="(i,index) in data.list">{{i.recommendedPerson}},</span>当选为{{data.countyName}}第{{data.sessionNum}}届人民代表大会代表。
