@@ -374,7 +374,7 @@ export default {
           { required: true, message: '请输入户籍地！', trigger: 'change' }
         ],
         living:[
-          { required: true, message: '请输入居住地！', trigger: 'change' }
+          { required: true, message: '请输入现居住地！', trigger: 'change' }
         ],
         candidateType:[
           { required: true, message: '请选择参选地类型！', trigger: 'change' }
