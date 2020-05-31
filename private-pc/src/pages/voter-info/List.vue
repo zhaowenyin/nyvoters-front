@@ -96,7 +96,7 @@ export default {
       list: state => state.list,
       total: state => state.total,
       pageSize: state => state.searchParam.pageSize,
-      pageNum: state => state.searchParam.page
+      pageNum: state => state.searchParam.pageNum
     }),
     ...mapState('commonData', {
       belongAreaId: state => state.belongAreaId
