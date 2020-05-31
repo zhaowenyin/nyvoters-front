@@ -78,6 +78,7 @@ export default {
         bubble: true
       })
       this.div = document.createElement('div')
+      this.tipMarkerContent.appendChild(this.div)
       this.locationSearch(`${this.code}`,this.level)
     },
     locationSearch (code,level,from) {
@@ -222,13 +223,12 @@ export default {
             div2.innerHTML = `登记选民数：${i.regVotersNum}`
             let div3 = document.createElement('div')
             div3.innerHTML = `登记率：${((+i.regVotersNum / + i.peopleNum)*100).toFixed(2)}%`
-            this.div.append(div1)
-            this.div.append(div2)
-            this.div.append(div3)
+            this.div.appendChild(div1)
+            this.div.appendChild(div2)
+            this.div.appendChild(div3)
             break
           }
         }
-        this.tipMarkerContent.append(this.div)
         //更新位置
         this.tipMarker.setPosition(position || props.center);
       }

@@ -334,8 +334,6 @@ export default {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    position: relative;
-    z-index: 10;
   }
 }
 .item {
@@ -346,6 +344,8 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 5px 0px 12px;
+  position: relative;
+  z-index: 10;
   & .name{
     font-size: 18px;
     color: #fffcf9;
