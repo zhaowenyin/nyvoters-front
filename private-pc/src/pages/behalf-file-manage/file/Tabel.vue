@@ -6,7 +6,6 @@
       class="tabel1"
       border>
       <el-table-column
-        width="80"
         align="center"
         label="姓名"
         prop="recommendedPerson" />
@@ -56,7 +55,6 @@
         </template>
       </el-table-column>
       <el-table-column
-        width="90"
         v-if="!isoffice"
         align="center"
         label="推荐者">
