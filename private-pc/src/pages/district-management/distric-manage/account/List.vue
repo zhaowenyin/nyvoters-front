@@ -31,7 +31,7 @@
         </template>
       </el-table-column>
       <el-table-column
-        label="选区">
+        label="所属选区">
           <template slot-scope="scope">
          {{scope.row.precinctName || scope.row.committeeName}}
         </template>

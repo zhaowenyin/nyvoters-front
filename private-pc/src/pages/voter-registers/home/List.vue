@@ -60,7 +60,7 @@
             <el-table-column
               label="失败数"
               prop="failNum" />
-              <el-table-column
+            <el-table-column
               label="进度"
               prop="processSate" >
               <template slot-scope="scope">

@@ -57,6 +57,7 @@
             :maxlength="20"
             v-model="form.password" />
         </el-form-item>
+        <!--
         <el-form-item
           label="管理选区"
           prop="managePrecinctIds">
@@ -68,6 +69,7 @@
           :data="data"
           />
         </el-form-item>
+        -->
         <el-form-item
           label="排序码"
           prop="sort">
@@ -107,7 +109,6 @@
 import {setSubmit,modifySubmit,getTree,searchUser,getNextSort} from './service.js'
 import { mapActions,mapState } from 'vuex'
 import {districtAccountTypeList} from '../../../../common-data/config.js'
-import DistrictSelect from '../../../../components/DistrictSelect'
 import md5 from 'blueimp-md5'
 import {phone_reg} from '../../../../utils/validate'
 
@@ -155,9 +156,6 @@ export default {
         accountType: [
           { required: this.val===2 , message: '请选择帐号类型！' ,trigger: 'change' }
         ],
-        managePrecinctIds: [
-          { required: true, message: '请选择管理选区！', trigger: 'change' }
-        ],
       },
       districtAccountTypeList,
       itemL: {}
@@ -186,9 +184,6 @@ export default {
       default: false,
       type: Boolean
     }
-  },
-  components: {
-    DistrictSelect
   },
   created () {
     let params = {}

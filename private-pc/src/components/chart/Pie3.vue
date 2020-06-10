@@ -292,7 +292,7 @@ export default {
   width: 68px;
   border-radius: 6px;
   border: 1px solid rgba(60,77,171,0.5);
-  color: #7e7e7e;
+  color: #0c0c0c;
   font-size: 16px;
   position: relative;
   & img{
