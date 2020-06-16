@@ -30,14 +30,11 @@
         <span class="dot">*</span>
         <span>性别</span>
       </div>
-      <Select
-        class="input"
-        placeholder="请选择性别"
-        :options="[{value: '1',label: '男'},{value: '2',label: '女'}]"
-        :multiple="false"
-        :getItemLabel="(item)=>item.label"
-        :getItemValue="(item)=>item.value"
-        v-model="form.gender"/>
+      <mt-radio
+        class="g-radio"
+        v-model="form.gender"
+        :options="[{value: '2',label: '女'},{value: '1',label: '男'}]">
+      </mt-radio>
     </div>
     <div class="out-input">
       <div class="label-width">
@@ -81,6 +78,7 @@
       </div>
       <input
         @blur="blur"
+        @input="housechange"
         v-model.trim="form.householdRegistration"
         placeholder="请填写户籍地"
         class="input"/>
@@ -92,6 +90,7 @@
       <input
         @blur="blur"
         v-model.trim="form.householdRegistrationDetail"
+        @input="detailchange"
         placeholder="请填写户籍详细地址"
         class="input"/>
     </div>
@@ -102,6 +101,7 @@
       </div>
       <input
         v-model="form.living"
+        @input="livingChange"
         placeholder="请填写现居住地"
         class="input"/>
     </div>
@@ -111,6 +111,7 @@
       </div>
       <input
         v-model="form.livingDetail"
+        @input="livingDetailChange"
         placeholder="请填写现居住详细地址"
         class="input"/>
     </div>
@@ -163,10 +164,12 @@ export default {
         userName: '',
         idNum: '',
         householdRegistration: '',
+        householdRegistrationDetail: '',
         living: '',
+        livingDetail: '',
         candidateType: '',
         nation: '',
-        gender: '',
+        gender: '2',
         phoneNum: '',
         contactInformation: '',
         type: 2,
@@ -181,7 +184,9 @@ export default {
       },{
         value: 1,
         label: '是'
-      }]
+      }],
+      livingDetail: false,
+      living: false
     }
   },
   components: {
@@ -276,10 +281,39 @@ export default {
         resolveBug()
       },10)
     },
-    cardVali
+    cardVali,
+    housechange () {
+      if(!this.living) {
+        this.$nextTick(() => {
+          console.log(this.form.householdRegistration)
+          this.form.living = this.form.householdRegistration
+        })
+      }
+    },
+    detailchange() {
+      if(!this.livingDetail) {
+        this.$nextTick(() => {
+          console.log(this.form.householdRegistrationDetail)
+          this.form.livingDetail = this.form.householdRegistrationDetail
+        })
+      }
+
+    },
+    livingChange () {
+      this.living = true
+    },
+    livingDetailChange () {
+      this.livingDetail = true
+    }
   }
 }
 </script>
+<style>
+  .g-radio .mint-cell{
+    display: inline-block;
+    margin-top: -2px;
+  }
+</style>
 <style scoped>
   .register {
     width:100%;
