@@ -313,6 +313,9 @@ export default {
     display: inline-block;
     margin-top: -2px;
   }
+  .g-radio .mint-cell-wrapper, .g-radio .mint-cell{
+    background: none;
+  }
 </style>
 <style scoped>
   .register {
