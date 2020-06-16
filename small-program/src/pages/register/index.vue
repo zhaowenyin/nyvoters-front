@@ -19,7 +19,7 @@
         <span>身份证号码</span>
       </div>
       <input
-        @blur="blur"
+        @blur="blurCard"
         :maxlength="18"
         v-model.trim="form.idNum"
         placeholder="请填写身份证号码"
@@ -33,7 +33,7 @@
       <mt-radio
         class="g-radio"
         v-model="form.gender"
-        :options="[{value: '2',label: '女'},{value: '1',label: '男'}]">
+        :options="[{value: '2',label: '女',disabled:true},{value: '1',label: '男',disabled:true}]">
       </mt-radio>
     </div>
     <div class="out-input">
@@ -169,7 +169,6 @@ export default {
         livingDetail: '',
         candidateType: '',
         nation: '',
-        gender: '2',
         phoneNum: '',
         contactInformation: '',
         type: 2,
@@ -280,6 +279,33 @@ export default {
       this.timer=setTimeout(function(){
         resolveBug()
       },10)
+    },
+    blurCard () {
+      if(cardVali(this.form.idNum).status !== 1) {
+        this.form.gender = '2'
+        this.error = this.cardVali(this.form.idNum).message
+        Toast({
+          message: this.error,
+          position: 'top',
+          duration: 3000
+        })
+        return false
+      }
+      //18位身份证取倒数第二位，15位身份证取最后一位
+      let genderVal = 0;
+      let value = this.form.idNum;
+      if(value.length === 18){
+        genderVal = value.substring(value.length-2, value.length-1)
+      } else {
+        genderVal = value.substring(value.length-1, value.length)
+      }
+      if (genderVal % 2 === 0) {
+        //女
+        this.form.gender = '2'
+      }else{
+        //男
+        this.form.gender = '1'
+      }
     },
     cardVali,
     housechange () {
