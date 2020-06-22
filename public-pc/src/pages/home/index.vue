@@ -13,7 +13,7 @@
               icon="el-icon-search"
               class="loginBtn"
               @click="onlineRegiste">在线登记</el-button>
-            <img style="width:29px;height: 29px;" src="../../assets/img/code.png"/>
+            <img style="width:80px;height: 80px;" src="../../assets/img/code.png"/>
           </div>
         </el-form-item>
         <el-form-item class="padding search">
@@ -110,7 +110,7 @@ export default {
     align-items: center;
   }
   .search {
-    margin-right: 29px;
+    margin-right: 80px;
     margin-bottom: 0px;
   }
   .line {
