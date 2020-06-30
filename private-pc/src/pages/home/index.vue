@@ -62,6 +62,7 @@
 
     <el-dialog
       title="绑定手机号"
+      width="300px"
       :show-close="false"
       :visible="phone_visible">
       <el-form
