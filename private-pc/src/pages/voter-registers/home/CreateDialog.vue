@@ -46,8 +46,8 @@
       </el-form-item>
     <div style="padding-top: 50px;">上传的excel表符合以下规范</div>
     <div>•  请使用标准模板导入数据</div>
-    <div>• 文件大小不超过 x</div>
-    <div>• 仅支持 *.xls 和 *.xlsx</div>
+    <div>•  文件大小不超过20M</div>
+    <div>•  仅支持 *.xls 和 *.xlsx</div>
     </el-form>
     <div
     :class="{'load': active>0}"

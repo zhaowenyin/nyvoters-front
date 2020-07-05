@@ -9,6 +9,7 @@
       <input
         @blur="blur"
         v-model.trim="form.userName"
+        :maxlength="20"
         placeholder="请填写姓名"
         class="input"/>
     </div>
