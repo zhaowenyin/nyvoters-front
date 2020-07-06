@@ -149,4 +149,6 @@ export async function bindPhone (payload) {
   // })
   return api.post('/bindPhoneNum', payload)
 }
-
+export async function needUpdatePwd (payload) {
+  return api.get('/user/needUpdatePwd', payload)
+}

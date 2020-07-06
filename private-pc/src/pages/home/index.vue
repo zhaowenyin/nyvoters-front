@@ -87,7 +87,7 @@
 import Map from './Map'
 import { mapMutations } from 'vuex'
 import LineBar from './LineBar'
-import {getList,bindPhone} from './service.js'
+import {getList,bindPhone,needUpdatePwd} from './service.js'
 import { getSession,setSession } from '../../utils/session'
 import Pie1 from '../../components/chart/Pie1'
 import Pie2 from '../../components/chart/Pie2'
@@ -160,6 +160,7 @@ export default {
   created () {
     // 初始化清除数据
     this.clearState()
+    needUpdatePwd()
     if(!this.authToken.phoneNum) {
       this.phone_visible = true
     }
