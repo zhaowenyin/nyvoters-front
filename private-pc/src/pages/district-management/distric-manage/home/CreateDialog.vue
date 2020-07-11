@@ -20,7 +20,6 @@
               <el-input
                 :disabled="isDisabled"
                 size="medium"
-                type="number"
                 placeholder="请输入选区编码"
                 :maxlength="20"
                 class="item"

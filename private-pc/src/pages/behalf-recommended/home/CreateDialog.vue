@@ -719,6 +719,9 @@ export default {
 .left {
   margin: 10px 0;
 }
+.add_table {
+  width: 780px;
+}
 </style>
 <style>
   .innerobj .el-form-item {

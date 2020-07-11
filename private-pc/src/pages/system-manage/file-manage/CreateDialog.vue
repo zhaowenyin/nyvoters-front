@@ -36,7 +36,7 @@
             class="but">
             <span style="color: #606266" v-if="item.fileName">{{item.fileName}}</span>
             <span v-else>选择文件</span>
-             <div class="error" v-if="!is_fist&&form.fileList.length===0">请选择文件！</div>
+             <div class="error" v-if="!item.id&&!is_fist&&form.fileList.length===0">请选择文件！</div>
           </div>
           </el-upload>
 
