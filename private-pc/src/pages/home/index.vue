@@ -19,13 +19,16 @@
             </div>
           </div>
         </div>
-        <Map class="map"
+        <div class="map">
+          <Map
+          style="width: 100%;height: 100%;"
           @Searchlist="handerSearchlist"
           @hoverEvent="clickMap"
           :votersCounts="votersCounts"
           :code="code"
           v-if="level<3&&committee"
           :level="level"/>
+        </div>
         <div class="common1 ">
           <div class="item">
             <div class="name">选民性别分析</div>
@@ -337,7 +340,11 @@ export default {
     display: flex;
     flex: 1;
     & .map {
-      flex: 2;
+      min-width: 640px;
+      border: 10px solid #faaf5a;
+      border-radius: 10px;
+      margin: 5px 20px 10px;
+      min-height:600px;
     }
     & .common1 {
       flex: 1;
@@ -345,8 +352,8 @@ export default {
   }
 }
 .item {
-  height: 282px;
-  width: 200px;
+  width:200px;
+  height: 310px;
   background: url("../../assets/img/bg1.png") center center no-repeat;
   background-size: 100% 100%;
   display: flex;
@@ -368,14 +375,6 @@ export default {
   }
 }
 
-.map {
-  /* position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  z-index: 0 */
-}
 .foot {
   position: relative;
   margin: 0px 48px 0px;
