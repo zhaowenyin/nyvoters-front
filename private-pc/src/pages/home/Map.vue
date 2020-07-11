@@ -54,7 +54,7 @@ export default {
       let map = new AMap.Map('container', {
         resizeEnable: true,
         zoomEnable: false,
-        // dragEnable:false,
+        dragEnable:false,
         zoom: 6.5,
         center: [113.473719, 33.723493-0.7],
         mapStyle:'amap://styles/light'
@@ -117,23 +117,23 @@ export default {
           outer
         ];
         pathArray.push.apply(pathArray,holes)
-        if(level!==''&&level<2){
-          that.Polygon_inner = new AMap.Polygon({
-            map: that.map,
-            path: holes,//设置多边形边界路径
-            strokeColor: "#FF33FF", //线颜色
-            strokeOpacity: 0.2, //线透明度
-            strokeWeight: 3,    //线宽
-            fillColor: "rgb(255, 255, 255)", //填充色
-            fillOpacity: 1//填充透明度
-          });
-        }
+        // if(level!==''&&level<2){
+        //   that.Polygon_inner = new AMap.Polygon({
+        //     map: that.map,
+        //     path: holes,//设置多边形边界路径
+        //     strokeColor: "#FF33FF", //线颜色
+        //     strokeOpacity: 0.2, //线透明度
+        //     strokeWeight: 3,    //线宽
+        //     fillColor: "rgb(255, 255, 255)", //填充色
+        //     fillOpacity: 1//填充透明度
+        //   });
+        // }
         that.Polygon_out = new AMap.Polygon( {
           pathL:pathArray,
           strokeColor: '#fd9860',
           strokeWeight: 1,
           fillColor: 'rgba(255,255,255,1)',
-          fillOpacity: 0.5
+          fillOpacity: 1
         });
         that.Polygon_out.setPath(pathArray);
         that.map.add(that.Polygon_out)

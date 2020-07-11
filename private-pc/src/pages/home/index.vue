@@ -1,13 +1,6 @@
 <template>
   <div style="overflow-x: hidden;">
     <div class="home-content">
-      <Map class="map"
-        @Searchlist="handerSearchlist"
-        @hoverEvent="clickMap"
-        :votersCounts="votersCounts"
-        :code="code"
-        v-if="level<3&&committee"
-        :level="level"/>
       <div class="header">
         <div class="header-name">河南省县乡人大选民登记情况</div>
       </div>
@@ -26,7 +19,14 @@
             </div>
           </div>
         </div>
-        <div class="common1">
+        <Map class="map"
+          @Searchlist="handerSearchlist"
+          @hoverEvent="clickMap"
+          :votersCounts="votersCounts"
+          :code="code"
+          v-if="level<3&&committee"
+          :level="level"/>
+        <div class="common1 ">
           <div class="item">
             <div class="name">选民性别分析</div>
             <div class="center" style="margin-left: -5px;">
@@ -333,12 +333,18 @@ export default {
     padding: 3px 48px 0px;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    flex: 1;
+    & .map {
+      flex: 2;
+    }
+    & .common1 {
+      flex: 1;
+    }
   }
 }
 .item {
   height: 282px;
-  width: 535px;
+  width: 200px;
   background: url("../../assets/img/bg1.png") center center no-repeat;
   background-size: 100% 100%;
   display: flex;
@@ -361,12 +367,12 @@ export default {
 }
 
 .map {
-  position: absolute;
+  /* position: absolute;
   top: 0px;
   left: 0px;
   right: 0px;
   bottom: 0px;
-  z-index: 0
+  z-index: 0 */
 }
 .foot {
   position: relative;
