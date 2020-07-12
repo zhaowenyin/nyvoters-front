@@ -357,6 +357,7 @@ export default {
   top: 10px;
   left: 20px;
   z-index: 1000;
+  cursor: pointer;
 }
 .item {
   min-width:200px;
