@@ -20,6 +20,11 @@
           </div>
         </div>
         <div class="map">
+          <div class="map-text">点击地图可查看辖区登记情况</div>
+          <img
+            class="map-img"
+            @click="back"
+            src="../../assets/img/11.png"/>
           <Map
           style="width: 100%;height: 100%;"
           @Searchlist="handerSearchlist"
@@ -141,6 +146,8 @@ export default {
       next_level_district: null,
       committee:committee<4 ? true : false,
       phone_visible: false,
+      last_precinct_data: {},
+      current_precinct_data: {},
       phone_form: {
         phoneNum: ''
       },
@@ -167,7 +174,7 @@ export default {
     if(!this.authToken.phoneNum) {
       this.phone_visible = true
     }
-    this.Searchlist({precinctId:this.authToken.precinctId,name: this.name,level:this.level})
+    this.Searchlist({precinctId:this.authToken.precinctId,name: this.name,level:this.level,code1:this.authToken.district.code})
   },
   methods: {
     ...mapMutations('home', [
@@ -190,12 +197,11 @@ export default {
           let precinctId = i.precinctId
           let level = i.precinctLevel
           let code = i.precinctCode
-          this.Searchlist({precinctId,name,level,code})
+          this.Searchlist({precinctId,name,level,code,code1: code})
         }
       })
     },
     handername () {
-      console.log(this)
       let text = this.name
       if(this.precinctName){
         text = this.precinctName
@@ -237,11 +243,24 @@ export default {
           let precinctId = i.precinctId
           let name = i.precinctName
           let level = i.precinctLevel
-          this.Searchlist({precinctId,name,level})
+          this.Searchlist({precinctId,name,level,code1:i.precinctCode})
+
         }
+
       })
+
+    },
+    back() {
+      let {current_precinct_data, last_precinct_data} = this
+      let code = last_precinct_data[current_precinct_data.level-1].code1
+      if(code) {
+        this.code = code.substring(0,code.length-6)
+        this.Searchlist(last_precinct_data[current_precinct_data.level-1])
+      }
     },
     async Searchlist(obj) {
+      this.last_precinct_data[obj.level] = obj
+      this.current_precinct_data = obj
       const {data} = await getList(obj.precinctId)
       this.data1 = []
       this.data2 = []
@@ -340,6 +359,7 @@ export default {
     display: flex;
     flex: 1;
     & .map {
+      position: relative;
       min-width: 640px;
       border: 10px solid #faaf5a;
       border-radius: 10px;
@@ -350,6 +370,22 @@ export default {
       flex: 1;
     }
   }
+}
+.map-text {
+  position: absolute;
+  height: 30px;
+  line-height: 30px;
+  background-color: #fff;
+  bottom: 0px;
+  z-index: 1000;
+  padding-left: 20px;
+  color:#333;
+}
+.map-img {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  z-index: 1000;
 }
 .item {
   width:200px;

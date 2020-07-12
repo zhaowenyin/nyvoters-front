@@ -41,6 +41,7 @@ export default {
   },
   watch: {
     code () {
+      console.log(88888,this.code)
       let level = ''
       let from = 'click'
       this.locationSearch(`${this.code}`,level,from)
