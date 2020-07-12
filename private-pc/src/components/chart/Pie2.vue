@@ -1,13 +1,20 @@
 <template>
-  <div class="chart-box">
-    <div class="img"></div>
-    <div ref="myChart" class="chart"></div>
+  <div class="pie-box">
+    <div class="left">
+      <div class="chart-box">
+        <div ref="myChart" class="chart"></div>
+      </div>
+    </div>
     <ul class="legend-ul">
       <li
         v-for="(item, index) in data"
         :key="index"
         @mouseenter="hover(item.name)"
-        @mouseleave="clearHover(item.name)"></li>
+        @mouseleave="clearHover(item.name)">
+        <div :class="['icon', 'icon'+index]"></div>
+        <div class="name">{{item.name}}</div>
+        <div>{{item.value}}人</div>
+      </li>
     </ul>
   </div>
 </template>
@@ -51,9 +58,8 @@ export default {
     },
     echarts() {
       let sumValues = 0
-      const legendData = this.data.map(obj => {
+      this.data.forEach(obj => {
         sumValues += obj.value
-        return obj.name
       })
       const colorArr = [
         {
@@ -94,32 +100,6 @@ export default {
             offset: 1, color: '#d85697' // 100% 处的颜色
           }],
           global: false // 缺省为 false
-        },
-        {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 1,
-          y2: 0,
-          colorStops: [{
-            offset: 0, color: '#ee816c' // 0% 处的颜色
-          }, {
-            offset: 1, color: '#fbb074' // 100% 处的颜色
-          }],
-          global: false // 缺省为 false
-        },
-        {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 1,
-          y2: 0,
-          colorStops: [{
-            offset: 0, color: '#f16279' // 0% 处的颜色
-          }, {
-            offset: 1, color: '#eb488f' // 100% 处的颜色
-          }],
-          global: false // 缺省为 false
         }
       ]
 
@@ -149,8 +129,8 @@ export default {
             return {
               type: 'arc',
               shape: {
-                cx: 130,
-                cy: 130,
+                cx: 110,
+                cy: 110,
                 r: obj.currentR,
                 r0: 0,
                 startAngle: obj.startAngle,
@@ -190,8 +170,8 @@ export default {
           return {
             type: 'arc',
             shape: {
-              cx: 130,
-              cy: 130,
+              cx: 110,
+              cy: 110,
               r: 60,
               r0: 0,
               startAngle: 0,
@@ -210,22 +190,6 @@ export default {
             return `${params.value[2]}: ${params.value[0]} (${+(params.value[1] * 100).toFixed(2)}%)`
           }
         },
-        legend: {
-          orient: 'vertical',
-          left: 'right',
-          top: 'middle',
-          align: 'left',
-          itemGap: 16,
-          itemWidth: 20,
-          itemHeight: 10,
-          textStyle: {
-            color: '#666',
-            fontSize: 16,
-            padding: [0, 0, 0, 14]
-          },
-          data: legendData,
-          selectedMode: false
-        },
         series: createSeries
       }
       this.myChart.setOption(option)
@@ -235,38 +199,54 @@ export default {
 </script>
 
 <style scoped>
-.chart-box{
-  /* height: 100%;
-  width: 100%; */
-  height: 260px;
-  width: 460px;
-  position: relative;
-}
-.chart{
-  height: 100%;
-  width: 100%;
-}
-.img {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 260px;
-  height: 260px;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  background: url("../../assets/img/icon1.png") center center no-repeat;
-}
-.legend-ul{
-  position: absolute;
-  top: 50%;
-  right: 0px;
-  transform: translate(0, -50%);
-  cursor: pointer;
-  & li{
-    width: 100px;
-    height: 20px;
-    margin: 12px 0px;
+  .pie-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & .left{
+      flex: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
-}
+  .chart-box {
+    position: relative;
+    height: 220px;
+    width: 220px;
+    background: url("../../assets/img/heart.png") center center no-repeat;
+  }
+  .chart{
+    height: 100%;
+    width: 100%;
+  }
+  .legend-ul{
+    cursor: pointer;
+    color: #666666;
+    font-size: 16px;
+    flex: 1;
+    & li{
+      margin: 12px 0px;
+      /* border: 1px solid #00f; */
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    & .icon {
+      width: 19px;
+      height: 9px;
+      background-image: linear-gradient(90deg, #f9c44b, #f9c44b);
+      border-radius: 3px;
+      margin-right: 15px;
+    }
+    & .icon1 {
+      background-image: linear-gradient(90deg, #3c4cab, #2b2097);
+    }
+    & .icon2 {
+      background-image: linear-gradient(90deg, #534eaa, #d85697);
+    }
+    & .name{
+      margin-right: 19px;
+    }
+  }
 </style>

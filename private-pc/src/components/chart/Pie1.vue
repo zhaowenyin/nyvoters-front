@@ -1,17 +1,28 @@
 <template>
-  <div class="chart-box">
-    <div class="text-box">
-      <span class="s1">{{percent}}</span>
-      <span class="s2">%</span>
+  <div>
+    <div class="pie-box">
+      <div class="left">
+        <div class="chart-box">
+          <div class="text-box">
+            <span class="s1">{{percent}}</span>
+            <span class="s2">%</span>
+          </div>
+          <div ref="myChart" class="chart"></div>
+        </div>
+      </div>
+      <ul class="legend-ul">
+        <li
+          v-for="(item, index) in data"
+          :key="index"
+          @mouseenter="hover(item.name)"
+          @mouseleave="clearHover(item.name)">
+          <div :class="['icon', 'icon'+index]"></div>
+          <div class="name">{{item.name}}</div>
+          <div>{{item.value}}人</div>
+        </li>
+      </ul>
     </div>
-    <div ref="myChart" class="chart"></div>
-    <ul class="legend-ul">
-      <li
-        v-for="(item, index) in data"
-        :key="index"
-        @mouseenter="hover(item.name)"
-        @mouseleave="clearHover(item.name)"></li>
-    </ul>
+    <div class="bottom-text">登记率=已登记人数/总选民数</div>
   </div>
 </template>
 
@@ -53,7 +64,7 @@ export default {
       })
     },
     echarts() {
-      const legendData = this.data.map(obj => obj.name)
+      // const legendData = this.data.map(obj => obj.name)
       const oneValue = this.data[0].value
       const twoValue = this.data[1].value
       const percent =(oneValue + twoValue) ? oneValue / (oneValue + twoValue) : 0
@@ -76,22 +87,6 @@ export default {
       let option = {
         tooltip: {
           formatter: "{b}: {c} ({d}%)"
-        },
-        legend: {
-          orient: 'vertical',
-          left: 'right',
-          top: 'middle',
-          align: 'left',
-          itemGap: 16,
-          itemWidth: 20,
-          itemHeight: 10,
-          textStyle: {
-            color: '#666',
-            fontSize: 16,
-            padding: [0, 0, 0, 14]
-          },
-          data: legendData,
-          selectedMode: false
         },
         series: [
           {
@@ -148,7 +143,6 @@ export default {
           },
           {
             type: 'custom',
-            // name: this.data[0].name,
             coordinateSystem: 'none',
             tooltip: {
               show: false,
@@ -160,7 +154,7 @@ export default {
                 shape: {
                   cx: 0,
                   cy: 0,
-                  r: 1,
+                  r: 0.5,
                 },
                 origin: [0, 92],
                 rotation: api.value(0) - startAnglePI,
@@ -181,43 +175,70 @@ export default {
 </script>
 
 <style scoped>
-.chart-box{
-  height: 220px;
-  width: 460px;
-  /* height: 100%;
-  width: 100%; */
-  position: relative;
-}
-.chart{
-  height: 100%;
-  width: 100%;
-}
-.text-box{
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 220px;
-  height: 220px;
-  text-align: center;
-  line-height: 220px;
-  color: #fb5c02;
-  & .s1{
-    font-size: 46px;
+  .pie-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & .left{
+      flex: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
-  & .s2{
-    font-size: 26px;
+  .chart-box {
+    position: relative;
+    height: 220px;
+    width: 220px;
   }
-}
-.legend-ul{
-  position: absolute;
-  top: 50%;
-  right: 0px;
-  transform: translate(0, -50%);
-  cursor: pointer;
-  & li{
-    width: 130px;
-    height: 20px;
-    margin: 12px 0px;
+  .chart{
+    height: 100%;
+    width: 100%;
   }
-}
+  .text-box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fb5c02;
+    & .s1{
+      font-size: 46px;
+    }
+    & .s2{
+      font-size: 26px;
+    }
+  }
+  .legend-ul{
+    cursor: pointer;
+    color: #666666;
+    font-size: 16px;
+    flex: 1;
+    & li{
+      margin: 12px 0px;
+      /* border: 1px solid #00f; */
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    & .icon {
+      width: 19px;
+      height: 9px;
+      background-image: linear-gradient(90deg, #4f4ca9, #de4396);
+      border-radius: 3px;
+      margin-right: 15px;
+    }
+    & .icon1 {
+      background-image: linear-gradient(90deg, #ff9857, #f9c44b);
+    }
+    & .name{
+      margin-right: 19px;
+    }
+  }
+  .bottom-text{
+    text-align: center;
+    font-size: 14px;
+    color: #666666;
+    margin-top: -5px;
+  }
 </style>

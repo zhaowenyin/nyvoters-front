@@ -192,7 +192,6 @@ export default {
       })
     },
     handername () {
-      console.log(this)
       let text = this.name
       if(this.precinctName){
         text = this.precinctName

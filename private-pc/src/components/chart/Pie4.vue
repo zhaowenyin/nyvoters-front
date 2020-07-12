@@ -1,13 +1,20 @@
 <template>
-  <div class="chart-box">
-    <div class="img"></div>
-    <div ref="myChart" class="chart"></div>
+  <div class="pie-box">
+    <div class="left">
+      <div class="chart-box">
+        <div ref="myChart" class="chart"></div>
+      </div>
+    </div>
     <ul class="legend-ul">
       <li
         v-for="(item, index) in data"
         :key="index"
         @mouseenter="hover(item.name)"
-        @mouseleave="clearHover(item.name)"></li>
+        @mouseleave="clearHover(item.name)">
+        <div :class="['icon', 'icon'+index]"></div>
+        <div class="name">{{item.name}}</div>
+        <div>{{item.value}}人</div>
+      </li>
     </ul>
   </div>
 </template>
@@ -51,9 +58,10 @@ export default {
     },
     echarts() {
       let sumValues = 0
-      const legendData = this.data.map(obj => {
+      let maxValue = 0
+      this.data.forEach(obj => {
         sumValues += obj.value
-        return obj.name
+        if (obj.value > maxValue) maxValue = obj.value
       })
       const colorArr = [
         {
@@ -63,193 +71,139 @@ export default {
           x2: 1,
           y2: 0,
           colorStops: [{
-            offset: 0, color: '#f582b7' // 0% 处的颜色
-          }, {
-            offset: 1, color: '#f0519b' // 100% 处的颜色
-          }],
-          global: false // 缺省为 false
-        },
-        {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 1,
-          y2: 0,
-          colorStops: [{
-            offset: 0, color: '#ff8f02' // 0% 处的颜色
-          }, {
-            offset: 1, color: '#fb5702' // 100% 处的颜色
-          }],
-          global: false // 缺省为 false
-        },
-        {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 1,
-          y2: 0,
-          colorStops: [{
             offset: 0, color: '#3c4dab' // 0% 处的颜色
           }, {
-            offset: 1, color: '#24108d' // 100% 处的颜色
+            offset: 1, color: '#2a1d96' // 100% 处的颜色
+          }],
+          global: false // 缺省为 false
+        },
+        {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 1,
+          y2: 0,
+          colorStops: [{
+            offset: 0, color: '#f26477' // 0% 处的颜色
+          }, {
+            offset: 1, color: '#eb4790' // 100% 处的颜色
+          }],
+          global: false // 缺省为 false
+        },
+        {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 1,
+          y2: 0,
+          colorStops: [{
+            offset: 0, color: '#514daa' // 0% 处的颜色
+          }, {
+            offset: 1, color: '#dc5797' // 100% 处的颜色
+          }],
+          global: false // 缺省为 false
+        },
+        {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 1,
+          y2: 0,
+          colorStops: [{
+            offset: 0, color: '#fcb474' // 0% 处的颜色
+          }, {
+            offset: 1, color: '#ed7d6c' // 100% 处的颜色
+          }],
+          global: false // 缺省为 false
+        },
+        {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 1,
+          y2: 0,
+          colorStops: [{
+            offset: 0, color: '#f9c44b' // 0% 处的颜色
+          }, {
+            offset: 1, color: '#f9c44b' // 100% 处的颜色
           }],
           global: false // 缺省为 false
         }
       ]
 
+      let startRadius = 76
+      let endRadius = 34
+      let diffRadius = this.data.length > 1 ? (startRadius - endRadius) / (this.data.length - 1) : 0
+
+
+
+      const createSeries = this.data.map((obj, index) => {
+        return {
+          type: 'custom',
+          name: obj.name,
+          coordinateSystem: 'none',
+          renderItem: function (params, api) {
+            const percent = api.value(0) / maxValue * 0.8
+            return {
+              type: 'arc',
+              shape: {
+                cx: 110,
+                cy: 110,
+                r: startRadius - diffRadius * index,
+                r0: 0,
+                startAngle: Math.PI * 3 / 2,
+                endAngle: Math.PI * 2 * (1 - percent) - Math.PI / 2,
+                clockwise: false,
+              },
+              style: api.style({
+                fill: null,
+                lineWidth: 6,
+                lineCap: 'round'
+              }),
+              styleEmphasis: api.style({
+                fill: null,
+                lineWidth: 10
+              })
+            }
+          },
+          data: [{
+            value: [obj.value, obj.value / sumValues, obj.name],
+          }],
+          itemStyle: {
+            color: colorArr[index],
+            borderColor: colorArr[index]
+          }
+        }
+      })
+
+      // createSeries.push({
+      //   type: 'custom',
+      //   // name: this.data[0].name,
+      //   blendMode: 'destination-out',
+      //   z: 9,
+      //   coordinateSystem: 'none',
+      //   tooltip: {
+      //     show: false,
+      //     trigger: 'none'
+      //   },
+      //   renderItem: function (params, api) {
+      //     return {
+      //       type: 'polygon',
+      //       shape: {
+      //         points: [[126, 0], [133, 0], [133, 134], [126, 134]]
+      //       },
+      //       style: api.style(),
+      //     };
+      //   },
+      //   data: [0]
+      // })
       let option = {
         tooltip: {
           formatter: function (params) {
             return `${params.value[2]}: ${params.value[0]} (${+(params.value[1] * 100).toFixed(2)}%)`
           }
         },
-        legend: {
-          orient: 'vertical',
-          left: 'right',
-          top: 'middle',
-          align: 'left',
-          itemGap: 16,
-          itemWidth: 20,
-          itemHeight: 10,
-          textStyle: {
-            color: '#666',
-            fontSize: 16,
-            padding: [0, 0, 0, 14]
-          },
-          data: legendData,
-          selectedMode: false
-        },
-        series: [
-          {
-            type: 'custom',
-            name: this.data[0].name,
-            coordinateSystem: 'none',
-            renderItem: function (params, api) {
-              const percent = api.value(1)
-              return {
-                type: 'arc',
-                shape: {
-                  cx: 130,
-                  cy: 134,
-                  r: 76,
-                  r0: 0,
-                  startAngle: Math.PI * 3 / 2,
-                  endAngle: Math.PI * 2 * (1 - percent) - Math.PI / 2,
-                  clockwise: false,
-                },
-                style: api.style({
-                  fill: null,
-                  lineWidth: 6,
-                  lineCap: 'round'
-                }),
-                styleEmphasis: api.style({
-                  fill: null,
-                  lineWidth: 10
-                })
-              }
-            },
-            data: [{
-              value: [this.data[0].value, this.data[0].value / sumValues, this.data[0].name],
-            }],
-            itemStyle: {
-              color: colorArr[0],
-              borderColor: colorArr[0]
-            }
-          },
-          {
-            type: 'custom',
-            name: this.data[1].name,
-            coordinateSystem: 'none',
-            renderItem: function (params, api) {
-              const percent = api.value(1)
-              return {
-                type: 'arc',
-                shape: {
-                  cx: 130,
-                  cy: 134,
-                  r: 62,
-                  r0: 0,
-                  startAngle: Math.PI * 3 / 2,
-                  endAngle: Math.PI * 2 * (1 - percent) - Math.PI / 2,
-                  clockwise: false,
-                },
-                style: api.style({
-                  fill: null,
-                  lineWidth: 6,
-                  lineCap: 'round'
-                }),
-                styleEmphasis: api.style({
-                  fill: null,
-                  lineWidth: 10
-                })
-              }
-            },
-            data: [{
-              value: [this.data[1].value, this.data[1].value / sumValues, this.data[1].name],
-            }],
-            itemStyle: {
-              color: colorArr[1],
-              borderColor: colorArr[1]
-            }
-          },
-          {
-            type: 'custom',
-            name: this.data[2].name,
-            coordinateSystem: 'none',
-            renderItem: function (params, api) {
-              const percent = api.value(1)
-              return {
-                type: 'arc',
-                shape: {
-                  cx: 130,
-                  cy: 134,
-                  r: 48,
-                  r0: 0,
-                  startAngle: Math.PI * 3 / 2,
-                  endAngle: Math.PI * 2 * (1 - percent) - Math.PI / 2,
-                  clockwise: false,
-                },
-                style: api.style({
-                  fill: null,
-                  lineWidth: 6,
-                  lineCap: 'round'
-                }),
-                styleEmphasis: api.style({
-                  fill: null,
-                  lineWidth: 10
-                })
-              }
-            },
-            data: [{
-              value: [this.data[2].value, this.data[2].value / sumValues, this.data[2].name],
-            }],
-            itemStyle: {
-              color: colorArr[2],
-              borderColor: colorArr[2]
-            }
-          },
-          // {
-          //   type: 'custom',
-          //   // name: this.data[0].name,
-          //   blendMode: 'destination-out',
-          //   z: 9,
-          //   coordinateSystem: 'none',
-          //   tooltip: {
-          //     show: false,
-          //     trigger: 'none'
-          //   },
-          //   renderItem: function (params, api) {
-          //     return {
-          //       type: 'polygon',
-          //       shape: {
-          //         points: [[126, 0], [133, 0], [133, 134], [126, 134]]
-          //       },
-          //       style: api.style(),
-          //     };
-          //   },
-          //   data: [0]
-          // }
-        ]
+        series: createSeries,
       }
       this.myChart.setOption(option)
     }
@@ -258,36 +212,60 @@ export default {
 </script>
 
 <style scoped>
-.chart-box{
-  height: 260px;
-  width: 460px;
-  position: relative;
-}
-.chart{
-  height: 100%;
-  width: 100%;
-}
-.img {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 260px;
-  height: 260px;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  background: url("../../assets/img/7.png") center center no-repeat;
-}
-.legend-ul{
-  position: absolute;
-  top: 50%;
-  right: 0px;
-  transform: translate(0, -50%);
-  cursor: pointer;
-  & li{
-    width: 150px;
-    height: 20px;
-    margin: 12px 0px;
+  .pie-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & .left{
+      flex: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
-}
+  .chart-box {
+    position: relative;
+    height: 220px;
+    width: 220px;
+    background: url("../../assets/img/7.png") center center no-repeat;
+  }
+  .chart{
+    height: 100%;
+    width: 100%;
+  }
+  .legend-ul{
+    cursor: pointer;
+    color: #666666;
+    font-size: 16px;
+    flex: 1;
+    & li{
+      margin: 12px 0px;
+      /* border: 1px solid #00f; */
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    & .icon {
+      width: 19px;
+      height: 9px;
+      background-image: linear-gradient(90deg, #3c4dab, #2a1d96);
+      border-radius: 3px;
+      margin-right: 15px;
+    }
+    & .icon1 {
+      background-image: linear-gradient(90deg, #f26477, #eb4790);
+    }
+    & .icon2 {
+      background-image: linear-gradient(90deg, #514daa, #dc5797);
+    }
+    & .icon3 {
+      background-image: linear-gradient(90deg, #fcb474, #ed7d6c);
+    }
+    & .icon4 {
+      background-image: linear-gradient(90deg, #f9c44b, #f9c44b);
+    }
+    & .name{
+      margin-right: 19px;
+    }
+  }
 </style>

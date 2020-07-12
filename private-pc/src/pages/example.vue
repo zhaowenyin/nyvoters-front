@@ -1,10 +1,10 @@
 <template>
   <div class="view-wrapper">
     <Pie1 :data="data"/>
-    <div class="bottom-text">登记率=已登记人数/总选民数</div>
     <Pie2 :data="data2"/>
     <Pie3 :data="data3"/>
     <Pie4 :data="data4"/>
+    <canvas ref="myChart" width="500" height="500"></canvas>
   </div>
 </template>
 
@@ -21,10 +21,10 @@ export default {
         value: 300,
         name: '已登记人数'
       },{
-        value: 100,
+        value: 200,
         name: '未登记人数'
       }],
-      data2: [{
+      data4: [{
         value: 300,
         name: '户籍地'
       },{
@@ -47,7 +47,7 @@ export default {
         value: 399,
         name: '女'
       }],
-      data4: [{
+      data2: [{
         value: 300,
         name: '35岁以下'
       },{
@@ -64,19 +64,23 @@ export default {
     Pie2,
     Pie3,
     Pie4
+  },
+  mounted() {
+    let myChart = this.$refs.myChart
+    console.log(myChart)
+    let ctx = myChart.getContext('2d');
+    ctx.beginPath();
+    ctx.arc(75, 75, 50, 0, Math.PI / 2, false);
+    ctx.stroke();
   }
 }
 </script>
 <style>
   body{
-    background: #ddd
+    background: #fff
   }
 </style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.bottom-text{
-  text-align: center;
-  font-size: 14px;
-	color: #666666;
-}
+
 </style>

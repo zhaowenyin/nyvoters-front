@@ -1,5 +1,5 @@
 <template>
-  <div class="div-box">
+  <div class="pie-box">
     <div class="man" @mouseenter="hover(data[0].name)" @mouseleave="clearHover(data[0].name)">
       <p>{{data[0].name}}</p>
       <p>{{data[0].value}}人</p>
@@ -7,7 +7,6 @@
       <img src="../../assets/img/3.png">
     </div>
     <div class="chart-box">
-      <div class="img"></div>
       <div ref="myChart" class="chart"></div>
     </div>
     <div class="woman" @mouseenter="hover(data[1].name)" @mouseleave="clearHover(data[1].name)">
@@ -111,21 +110,6 @@ export default {
             return `${params.value[2]}: ${params.value[0]} (${+(params.value[1] * 100).toFixed(2)}%)`
           }
         },
-        // legend: {
-        //   orient: 'vertical',
-        //   left: 'right',
-        //   top: 'middle',
-        //   align: 'left',
-        //   itemGap: 16,
-        //   itemHeight: 10,
-        //   textStyle: {
-        //     color: '#666',
-        //     fontSize: 16,
-        //     padding: [0, 0, 0, 14]
-        //   },
-        //   data: legendData,
-        //   // selectedMode: false
-        // },
         series: [
           {
             type: 'custom',
@@ -139,8 +123,8 @@ export default {
               return {
                 type: 'arc',
                 shape: {
-                  cx: 178,
-                  cy: 95,
+                  cx: 180,
+                  cy: 110,
                   r: 60,
                   r0: 0,
                   startAngle,
@@ -178,8 +162,8 @@ export default {
               return {
                 type: 'arc',
                 shape: {
-                  cx: 178,
-                  cy: 95,
+                  cx: 180,
+                  cy: 110,
                   r: 45,
                   r0: 0,
                   startAngle,
@@ -207,7 +191,6 @@ export default {
           },
           {
             type: 'custom',
-            // name: this.data[0].name,
             coordinateSystem: 'none',
             tooltip: {
               show: false,
@@ -220,9 +203,9 @@ export default {
                 shape: {
                   points: [[0, 0], [2, 0], [1.5, 6], [0.5, 6]]
                 },
-                origin: [1, 75],
+                origin: [0, 75],
                 rotation: api.value(0),
-                position: [177, 20],
+                position: [180, 35],
                 style: api.style({
                   fill: '#3c4dab'
                 })
@@ -232,7 +215,6 @@ export default {
           },
           {
             type: 'custom',
-            // name: this.data[0].name,
             z: 9,
             coordinateSystem: 'none',
             tooltip: {
@@ -246,9 +228,9 @@ export default {
                 shape: {
                   points: [[0, 0], [2, 0], [1.5, 6], [0.5, 6]]
                 },
-                origin: [1, 75],
+                origin: [0, 75],
                 rotation: api.value(0) + Math.PI * 2 * percent1,
-                position: [177, 20],
+                position: [180, 35],
                 style: api.style({
                   fill: '#f14294'
                 }),
@@ -265,34 +247,27 @@ export default {
 </script>
 
 <style scoped>
-.div-box {
+.pie-box {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .chart-box{
- height: 180px;
+  height: 220px;
   width: 360px;
   position: relative;
+  background: url("../../assets/img/8.png") center center no-repeat;
 }
 .chart{
   height: 100%;
   width: 100%;
 }
-.img {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  background: url("../../assets/img/8.png") center center no-repeat;
-}
 .man, .woman{
-  padding: 15px 0px 0px 0px;
-  width: 68px;
+  margin-top: -12px;
+  padding: 22px 12px 16px;
   border-radius: 6px;
-  border: 1px solid rgba(60,77,171,0.5);
-  color: #0c0c0c;
+  border: 1px solid rgba(221,221,221,0.5);
+  color: #7e7e7e;
   font-size: 16px;
   position: relative;
   & img{
@@ -303,15 +278,15 @@ export default {
   &:hover{
     cursor: pointer;
     color: #333;
-    border: 1px solid rgba(60,77,171,1);
+    border: 1px solid rgba(221,221,221,1);
   }
 }
 .woman {
-  border: 1px solid rgba(241,66,148,0.5);
+  border: 1px solid rgba(224,67,150,0.3);
   &:hover{
     cursor: pointer;
     color: #333;
-    border: 1px solid rgba(241,66,148,1);
+    border: 1px solid rgba(224,67,150,1);
   }
 }
 </style>
