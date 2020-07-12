@@ -25,7 +25,7 @@
       </li>
       <li v-for="(i,key) of obj.reviewFailGraphs" :key="key" class="common content">
         <div>{{i.label}}</div>
-        <div>{{i.value}}</div>
+        <div :class="{'is_unregistered': obj.is_unregistered&&i.label==='未登记'}">{{obj.is_unregistered&&i.label==='未登记' ? 0 : i.value}}</div>
       </li>
     </ul>
   </div>
@@ -93,5 +93,8 @@ export default {
 }
 .all {
   font-size: 16px;
+}
+.is_unregistered {
+  color: red;
 }
 </style>
