@@ -2,7 +2,7 @@
   <div style="overflow-x: hidden;">
     <div class="home-content">
       <div class="header">
-        <div class="header-name">河南省县乡人大选民登记情况</div>
+        <div class="header-name">{{handername()}}</div>
       </div>
       <div class="middel-content">
         <div class="common1">
@@ -19,19 +19,19 @@
             </div>
           </div>
         </div>
-        <div class="map">
+        <div class="map" v-if="level<3&&committee">
           <div class="map-text">点击地图可查看辖区登记情况</div>
           <img
             class="map-img"
             @click="back"
-            src="../../assets/img/11.png"/>
+            src="../../assets/img/back.png"/>
           <Map
           style="width: 100%;height: 100%;"
           @Searchlist="handerSearchlist"
           @hoverEvent="clickMap"
           :votersCounts="votersCounts"
           :code="code"
-          v-if="level<3&&committee"
+
           :level="level"/>
         </div>
         <div class="common1 ">
@@ -54,7 +54,6 @@
         <Table v-if="data5&&!precinctName" :obj="data5" :name="name"/>
       </div>
       <div class="item foot" v-else>
-        <div class="name">{{handername()}}登记情况</div>
         <div class="center">
           <LineBar
           name="实际筛查人数&比例"
@@ -202,36 +201,8 @@ export default {
       })
     },
     handername () {
-      let text = this.name
-      if(this.precinctName){
-        text = this.precinctName
-      }
-      if(this.committee) {
-        switch(this.level) {
-        case 0:
-          text += '各市'
-          break
-        case 1:
-          text += '各区县'
-          break
-        case 2:
-          text += '区县各乡镇'
-          break
-        case 3:
-          text += '区县各乡镇'
-          break
-        default:
-          text += ''
-        }
-      } else {
-        switch(this.next_level_district) {
-        case 1:
-          text += '区县各乡镇选区'
-          break
-        default:
-          text += ''
-        }
-      }
+      let text = this.authToken.district.name
+      text = text + '县乡人大选民登记情况'
       return text
 
     },
@@ -417,7 +388,7 @@ export default {
   z-index: 10;
   width: inherit;
   height: 324px;
-  background: url("../../assets/img/bg2.png") center center no-repeat;
+  background: url("../../assets/img/bg.png") center center no-repeat;
   background-size: 100% 100%;
   & .cneter{
     display: block;
