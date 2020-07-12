@@ -277,9 +277,9 @@ export default {
             {label: '已登记选民人数',value:+this.data.regVotersNum},
             {label: '登记成功选民数',value:  +this.data.votersNum},
           ]
+          let not_regVoters = +this.data.peopleNum - +this.data.regVotersNum
           this.rate =this.data.peopleNum ? +((+this.data.regVotersNum / +this.data.peopleNum)*100).toFixed(2) + '%' : '0%'
-          this.data1 = [{name: '已登记人数',value:+this.data.regVotersNum},{name: '未登记人数',value:  +this.data.peopleNum - +this.data.regVotersNum}]
-
+          this.data1 = [{name: '已登记人数',value:+this.data.regVotersNum},{name: '未登记人数',value:  not_regVoters>=0 ? not_regVoters : 0}]
         }
         this.data5 = {
           registerTypeGraphs: registerTypeGraphs,

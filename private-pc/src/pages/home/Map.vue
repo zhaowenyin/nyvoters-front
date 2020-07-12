@@ -216,6 +216,7 @@ export default {
         //更新提示内容
         this.div.innerHTML = props.name
         for(let i of this.votersCounts) {
+          console.log(i)
           let precinctCode = i.precinctCode.substring(0,i.precinctCode.length-6)
           if(+precinctCode===+props.adcode) {
             let div1 = document.createElement('div')
