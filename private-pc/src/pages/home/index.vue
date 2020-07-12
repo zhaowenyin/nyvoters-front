@@ -359,7 +359,7 @@ export default {
   z-index: 1000;
 }
 .item {
-  width:200px;
+  min-width:200px;
   height: 310px;
   background: url("../../assets/img/bg1.png") center center no-repeat;
   background-size: 100% 100%;
