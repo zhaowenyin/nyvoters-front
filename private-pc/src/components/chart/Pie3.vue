@@ -259,8 +259,8 @@ export default {
   background: url("../../assets/img/8.png") center center no-repeat;
 }
 .chart{
-  height: 100%;
-  width: 100%;
+  height: 220px;
+  width: 360px;
 }
 .man, .woman{
   margin-top: -12px;

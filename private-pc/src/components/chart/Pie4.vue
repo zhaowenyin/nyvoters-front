@@ -12,8 +12,10 @@
         @mouseenter="hover(item.name)"
         @mouseleave="clearHover(item.name)">
         <div :class="['icon', 'icon'+index]"></div>
-        <div class="name">{{item.name}}</div>
-        <div>{{item.value}}人</div>
+        <div class="text">
+          <div class="name">{{item.name}}</div>
+          <div>{{item.value}}人</div>
+        </div>
       </li>
     </ul>
   </div>
@@ -243,7 +245,6 @@ export default {
       /* border: 1px solid #00f; */
       display: flex;
       align-items: center;
-      flex-wrap: wrap;
     }
     & .icon {
       width: 19px;
@@ -263,6 +264,11 @@ export default {
     }
     & .icon4 {
       background-image: linear-gradient(90deg, #f9c44b, #f9c44b);
+    }
+    & .text{
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
     }
     & .name{
       margin-right: 19px;

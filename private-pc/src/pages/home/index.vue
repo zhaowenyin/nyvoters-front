@@ -15,7 +15,7 @@
           <div class="item">
             <div class="name">参选地</div>
             <div class="center" style="margin-top: -14px;">
-              <Pie2 v-if="data2.length>0" :data="data2"/>
+              <Pie4 v-if="data2.length>0" :data="data2"/>
             </div>
           </div>
         </div>
@@ -44,7 +44,7 @@
           <div class="item">
             <div class="name">选民年龄分析</div>
             <div class="center" style="margin-top: -14px;">
-              <Pie4 v-if="data4.length>0" :data="data4"/>
+              <Pie2 v-if="data4.length>0" :data="data4"/>
             </div>
           </div>
         </div>

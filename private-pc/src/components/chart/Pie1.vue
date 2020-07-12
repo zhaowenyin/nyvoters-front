@@ -17,8 +17,10 @@
           @mouseenter="hover(item.name)"
           @mouseleave="clearHover(item.name)">
           <div :class="['icon', 'icon'+index]"></div>
-          <div class="name">{{item.name}}</div>
-          <div>{{item.value}}人</div>
+          <div class="text">
+            <div class="name">{{item.name}}</div>
+            <div>{{item.value}}人</div>
+          </div>
         </li>
       </ul>
     </div>
@@ -198,8 +200,8 @@ export default {
   .text-box{
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 100%;
+    transform: translate(0, -50%);
     text-align: center;
     color: #fb5c02;
     & .s1{
@@ -219,7 +221,6 @@ export default {
       /* border: 1px solid #00f; */
       display: flex;
       align-items: center;
-      flex-wrap: wrap;
     }
     & .icon {
       width: 19px;
@@ -230,6 +231,11 @@ export default {
     }
     & .icon1 {
       background-image: linear-gradient(90deg, #ff9857, #f9c44b);
+    }
+    & .text{
+      flex: 1;
+      display: flex;
+      flex-wrap: wrap;
     }
     & .name{
       margin-right: 19px;

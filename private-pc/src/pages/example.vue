@@ -37,7 +37,7 @@ export default {
         value: 200,
         name: '学校'
       },{
-        value: 100,
+        value: 300,
         name: '其他'
       }],
       data3: [{
@@ -54,7 +54,7 @@ export default {
         value: 200,
         name: '36-55岁'
       },{
-        value: 100,
+        value: 300,
         name: '56岁以上'
       }]
     }
