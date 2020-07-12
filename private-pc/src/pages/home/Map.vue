@@ -41,6 +41,7 @@ export default {
   },
   watch: {
     code () {
+      console.log(88888,this.code)
       let level = ''
       let from = 'click'
       this.locationSearch(`${this.code}`,level,from)
@@ -54,9 +55,9 @@ export default {
       let map = new AMap.Map('container', {
         resizeEnable: true,
         zoomEnable: false,
-        // dragEnable:false,
+        dragEnable:false,
         zoom: 6.5,
-        center: [113.473719, 33.723493-0.7],
+        center: [113.473719, 33.723493],
         mapStyle:'amap://styles/light'
       });
       this.map = map;
@@ -133,7 +134,7 @@ export default {
           strokeColor: '#fd9860',
           strokeWeight: 1,
           fillColor: 'rgba(255,255,255,1)',
-          fillOpacity: 0.5
+          fillOpacity: level!==''&&level<2 ? 1 : 0
         });
         that.Polygon_out.setPath(pathArray);
         that.map.add(that.Polygon_out)

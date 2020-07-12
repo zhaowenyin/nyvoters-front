@@ -1,15 +1,8 @@
 <template>
   <div style="overflow-x: hidden;">
     <div class="home-content">
-      <Map class="map"
-        @Searchlist="handerSearchlist"
-        @hoverEvent="clickMap"
-        :votersCounts="votersCounts"
-        :code="code"
-        v-if="level<3&&committee"
-        :level="level"/>
       <div class="header">
-        <div class="header-name">河南省县乡人大选民登记情况</div>
+        <div class="header-name">{{handername()}}</div>
       </div>
       <div class="middel-content">
         <div class="common1">
@@ -26,7 +19,22 @@
             </div>
           </div>
         </div>
-        <div class="common1">
+        <div class="map" v-if="level<3&&committee">
+          <div class="map-text">点击地图可查看辖区登记情况</div>
+          <img
+            class="map-img"
+            @click="back"
+            src="../../assets/img/back.png"/>
+          <Map
+          style="width: 100%;height: 100%;"
+          @Searchlist="handerSearchlist"
+          @hoverEvent="clickMap"
+          :votersCounts="votersCounts"
+          :code="code"
+
+          :level="level"/>
+        </div>
+        <div class="common1 ">
           <div class="item">
             <div class="name">选民性别分析</div>
             <div class="center" style="margin-left: -5px;">
@@ -46,7 +54,6 @@
         <Table v-if="data5&&!precinctName" :obj="data5" :name="name"/>
       </div>
       <div class="item foot" v-else>
-        <div class="name">{{handername()}}登记情况</div>
         <div class="center">
           <LineBar
           name="实际筛查人数&比例"
@@ -138,6 +145,8 @@ export default {
       next_level_district: null,
       committee:committee<4 ? true : false,
       phone_visible: false,
+      last_precinct_data: {},
+      current_precinct_data: {},
       phone_form: {
         phoneNum: ''
       },
@@ -164,7 +173,7 @@ export default {
     if(!this.authToken.phoneNum) {
       this.phone_visible = true
     }
-    this.Searchlist({precinctId:this.authToken.precinctId,name: this.name,level:this.level})
+    this.Searchlist({precinctId:this.authToken.precinctId,name: this.name,level:this.level,code1:this.authToken.district.code})
   },
   methods: {
     ...mapMutations('home', [
@@ -187,41 +196,13 @@ export default {
           let precinctId = i.precinctId
           let level = i.precinctLevel
           let code = i.precinctCode
-          this.Searchlist({precinctId,name,level,code})
+          this.Searchlist({precinctId,name,level,code,code1: code})
         }
       })
     },
     handername () {
-      let text = this.name
-      if(this.precinctName){
-        text = this.precinctName
-      }
-      if(this.committee) {
-        switch(this.level) {
-        case 0:
-          text += '各市'
-          break
-        case 1:
-          text += '各区县'
-          break
-        case 2:
-          text += '区县各乡镇'
-          break
-        case 3:
-          text += '区县各乡镇'
-          break
-        default:
-          text += ''
-        }
-      } else {
-        switch(this.next_level_district) {
-        case 1:
-          text += '区县各乡镇选区'
-          break
-        default:
-          text += ''
-        }
-      }
+      let text = this.authToken.district.name
+      text = text + '县乡人大选民登记情况'
       return text
 
     },
@@ -233,11 +214,24 @@ export default {
           let precinctId = i.precinctId
           let name = i.precinctName
           let level = i.precinctLevel
-          this.Searchlist({precinctId,name,level})
+          this.Searchlist({precinctId,name,level,code1:i.precinctCode})
+
         }
+
       })
+
+    },
+    back() {
+      let {current_precinct_data, last_precinct_data} = this
+      let code = last_precinct_data[current_precinct_data.level-1].code1
+      if(code) {
+        this.code = code.substring(0,code.length-6)
+        this.Searchlist(last_precinct_data[current_precinct_data.level-1])
+      }
     },
     async Searchlist(obj) {
+      this.last_precinct_data[obj.level] = obj
+      this.current_precinct_data = obj
       const {data} = await getList(obj.precinctId)
       this.data1 = []
       this.data2 = []
@@ -334,12 +328,39 @@ export default {
     padding: 3px 48px 0px;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    flex: 1;
+    & .map {
+      position: relative;
+      min-width: 640px;
+      border: 10px solid #faaf5a;
+      border-radius: 10px;
+      margin: 5px 20px 10px;
+      min-height:600px;
+    }
+    & .common1 {
+      flex: 1;
+    }
   }
 }
+.map-text {
+  position: absolute;
+  height: 30px;
+  line-height: 30px;
+  background-color: #fff;
+  bottom: 0px;
+  z-index: 1000;
+  padding-left: 20px;
+  color:#333;
+}
+.map-img {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  z-index: 1000;
+  cursor: pointer;
+}
 .item {
-  height: 282px;
-  width: 535px;
+  height: 310px;
   background: url("../../assets/img/bg1.png") center center no-repeat;
   background-size: 100% 100%;
   display: flex;
@@ -361,21 +382,13 @@ export default {
   }
 }
 
-.map {
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  z-index: 0
-}
 .foot {
   position: relative;
   margin: 0px 48px 0px;
   z-index: 10;
   width: inherit;
   height: 324px;
-  background: url("../../assets/img/bg2.png") center center no-repeat;
+  background: url("../../assets/img/bg.png") center center no-repeat;
   background-size: 100% 100%;
   & .cneter{
     display: block;
