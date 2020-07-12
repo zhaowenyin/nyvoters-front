@@ -215,22 +215,24 @@ export default {
       if (isHover) {
         //更新提示内容
         this.div.innerHTML = props.name
+        let div1 = document.createElement('div')
+        let div2 = document.createElement('div')
+        let div3 = document.createElement('div')
+        div1.innerHTML = `选民总数：0`
+        div2.innerHTML = `登记选民数：0`
+        div3.innerHTML = `登记率：0%`
         for(let i of this.votersCounts) {
-          console.log(i)
           let precinctCode = i.precinctCode.substring(0,i.precinctCode.length-6)
           if(+precinctCode===+props.adcode) {
-            let div1 = document.createElement('div')
             div1.innerHTML = `选民总数：${i.peopleNum}`
-            let div2 = document.createElement('div')
             div2.innerHTML = `登记选民数：${i.regVotersNum}`
-            let div3 = document.createElement('div')
             div3.innerHTML = `登记率：${((+i.regVotersNum / + i.peopleNum)*100).toFixed(2)}%`
-            this.div.appendChild(div1)
-            this.div.appendChild(div2)
-            this.div.appendChild(div3)
             break
           }
         }
+        this.div.appendChild(div1)
+        this.div.appendChild(div2)
+        this.div.appendChild(div3)
         //更新位置
         this.tipMarker.setPosition(position || props.center);
       }
