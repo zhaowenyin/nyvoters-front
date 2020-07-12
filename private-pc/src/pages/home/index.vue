@@ -330,8 +330,8 @@ export default {
     display: flex;
     flex: 1;
     & .map {
+      flex: 1;
       position: relative;
-      min-width: 640px;
       border: 10px solid #faaf5a;
       border-radius: 10px;
       margin: 5px 20px 10px;

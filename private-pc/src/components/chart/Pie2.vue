@@ -1,7 +1,7 @@
 <template>
   <div class="pie-box">
     <div class="left">
-      <div class="chart-box">
+      <div class="chart-box" :style="{width: 220 * scale + 'px', height: 220 * scale + 'px'}">
         <div ref="myChart" class="chart"></div>
       </div>
     </div>
@@ -25,7 +25,8 @@
 export default {
   data() {
     return {
-      percent: 0
+      percent: 0,
+      scale: 1
     }
   },
   props: {
@@ -36,16 +37,35 @@ export default {
   },
   watch: {
     data() {
-      this.echarts();
+      this.init_echart();
     }
   },
   created() {},
   mounted() {
     // 基于准备好的dom，初始化echarts实例
-    this.myChart = echarts.init(this.$refs.myChart);
-    this.echarts();
+    this.myChart = echarts.init(this.$refs.myChart)
+    this.echarts()
+    this.init_echart()
+    window.addEventListener('resize', () => {
+      this.init_echart()
+    })
   },
   methods: {
+    init_echart () {
+      let body_width = document.body.clientWidth
+      if (body_width > 1600) {
+        this.scale = 1
+      } else if (body_width > 1440) {
+        this.scale = 0.8
+      } else {
+        this.scale = 0.6
+      }
+
+      this.$nextTick(() => {
+        this.myChart.resize()
+        this.echarts()
+      })
+    },
     hover(name) {
       this.myChart.dispatchAction({
         type: 'highlight',
@@ -106,8 +126,8 @@ export default {
       ]
 
       let currentAngle = - Math.PI / 2
-      let currentWidth = 20
-      let currentR = 70
+      let currentWidth = 20 * this.scale
+      let currentR = 70 * this.scale
       const renderArr = this.data.map((obj, index) => {
         obj.percent = obj.value/sumValues
         obj.startAngle = currentAngle
@@ -116,8 +136,8 @@ export default {
         obj.currentR = currentR
         obj.color = colorArr[index] || 'red'
         currentAngle = obj.endAngle
-        currentWidth += 8
-        currentR += 4
+        currentWidth += 8 * this.scale
+        currentR += 4 * this.scale
         return obj
       })
 
@@ -127,12 +147,12 @@ export default {
           type: 'custom',
           name: obj.name,
           coordinateSystem: 'none',
-          renderItem: function (params, api) {
+          renderItem: (params, api) => {
             return {
               type: 'arc',
               shape: {
-                cx: 110,
-                cy: 110,
+                cx: 110 * this.scale,
+                cy: 110 * this.scale,
                 r: obj.currentR,
                 r0: 0,
                 startAngle: obj.startAngle,
@@ -168,13 +188,13 @@ export default {
           trigger: 'none'
         },
         blendMode: 'destination-out',
-        renderItem: function () {
+        renderItem: () => {
           return {
             type: 'arc',
             shape: {
-              cx: 110,
-              cy: 110,
-              r: 60,
+              cx: 110 * this.scale,
+              cy: 110 * this.scale,
+              r: 60 * this.scale,
               r0: 0,
               startAngle: 0,
               endAngle: Math.PI * 2,
@@ -234,8 +254,8 @@ export default {
       align-items: center;
     }
     & .icon {
-      width: 19px;
-      height: 9px;
+      width: 20px;
+      height: 10px;
       background-image: linear-gradient(90deg, #f9c44b, #f9c44b);
       border-radius: 3px;
       margin-right: 15px;

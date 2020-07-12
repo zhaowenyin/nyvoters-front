@@ -2,10 +2,10 @@
   <div>
     <div class="pie-box">
       <div class="left">
-        <div class="chart-box">
+        <div class="chart-box" :style="{width: 220 * scale + 'px', height: 220 * scale + 'px'}">
           <div class="text-box">
-            <span class="s1">{{percent}}</span>
-            <span class="s2">%</span>
+            <span class="s1" :style="{fontSize: 46 * scale + 'px'}">{{percent}}</span>
+            <span class="s2" :style="{fontSize: 26 * scale + 'px'}">%</span>
           </div>
           <div ref="myChart" class="chart"></div>
         </div>
@@ -32,7 +32,8 @@
 export default {
   data() {
     return {
-      percent: 0
+      percent: 0,
+      scale: 1
     }
   },
   props: {
@@ -43,16 +44,34 @@ export default {
   },
   watch: {
     data() {
-      this.echarts();
+      this.init_echart();
     }
   },
   created() {},
   mounted() {
     // 基于准备好的dom，初始化echarts实例
-    this.myChart = echarts.init(this.$refs.myChart);
-    this.echarts();
+    this.myChart = echarts.init(this.$refs.myChart)
+    this.init_echart()
+    window.addEventListener('resize', () => {
+      this.init_echart()
+    })
   },
   methods: {
+    init_echart () {
+      let body_width = document.body.clientWidth
+      if (body_width > 1600) {
+        this.scale = 1
+      } else if (body_width > 1440) {
+        this.scale = 0.8
+      } else {
+        this.scale = 0.6
+      }
+
+      this.$nextTick(() => {
+        this.myChart.resize()
+        this.echarts()
+      })
+    },
     hover(name) {
       this.myChart.dispatchAction({
         type: 'highlight',
@@ -93,8 +112,8 @@ export default {
         series: [
           {
             type:'pie',
-            center: [110, 110],
-            radius: [70, 85],
+            center: ['50%', '50%'],
+            radius: [70 * this.scale, 85 * this.scale],
             startAngle: startAngle,
             avoidLabelOverlap: false,
             label: {
@@ -150,7 +169,7 @@ export default {
               show: false,
               trigger: 'none'
             },
-            renderItem: function (params, api) {
+            renderItem: (params, api) => {
               return {
                 type: 'circle',
                 shape: {
@@ -158,9 +177,9 @@ export default {
                   cy: 0,
                   r: 0.5,
                 },
-                origin: [0, 92],
+                origin: [0, 92 * this.scale],
                 rotation: api.value(0) - startAnglePI,
-                position: [110, 18],
+                position: [110 * this.scale, 18 * this.scale],
                 style: api.style({
                   fill: '#f36d76'
                 }),
@@ -223,8 +242,8 @@ export default {
       align-items: center;
     }
     & .icon {
-      width: 19px;
-      height: 9px;
+      width: 20px;
+      height: 10px;
       background-image: linear-gradient(90deg, #4f4ca9, #de4396);
       border-radius: 3px;
       margin-right: 15px;

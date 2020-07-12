@@ -1,7 +1,7 @@
 <template>
   <div class="pie-box">
     <div class="left">
-      <div class="chart-box">
+      <div class="chart-box" :style="{width: 220 * scale + 'px', height: 220 * scale + 'px'}">
         <div ref="myChart" class="chart"></div>
       </div>
     </div>
@@ -25,7 +25,8 @@
 export default {
   data() {
     return {
-      percent: 0
+      percent: 0,
+      scale: 1
     }
   },
   props: {
@@ -36,16 +37,34 @@ export default {
   },
   watch: {
     data() {
-      this.echarts();
+      this.init_echart();
     }
   },
   created() {},
   mounted() {
     // 基于准备好的dom，初始化echarts实例
     this.myChart = echarts.init(this.$refs.myChart);
-    this.echarts();
+    this.init_echart()
+    window.addEventListener('resize', () => {
+      this.init_echart()
+    })
   },
   methods: {
+    init_echart () {
+      let body_width = document.body.clientWidth
+      if (body_width > 1600) {
+        this.scale = 1
+      } else if (body_width > 1440) {
+        this.scale = 0.8
+      } else {
+        this.scale = 0.6
+      }
+
+      this.$nextTick(() => {
+        this.myChart.resize()
+        this.echarts()
+      })
+    },
     hover(name) {
       this.myChart.dispatchAction({
         type: 'highlight',
@@ -133,8 +152,8 @@ export default {
         }
       ]
 
-      let startRadius = 76
-      let endRadius = 34
+      let startRadius = 76 * this.scale
+      let endRadius = 34 * this.scale
       let diffRadius = this.data.length > 1 ? (startRadius - endRadius) / (this.data.length - 1) : 0
 
 
@@ -144,13 +163,13 @@ export default {
           type: 'custom',
           name: obj.name,
           coordinateSystem: 'none',
-          renderItem: function (params, api) {
+          renderItem:  (params, api) => {
             const percent = api.value(0) / maxValue * 0.8
             return {
               type: 'arc',
               shape: {
-                cx: 110,
-                cy: 110,
+                cx: 110 * this.scale,
+                cy: 110 * this.scale,
                 r: startRadius - diffRadius * index,
                 r0: 0,
                 startAngle: Math.PI * 3 / 2,
@@ -159,12 +178,12 @@ export default {
               },
               style: api.style({
                 fill: null,
-                lineWidth: 6,
+                lineWidth: 6 * this.scale,
                 lineCap: 'round'
               }),
               styleEmphasis: api.style({
                 fill: null,
-                lineWidth: 10
+                lineWidth: 10 * this.scale
               })
             }
           },
@@ -230,6 +249,7 @@ export default {
     height: 220px;
     width: 220px;
     background: url("../../assets/img/7.png") center center no-repeat;
+    background-size: 100% 100%;
   }
   .chart{
     height: 100%;
@@ -247,8 +267,8 @@ export default {
       align-items: center;
     }
     & .icon {
-      width: 19px;
-      height: 9px;
+      width: 20px;
+      height: 10px;
       background-image: linear-gradient(90deg, #3c4dab, #2a1d96);
       border-radius: 3px;
       margin-right: 15px;

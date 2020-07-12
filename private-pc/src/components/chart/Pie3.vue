@@ -6,7 +6,7 @@
       <p>{{+(percent1 * 100).toFixed(2)}}%</p>
       <img src="../../assets/img/3.png">
     </div>
-    <div class="chart-box">
+    <div class="chart-box" :style="{width: 360 * scale + 'px', height: 220 * scale + 'px'}">
       <div ref="myChart" class="chart"></div>
     </div>
     <div class="woman" @mouseenter="hover(data[1].name)" @mouseleave="clearHover(data[1].name)">
@@ -23,7 +23,8 @@ export default {
   data() {
     return {
       percent1: 0,
-      percent2: 0
+      percent2: 0,
+      scale: 1
     }
   },
   props: {
@@ -34,16 +35,34 @@ export default {
   },
   watch: {
     data() {
-      this.echarts();
+      this.init_echart()
     }
   },
   created() {},
   mounted() {
     // 基于准备好的dom，初始化echarts实例
     this.myChart = echarts.init(this.$refs.myChart);
-    this.echarts();
+    this.init_echart()
+    window.addEventListener('resize', () => {
+      this.init_echart()
+    })
   },
   methods: {
+    init_echart () {
+      let body_width = document.body.clientWidth
+      if (body_width > 1600) {
+        this.scale = 1
+      } else if (body_width > 1440) {
+        this.scale = 0.8
+      } else {
+        this.scale = 0.6
+      }
+
+      this.$nextTick(() => {
+        this.myChart.resize()
+        this.echarts()
+      })
+    },
     hover(name) {
       this.myChart.dispatchAction({
         type: 'highlight',
@@ -115,7 +134,7 @@ export default {
             type: 'custom',
             name: this.data[0].name,
             coordinateSystem: 'none',
-            renderItem: function (params, api) {
+            renderItem: (params, api) => {
               if (!api.value(0)) return null
               const percent = api.value(1)
               let startAngle =  Math.PI - Math.PI * percent
@@ -123,9 +142,9 @@ export default {
               return {
                 type: 'arc',
                 shape: {
-                  cx: 180,
-                  cy: 110,
-                  r: 60,
+                  cx: 180 * this.scale,
+                  cy: 110 * this.scale,
+                  r: 60 * this.scale,
                   r0: 0,
                   startAngle,
                   endAngle,
@@ -133,12 +152,12 @@ export default {
                 },
                 style: api.style({
                   fill: null,
-                  lineWidth: 6,
+                  lineWidth: 6 * this.scale,
                   lineCap: 'round'
                 }),
                 styleEmphasis: api.style({
                   fill: null,
-                  lineWidth: 10
+                  lineWidth: 10 * this.scale
                 })
               }
             },
@@ -154,7 +173,7 @@ export default {
             type: 'custom',
             name: this.data[1].name,
             coordinateSystem: 'none',
-            renderItem: function (params, api) {
+            renderItem: (params, api) => {
               if (!api.value(0)) return null
               const percent = api.value(1)
               let startAngle =  Math.PI *  2 - Math.PI * percent
@@ -162,9 +181,9 @@ export default {
               return {
                 type: 'arc',
                 shape: {
-                  cx: 180,
-                  cy: 110,
-                  r: 45,
+                  cx: 180 * this.scale,
+                  cy: 110 * this.scale,
+                  r: 45 * this.scale,
                   r0: 0,
                   startAngle,
                   endAngle,
@@ -172,12 +191,12 @@ export default {
                 },
                 style: api.style({
                   fill: null,
-                  lineWidth: 6,
+                  lineWidth: 6 * this.scale,
                   lineCap: 'round'
                 }),
                 styleEmphasis: api.style({
                   fill: null,
-                  lineWidth: 10
+                  lineWidth: 10 * this.scale
                 })
               }
             },
@@ -196,16 +215,16 @@ export default {
               show: false,
               trigger: 'none'
             },
-            renderItem: function (params, api) {
+            renderItem: (params, api) => {
               if (!api.value(0)) return null
               return {
                 type: 'polygon',
                 shape: {
                   points: [[0, 0], [2, 0], [1.5, 6], [0.5, 6]]
                 },
-                origin: [0, 75],
+                origin: [0, 75 * this.scale],
                 rotation: api.value(0),
-                position: [180, 35],
+                position: [180 * this.scale, 35 * this.scale],
                 style: api.style({
                   fill: '#3c4dab'
                 })
@@ -221,16 +240,16 @@ export default {
               show: false,
               trigger: 'none'
             },
-            renderItem: function (params, api) {
+            renderItem: (params, api) => {
               if (!api.value(0)) return null
               return {
                 type: 'polygon',
                 shape: {
                   points: [[0, 0], [2, 0], [1.5, 6], [0.5, 6]]
                 },
-                origin: [0, 75],
+                origin: [0, 75 * this.scale],
                 rotation: api.value(0) + Math.PI * 2 * percent1,
-                position: [180, 35],
+                position: [180 * this.scale, 35 * this.scale],
                 style: api.style({
                   fill: '#f14294'
                 }),
@@ -257,6 +276,7 @@ export default {
   width: 360px;
   position: relative;
   background: url("../../assets/img/8.png") center center no-repeat;
+  background-size: 100% 100%;
 }
 .chart{
   height: 220px;
