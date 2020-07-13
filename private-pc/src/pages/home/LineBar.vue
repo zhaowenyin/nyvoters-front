@@ -62,7 +62,7 @@ export default {
     echarts () {
       let option ={
         grid: {
-          top: '30',
+          top: '50',
           containLabel: true,
           bottom: '50',
           left: '20',

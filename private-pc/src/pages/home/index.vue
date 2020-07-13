@@ -271,12 +271,14 @@ export default {
         let hander_data5 = []
         let registerTypeGraphs = this.data.registerTypeGraphs || []
         let reviewFailGraphs = this.data.reviewFailGraphs || []
+        let is_unregistered = null
         if(this.data.peopleNum || this.data.peopleNum===0) {
           hander_data5 = [
             {label: '选民总数',value:+this.data.peopleNum},
             {label: '已登记选民人数',value:+this.data.regVotersNum},
             {label: '登记成功选民数',value:  +this.data.votersNum},
           ]
+          is_unregistered = +this.data.peopleNum - +this.data.regVotersNum < 0
           this.rate =this.data.peopleNum ? +((+this.data.regVotersNum / +this.data.peopleNum)*100).toFixed(2) + '%' : '0%'
           this.data1 = [{name: '已登记人数',value:+this.data.regVotersNum},{name: '未登记人数',value:  +this.data.peopleNum - +this.data.regVotersNum}]
 
@@ -284,7 +286,8 @@ export default {
         this.data5 = {
           registerTypeGraphs: registerTypeGraphs,
           hander_data5: hander_data5,
-          reviewFailGraphs: reviewFailGraphs
+          reviewFailGraphs: reviewFailGraphs,
+          is_unregistered
         }
         this.data2 = data2
         this.data3 = data3
