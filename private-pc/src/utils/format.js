@@ -100,13 +100,19 @@ export function cardVali(id) {
 // 当前比例
 export function get_scale() {
   let body_width = document.body.clientWidth
-  let scale = 1
-  if (body_width > 1600) {
+  console.log(body_width)
+  let scale = 0.8
+  if (body_width <= 1600) {
     scale = 1
-  } else if (body_width > 1440) {
-    scale = 0.8
-  } else {
-    scale = 0.6
   }
+  // if (body_width > 1600) {
+  //   scale = 1
+  // } else if (body_width > 1440) {
+  //   scale = 0.83
+  // } else if (body_width > 1367) {
+  //   scale = 0.75
+  // } else {
+  //   scale = 0.71
+  // }
   return scale
 }

@@ -7,7 +7,7 @@
       <img src="../../assets/img/3.png">
     </div>
     <div class="chart-box" :style="{width: 360 * scale + 'px', height: 220 * scale + 'px'}">
-      <div ref="myChart" class="chart"></div>
+      <div ref="myChart" class="chart" :style="{width: 360 * scale + 'px', height: 220 * scale + 'px'}"></div>
     </div>
     <div class="woman" @mouseenter="hover(data[1].name)" @mouseleave="clearHover(data[1].name)">
       <p>{{data[1].name}}</p>
@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import { get_scale } from '../../utils/format'
-
 export default {
   data() {
     return {
@@ -51,7 +49,13 @@ export default {
   },
   methods: {
     init_echart () {
-      this.scale = get_scale()
+      let body_width = document.body.clientWidth
+      this.scale = 0.7
+      if (body_width <= 1440) {
+        this.scale = 0.7
+      } else if (body_width <= 1600) {
+        this.scale = 1
+      }
       this.$nextTick(() => {
         this.myChart.resize()
         this.echarts()
@@ -264,26 +268,27 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
 }
 .chart-box{
-  height: 220px;
-  width: 360px;
   position: relative;
   background: url("../../assets/img/8.png") center center no-repeat;
   background-size: 100% 100%;
 }
 .chart{
-  height: 220px;
-  width: 360px;
+  height: 100%;
+  width: 100%;
 }
 .man, .woman{
   margin-top: -12px;
-  padding: 22px 12px 16px;
+  padding: 22px 2px 16px 12px;
   border-radius: 6px;
   border: 1px solid rgba(221,221,221,0.5);
   color: #7e7e7e;
   font-size: 16px;
   position: relative;
+  background: #fff;
+  z-index: 10;
   & img{
     position: absolute;
     top: 11px;

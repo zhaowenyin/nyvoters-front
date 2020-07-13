@@ -10,6 +10,7 @@
             <div class="name">登记率{{rate}}</div>
             <div class="center">
               <Pie1 v-if="data1.length>0" :data="data1"/>
+              <div class="bottom-text">登记率=已登记人数/总选民数</div>
             </div>
           </div>
           <div class="item">
@@ -34,7 +35,7 @@
 
           :level="level"/>
         </div>
-        <div class="common1 ">
+        <div class="common1 right-voter">
           <div class="item">
             <div class="name">选民性别分析</div>
             <div class="center" style="margin-left: -5px;">
@@ -49,7 +50,21 @@
           </div>
         </div>
       </div>
-       <div class="tabel" v-if="next_level_district===2&&!committee">
+      <div class="common2 bottom-voter">
+        <div class="item" style="margin-right: 10px;">
+          <div class="name">选民性别分析</div>
+          <div class="center" style="margin-left: -5px;">
+            <Pie3 v-if="data3.length>0" :data="data3"/>
+          </div>
+        </div>
+        <div class="item">
+          <div class="name">选民年龄分析</div>
+          <div class="center" style="margin-top: -14px;">
+            <Pie2 v-if="data4.length>0" :data="data4"/>
+          </div>
+        </div>
+      </div>
+      <div class="tabel" v-if="next_level_district===2&&!committee">
         <Table v-if="data5&&precinctName" :obj="data5" :name="precinctName"/>
         <Table v-if="data5&&!precinctName" :obj="data5" :name="name"/>
       </div>
@@ -310,6 +325,23 @@ export default {
 }
 </script>
 <style scoped>
+.bottom-voter{
+  display: none !important;
+}
+.right-voter{
+  display: block !important;
+}
+@media only screen and (max-width: 1600px) {
+  .bottom-voter{
+    display: flex !important;
+  }
+  .right-voter{
+    display: none !important;
+  }
+  .map {
+    margin-right: 0px !important;
+  }
+}
 .home-content {
   position:relative;
   padding-bottom: 8px;
@@ -328,17 +360,18 @@ export default {
 
   }
   & .middel-content {
-    padding: 3px 48px 0px;
+    padding: 3px 20px 0px;
     width: 100%;
     display: flex;
     flex: 1;
     & .map {
-      flex: 1;
+      width: 660px;
+      height: 600px;
       position: relative;
       border: 10px solid #faaf5a;
       border-radius: 10px;
       margin: 5px 20px 10px;
-      min-height:600px;
+
     }
     & .common1 {
       flex: 1;
@@ -363,12 +396,12 @@ export default {
   cursor: pointer;
 }
 .item {
-  height: 310px;
+  height: 308px;
   background: url("../../assets/img/bg1.png") center center no-repeat;
   background-size: 100% 100%;
   display: flex;
   flex-direction: column;
-  padding: 5px 0px 12px;
+  padding: 5px 20px 12px;
   position: relative;
   z-index: 10;
   & .name{
@@ -382,12 +415,19 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
   }
 }
-
+.common2 {
+  display: flex;
+  padding: 0px 20px;
+  & .item {
+    flex: 1;
+  }
+}
 .foot {
   position: relative;
-  margin: 0px 48px 0px;
+  margin: 0px 20px 0px;
   z-index: 10;
   width: inherit;
   height: 324px;
@@ -400,5 +440,14 @@ export default {
 .tabel {
   padding-left:53px;
   padding-right: 60px;
+}
+.bottom-text{
+  position: absolute;
+  bottom: 20px;
+  left: 0px;
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  color: #666666;
 }
 </style>

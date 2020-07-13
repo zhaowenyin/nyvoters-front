@@ -22,8 +22,6 @@
 </template>
 
 <script>
-import { get_scale } from '../../utils/format'
-
 export default {
   data() {
     return {
@@ -53,7 +51,15 @@ export default {
   },
   methods: {
     init_echart () {
-      this.scale = get_scale()
+      let body_width = document.body.clientWidth
+      this.scale = 0.8
+      if (body_width <= 1280) {
+        this.scale = 0.6
+      } else if (body_width <= 1440) {
+        this.scale = 0.8
+      } else if (body_width <= 1600) {
+        this.scale = 1
+      }
       this.$nextTick(() => {
         this.myChart.resize()
         this.echarts()
@@ -231,6 +237,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
     & .left{
       flex: 1px;
       display: flex;
@@ -240,8 +247,6 @@ export default {
   }
   .chart-box {
     position: relative;
-    height: 220px;
-    width: 220px;
     background: url("../../assets/img/7.png") center center no-repeat;
     background-size: 100% 100%;
   }
@@ -252,20 +257,20 @@ export default {
   .legend-ul{
     cursor: pointer;
     color: #666666;
-    font-size: 16px;
+    font-size: 0.16rem;
     flex: 1;
     & li{
-      margin: 12px 0px;
+      margin: 0.12rem 0rem;
       /* border: 1px solid #00f; */
       display: flex;
       align-items: center;
     }
     & .icon {
-      width: 20px;
-      height: 10px;
+      width: 0.2rem;
+      height: 0.1rem;
       background-image: linear-gradient(90deg, #3c4dab, #2a1d96);
-      border-radius: 3px;
-      margin-right: 15px;
+      border-radius: 0.03rem;
+      margin-right: 0.15rem;
     }
     & .icon1 {
       background-image: linear-gradient(90deg, #f26477, #eb4790);
@@ -285,7 +290,7 @@ export default {
       flex-wrap: wrap;
     }
     & .name{
-      margin-right: 19px;
+      margin-right: 0.19rem;
     }
   }
 </style>

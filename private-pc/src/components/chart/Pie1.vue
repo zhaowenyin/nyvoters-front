@@ -1,36 +1,31 @@
 <template>
-  <div>
-    <div class="pie-box">
-      <div class="left">
-        <div class="chart-box" :style="{width: 220 * scale + 'px', height: 220 * scale + 'px'}">
-          <div class="text-box">
-            <span class="s1" :style="{fontSize: 46 * scale + 'px'}">{{percent}}</span>
-            <span class="s2" :style="{fontSize: 26 * scale + 'px'}">%</span>
-          </div>
-          <div ref="myChart" class="chart"></div>
+  <div class="pie-box">
+    <div class="left">
+      <div class="chart-box" :style="{width: 220 * scale + 'px', height: 220 * scale + 'px'}">
+        <div class="text-box">
+          <span class="s1" :style="{fontSize: 46 * scale + 'px'}">{{percent}}</span>
+          <span class="s2" :style="{fontSize: 26 * scale + 'px'}">%</span>
         </div>
+        <div ref="myChart" class="chart"></div>
       </div>
-      <ul class="legend-ul">
-        <li
-          v-for="(item, index) in data"
-          :key="index"
-          @mouseenter="hover(item.name)"
-          @mouseleave="clearHover(item.name)">
-          <div :class="['icon', 'icon'+index]"></div>
-          <div class="text">
-            <div class="name">{{item.name}}</div>
-            <div>{{item.value}}人</div>
-          </div>
-        </li>
-      </ul>
     </div>
-    <div class="bottom-text">登记率=已登记人数/总选民数</div>
+    <ul class="legend-ul">
+      <li
+        v-for="(item, index) in data"
+        :key="index"
+        @mouseenter="hover(item.name)"
+        @mouseleave="clearHover(item.name)">
+        <div :class="['icon', 'icon'+index]"></div>
+        <div class="text">
+          <div class="name">{{item.name}}</div>
+          <div>{{item.value}}人</div>
+        </div>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-import { get_scale } from '../../utils/format'
-
 export default {
   data() {
     return {
@@ -60,7 +55,15 @@ export default {
   },
   methods: {
     init_echart () {
-      this.scale = get_scale()
+      let body_width = document.body.clientWidth
+      this.scale = 0.8
+      if (body_width <= 1280) {
+        this.scale = 0.6
+      } else if (body_width <= 1440) {
+        this.scale = 0.8
+      } else if (body_width <= 1600) {
+        this.scale = 1
+      }
       this.$nextTick(() => {
         this.myChart.resize()
         this.echarts()
@@ -194,6 +197,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
     & .left{
       flex: 1px;
       display: flex;
@@ -203,8 +207,6 @@ export default {
   }
   .chart-box {
     position: relative;
-    height: 220px;
-    width: 220px;
   }
   .chart{
     height: 100%;
@@ -217,30 +219,24 @@ export default {
     transform: translate(0, -50%);
     text-align: center;
     color: #fb5c02;
-    & .s1{
-      font-size: 46px;
-    }
-    & .s2{
-      font-size: 26px;
-    }
   }
   .legend-ul{
     cursor: pointer;
     color: #666666;
-    font-size: 16px;
+    font-size: 0.16rem;
     flex: 1;
     & li{
-      margin: 12px 0px;
+      margin: 0.12rem 0rem;
       /* border: 1px solid #00f; */
       display: flex;
       align-items: center;
     }
     & .icon {
-      width: 20px;
-      height: 10px;
+      width: 0.2rem;
+      height: 0.1rem;
       background-image: linear-gradient(90deg, #4f4ca9, #de4396);
-      border-radius: 3px;
-      margin-right: 15px;
+      border-radius: 0.03rem;
+      margin-right: 0.15rem;
     }
     & .icon1 {
       background-image: linear-gradient(90deg, #ff9857, #f9c44b);
@@ -251,13 +247,7 @@ export default {
       flex-wrap: wrap;
     }
     & .name{
-      margin-right: 19px;
+      margin-right: 0.19rem;
     }
-  }
-  .bottom-text{
-    text-align: center;
-    font-size: 14px;
-    color: #666666;
-    margin-top: -5px;
   }
 </style>

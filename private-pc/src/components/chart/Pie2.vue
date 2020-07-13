@@ -22,8 +22,6 @@
 </template>
 
 <script>
-import { get_scale } from '../../utils/format'
-
 export default {
   data() {
     return {
@@ -54,7 +52,13 @@ export default {
   },
   methods: {
     init_echart () {
-      this.scale = get_scale()
+      let body_width = document.body.clientWidth
+      this.scale = 0.8
+      if (body_width <= 1440) {
+        this.scale = 0.8
+      } else if (body_width <= 1600) {
+        this.scale = 1
+      }
       this.$nextTick(() => {
         this.myChart.resize()
         this.echarts()
@@ -219,6 +223,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
     & .left{
       flex: 1px;
       display: flex;
@@ -228,8 +233,6 @@ export default {
   }
   .chart-box {
     position: relative;
-    height: 220px;
-    width: 220px;
     background: url("../../assets/img/heart.png") center center no-repeat;
   }
   .chart{
