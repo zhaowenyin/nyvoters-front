@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { get_scale } from '../../utils/format'
+
 export default {
   data() {
     return {
@@ -49,15 +51,7 @@ export default {
   },
   methods: {
     init_echart () {
-      let body_width = document.body.clientWidth
-      if (body_width > 1600) {
-        this.scale = 1
-      } else if (body_width > 1440) {
-        this.scale = 0.8
-      } else {
-        this.scale = 0.6
-      }
-
+      this.scale = get_scale()
       this.$nextTick(() => {
         this.myChart.resize()
         this.echarts()
