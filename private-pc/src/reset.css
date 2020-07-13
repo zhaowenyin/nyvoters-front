@@ -5,7 +5,7 @@ body, html{
 }
 html { font-size: 80px;}
 body{font-size: 14px; }
-@media only screen and (min-width: 1440px) {
+@media only screen and (min-width: 1280px) {
 html { font-size: 100px; }
 body{font-size: 14px; }
 }
