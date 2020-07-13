@@ -52,7 +52,7 @@ export default {
       let body_width = document.body.clientWidth
       this.scale = 0.7
       if (body_width <= 1440) {
-        this.scale = 0.7
+        this.scale = 0.8
       } else if (body_width <= 1600) {
         this.scale = 1
       }
