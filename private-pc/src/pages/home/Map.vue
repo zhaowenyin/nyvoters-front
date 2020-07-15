@@ -134,7 +134,7 @@ export default {
           strokeColor: '#fd9860',
           strokeWeight: 1,
           fillColor: 'rgba(255,255,255,1)',
-          fillOpacity: level!==''&&level<2 ? 1 : 0
+          fillOpacity: level!==''&&level<2 ? 1 : 0.2
         });
         that.Polygon_out.setPath(pathArray);
         that.map.add(that.Polygon_out)
