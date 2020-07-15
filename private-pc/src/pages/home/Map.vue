@@ -159,7 +159,7 @@ export default {
           // 列表中没有数据禁止下钻
           let flag = false
           for(let i of that.votersCounts) {
-            let code = i.precinctCode.substring(0,i.precinctCode.length-6)
+            let code = i.precinctCode.substring(0,6)
             if(+code === +feature.properties.adcode) {
               flag = true
               break
@@ -219,7 +219,7 @@ export default {
         let div2 = document.createElement('div')
         let div3 = document.createElement('div')
         for(let i of this.votersCounts) {
-          let precinctCode = i.precinctCode.substring(0,i.precinctCode.length-6)
+          let precinctCode = i.precinctCode.substring(0,6)
           if(+precinctCode===+props.adcode) {
             div1.innerHTML = `选民总数：${i.peopleNum}`
             div2.innerHTML = `登记选民数：${i.regVotersNum}`
