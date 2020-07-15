@@ -174,7 +174,6 @@ export default {
   },
   computed: {
     map_show() {
-      console.log(this.level, this.committee)
       return this.level < 3 && this.committee
     }
   },
