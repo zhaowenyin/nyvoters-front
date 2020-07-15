@@ -125,8 +125,8 @@ export default {
             strokeColor: "#FF33FF", //线颜色
             strokeOpacity: 0.2, //线透明度
             strokeWeight: 3,    //线宽
-            fillColor: "rgb(255, 255, 255)", //填充色
-            fillOpacity: 1//填充透明度
+            fillColor: "rgba(255, 255, 255,1)", //填充色
+            fillOpacity: 0//填充透明度
           });
         }
         that.Polygon_out = new AMap.Polygon( {
@@ -345,9 +345,9 @@ export default {
         return {
           cursor: 'default',
           bubble: true,
-          strokeColor: '#fab98e', //线颜色
+          strokeColor: 'rgba(252,143,80,1)', //线颜色
           strokeOpacity: 1, //线透明度
-          strokeWeight: 3, //线宽
+          strokeWeight: 2, //线宽
           fillColor: fillColor, //填充色
           fillOpacity: 1, //填充透明度
         };
@@ -357,9 +357,9 @@ export default {
       this.districtExplorer.renderParentFeature(areaNode, {
         cursor: 'default',
         bubble: true,
-        strokeColor: '#fab98e', //线颜色
+        strokeColor: 'rgba(252,143,80,1)', //线颜色
         strokeOpacity: 1, //线透明度
-        strokeWeight: 3, //线宽
+        strokeWeight: 2, //线宽
         fillColor: areaNode.getSubFeatures().length ? null : colors[0], //填充色
         fillOpacity: 0.1, //填充透明度
       });
