@@ -314,7 +314,7 @@ export default {
     renderAreaPolygons(areaNode) {
       let that = this
       var colors = [
-        '#fab98e',
+        '#f8b991',
         '#fae0b5',
         '#ffbe75'
 
@@ -330,18 +330,22 @@ export default {
         if(feature.properties.name==='卧龙区') {
           center = [center[0]-0.1,center[1]+0.1]
         }
+        if(feature.properties.name==='红旗区') {
+          center = [center[0]+0.1,center[1]-0.05]
+        }
+        if(feature.properties.name==='牧野区') {
+          center = [center[0]+0.05,center[1]+0.02]
+        }
         that.setText(center,feature.properties.name)
         var fillColor = colors[i % colors.length];
-        var strokeColor = colors[colors.length - 1 - i % colors.length];
         if(that.out_adcode === 410000) {
           fillColor = that.selectColor(feature.properties.adcode)
-          strokeColor = '#fab98e'
         }
 
         return {
           cursor: 'default',
           bubble: true,
-          strokeColor: strokeColor, //线颜色
+          strokeColor: '#fab98e', //线颜色
           strokeOpacity: 1, //线透明度
           strokeWeight: 3, //线宽
           fillColor: fillColor, //填充色
