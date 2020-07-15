@@ -126,7 +126,7 @@ export default {
             strokeOpacity: 0.2, //线透明度
             strokeWeight: 3,    //线宽
             fillColor: "rgba(255, 255, 255,1)", //填充色
-            fillOpacity: 0//填充透明度
+            fillOpacity: 1
           });
         }
         that.Polygon_out = new AMap.Polygon( {
