@@ -257,7 +257,7 @@ export default {
           'width': '5rem',
           'border-width': 0,
           'text-align': 'center',
-          'font-size': '14px',
+          'font-size': '12px',
           'color': '#00000080'
         },
         position: center

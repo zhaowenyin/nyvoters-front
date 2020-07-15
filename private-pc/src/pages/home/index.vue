@@ -2,7 +2,7 @@
   <div style="overflow-x: hidden;">
     <div class="home-content">
       <div class="header">
-        <div class="header-name">{{handername()}}</div>
+        <div class="header-name">{{name + '县乡人大选民登记情况'}}</div>
       </div>
       <div class="middel-content">
         <div class="common1">
@@ -188,6 +188,7 @@ export default {
     Table
   },
   created () {
+
     // 初始化清除数据
     this.clearState()
     needUpdatePwd()
@@ -220,12 +221,6 @@ export default {
           this.Searchlist({precinctId,name,level,code,code1: code})
         }
       })
-    },
-    handername () {
-      let text = this.authToken.district.name
-      text = text + '县乡人大选民登记情况'
-      return text
-
     },
     handerSearchlist(obj) {
       let list = this.votersCounts
