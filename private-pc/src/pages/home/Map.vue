@@ -218,9 +218,6 @@ export default {
         let div1 = document.createElement('div')
         let div2 = document.createElement('div')
         let div3 = document.createElement('div')
-        div1.innerHTML = `选民总数：0`
-        div2.innerHTML = `登记选民数：0`
-        div3.innerHTML = `登记率：0%`
         for(let i of this.votersCounts) {
           let precinctCode = i.precinctCode.substring(0,i.precinctCode.length-6)
           if(+precinctCode===+props.adcode) {
