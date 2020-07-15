@@ -9,18 +9,18 @@
           <div class="item">
             <div class="name">登记率{{rate}}</div>
             <div class="center">
-              <Pie1 v-if="data1.length>0" :data="data1"/>
+              <Pie1 v-if="data1.length>0" :data="data1" :map_show="map_show"/>
               <div class="bottom-text">登记率=已登记人数/总选民数</div>
             </div>
           </div>
           <div class="item">
             <div class="name">参选地</div>
             <div class="center" style="margin-top: -14px;">
-              <Pie4 v-if="data2.length>0" :data="data2"/>
+              <Pie4 v-if="data2.length>0" :data="data2" :map_show="map_show"/>
             </div>
           </div>
         </div>
-        <div class="map" v-if="level<3&&committee">
+        <div class="map" v-if="map_show">
           <div class="map-text">点击地图可查看辖区登记情况</div>
           <img
             class="map-img"
@@ -35,22 +35,22 @@
 
           :level="level"/>
         </div>
-        <div class="common1 right-voter">
+        <div :class="['common1', 'right-voter', {map_show}]">
           <div class="item">
             <div class="name">选民性别分析</div>
             <div class="center" style="margin-left: -5px;">
-              <Pie3 v-if="data3.length>0" :data="data3"/>
+              <Pie3 v-if="data3.length>0" :data="data3" :map_show="map_show"/>
             </div>
           </div>
           <div class="item">
             <div class="name">选民年龄分析</div>
             <div class="center" style="margin-top: -14px;">
-              <Pie2 v-if="data4.length>0" :data="data4"/>
+              <Pie2 v-if="data4.length>0" :data="data4" :map_show="map_show"/>
             </div>
           </div>
         </div>
       </div>
-      <div class="common2 bottom-voter">
+      <div :class="['common2', 'bottom-voter', {map_show}]">
         <div class="item" style="margin-right: 10px;">
           <div class="name">选民性别分析</div>
           <div class="center" style="margin-left: -5px;">
@@ -170,6 +170,12 @@ export default {
           { validator: validate, required: true, trigger: 'blur' }
         ]
       }
+    }
+  },
+  computed: {
+    map_show() {
+      console.log(this.level, this.committee)
+      return this.level < 3 && this.committee
     }
   },
   components: {
@@ -332,14 +338,11 @@ export default {
   display: block !important;
 }
 @media only screen and (max-width: 1600px) {
-  .bottom-voter{
+  .bottom-voter.map_show{
     display: flex !important;
   }
-  .right-voter{
+  .right-voter.map_show{
     display: none !important;
-  }
-  .map {
-    margin-right: 0px !important;
   }
 }
 .home-content {
@@ -360,7 +363,7 @@ export default {
 
   }
   & .middel-content {
-    padding: 3px 20px 0px;
+    padding: 3px 10px 0px;
     width: 100%;
     display: flex;
     flex: 1;
@@ -370,11 +373,12 @@ export default {
       position: relative;
       border: 10px solid #faaf5a;
       border-radius: 10px;
-      margin: 5px 20px 10px;
+      margin: 5px 10px 10px;
 
     }
     & .common1 {
       flex: 1;
+      margin: 0px 10px;
     }
   }
 }

@@ -44,6 +44,10 @@ export default {
   mounted () {
     // 基于准备好的dom，初始化echarts实例
     this.myChart = echarts.init(this.$refs.myChart);
+    this.$once('hook:beforeDestroy', () => {
+      this.myChart.clear()
+      echarts.dispose(this.myChart)
+    })
     let that = this
     this.myChart.on('click', function (params) {
       that.$nextTick(function () {

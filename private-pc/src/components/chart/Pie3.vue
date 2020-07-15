@@ -1,6 +1,6 @@
 <template>
   <div class="pie-box">
-    <div class="man" @mouseenter="hover(data[0].name)" @mouseleave="clearHover(data[0].name)">
+    <div class="man" :style="{fontSize: 16 * font_scale + 'px'}" @mouseenter="hover(data[0].name)" @mouseleave="clearHover(data[0].name)">
       <p>{{data[0].name}}</p>
       <p>{{data[0].value}}人</p>
       <p>{{+(percent1 * 100).toFixed(2)}}%</p>
@@ -9,7 +9,7 @@
     <div class="chart-box" :style="{width: 360 * scale + 'px', height: 220 * scale + 'px'}">
       <div ref="myChart" class="chart" :style="{width: 360 * scale + 'px', height: 220 * scale + 'px'}"></div>
     </div>
-    <div class="woman" @mouseenter="hover(data[1].name)" @mouseleave="clearHover(data[1].name)">
+    <div class="woman" :style="{fontSize: 16 * font_scale + 'px'}" @mouseenter="hover(data[1].name)" @mouseleave="clearHover(data[1].name)">
       <p>{{data[1].name}}</p>
       <p>{{data[1].value}}人</p>
       <p>{{+(percent2 * 100).toFixed(2)}}%</p>
@@ -24,13 +24,18 @@ export default {
     return {
       percent1: 0,
       percent2: 0,
-      scale: 1
+      scale: 1,
+      font_scale: 1
     }
   },
   props: {
     data: {
       default: () => [],
       type: Array
+    },
+    map_show: {
+      default: true,
+      type: Boolean
     }
   },
   watch: {
@@ -42,6 +47,10 @@ export default {
   mounted() {
     // 基于准备好的dom，初始化echarts实例
     this.myChart = echarts.init(this.$refs.myChart);
+    this.$once('hook:beforeDestroy', () => {
+      this.myChart.clear()
+      echarts.dispose(this.myChart)
+    })
     this.init_echart()
     window.addEventListener('resize', () => {
       this.init_echart()
@@ -50,8 +59,12 @@ export default {
   methods: {
     init_echart () {
       let body_width = document.body.clientWidth
-      this.scale = 0.7
-      if (body_width <= 1440) {
+      this.scale = this.map_show ? 0.7 : 1
+      this.font_scale = 1
+      if (body_width <= 1280) {
+        this.scale = 0.6
+        this.font_scale = 0.6
+      } else if (body_width <= 1440) {
         this.scale = 0.8
       } else if (body_width <= 1600) {
         this.scale = 1

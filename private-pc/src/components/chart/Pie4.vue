@@ -5,7 +5,9 @@
         <div ref="myChart" class="chart"></div>
       </div>
     </div>
-    <ul class="legend-ul">
+    <ul
+      class="legend-ul"
+      :style="{fontSize: 16 * font_scale + 'px'}">
       <li
         v-for="(item, index) in data"
         :key="index"
@@ -26,13 +28,18 @@ export default {
   data() {
     return {
       percent: 0,
-      scale: 1
+      scale: 1,
+      font_scale: 1
     }
   },
   props: {
     data: {
       default: () => [],
       type: Array
+    },
+    map_show: {
+      default: true,
+      type: Boolean
     }
   },
   watch: {
@@ -44,6 +51,10 @@ export default {
   mounted() {
     // 基于准备好的dom，初始化echarts实例
     this.myChart = echarts.init(this.$refs.myChart);
+    this.$once('hook:beforeDestroy', () => {
+      this.myChart.clear()
+      echarts.dispose(this.myChart)
+    })
     this.init_echart()
     window.addEventListener('resize', () => {
       this.init_echart()
@@ -52,9 +63,11 @@ export default {
   methods: {
     init_echart () {
       let body_width = document.body.clientWidth
-      this.scale = 0.8
+      this.scale = this.map_show ? 0.8 : 1
+      this.font_scale = 1
       if (body_width <= 1280) {
         this.scale = 0.6
+        this.font_scale = 0.6
       } else if (body_width <= 1440) {
         this.scale = 0.8
       } else if (body_width <= 1600) {
@@ -239,7 +252,7 @@ export default {
     justify-content: center;
     width: 100%;
     & .left{
-      flex: 1px;
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -257,20 +270,20 @@ export default {
   .legend-ul{
     cursor: pointer;
     color: #666666;
-    font-size: 0.16rem;
+    font-size: 16px;
     flex: 1;
     & li{
-      margin: 0.12rem 0rem;
+      margin: 12px 0px;
       /* border: 1px solid #00f; */
       display: flex;
       align-items: center;
     }
     & .icon {
-      width: 0.2rem;
-      height: 0.1rem;
+      width: 20px;
+      height: 10px;
       background-image: linear-gradient(90deg, #3c4dab, #2a1d96);
-      border-radius: 0.03rem;
-      margin-right: 0.15rem;
+      border-radius: 3px;
+      margin-right: 15px;
     }
     & .icon1 {
       background-image: linear-gradient(90deg, #f26477, #eb4790);
@@ -290,7 +303,7 @@ export default {
       flex-wrap: wrap;
     }
     & .name{
-      margin-right: 0.19rem;
+      margin-right: 19px;
     }
   }
 </style>
