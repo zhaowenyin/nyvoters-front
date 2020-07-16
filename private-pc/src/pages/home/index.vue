@@ -125,7 +125,7 @@ export default {
     let level = authToken.district.level
     let name = authToken.district.name
     let precinctName = authToken.precinctName
-    code = code.substring(0,code.length-6)
+    code = code.substring(0,6)
     let committee = authToken.accountRole
 
     let validate = (rule, value, callback) => {
@@ -224,7 +224,7 @@ export default {
     handerSearchlist(obj) {
       let list = this.votersCounts
       list.forEach(i=>{
-        let code = i.precinctCode.substring(0,i.precinctCode.length-6)
+        let code = i.precinctCode.substring(0,6)
         if(+code === +obj.adcode) {
           let precinctId = i.precinctId
           let name = i.precinctName
@@ -240,7 +240,7 @@ export default {
       let {current_precinct_data, last_precinct_data} = this
       let code = last_precinct_data[current_precinct_data.level-1].code1
       if(code) {
-        this.code = code.substring(0,code.length-6)
+        this.code = code.substring(0,6)
         this.Searchlist(last_precinct_data[current_precinct_data.level-1])
       }
     },
@@ -265,7 +265,7 @@ export default {
         if(content.committee) {
           this.level = content.level
           if(obj.code) {
-            this.code = obj.code.substring(0,obj.code.length-6)
+            this.code = obj.code.substring(0,6)
           }
         } else {
           this.next_level_district = content.level

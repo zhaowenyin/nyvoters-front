@@ -125,8 +125,8 @@ export default {
             strokeColor: "#FF33FF", //线颜色
             strokeOpacity: 0.2, //线透明度
             strokeWeight: 3,    //线宽
-            fillColor: "rgb(255, 255, 255)", //填充色
-            fillOpacity: 1//填充透明度
+            fillColor: "rgba(255, 255, 255,1)", //填充色
+            fillOpacity: 1
           });
         }
         that.Polygon_out = new AMap.Polygon( {
@@ -134,7 +134,7 @@ export default {
           strokeColor: '#fd9860',
           strokeWeight: 1,
           fillColor: 'rgba(255,255,255,1)',
-          fillOpacity: level!==''&&level<2 ? 1 : 0
+          fillOpacity: level!==''&&level<2 ? 1 : 0.2
         });
         that.Polygon_out.setPath(pathArray);
         that.map.add(that.Polygon_out)
@@ -159,7 +159,7 @@ export default {
           // 列表中没有数据禁止下钻
           let flag = false
           for(let i of that.votersCounts) {
-            let code = i.precinctCode.substring(0,i.precinctCode.length-6)
+            let code = i.precinctCode.substring(0,6)
             if(+code === +feature.properties.adcode) {
               flag = true
               break
@@ -219,7 +219,7 @@ export default {
         let div2 = document.createElement('div')
         let div3 = document.createElement('div')
         for(let i of this.votersCounts) {
-          let precinctCode = i.precinctCode.substring(0,i.precinctCode.length-6)
+          let precinctCode = i.precinctCode.substring(0,6)
           if(+precinctCode===+props.adcode) {
             div1.innerHTML = `选民总数：${i.peopleNum}`
             div2.innerHTML = `登记选民数：${i.regVotersNum}`
@@ -314,7 +314,7 @@ export default {
     renderAreaPolygons(areaNode) {
       let that = this
       var colors = [
-        '#fab98e',
+        '#f8b991',
         '#fae0b5',
         '#ffbe75'
 
@@ -330,20 +330,24 @@ export default {
         if(feature.properties.name==='卧龙区') {
           center = [center[0]-0.1,center[1]+0.1]
         }
+        if(feature.properties.name==='红旗区') {
+          center = [center[0]+0.1,center[1]-0.05]
+        }
+        if(feature.properties.name==='牧野区') {
+          center = [center[0]+0.05,center[1]+0.02]
+        }
         that.setText(center,feature.properties.name)
         var fillColor = colors[i % colors.length];
-        var strokeColor = colors[colors.length - 1 - i % colors.length];
         if(that.out_adcode === 410000) {
           fillColor = that.selectColor(feature.properties.adcode)
-          strokeColor = '#fab98e'
         }
 
         return {
           cursor: 'default',
           bubble: true,
-          strokeColor: strokeColor, //线颜色
+          strokeColor: 'rgba(252,143,80,1)', //线颜色
           strokeOpacity: 1, //线透明度
-          strokeWeight: 3, //线宽
+          strokeWeight: 2, //线宽
           fillColor: fillColor, //填充色
           fillOpacity: 1, //填充透明度
         };
@@ -353,9 +357,9 @@ export default {
       this.districtExplorer.renderParentFeature(areaNode, {
         cursor: 'default',
         bubble: true,
-        strokeColor: '#fab98e', //线颜色
+        strokeColor: 'rgba(252,143,80,1)', //线颜色
         strokeOpacity: 1, //线透明度
-        strokeWeight: 3, //线宽
+        strokeWeight: 2, //线宽
         fillColor: areaNode.getSubFeatures().length ? null : colors[0], //填充色
         fillOpacity: 0.1, //填充透明度
       });
