@@ -24,7 +24,7 @@
           <div class="map-text" v-if="level!==''&&level<2">点击地图可查看辖区登记情况</div>
           <img
             class="map-img"
-            v-if="+authToken.district.code.substring(0,6) !== +code1"
+            v-if="+authToken.district.code.substring(0,6) !== +code"
             @click="back"
             src="../../assets/img/back.png"/>
           <Map
@@ -33,6 +33,7 @@
           @hoverEvent="clickMap"
           :votersCounts="votersCounts"
           :code="code"
+          :is_out_change_code="is_out_change_code"
           :level="level"/>
         </div>
         <div :class="['common1', 'right-voter', {map_show}]">
@@ -140,6 +141,7 @@ export default {
     }
 
     return {
+      is_out_change_code: false,
       screen: [],
       data: {},
       authToken,
@@ -153,7 +155,6 @@ export default {
       mapInfo: {},
       isHover: false,
       code: +code,
-      code1:+code,
       data5: null,
       level:level,
       name: name,
@@ -195,7 +196,7 @@ export default {
     if(!this.authToken.phoneNum) {
       this.phone_visible = true
     }
-    this.Searchlist({precinctId:this.authToken.precinctId,name: this.name,level:this.level,code1:this.authToken.district.code})
+    this.Searchlist({precinctId:this.authToken.precinctId,name: this.name,level:this.level,code:this.authToken.district.code})
   },
   methods: {
     ...mapMutations('home', [
@@ -206,6 +207,7 @@ export default {
       this.isHover = isHover
     },
     barClick (val) {
+      this.is_out_change_code = true
       let name = ''
       if(val.componentType === "xAxis"){
         name = val.value
@@ -218,11 +220,12 @@ export default {
           let precinctId = i.precinctId
           let level = i.precinctLevel
           let code = i.precinctCode
-          this.Searchlist({precinctId,name,level,code,code1: code})
+          this.Searchlist({precinctId,name,level,code})
         }
       })
     },
     handerSearchlist(obj) {
+      this.is_out_change_code = false
       let list = this.votersCounts
       list.forEach(i=>{
         let code = i.precinctCode.substring(0,6)
@@ -230,7 +233,7 @@ export default {
           let precinctId = i.precinctId
           let name = i.precinctName
           let level = i.precinctLevel
-          this.Searchlist({precinctId,name,level,code1:i.precinctCode})
+          this.Searchlist({precinctId,name,level,code:i.precinctCode})
 
         }
 
@@ -238,10 +241,10 @@ export default {
 
     },
     back() {
+      this.is_out_change_code = true
       let {current_precinct_data, last_precinct_data} = this
-      let code = last_precinct_data[current_precinct_data.level-1].code1
+      let code = last_precinct_data[current_precinct_data.level-1].code
       if(code) {
-        this.code = code.substring(0,6)
         this.Searchlist(last_precinct_data[current_precinct_data.level-1])
       }
     },
@@ -262,9 +265,6 @@ export default {
           this.name = obj.name
         }
         this.committee = content.committee
-        if(obj.code1) {
-          this.code1 = obj.code1.substring(0,6)
-        }
         if(content.committee) {
           this.level = content.level
           if(obj.code) {

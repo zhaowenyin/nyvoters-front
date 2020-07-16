@@ -37,14 +37,20 @@ export default {
     votersCounts: {
       default: ()=>[],
       type: Array
+    },
+    is_out_change_code: {
+      default: false,
+      type: Boolean
     }
   },
   watch: {
     code () {
-      console.log(88888,this.code)
-      let level = ''
-      let from = 'click'
-      this.locationSearch(`${this.code}`,level,from)
+      if(this.is_out_change_code) {
+        let level = ''
+        let from = 'click'
+        this.locationSearch(`${this.code}`,level,from)
+      }
+
     }
   },
   mounted() {
