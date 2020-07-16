@@ -7,7 +7,7 @@
       <div class="middel-content">
         <div class="common1">
           <div class="item">
-            <div class="name">登记率{{rate}}</div>
+            <div class="name">登记率</div>
             <div class="center">
               <Pie1 v-if="data1.length>0" :data="data1" :map_show="map_show"/>
               <div class="bottom-text">登记率=已登记人数/总选民数</div>

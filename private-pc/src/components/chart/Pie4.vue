@@ -273,7 +273,7 @@ export default {
     font-size: 16px;
     flex: 1;
     & li{
-      margin: 12px 0px;
+      margin: 8px 0px;
       /* border: 1px solid #00f; */
       display: flex;
       align-items: center;
@@ -299,8 +299,7 @@ export default {
     }
     & .text{
       flex: 1;
-      display: flex;
-      flex-wrap: wrap;
+      line-height: 1.2;
     }
     & .name{
       margin-right: 19px;

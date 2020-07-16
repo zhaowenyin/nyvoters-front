@@ -280,8 +280,6 @@ export default {
     }
     & .text{
       flex: 1;
-      display: flex;
-      flex-wrap: wrap;
     }
     & .name{
       margin-right: 19px;
