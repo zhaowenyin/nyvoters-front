@@ -21,9 +21,10 @@
           </div>
         </div>
         <div class="map" v-if="map_show">
-          <div class="map-text">点击地图可查看辖区登记情况</div>
+          <div class="map-text" v-if="level!==''&&level<2">点击地图可查看辖区登记情况</div>
           <img
             class="map-img"
+            v-if="+authToken.district.code.substring(0,6) !== +code1"
             @click="back"
             src="../../assets/img/back.png"/>
           <Map
@@ -32,7 +33,6 @@
           @hoverEvent="clickMap"
           :votersCounts="votersCounts"
           :code="code"
-
           :level="level"/>
         </div>
         <div :class="['common1', 'right-voter', {map_show}]">
@@ -153,6 +153,7 @@ export default {
       mapInfo: {},
       isHover: false,
       code: +code,
+      code1:+code,
       data5: null,
       level:level,
       name: name,
@@ -260,8 +261,10 @@ export default {
         if(obj.name) {
           this.name = obj.name
         }
-        // if(typeof content.committee  === 'boolean'){
         this.committee = content.committee
+        if(obj.code1) {
+          this.code1 = obj.code1.substring(0,6)
+        }
         if(content.committee) {
           this.level = content.level
           if(obj.code) {
@@ -270,7 +273,6 @@ export default {
         } else {
           this.next_level_district = content.level
         }
-        // }
         let data2 = this.data.candidateTypeGraphs || []
         let data3 = this.data.sexGraphs || []
         let data4 = this.data.ageGraphs || []

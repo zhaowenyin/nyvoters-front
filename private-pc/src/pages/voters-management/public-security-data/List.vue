@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div >
     <el-table
       :data="list"
       class="add_table"
-      v-loading="loading">
+      v-loading="loading || contrastLoading">
       <el-table-column
         type="selection"
         width="55">
@@ -30,15 +30,13 @@
             ref="upload"
             :action="allUrl(scope.row)"
             :on-remove="handleRemove"
-            :on-change="changeFile"
             :on-success="successFn"
             :on-error="errorFn"
             :before-upload="beforeAvatarUpload"
-            :file-list="scope.row.fileList || []"
             :auto-upload="true">
             <el-button slot="trigger" size="small" type="primary">上传</el-button>
           </el-upload>
-          <el-button v-loading="contrastLoading&&(precinctId ===scope.row.precinctId)" v-else-if="+scope.row.status === 1" size="small" type="primary" @click="contrast(scope.row)">对比</el-button>
+          <el-button  v-else-if="+scope.row.status === 1" size="small" type="primary" @click="contrast(scope.row)">对比</el-button>
           <div v-else>-</div>
         </template>
       </el-table-column>
@@ -68,7 +66,6 @@ export default {
     return {
       downLoading: false,
       authToken,
-      precinctId: '',
       contrastLoading: false
     }
   },
@@ -109,7 +106,6 @@ export default {
       this.getListData({ pageNum: val })
     },
     allUrl (val) {
-      this.precinctId = val.precinctId
       let param = {
         precinctId: val.precinctId,
         token: this.authToken.token
@@ -154,24 +150,13 @@ export default {
 
     },
     successFn () {
-      for(let i of this.list) {
-        if(this.precinctId === i.precinctId) {
-          i.status = 1
-        }
-      }
       this.$refs.upload.clearFiles()
+      this.getListData()
     },
     errorFn (err) {
       const { message = `{}` } = err
       const errorObj = JSON.parse(message)
       this.$notify.error({title: errorObj.message || '上传失败'})
-    },
-    changeFile (file, fileList) {
-      for(let i of this.list) {
-        if(this.precinctId === i.precinctId) {
-          i.fileList = fileList
-        }
-      }
     },
     beforeAvatarUpload (file) {
       const isXlsx = file.type ===
@@ -186,16 +171,14 @@ export default {
     },
     async contrast (val) {
       this.contrastLoading = true
-      const {data} = await getcontrast({precinctId: val.precinctId})
+      await getcontrast({precinctId: val.precinctId})
       for(let i of this.list) {
         if(val.precinctId === i.precinctId) {
           i.status = 2
         }
       }
-      this.precinctId = val.precinctId
       this.contrastLoading = false
       this.getListData()
-      console.log(data)
     }
   }
 }
