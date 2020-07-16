@@ -122,6 +122,7 @@ export default {
 <style scoped>
   .loginDiv{
     height:100%;
+    overflow: auto;
     display: flex;
     align-items: center;
     flex-direction: column;

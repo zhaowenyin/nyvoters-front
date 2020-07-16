@@ -302,6 +302,7 @@ export default {
   position: relative;
   background: #fff;
   z-index: 10;
+  min-width: 60px;
   & img{
     position: absolute;
     top: 11px;

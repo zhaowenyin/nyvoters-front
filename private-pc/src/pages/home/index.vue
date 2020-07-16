@@ -438,8 +438,8 @@ export default {
   }
 }
 .tabel {
-  padding-left:53px;
-  padding-right: 60px;
+  padding-left:25px;
+  padding-right: 25px;
 }
 .bottom-text{
   position: absolute;
