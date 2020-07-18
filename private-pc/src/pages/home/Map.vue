@@ -15,7 +15,6 @@ export default {
       out_adcode: null,
       text: null,
       textList: [],
-      Polygon_inner: null,
       Polygon_out: null,
       tipMarker: null,
       tipMarkerContent: null,
@@ -46,9 +45,8 @@ export default {
   watch: {
     code () {
       if(this.is_out_change_code) {
-        let level = ''
         let from = 'click'
-        this.locationSearch(`${this.code}`,level,from)
+        this.locationSearch(`${this.code}`,this.level,from)
       }
 
     }
@@ -90,27 +88,23 @@ export default {
     },
     locationSearch (code,level,from) {
       let that = this
-      if(that.Polygon_inner) {
-        that.map.remove(that.Polygon_inner);
-      }
-      if(that.Polygon_out) {
-        that.map.remove(that.Polygon_out);
-      }
       if(that.tipMarker) {
         that.map.remove(that.tipMarker)
       }
       that.map.remove(that.textList)
       that.textList = []
-      this.district.search(code,function(status,result){
-        if(level === '') {
-          level = 0
-          let map_level = result.districtList[0].level
-          if(map_level==='district') {
-            level = 2
-          } else if (map_level==='city') {
-            level = 1
-          }
-        }
+      if(that.Polygon_out&&level>=2) {
+        that.map.remove(that.Polygon_out)
+        that.Polygon_out = null
+        that.to_xuanran(code,from)
+        return
+      }
+      if(that.Polygon_out) {
+        that.to_xuanran(code,from)
+        return
+      }
+      this.district.search(code,function(){
+
         // 外多边形坐标数组和内多边形坐标数组
         var outer = [
           new AMap.LngLat(-360,90,true),
@@ -118,39 +112,27 @@ export default {
           new AMap.LngLat(360,-90,true),
           new AMap.LngLat(360,90,true),
         ];
-        var holes = result.districtList[0].boundaries
-
         var pathArray = [
           outer
         ];
-        pathArray.push.apply(pathArray,holes)
-        if(level!==''&&level<2){
-          that.Polygon_inner = new AMap.Polygon({
-            map: that.map,
-            path: holes,//设置多边形边界路径
-            strokeColor: "#FF33FF", //线颜色
-            strokeOpacity: 0.2, //线透明度
-            strokeWeight: 3,    //线宽
-            fillColor: "rgba(255, 255, 255,1)", //填充色
-            fillOpacity: 1
-          });
-        }
         that.Polygon_out = new AMap.Polygon( {
           pathL:pathArray,
           strokeColor: '#fd9860',
           strokeWeight: 1,
           fillColor: 'rgba(255,255,255,1)',
-          fillOpacity: level!==''&&level<2 ? 1 : 0.2
-        });
+          fillOpacity: 1
+        })
         that.Polygon_out.setPath(pathArray);
         that.map.add(that.Polygon_out)
-        if(from) {
-          that.switch2AreaNode(code)
-        } else {
-          that.initPointSimplifier(code);
-        }
-
+        that.to_xuanran(code,from)
       })
+    },
+    to_xuanran(code,from) {
+      if(from) {
+        this.switch2AreaNode(code)
+      } else {
+        this.initPointSimplifier(code);
+      }
     },
     initPointSimplifier (code) {
       let that = this
@@ -172,7 +154,6 @@ export default {
             }
           }
           if (!flag) return
-
           let map_level = feature.properties.level
           let level = null
           if(map_level==='district') {
