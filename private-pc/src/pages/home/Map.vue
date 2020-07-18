@@ -18,7 +18,8 @@ export default {
       Polygon_out: null,
       tipMarker: null,
       tipMarkerContent: null,
-      div: null
+      div: null,
+      Polygon_out_init: null,
     }
   },
   created () {
@@ -56,6 +57,7 @@ export default {
   },
   methods: {
     initMap(){
+      let that = this
       let map = new AMap.Map('container', {
         resizeEnable: true,
         zoomEnable: false,
@@ -84,29 +86,7 @@ export default {
       })
       this.div = document.createElement('div')
       this.tipMarkerContent.appendChild(this.div)
-      this.locationSearch(`${this.code}`,this.level)
-    },
-    locationSearch (code,level,from) {
-      let that = this
-      if(that.tipMarker) {
-        that.map.remove(that.tipMarker)
-      }
-      that.map.remove(that.textList)
-      that.textList = []
-      if(level>=2) {
-        if(that.Polygon_out) {
-          that.map.remove(that.Polygon_out)
-          that.Polygon_out = null
-        }
-        that.to_xuanran(code,from)
-        return
-      }
-      if(that.Polygon_out) {
-        that.to_xuanran(code,from)
-        return
-      }
-      this.district.search(code,function(){
-
+      this.district.search(`${this.code}`,function(){
         // 外多边形坐标数组和内多边形坐标数组
         var outer = [
           new AMap.LngLat(-360,90,true),
@@ -117,6 +97,7 @@ export default {
         var pathArray = [
           outer
         ];
+        that.pathArray = pathArray
         that.Polygon_out = new AMap.Polygon( {
           pathL:pathArray,
           strokeColor: '#fd9860',
@@ -124,10 +105,35 @@ export default {
           fillColor: 'rgba(255,255,255,1)',
           fillOpacity: 1
         })
-        that.Polygon_out.setPath(pathArray);
+        that.Polygon_out.setPath(pathArray)
+        that.Polygon_out_init = 1
         that.map.add(that.Polygon_out)
-        that.to_xuanran(code,from)
+        that.locationSearch(`${that.code}`,that.level)
       })
+
+    },
+    locationSearch (code,level,from) {
+      let that = this
+      if(that.tipMarker) {
+        that.map.remove(that.tipMarker)
+      }
+      that.map.remove(that.textList)
+      that.textList = []
+      if(level>=2) {
+        if(that.Polygon_out_init) {
+          that.map.remove(that.Polygon_out)
+          that.Polygon_out_init = null
+        }
+        that.to_xuanran(code,from)
+        return
+      }
+      if(that.Polygon_out_init) {
+        that.to_xuanran(code,from)
+        return
+      }
+       that.Polygon_out_init = 1
+      that.map.add(that.Polygon_out)
+      that.to_xuanran(code,from)
     },
     to_xuanran(code,from) {
       if(from) {
