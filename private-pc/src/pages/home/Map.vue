@@ -131,7 +131,7 @@ export default {
         that.to_xuanran(code,from)
         return
       }
-       that.Polygon_out_init = 1
+      that.Polygon_out_init = 1
       that.map.add(that.Polygon_out)
       that.to_xuanran(code,from)
     },
