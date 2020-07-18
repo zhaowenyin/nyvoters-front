@@ -66,8 +66,7 @@
         </div>
       </div>
       <div class="tabel" v-if="next_level_district===2&&!committee">
-        <Table v-if="data5&&precinctName" :obj="data5" :name="precinctName"/>
-        <Table v-if="data5&&!precinctName" :obj="data5" :name="name"/>
+        <Table v-if="data5" :obj="data5" :name="name"/>
       </div>
       <div class="item foot" v-else>
         <div class="center">
@@ -124,8 +123,7 @@ export default {
     const authToken = getSession()
     let code = authToken.district.code
     let level = authToken.district.level
-    let name = authToken.district.name
-    let precinctName = authToken.precinctName
+    let name = authToken.precinctName ? authToken.precinctName : authToken.district.name
     code = code.substring(0,6)
     let committee = authToken.accountRole
 
@@ -158,7 +156,6 @@ export default {
       data5: null,
       level:level,
       name: name,
-      precinctName: precinctName,
       next_level_district: null,
       committee:committee<4 ? true : false,
       phone_visible: false,
