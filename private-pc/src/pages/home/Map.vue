@@ -93,9 +93,11 @@ export default {
       }
       that.map.remove(that.textList)
       that.textList = []
-      if(that.Polygon_out&&level>=2) {
-        that.map.remove(that.Polygon_out)
-        that.Polygon_out = null
+      if(level>=2) {
+        if(that.Polygon_out) {
+          that.map.remove(that.Polygon_out)
+          that.Polygon_out = null
+        }
         that.to_xuanran(code,from)
         return
       }
