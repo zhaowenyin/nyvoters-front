@@ -14,7 +14,7 @@
             </div>
           </div>
           <div class="item">
-            <div class="name">参选地</div>
+            <div class="name">参选地类型</div>
             <div class="center" style="margin-top: -14px;">
               <Pie4 v-if="data2.length>0" :data="data2" :map_show="map_show"/>
             </div>
