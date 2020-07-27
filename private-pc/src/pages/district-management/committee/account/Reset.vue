@@ -20,7 +20,7 @@
           prop="password">
           <el-input
             size="medium"
-            placeholder="请输入新登录密码 （6位以上的字符）"
+            placeholder="请输入新登录密码 （8位以上的字符）"
             class="item"
             type="password"
             :maxlength="20"
@@ -65,8 +65,8 @@ export default {
       if (!value) {
         callback(new Error('请输入密码'));
       } else {
-        if (value.length<6) {
-          callback(new Error('请输入6位以上的字符'));
+        if (value.length<8) {
+          callback(new Error('请输入8位以上的字符'));
         }
         if (this.form.checkPass !== '') {
           this.$refs.form.validateField('checkPass');
@@ -93,12 +93,12 @@ export default {
       rules: {
         password: [
           { validator: validatePass, trigger: 'blur',required: true },
-          { min: 6, max: 20, message: '请输入6位以上的登录密码！', trigger: 'blur' },
+          { min: 8, max: 20, message: '请输入8位以上的登录密码！', trigger: 'blur' },
           { max: 20, message: '登录密码最多支持20个字符！', trigger: 'blur' }
         ],
         checkPass: [
           { validator: validatePass2, trigger: 'blur',required: true },
-          { min: 6, max: 20, message: '请输入6位以上的登录密码！', trigger: 'blur' },
+          { min: 8, max: 20, message: '请输入8位以上的登录密码！', trigger: 'blur' },
           { max: 20, message: '登录密码最多支持20个字符！', trigger: 'blur' }
         ],
 
@@ -138,11 +138,15 @@ export default {
       })
     },
     async sumitData () {
-      this.loading = true
-      await modifySubmit({password: md5(this.form.password), id: this.item.id})
-      this.close()
-      this.getListData1()
-      this.loading = false
+      try{
+        this.loading = true
+        await modifySubmit({password: md5(this.form.password),rawPassword: this.form.password, id: this.item.id})
+        this.close()
+        this.getListData1()
+      }
+      finally{
+        this.loading = false
+      }
     },
     comfirmClose () {
       this.$confirm('关闭将丢失已编辑的内容，确认关闭？')

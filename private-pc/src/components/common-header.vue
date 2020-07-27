@@ -72,7 +72,7 @@ export default {
     this.currentTime = this.formatDateTimeZn(Date.now())
     this.timeout = setInterval(() => {
       this.getNews({isRead: 0})
-    }, 10000)
+    }, 1000000)
     this.timer = setInterval(() => {
       this.currentTime = this.formatDateTimeZn(Date.now())
     }, 1000)

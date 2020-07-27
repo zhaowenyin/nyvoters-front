@@ -45,7 +45,7 @@
             :maxlength="20"
             v-model="form.account" />
         </el-form-item>
-        <el-form-item
+        <el-form-item v-if="!item.id"
           label="登录密码"
           prop="password">
           <el-input
@@ -134,7 +134,8 @@ export default {
         accountType: '',
         precinctId: '',
         managePrecinctIds: [],
-        accountRole: ''
+        accountRole: '',
+        rawPassword: ''
       },
       multipleSelection: [],
       data: [],
@@ -147,7 +148,7 @@ export default {
         ],
         password: [
           { required: true, message: '请输入密码！', trigger: 'blur' },
-          { min: 6, max: 20, message: '请输入6位以上的登录密码！', trigger: 'blur' },
+          { min: 8, max: 20, message: '请输入8位以上的登录密码！', trigger: 'blur' },
           { max: 20, message: '登录密码最多支持20个字符！', trigger: 'blur' }
         ],
         phoneNum: [
@@ -270,6 +271,8 @@ export default {
       } else {
         params.password=md5(this.form.password)
       }
+      params.rawPassword = this.form.password
+      console.log(params)
       params.precinctId = this.belongAreaId
       return params
     },

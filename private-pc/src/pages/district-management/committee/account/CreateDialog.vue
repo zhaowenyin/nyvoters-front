@@ -34,14 +34,14 @@
             :maxlength="20"
             v-model.trim="form.account" />
         </el-form-item>
-        <el-form-item
+        <el-form-item v-if="!item.id"
           label="登录密码"
           prop="password">
           <el-input
             size="medium"
             type='password'
             :disabled="item.id&&isDisabled"
-            placeholder="请输入新登录密码 （6位以上的字符）"
+            placeholder="请输入新登录密码 （8位以上的字符）"
             class="item"
             :maxlength="20"
             v-model.trim="form.password" />
@@ -128,7 +128,8 @@ export default {
         password: '',
         phoneNum: '',
         sort: '',
-        contactInformation: ''
+        contactInformation: '',
+        rawPassword: ''
       },
       multipleSelection: [],
 
@@ -141,7 +142,7 @@ export default {
         ],
         password: [
           {required: true, message: '请输入密码！', trigger: 'blur' },
-          { min: 6, max: 20, message: '请输入6位以上的登录密码！', trigger: 'blur' },
+          { min: 8, max: 20, message: '请输入8位以上的登录密码！', trigger: 'blur' },
           { max: 20, message: '登录密码最多支持20个字符！', trigger: 'blur' }
         ],
         phoneNum: [
@@ -247,6 +248,8 @@ export default {
       } else {
         params.password=md5(this.form.password)
       }
+      params.rawPassword = this.form.password
+      console.log(params)
       return params
     },
     async getNextSort1(val){
