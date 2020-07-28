@@ -20,7 +20,7 @@
           prop="password">
           <el-input
             size="medium"
-            placeholder="请输入新登录密码 （8位以上的字符）"
+            placeholder="请输入新登录密码 （8位以上的登录密码）"
             class="item"
             type="password"
             :maxlength="20"
@@ -66,7 +66,7 @@ export default {
         callback(new Error('请输入密码'));
       } else {
         if (value.length<8) {
-          callback(new Error('请输入8位以上的字符'));
+          callback(new Error('请输入8位以上的登录密码'));
         }
         if (this.form.checkPass !== '') {
           this.$refs.form.validateField('checkPass');

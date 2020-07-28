@@ -41,7 +41,7 @@
             size="medium"
             type='password'
             :disabled="item.id&&isDisabled"
-            placeholder="请输入新登录密码 （8位以上的字符）"
+            placeholder="请输入新登录密码 （8位以上的登录密码）"
             class="item"
             :maxlength="20"
             v-model.trim="form.password" />
