@@ -34,6 +34,8 @@
             :maxlength="20"
             v-model.trim="form.account" />
         </el-form-item>
+        <input type="text" name="username" style="width: 0; height: 0; position: absolute;">
+        <input type="password" name="password" style="width: 0; height: 0; position: absolute;">
         <el-form-item v-if="!item.id"
           label="登录密码"
           prop="password">
@@ -44,7 +46,7 @@
             placeholder="请输入新登录密码 （8位以上的登录密码）"
             class="item"
             :maxlength="20"
-            v-model.trim="form.password" />
+            v-model.trim="form.password"/>
         </el-form-item>
         <el-form-item
           label="手机号码"

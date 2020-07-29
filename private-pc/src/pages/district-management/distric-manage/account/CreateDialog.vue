@@ -45,6 +45,8 @@
             :maxlength="20"
             v-model="form.account" />
         </el-form-item>
+        <input type="text" name="username" style="width: 0; height: 0; position: absolute;">
+        <input type="password" name="password" style="width: 0; height: 0; position: absolute;">
         <el-form-item v-if="!item.id"
           label="登录密码"
           prop="password">
